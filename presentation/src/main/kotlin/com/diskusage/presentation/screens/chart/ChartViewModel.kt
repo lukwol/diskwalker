@@ -10,7 +10,7 @@ class ChartViewModel {
     val viewState = mutableViewState.asStateFlow()
 
     fun selectScannedPath(path: Path) {
-        // TODO: 15/05/2022 Implement 
+        // TODO: 15/05/2022 Implement
     }
 
     fun selectDiskEntry(selectedChartItem: ChartItem) {
