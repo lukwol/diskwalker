@@ -1,10 +1,14 @@
 pluginManagement {
     repositories {
-        google()
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenCentral()
     }
-    
 }
-rootProject.name = "disk-usage"
 
+rootProject.name = "DiskUsage"
+
+include(":app")
+include(":data")
+include(":domain")
+include(":presentation")
+include(":libraries:support")

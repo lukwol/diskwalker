@@ -1,41 +1,45 @@
-import org.jetbrains.compose.compose
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 
 plugins {
-    kotlin("jvm") version "1.5.31"
-    id("org.jetbrains.compose") version "1.0.0"
+    kotlin(GradlePlugins.Kotlin.jvm) version Common.Kotlin.version apply false
+    id(GradlePlugins.Compose.id) version GradlePlugins.Compose.version apply false
+    id(GradlePlugins.Versions.id) version GradlePlugins.Versions.version
+    id(GradlePlugins.Spotless.id) version GradlePlugins.Spotless.version
 }
 
-group = "me.user"
-version = "1.0"
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 
-repositories {
-    google()
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = BuildConstants.jvmTarget
+    }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-    implementation(compose.desktop.currentOs)
+subprojects {
+    tasks.withType<KotlinCompile>().all {
+        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+spotless {
+    kotlin {
+        target("**/*.kt")
+        targetExclude("$buildDir/**/*.kt")
+        targetExclude("bin/**/*.kt")
+
+        ktlint(GradlePlugins.Spotless.ktlintVersion)
+            .userData(mapOf("disabled_rules" to "no-wildcard-imports"))
+    }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "disk-usage"
-            packageVersion = "1.0.0"
+tasks.withType<DependencyUpdatesTask> {
+    rejectVersionIf {
+        candidate.version.toLowerCaseAsciiOnly().run {
+            listOf("-alpha", "-beta", "-rc").any { contains(it) }
         }
     }
 }
