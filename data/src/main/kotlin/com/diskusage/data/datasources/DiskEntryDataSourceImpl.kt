@@ -46,7 +46,7 @@ class DiskEntryDataSourceImpl(private val fileSize: FileSize) : DiskEntryDataSou
             try {
                 when (diskEntry) {
                     is DiskEntry.Directory -> {
-                        diskEntry.children.sumOf { sizeOnDisk(it) }
+                        diskEntry.children.sumOf(::sizeOnDisk)
                     }
                     is DiskEntry.File -> {
                         fileSize.sizeOnDisk(diskEntry.path.absolutePathString())
