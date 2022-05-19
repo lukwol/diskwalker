@@ -25,18 +25,6 @@ class DiskEntryDataSourceTest : KoinTest {
 
     private val diskEntryDataSource by inject<DiskEntryDataSource>()
 
-    @JvmField
-    @RegisterExtension
-    val koinTestExtension = KoinTestExtension.create {
-        modules(dataModule)
-    }
-
-    @JvmField
-    @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
-        mockkClass(clazz)
-    }
-
     private val testDirPath = Path.of("src/test/kotlin/com/diskusage/data/testDir")
     private val subDirPath = Path.of("src/test/kotlin/com/diskusage/data/testDir/subDir")
     private val fooFilePath = Path.of("src/test/kotlin/com/diskusage/data/testDir/foo.txt")
@@ -48,6 +36,18 @@ class DiskEntryDataSourceTest : KoinTest {
     private lateinit var fooFile: DiskEntry.File
     private lateinit var barFile: DiskEntry.File
     private lateinit var bazFile: DiskEntry.File
+
+    @JvmField
+    @RegisterExtension
+    val koinTestExtension = KoinTestExtension.create {
+        modules(dataModule)
+    }
+
+    @JvmField
+    @RegisterExtension
+    val mockProvider = MockProviderExtension.create { clazz ->
+        mockkClass(clazz)
+    }
 
     @BeforeEach
     internal fun setUp() {
@@ -70,7 +70,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `test dir`(): Unit = testDir.run {
+    fun `should create proper dir entry`(): Unit = testDir.run {
         name shouldBe "testDir"
         path shouldBe testDirPath
         parent shouldBe null
@@ -81,7 +81,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `test subdir`(): Unit = subDir.run {
+    fun `should create proper subdir entry`(): Unit = subDir.run {
         name shouldBe "subDir"
         path shouldBe subDirPath
         parent shouldBe testDir
@@ -92,7 +92,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `test foo file`(): Unit = fooFile.run {
+    fun `should create proper foo file entry`(): Unit = fooFile.run {
         name shouldBe "foo.txt"
         path shouldBe fooFilePath
         parent shouldBe testDir
@@ -101,7 +101,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `test bar file`(): Unit = barFile.run {
+    fun `should create proper bar file entry`(): Unit = barFile.run {
         name shouldBe "bar.txt"
         path shouldBe barFilePath
         parent shouldBe testDir
@@ -110,7 +110,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `test baz file`(): Unit = bazFile.run {
+    fun `should create proper baz file entry`(): Unit = bazFile.run {
         name shouldBe "baz.txt"
         path shouldBe bazFilePath
         parent shouldBe subDir

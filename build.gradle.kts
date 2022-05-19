@@ -19,12 +19,6 @@ allprojects {
     }
 }
 
-subprojects {
-    tasks.withType<KotlinCompile>().all {
-        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-    }
-}
-
 spotless {
     kotlin {
         target("**/*.kt")
