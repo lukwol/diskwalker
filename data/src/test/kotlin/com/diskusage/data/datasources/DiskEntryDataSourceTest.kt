@@ -4,7 +4,6 @@ import com.diskusage.data.di.dataModule
 import com.diskusage.domain.datasources.DiskEntryDataSource
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.support.FileSize
-import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -70,13 +69,13 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper dir entry`(): Unit = testDir.run {
+    fun `should create proper test dir entry`(): Unit = testDir.run {
         name shouldBe "testDir"
         path shouldBe testDirPath
         parent shouldBe null
         hasSizeCalculated shouldBe true
         size shouldBe 256 + 1024 + 4096
-        children shouldHaveSize 3
+        children shouldBe listOf(subDir, barFile, fooFile)
         children.forEach { it.parent shouldBe testDir }
     }
 
@@ -87,7 +86,7 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe testDir
         hasSizeCalculated shouldBe true
         size shouldBe 4096
-        children shouldHaveSize 1
+        children shouldBe listOf(bazFile)
         children.forEach { it.parent shouldBe subDir }
     }
 

@@ -33,8 +33,10 @@ class DiskEntryDataSourceImpl(private val fileSize: FileSize) : DiskEntryDataSou
                 children = path
                     .listDirectoryEntries()
                     .map { diskEntry(it, this) }
+                    .sortedWith(compareByDescending(DiskEntry::size).thenBy(DiskEntry::name))
             }
         }
+
         diskEntry.size = sizeOnDisk(diskEntry)
         return diskEntry
     }
