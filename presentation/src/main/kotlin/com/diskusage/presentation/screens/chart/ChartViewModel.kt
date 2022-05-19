@@ -9,11 +9,7 @@ class ChartViewModel {
     private val mutableViewState = MutableStateFlow(ChartViewState())
     val viewState = mutableViewState.asStateFlow()
 
-    fun selectScannedPath(path: Path) {
-        // TODO: 15/05/2022 Implement
-    }
+    fun selectScannedPath(path: Path) {}
 
-    fun selectDiskEntry(selectedChartItem: ChartItem) {
-        // TODO: 15/05/2022 Implement
-    }
+    fun selectDiskEntry(selectedChartItem: ChartItem) {}
 }

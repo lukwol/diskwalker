@@ -7,7 +7,6 @@ class GetStartDiskEntries {
         fromDiskEntry: DiskEntry,
         toDiskEntry: DiskEntry,
     ): List<DiskEntry> {
-        // TODO: 15/05/2022 Implement
-        return listOf()
+        return emptyList()
     }
 }

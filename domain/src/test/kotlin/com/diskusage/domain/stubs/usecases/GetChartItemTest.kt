@@ -26,13 +26,21 @@ class GetChartItemTest : KoinTest {
 
     private val getChartItem by inject<GetChartItem>()
 
-    private val diskEntry = DiskEntry.File(
-        name = "foo.txt",
-        path = Path.of("/foo.txt"),
+    private val fromDiskEntry = DiskEntry.Directory(
+        name = "dir",
+        path = Path.of("/dir"),
         size = 256,
         parent = null,
         hasSizeCalculated = true
     )
+    private val diskEntry = DiskEntry.File(
+        name = "foo.txt",
+        path = Path.of("/dir/foo.txt"),
+        size = 256,
+        parent = fromDiskEntry,
+        hasSizeCalculated = true
+    )
+
     private val arc = Arc(
         startAngle = 120.0f,
         sweepAngle = 45.0f,
@@ -55,9 +63,9 @@ class GetChartItemTest : KoinTest {
     @BeforeEach
     internal fun setUp() {
         declareMock<GetArc> {
-            every { this@declareMock(diskEntry) } returns arc
+            every { this@declareMock(diskEntry, fromDiskEntry) } returns arc
         }
-        chartItem = getChartItem(diskEntry)
+        chartItem = getChartItem(diskEntry, fromDiskEntry)
     }
 
     @AfterEach
