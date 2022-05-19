@@ -5,6 +5,6 @@ import com.diskusage.domain.entities.DiskEntry
 
 data class ChartViewState(
     val selectedDiskEntry: DiskEntry? = null,
-    val startItems: Map<String, ChartItem> = emptyMap(),
-    val endItems: Map<String, ChartItem>? = null,
+    val startItems: List<ChartItem> = emptyList(),
+    val endItems: List<ChartItem>? = null,
 )

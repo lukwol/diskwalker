@@ -14,9 +14,10 @@ class GetChartItems(
     operator fun invoke(
         fromDiskEntry: DiskEntry,
         toDiskEntry: DiskEntry,
-    ): List<Pair<ChartItem, ChartItem>> {
+    ): Pair<List<ChartItem>, List<ChartItem>> {
         return (getDiskEntries(fromDiskEntry) + getDiskEntries(toDiskEntry))
             .distinctBy(DiskEntry::path)
             .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
+            .unzip()
     }
 }

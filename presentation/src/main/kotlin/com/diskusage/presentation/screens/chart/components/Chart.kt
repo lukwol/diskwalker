@@ -26,13 +26,10 @@ private const val AnimationDuration = 2500
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Chart(
-    startItems: Map<String, ChartItem>,
-    endItems: Map<String, ChartItem>? = null,
+    startItems: List<ChartItem>,
+    endItems: List<ChartItem>?,
     onSelect: (ChartItem) -> Unit,
 ) {
-    println("startItems = ${startItems.values.map { it.diskEntry.name }}")
-    println("endItems = ${endItems?.values?.map { it.diskEntry.name }}")
-
     val animatable = remember(endItems) { Animatable(0f) }
 
     val chartItems = if (endItems == null) startItems else animatable.animateItems(startItems, endItems)
@@ -48,7 +45,7 @@ fun Chart(
                     val distance = position.getDistance()
                     val angle = position.calculateAngle()
 
-                    chartItems.values.find {
+                    chartItems.find {
                         it.arc.isSelected(angle, distance)
                     }?.let {
                         onSelect(it)
@@ -58,7 +55,7 @@ fun Chart(
     ) {
         canvasCenter = center
 
-        for (item in chartItems.values) {
+        for (item in chartItems) {
             drawArc(item.arc, item.color)
         }
     }
@@ -75,9 +72,9 @@ private fun Arc.isSelected(
     angle: Float,
     distance: Float,
 ) = angle >= startAngle &&
-    angle < startAngle + sweepAngle &&
-    distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
-    distance < depth * Constants.ArcWidth
+        angle < startAngle + sweepAngle &&
+        distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
+        distance < depth * Constants.ArcWidth
 
 private fun Offset.calculateAngle(): Float {
     var atan2 = 0 * PI - atan2(x, y)
@@ -93,31 +90,26 @@ private fun Offset.calculateAngle(): Float {
 }
 
 private fun Animatable<Float, AnimationVector1D>.animateItems(
-    fromItems: Map<String, ChartItem>,
-    toItems: Map<String, ChartItem>,
-): Map<String, ChartItem> {
-    return buildMap {
-        fromItems.keys.map { path ->
-            Triple(path, fromItems.getValue(path), toItems.getValue(path))
-        }.forEach { (path, fromItem, toItem) ->
-            val chartItem = ChartItem(
-                diskEntry = fromItem.diskEntry,
-                arc = Arc(
-                    startAngle = animate(fromItem.arc.startAngle, toItem.arc.startAngle),
-                    sweepAngle = animate(fromItem.arc.sweepAngle, toItem.arc.sweepAngle),
-                    depth = animate(fromItem.arc.depth, toItem.arc.depth)
-                ),
-                color = Color(
-                    red = animate(fromItem.color.red, toItem.color.red),
-                    green = animate(fromItem.color.green, toItem.color.green),
-                    blue = animate(fromItem.color.blue, toItem.color.blue),
-                    alpha = animate(fromItem.color.alpha, toItem.color.alpha),
-                )
+    fromItems: List<ChartItem>,
+    toItems: List<ChartItem>,
+) = fromItems
+    .zip(toItems)
+    .map { (fromItem, toItem) ->
+        ChartItem(
+            diskEntry = fromItem.diskEntry,
+            arc = Arc(
+                startAngle = animate(fromItem.arc.startAngle, toItem.arc.startAngle),
+                sweepAngle = animate(fromItem.arc.sweepAngle, toItem.arc.sweepAngle),
+                depth = animate(fromItem.arc.depth, toItem.arc.depth)
+            ),
+            color = Color(
+                red = animate(fromItem.color.red, toItem.color.red),
+                green = animate(fromItem.color.green, toItem.color.green),
+                blue = animate(fromItem.color.blue, toItem.color.blue),
+                alpha = animate(fromItem.color.alpha, toItem.color.alpha),
             )
-            put(path, chartItem)
-        }
+        )
     }
-}
 
 private fun Animatable<Float, AnimationVector1D>.animate(
     fromValue: Float,
