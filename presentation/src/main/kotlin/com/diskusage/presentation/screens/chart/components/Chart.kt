@@ -72,9 +72,9 @@ private fun Arc.isSelected(
     angle: Float,
     distance: Float,
 ) = angle >= startAngle &&
-        angle < startAngle + sweepAngle &&
-        distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
-        distance < depth * Constants.ArcWidth
+    angle < startAngle + sweepAngle &&
+    distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
+    distance < depth * Constants.ArcWidth
 
 private fun Offset.calculateAngle(): Float {
     var atan2 = 0 * PI - atan2(x, y)

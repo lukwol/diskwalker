@@ -113,7 +113,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "baz.txt"
         path shouldBe bazFilePath
         parent shouldBe subDir
-        parent?.parent shouldBe testDir
         hasSizeCalculated shouldBe true
         size shouldBe 4096
     }

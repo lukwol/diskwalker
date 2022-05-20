@@ -4,9 +4,13 @@ import com.diskusage.domain.usecases.*
 import org.koin.dsl.module
 
 val domainModule = module {
-    factory { GetArc() }
-    factory { GetColor() }
+    factory { GetStartAngle() }
+    factory { GetSweepAngle() }
+    factory { GetDepth() }
+    factory { GetArc(get(), get(), get()) }
+    factory { GetRoot() }
+    factory { GetColor(get(), get()) }
     factory { GetChartItem(get(), get()) }
-    factory { GetDiskEntries() }
+    factory { GetDiskEntries(get()) }
     factory { GetChartItems(get(), get()) }
 }
