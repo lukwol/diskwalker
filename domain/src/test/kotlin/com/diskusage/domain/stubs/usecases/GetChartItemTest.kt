@@ -1,9 +1,9 @@
 package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.stubs.mocks.ArcStub
+import com.diskusage.domain.stubs.mocks.DiskEntryStub
 import com.diskusage.domain.usecases.GetArc
 import com.diskusage.domain.usecases.GetChartItem
 import io.kotest.matchers.shouldBe
@@ -20,32 +20,11 @@ import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
 import org.koin.test.junit5.mock.MockProviderExtension
 import org.koin.test.mock.declareMock
-import java.nio.file.Path
 
 class GetChartItemTest : KoinTest {
 
     private val getChartItem by inject<GetChartItem>()
 
-    private val fromDiskEntry = DiskEntry.Directory(
-        name = "dir",
-        path = Path.of("/dir"),
-        size = 256,
-        parent = null,
-        hasSizeCalculated = true
-    )
-    private val diskEntry = DiskEntry.File(
-        name = "foo.txt",
-        path = Path.of("/dir/foo.txt"),
-        size = 256,
-        parent = fromDiskEntry,
-        hasSizeCalculated = true
-    )
-
-    private val arc = Arc(
-        startAngle = 120.0f,
-        sweepAngle = 45.0f,
-        depth = 2.0f
-    )
     private lateinit var chartItem: ChartItem
 
     @JvmField
@@ -63,9 +42,9 @@ class GetChartItemTest : KoinTest {
     @BeforeEach
     internal fun setUp() {
         declareMock<GetArc> {
-            every { this@declareMock(diskEntry, fromDiskEntry) } returns arc
+            every { this@declareMock(DiskEntryStub.file, DiskEntryStub.dir) } returns ArcStub.arc
         }
-        chartItem = getChartItem(diskEntry, fromDiskEntry)
+        chartItem = getChartItem(DiskEntryStub.file, DiskEntryStub.dir)
     }
 
     @AfterEach
@@ -75,8 +54,8 @@ class GetChartItemTest : KoinTest {
 
     @Test
     fun `should create proper chart item`() {
-        chartItem.arc shouldBe arc
+        chartItem.arc shouldBe ArcStub.arc
         chartItem.color shouldNotBe null
-        chartItem.diskEntry shouldBe diskEntry
+        chartItem.diskEntry shouldBe DiskEntryStub.file
     }
 }
