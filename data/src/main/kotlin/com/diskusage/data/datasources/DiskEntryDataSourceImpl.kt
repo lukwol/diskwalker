@@ -17,7 +17,7 @@ class DiskEntryDataSourceImpl(private val fileSize: FileSize) : DiskEntryDataSou
 
     private fun diskEntry(
         path: Path,
-        parent: DiskEntry?,
+        parent: DiskEntry.Directory?,
     ): DiskEntry {
         val diskEntry = when {
             path.isRegularFile() -> DiskEntry.File(

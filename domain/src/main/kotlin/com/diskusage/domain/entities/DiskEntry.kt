@@ -6,14 +6,14 @@ sealed interface DiskEntry {
     val name: String
     val path: Path
     var size: Long
-    val parent: DiskEntry?
+    val parent: Directory?
     var hasSizeCalculated: Boolean
 
     class File(
         override val name: String,
         override val path: Path,
         override var size: Long = 0,
-        override val parent: DiskEntry? = null,
+        override val parent: Directory? = null,
         override var hasSizeCalculated: Boolean = false,
     ) : DiskEntry
 
@@ -21,7 +21,7 @@ sealed interface DiskEntry {
         override val name: String,
         override val path: Path,
         override var size: Long = 0,
-        override val parent: DiskEntry? = null,
+        override val parent: Directory? = null,
         override var hasSizeCalculated: Boolean = false,
         var children: List<DiskEntry> = listOf(),
     ) : DiskEntry
