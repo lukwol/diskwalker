@@ -6,7 +6,10 @@ class GetStartAngle {
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
-    ) = calculateSize(diskEntry, fromDiskEntry).toFloat() / fromDiskEntry.size.toFloat()
+    ): Float {
+        val size = calculateSize(diskEntry, fromDiskEntry).toFloat() / fromDiskEntry.size.toFloat()
+        return size.takeIf(Float::isFinite) ?: 0f
+    }
 
     private fun calculateSize(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, size: Long = 0): Long = when {
         diskEntry.parent == null -> 0L

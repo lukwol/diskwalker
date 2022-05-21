@@ -46,7 +46,6 @@ sealed class DiskEntry {
 
     val siblings: List<DiskEntry> get() = parent?.children?.filterNot { it == this } ?: emptyList()
 
-    // TODO: Maybe this is unnecessary, needs to test creating Arc
     fun relationship(other: DiskEntry): Relationship {
         return when {
             this == other -> Relationship.Identity

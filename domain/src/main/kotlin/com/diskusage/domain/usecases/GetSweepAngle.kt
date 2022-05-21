@@ -7,6 +7,8 @@ class GetSweepAngle {
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
-    ) = max(diskEntry.size / fromDiskEntry.size.toFloat(), 360f)
-    // TODO: Check for NaN
+    ): Float {
+        val size = diskEntry.size.toFloat() / fromDiskEntry.size.toFloat()
+        return max(size.takeIf(Float::isFinite) ?: 0f, 360f)
+    }
 }

@@ -10,12 +10,15 @@ class IncludeDiskEntry(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
     ) = validateSize(diskEntry, fromDiskEntry) &&
-        validateDepth(diskEntry, fromDiskEntry)
+            validateDepth(diskEntry, fromDiskEntry)
 
     private fun validateSize(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
-    ) = diskEntry.size.toFloat() / fromDiskEntry.size.toFloat() >= Constants.DiskEntrySizeFilterThreshold
+    ): Boolean {
+        val size = diskEntry.size.toFloat() / fromDiskEntry.size.toFloat()
+        return (size.takeIf { it.isFinite() } ?: 0f) >= Constants.DiskEntrySizeFilterThreshold
+    }
 
     private fun validateDepth(
         diskEntry: DiskEntry,
