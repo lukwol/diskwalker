@@ -10,7 +10,7 @@ class GetArc(
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry = diskEntry.root,
     ): Arc = Arc(
         startAngle = getStartAngle(diskEntry, fromDiskEntry),
         sweepAngle = getSweepAngle(diskEntry, fromDiskEntry),

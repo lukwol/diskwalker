@@ -13,7 +13,7 @@ class GetColor(
     @OptIn(ExperimentalGraphicsApi::class)
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry = diskEntry.root,
     ) = when (diskEntry) {
         is DiskEntry.File -> Color.hsl(
             hue = 0f,
@@ -21,7 +21,7 @@ class GetColor(
             lightness = 0.35f
         )
         is DiskEntry.Directory -> {
-            with(getArc.invoke(diskEntry, diskEntry.root)) {
+            with(getArc.invoke(diskEntry)) {
                 Color.hsl(
                     hue = min(startAngle + sweepAngle, 360f),
                     saturation = (startAngle / 360f + sweepAngle / 360f) * 0.4f,

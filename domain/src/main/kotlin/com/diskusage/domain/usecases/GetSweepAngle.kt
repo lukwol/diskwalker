@@ -1,14 +1,18 @@
 package com.diskusage.domain.usecases
 
 import com.diskusage.domain.entities.DiskEntry
-import java.lang.Float.max
 
 class GetSweepAngle {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
-    ): Float {
-        val size = diskEntry.size.toFloat() / fromDiskEntry.size.toFloat()
-        return max(size.takeIf(Float::isFinite) ?: 0f, 360f)
+        fromDiskEntry: DiskEntry = diskEntry,
+    ) = when (fromDiskEntry.relationship(diskEntry)) {
+        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Ancestor -> 360f
+        DiskEntry.Relationship.Descendant ->
+            (diskEntry.size.toFloat() / fromDiskEntry.size.toFloat())
+                .takeIf(Float::isFinite)
+                ?.times(360f)
+                ?: 0f
+        else -> 0f
     }
 }

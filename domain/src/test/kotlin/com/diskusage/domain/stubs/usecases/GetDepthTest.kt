@@ -1,26 +1,14 @@
 package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.stubs.mocks.ArcStubs
 import com.diskusage.domain.stubs.mocks.DiskEntryStubs
-import com.diskusage.domain.usecases.GetArc
-import com.diskusage.domain.usecases.GetChartItem
 import com.diskusage.domain.usecases.GetDepth
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
-import io.mockk.clearAllMocks
-import io.mockk.every
-import io.mockk.mockkClass
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
-import org.koin.test.junit5.mock.MockProviderExtension
-import org.koin.test.mock.declareMock
 
 class GetDepthTest : KoinTest {
 
@@ -85,6 +73,21 @@ class GetDepthTest : KoinTest {
     @Test
     fun `file111 from root dir`() {
         getDepth(DiskEntryStubs.file111, DiskEntryStubs.rootDir) shouldBe 4f
+    }
+
+    @Test
+    fun `root dir from dir1`() {
+        getDepth(DiskEntryStubs.rootDir, DiskEntryStubs.dir1) shouldBe 0f
+    }
+
+    @Test
+    fun `root dir from file`() {
+        getDepth(DiskEntryStubs.rootDir, DiskEntryStubs.file1) shouldBe 0f
+    }
+
+    @Test
+    fun `dir2 from file21`() {
+        getDepth(DiskEntryStubs.dir2, DiskEntryStubs.file21) shouldBe 0f
     }
 
     @Test

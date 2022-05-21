@@ -5,7 +5,7 @@ import com.diskusage.domain.entities.DiskEntry
 class GetStartAngle {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry = diskEntry.root,
     ): Float {
         val size = calculateSize(diskEntry, fromDiskEntry).toFloat() / fromDiskEntry.size.toFloat()
         return size.takeIf(Float::isFinite) ?: 0f

@@ -9,7 +9,7 @@ class GetChartItem(
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry = diskEntry.root,
     ) = ChartItem(
         diskEntry = diskEntry,
         arc = getArc(diskEntry, fromDiskEntry),
