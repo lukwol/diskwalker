@@ -53,7 +53,7 @@ class GetChartItemTest : KoinTest {
     }
 
     @Test
-    fun `should create proper chart item`() {
+    fun `chart item`() {
         chartItem.arc shouldBe ArcStubs.arc
         chartItem.color shouldNotBe null
         chartItem.diskEntry shouldBe DiskEntryStubs.file1

@@ -69,7 +69,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper test dir entry`(): Unit = testDir.run {
+    fun `test dir`(): Unit = testDir.run {
         name shouldBe "testDir"
         path shouldBe testDirPath
         parent shouldBe null
@@ -88,7 +88,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper subdir entry`(): Unit = subDir.run {
+    fun `sub dir`(): Unit = subDir.run {
         name shouldBe "subDir"
         path shouldBe subDirPath
         parent shouldBe testDir
@@ -107,7 +107,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper foo file entry`(): Unit = fooFile.run {
+    fun `foo file`(): Unit = fooFile.run {
         name shouldBe "foo.txt"
         path shouldBe fooFilePath
         parent shouldBe testDir
@@ -124,7 +124,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper bar file entry`(): Unit = barFile.run {
+    fun `bar file`(): Unit = barFile.run {
         name shouldBe "bar.txt"
         path shouldBe barFilePath
         parent shouldBe testDir
@@ -141,7 +141,7 @@ class DiskEntryDataSourceTest : KoinTest {
     }
 
     @Test
-    fun `should create proper baz file entry`(): Unit = bazFile.run {
+    fun `baz file`(): Unit = bazFile.run {
         name shouldBe "baz.txt"
         path shouldBe bazFilePath
         parent shouldBe subDir

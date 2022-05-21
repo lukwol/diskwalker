@@ -52,6 +52,29 @@ object DiskEntryStubs {
         hasSizeCalculated = true,
     )
 
+    val dir11 = DiskEntry.Directory(
+        name = "dir11",
+        path = Path.of("/dir/dir1/dir11"),
+        parent = dir1,
+        hasSizeCalculated = true,
+    )
+
+    val file111 = DiskEntry.File(
+        name = "file111",
+        path = Path.of("/dir/dir1/dir11/file111"),
+        parent = dir11,
+        size = 512,
+        hasSizeCalculated = true,
+    )
+
+    val file112 = DiskEntry.File(
+        name = "file112",
+        path = Path.of("/dir/dir1/dir11/file112"),
+        parent = dir11,
+        size = 256,
+        hasSizeCalculated = true,
+    )
+
     val dir2 = DiskEntry.Directory(
         name = "dir2",
         path = Path.of("/dir/dir2"),
@@ -76,12 +99,12 @@ object DiskEntryStubs {
     )
 
     init {
-        sortedChildren(listOf(file1, dir1, dir2)).let {
-            rootDir.size = it.sumOf(DiskEntry::size)
-            rootDir.children = it
+        sortedChildren(listOf(file111, file112)).let {
+            dir11.size = it.sumOf(DiskEntry::size)
+            dir11.children = it
         }
 
-        sortedChildren(listOf(file11, file12)).let {
+        sortedChildren(listOf(file11, file12, dir11)).let {
             dir1.size = it.sumOf(DiskEntry::size)
             dir1.children = it
         }
@@ -89,6 +112,11 @@ object DiskEntryStubs {
         sortedChildren(listOf(file21, file22)).let {
             dir2.size = it.sumOf(DiskEntry::size)
             dir2.children = it
+        }
+
+        sortedChildren(listOf(file1, dir1, dir2)).let {
+            rootDir.size = it.sumOf(DiskEntry::size)
+            rootDir.children = it
         }
     }
 
