@@ -1,13 +1,12 @@
 package com.diskusage.domain.usecases
 
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.DiskEntry
 
-class GetDiskEntries(private val getDepth: GetDepth) {
-
+class GetDiskEntries(
+    private val includeDiskEntry: IncludeDiskEntry,
+) {
     operator fun invoke(diskEntry: DiskEntry) = diskEntriesList(diskEntry)
-        .filter { (it.size.toFloat() / diskEntry.size.toFloat()) >= Constants.DiskEntrySizeFilterThreshold }
-        .filter { (getDepth(it, diskEntry) <= Constants.MaxChartDepth) }
+        .filter { includeDiskEntry(it, diskEntry) }
 
     private fun diskEntriesList(diskEntry: DiskEntry): List<DiskEntry> =
         listOf(diskEntry) + when (diskEntry) {

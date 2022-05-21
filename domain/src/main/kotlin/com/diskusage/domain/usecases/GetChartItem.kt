@@ -13,6 +13,6 @@ class GetChartItem(
     ) = ChartItem(
         diskEntry = diskEntry,
         arc = getArc(diskEntry, fromDiskEntry),
-        color = getColor(diskEntry)
+        color = getColor(diskEntry, fromDiskEntry)
     )
 }

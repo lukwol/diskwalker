@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalGraphicsApi::class)
-
 package com.diskusage.domain.usecases
 
 import androidx.compose.ui.graphics.Color
@@ -11,8 +9,13 @@ import java.lang.Float.min
 class GetColor(
     private val getArc: GetArc,
     private val getRoot: GetRoot,
+    private val includeDiskEntry: IncludeDiskEntry,
 ) {
-    operator fun invoke(diskEntry: DiskEntry) = when (diskEntry) {
+    @OptIn(ExperimentalGraphicsApi::class)
+    operator fun invoke(
+        diskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry,
+    ) = when (diskEntry) {
         is DiskEntry.File -> Color.hsl(
             hue = 0f,
             saturation = 0f,
@@ -26,5 +29,7 @@ class GetColor(
                 lightness = 0.7f - (arc.depth / Constants.MaxChartDepth) * 0.4f
             )
         }
+    }.run {
+        if (includeDiskEntry(diskEntry, fromDiskEntry)) this else copy(alpha = 0f)
     }
 }

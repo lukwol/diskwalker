@@ -9,7 +9,8 @@ val domainModule = module {
     factory { GetDepth() }
     factory { GetArc(get(), get(), get()) }
     factory { GetRoot() }
-    factory { GetColor(get(), get()) }
+    factory { GetColor(get(), get(), get()) }
+    factory { IncludeDiskEntry(get()) }
     factory { GetChartItem(get(), get()) }
     factory { GetDiskEntries(get()) }
     factory { GetChartItems(get(), get()) }
