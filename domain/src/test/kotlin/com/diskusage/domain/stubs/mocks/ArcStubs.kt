@@ -2,7 +2,7 @@ package com.diskusage.domain.stubs.mocks
 
 import com.diskusage.domain.entities.Arc
 
-object ArcStub {
+object ArcStubs {
     val arc = Arc(
         startAngle = 120.0f,
         sweepAngle = 45.0f,

@@ -10,7 +10,7 @@ class IncludeDiskEntry(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
     ) = validateSize(diskEntry, fromDiskEntry) &&
-            validateDepth(diskEntry, fromDiskEntry)
+        validateDepth(diskEntry, fromDiskEntry)
 
     private fun validateSize(
         diskEntry: DiskEntry,

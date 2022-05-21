@@ -2,8 +2,8 @@ package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.stubs.mocks.ArcStub
-import com.diskusage.domain.stubs.mocks.DiskEntryStub
+import com.diskusage.domain.stubs.mocks.ArcStubs
+import com.diskusage.domain.stubs.mocks.DiskEntryStubs
 import com.diskusage.domain.usecases.GetArc
 import com.diskusage.domain.usecases.GetChartItem
 import io.kotest.matchers.shouldBe
@@ -42,9 +42,9 @@ class GetChartItemTest : KoinTest {
     @BeforeEach
     internal fun setUp() {
         declareMock<GetArc> {
-            every { this@declareMock(DiskEntryStub.file, DiskEntryStub.dir) } returns ArcStub.arc
+            every { this@declareMock(DiskEntryStubs.file1, DiskEntryStubs.rootDir) } returns ArcStubs.arc
         }
-        chartItem = getChartItem(DiskEntryStub.file, DiskEntryStub.dir)
+        chartItem = getChartItem(DiskEntryStubs.file1, DiskEntryStubs.rootDir)
     }
 
     @AfterEach
@@ -54,8 +54,8 @@ class GetChartItemTest : KoinTest {
 
     @Test
     fun `should create proper chart item`() {
-        chartItem.arc shouldBe ArcStub.arc
+        chartItem.arc shouldBe ArcStubs.arc
         chartItem.color shouldNotBe null
-        chartItem.diskEntry shouldBe DiskEntryStub.file
+        chartItem.diskEntry shouldBe DiskEntryStubs.file1
     }
 }
