@@ -18,7 +18,9 @@ class GetStartAngle {
         else -> calculateSize(diskEntry.parent!!, fromDiskEntry, size + largerSiblingsSize(diskEntry))
     }
 
-    private fun largerSiblingsSize(diskEntry: DiskEntry) = diskEntry.siblings
-        .takeLastWhile { it.size > diskEntry.size }
-        .sumOf(DiskEntry::size)
+    private fun largerSiblingsSize(diskEntry: DiskEntry) =
+        (diskEntry.parent?.children ?: emptyList())
+            .sortedWith(compareByDescending(DiskEntry::size).thenBy(DiskEntry::name))
+            .takeWhile { diskEntry.relationship(it) != DiskEntry.Relationship.Identity }
+            .sumOf(DiskEntry::size)
 }

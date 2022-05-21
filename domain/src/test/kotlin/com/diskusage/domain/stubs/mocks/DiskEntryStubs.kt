@@ -99,27 +99,25 @@ object DiskEntryStubs {
     )
 
     init {
-        sortedChildren(listOf(file111, file112)).let {
+        listOf(file111, file112).let {
             dir11.size = it.sumOf(DiskEntry::size)
             dir11.children = it
         }
 
-        sortedChildren(listOf(file11, file12, dir11)).let {
+        listOf(file11, file12, dir11).let {
             dir1.size = it.sumOf(DiskEntry::size)
             dir1.children = it
         }
 
-        sortedChildren(listOf(file21, file22)).let {
+        listOf(file21, file22).let {
             dir2.size = it.sumOf(DiskEntry::size)
             dir2.children = it
         }
 
-        sortedChildren(listOf(file1, dir1, dir2)).let {
+        listOf(file1, dir1, dir2).let {
             rootDir.size = it.sumOf(DiskEntry::size)
             rootDir.children = it
         }
     }
 
-    private fun sortedChildren(children: List<DiskEntry>) =
-        children.sortedWith(compareByDescending(DiskEntry::size).thenBy(DiskEntry::name))
 }

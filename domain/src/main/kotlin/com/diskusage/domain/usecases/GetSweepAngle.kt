@@ -8,11 +8,10 @@ class GetSweepAngle {
         fromDiskEntry: DiskEntry = diskEntry,
     ) = when (fromDiskEntry.relationship(diskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Ancestor -> 360f
-        DiskEntry.Relationship.Descendant ->
-            (diskEntry.size.toFloat() / fromDiskEntry.size.toFloat())
-                .takeIf(Float::isFinite)
-                ?.times(360f)
-                ?: 0f
+        DiskEntry.Relationship.Descendant -> (diskEntry.size.toFloat() / fromDiskEntry.size.toFloat())
+            .takeIf(Float::isFinite)
+            ?.times(360f)
+            ?: 0f
         else -> 0f
     }
 }

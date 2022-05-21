@@ -4,6 +4,7 @@ import com.diskusage.data.di.dataModule
 import com.diskusage.domain.datasources.DiskEntryDataSource
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.support.FileSize
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -75,11 +76,10 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe null
         hasSizeCalculated shouldBe true
         size shouldBe 256 + 1024 + 4096
-        children shouldBe listOf(subDir, barFile, fooFile)
+        children shouldContainExactlyInAnyOrder listOf(subDir, barFile, fooFile)
         children.forEach { it.parent shouldBe testDir }
 
         root shouldBe testDir
-        siblings shouldBe emptyList()
         relationship(testDir) shouldBe DiskEntry.Relationship.Identity
         relationship(subDir) shouldBe DiskEntry.Relationship.Descendant
         relationship(barFile) shouldBe DiskEntry.Relationship.Descendant
@@ -94,11 +94,10 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe testDir
         hasSizeCalculated shouldBe true
         size shouldBe 4096
-        children shouldBe listOf(bazFile)
+        children shouldContainExactlyInAnyOrder listOf(bazFile)
         children.forEach { it.parent shouldBe subDir }
 
         root shouldBe testDir
-        siblings shouldBe listOf(barFile, fooFile)
         relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
         relationship(subDir) shouldBe DiskEntry.Relationship.Identity
         relationship(barFile) shouldBe DiskEntry.Relationship.Sibling
@@ -115,7 +114,6 @@ class DiskEntryDataSourceTest : KoinTest {
         size shouldBe 256
 
         root shouldBe testDir
-        siblings shouldBe listOf(subDir, barFile)
         relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
         relationship(subDir) shouldBe DiskEntry.Relationship.Sibling
         relationship(barFile) shouldBe DiskEntry.Relationship.Sibling
@@ -132,7 +130,6 @@ class DiskEntryDataSourceTest : KoinTest {
         size shouldBe 1024
 
         root shouldBe testDir
-        siblings shouldBe listOf(subDir, fooFile)
         relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
         relationship(subDir) shouldBe DiskEntry.Relationship.Sibling
         relationship(barFile) shouldBe DiskEntry.Relationship.Identity
@@ -149,7 +146,6 @@ class DiskEntryDataSourceTest : KoinTest {
         size shouldBe 4096
 
         root shouldBe testDir
-        siblings shouldBe emptyList()
         relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
         relationship(subDir) shouldBe DiskEntry.Relationship.Ancestor
         relationship(barFile) shouldBe DiskEntry.Relationship.Unrelated
