@@ -77,6 +77,14 @@ class DiskEntryDataSourceTest : KoinTest {
         size shouldBe 256 + 1024 + 4096
         children shouldBe listOf(subDir, barFile, fooFile)
         children.forEach { it.parent shouldBe testDir }
+
+        root shouldBe testDir
+        siblings shouldBe emptyList()
+        relationship(testDir) shouldBe DiskEntry.Relationship.Identity
+        relationship(subDir) shouldBe DiskEntry.Relationship.Descendant
+        relationship(barFile) shouldBe DiskEntry.Relationship.Descendant
+        relationship(fooFile) shouldBe DiskEntry.Relationship.Descendant
+        relationship(bazFile) shouldBe DiskEntry.Relationship.Descendant
     }
 
     @Test
@@ -88,6 +96,14 @@ class DiskEntryDataSourceTest : KoinTest {
         size shouldBe 4096
         children shouldBe listOf(bazFile)
         children.forEach { it.parent shouldBe subDir }
+
+        root shouldBe testDir
+        siblings shouldBe listOf(barFile, fooFile)
+        relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
+        relationship(subDir) shouldBe DiskEntry.Relationship.Identity
+        relationship(barFile) shouldBe DiskEntry.Relationship.Sibling
+        relationship(fooFile) shouldBe DiskEntry.Relationship.Sibling
+        relationship(bazFile) shouldBe DiskEntry.Relationship.Descendant
     }
 
     @Test
@@ -97,6 +113,14 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe testDir
         hasSizeCalculated shouldBe true
         size shouldBe 256
+
+        root shouldBe testDir
+        siblings shouldBe listOf(subDir, barFile)
+        relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
+        relationship(subDir) shouldBe DiskEntry.Relationship.Sibling
+        relationship(barFile) shouldBe DiskEntry.Relationship.Sibling
+        relationship(fooFile) shouldBe DiskEntry.Relationship.Identity
+        relationship(bazFile) shouldBe DiskEntry.Relationship.Unrelated
     }
 
     @Test
@@ -106,6 +130,14 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe testDir
         hasSizeCalculated shouldBe true
         size shouldBe 1024
+
+        root shouldBe testDir
+        siblings shouldBe listOf(subDir, fooFile)
+        relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
+        relationship(subDir) shouldBe DiskEntry.Relationship.Sibling
+        relationship(barFile) shouldBe DiskEntry.Relationship.Identity
+        relationship(fooFile) shouldBe DiskEntry.Relationship.Sibling
+        relationship(bazFile) shouldBe DiskEntry.Relationship.Unrelated
     }
 
     @Test
@@ -115,5 +147,13 @@ class DiskEntryDataSourceTest : KoinTest {
         parent shouldBe subDir
         hasSizeCalculated shouldBe true
         size shouldBe 4096
+
+        root shouldBe testDir
+        siblings shouldBe emptyList()
+        relationship(testDir) shouldBe DiskEntry.Relationship.Ancestor
+        relationship(subDir) shouldBe DiskEntry.Relationship.Ancestor
+        relationship(barFile) shouldBe DiskEntry.Relationship.Unrelated
+        relationship(fooFile) shouldBe DiskEntry.Relationship.Unrelated
+        relationship(bazFile) shouldBe DiskEntry.Relationship.Identity
     }
 }

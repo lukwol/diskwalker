@@ -6,7 +6,7 @@ import java.nio.file.Path
 object DiskEntryStub {
     val file = DiskEntry.File(
         name = "foo",
-        path = Path.of("foo.txt"),
+        path = Path.of("/dir/foo.txt"),
         size = 42,
         parent = null,
         hasSizeCalculated = true

@@ -10,9 +10,11 @@ class GetChartItem(
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
-    ) = ChartItem(
-        diskEntry = diskEntry,
-        arc = getArc(diskEntry, fromDiskEntry),
-        color = getColor(diskEntry, fromDiskEntry)
-    )
+    ): ChartItem {
+        return ChartItem(
+            diskEntry = diskEntry,
+            arc = getArc(diskEntry, fromDiskEntry),
+            color = getColor(diskEntry, fromDiskEntry)
+        )
+    }
 }

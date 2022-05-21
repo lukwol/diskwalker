@@ -8,7 +8,6 @@ import java.lang.Float.min
 
 class GetColor(
     private val getArc: GetArc,
-    private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
 ) {
     @OptIn(ExperimentalGraphicsApi::class)
@@ -22,12 +21,13 @@ class GetColor(
             lightness = 0.35f
         )
         is DiskEntry.Directory -> {
-            val arc = getArc.invoke(diskEntry, getRoot(diskEntry))
-            Color.hsl(
-                hue = min(arc.startAngle + arc.sweepAngle, 360f),
-                saturation = (arc.startAngle / 360f + arc.sweepAngle / 360f) * 0.4f,
-                lightness = 0.7f - (arc.depth / Constants.MaxChartDepth) * 0.4f
-            )
+            with(getArc.invoke(diskEntry, diskEntry.root)) {
+                Color.hsl(
+                    hue = min(startAngle + sweepAngle, 360f),
+                    saturation = (startAngle / 360f + sweepAngle / 360f) * 0.4f,
+                    lightness = 0.7f - (depth / Constants.MaxChartDepth) * 0.4f
+                )
+            }
         }
     }.run {
         if (includeDiskEntry(diskEntry, fromDiskEntry)) this else copy(alpha = 0f)

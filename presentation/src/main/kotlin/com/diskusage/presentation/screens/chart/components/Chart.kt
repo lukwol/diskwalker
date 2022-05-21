@@ -92,8 +92,7 @@ private fun Offset.calculateAngle(): Float {
 private fun Animatable<Float, AnimationVector1D>.animateItems(
     fromItems: List<ChartItem>,
     toItems: List<ChartItem>,
-) = fromItems
-    .zip(toItems)
+) = fromItems.zip(toItems)
     .map { (fromItem, toItem) ->
         ChartItem(
             diskEntry = fromItem.diskEntry,
