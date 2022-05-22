@@ -6,9 +6,9 @@ class GetSweepAngle {
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = diskEntry,
-    ) = when (fromDiskEntry.relationship(diskEntry)) {
-        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Ancestor -> 360f
-        DiskEntry.Relationship.Descendant -> (diskEntry.size.toFloat() / fromDiskEntry.size.toFloat())
+    ) = when (diskEntry.relationship(fromDiskEntry)) {
+        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
+        DiskEntry.Relationship.Ancestor -> (diskEntry.size.toFloat() / fromDiskEntry.size.toFloat())
             .takeIf(Float::isFinite)
             ?.times(360f)
             ?: 0f

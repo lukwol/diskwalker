@@ -10,7 +10,7 @@ object DiskEntryStubs {
         name = "file",
         path = Path.of("/file"),
         parent = null,
-        size = 42,
+        size = 8192,
         hasSizeCalculated = true,
     )
 
@@ -18,6 +18,7 @@ object DiskEntryStubs {
         name = "dir",
         path = Path.of("/dir"),
         parent = null,
+        size = 12032,
         hasSizeCalculated = true,
     )
 
@@ -25,7 +26,7 @@ object DiskEntryStubs {
         name = "file1",
         path = Path.of("/dir/file1"),
         parent = rootDir,
-        size = 1024,
+        size = 5120,
         hasSizeCalculated = true,
     )
 
@@ -33,6 +34,7 @@ object DiskEntryStubs {
         name = "dir1",
         path = Path.of("/dir/dir1"),
         parent = rootDir,
+        size = 3072,
         hasSizeCalculated = true,
     )
 
@@ -56,6 +58,7 @@ object DiskEntryStubs {
         name = "dir11",
         path = Path.of("/dir/dir1/dir11"),
         parent = dir1,
+        size = 768,
         hasSizeCalculated = true,
     )
 
@@ -79,6 +82,7 @@ object DiskEntryStubs {
         name = "dir2",
         path = Path.of("/dir/dir2"),
         parent = rootDir,
+        size = 3840,
         hasSizeCalculated = true,
     )
 
@@ -86,7 +90,7 @@ object DiskEntryStubs {
         name = "file21",
         path = Path.of("/dir/dir2/file21"),
         parent = dir2,
-        size = 2048,
+        size = 2304,
         hasSizeCalculated = true,
     )
 
@@ -94,30 +98,15 @@ object DiskEntryStubs {
         name = "file22",
         path = Path.of("/dir/dir2/file22"),
         parent = dir2,
-        size = 1024,
+        size = 1536,
         hasSizeCalculated = true,
     )
 
     init {
-        listOf(file111, file112).let {
-            dir11.size = it.sumOf(DiskEntry::size)
-            dir11.children = it
-        }
-
-        listOf(file11, file12, dir11).let {
-            dir1.size = it.sumOf(DiskEntry::size)
-            dir1.children = it
-        }
-
-        listOf(file21, file22).let {
-            dir2.size = it.sumOf(DiskEntry::size)
-            dir2.children = it
-        }
-
-        listOf(file1, dir1, dir2).let {
-            rootDir.size = it.sumOf(DiskEntry::size)
-            rootDir.children = it
-        }
+        dir11.children = listOf(file111, file112)
+        dir1.children = listOf(file11, file12, dir11)
+        dir2.children = listOf(file21, file22)
+        rootDir.children = listOf(file1, dir1, dir2)
     }
 
 }
