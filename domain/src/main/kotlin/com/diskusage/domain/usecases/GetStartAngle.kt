@@ -5,6 +5,7 @@ import com.diskusage.domain.entities.DiskEntry
 class GetStartAngle(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,
+    private val sortDiskEntries: SortDiskEntries,
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
@@ -29,7 +30,7 @@ class GetStartAngle(
 
     private fun largerSiblingsSize(diskEntry: DiskEntry) =
         (diskEntry.parent?.children ?: emptyList())
-            .sortedWith(compareByDescending(DiskEntry::size).thenBy(DiskEntry::name))
+            .let(sortDiskEntries::invoke)
             .takeWhile { getRelationship(diskEntry, it) != DiskEntry.Relationship.Identity }
             .sumOf(DiskEntry::size)
 }
