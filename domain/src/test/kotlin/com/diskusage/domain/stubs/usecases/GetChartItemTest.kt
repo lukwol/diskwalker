@@ -1,16 +1,15 @@
 package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.stubs.mocks.ArcStubs
 import com.diskusage.domain.stubs.mocks.DiskEntryStubs
 import com.diskusage.domain.usecases.GetArc
 import com.diskusage.domain.usecases.GetChartItem
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import com.diskusage.domain.usecases.GetRoot
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
+import io.mockk.verify
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -25,7 +24,8 @@ class GetChartItemTest : KoinTest {
 
     private val getChartItem by inject<GetChartItem>()
 
-    private lateinit var chartItem: ChartItem
+    private lateinit var getArc: GetArc
+    private lateinit var getRoot: GetRoot
 
     @JvmField
     @RegisterExtension
@@ -41,10 +41,12 @@ class GetChartItemTest : KoinTest {
 
     @BeforeEach
     internal fun setUp() {
-        declareMock<GetArc> {
-            every { this@declareMock(DiskEntryStubs.file1, DiskEntryStubs.rootDir) } returns ArcStubs.arc
+        getArc = declareMock {
+            every { this@declareMock(any(), any()) } returns ArcStubs.arc
         }
-        chartItem = getChartItem(DiskEntryStubs.file1, DiskEntryStubs.rootDir)
+        getRoot = declareMock {
+            every { this@declareMock(any()) } returns DiskEntryStubs.rootDir
+        }
     }
 
     @AfterEach
@@ -53,9 +55,14 @@ class GetChartItemTest : KoinTest {
     }
 
     @Test
-    fun `chart item`() {
-        chartItem.arc shouldBe ArcStubs.arc
-        chartItem.color shouldNotBe null
-        chartItem.diskEntry shouldBe DiskEntryStubs.file1
+    fun `from disk entry was passed`() {
+        getChartItem(DiskEntryStubs.file12, DiskEntryStubs.dir1)
+        verify { getArc.invoke(DiskEntryStubs.file12, DiskEntryStubs.dir1) }
+    }
+
+    @Test
+    fun `from disk entry was not passed`() {
+        getChartItem(DiskEntryStubs.file12)
+        verify { getArc.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }
     }
 }

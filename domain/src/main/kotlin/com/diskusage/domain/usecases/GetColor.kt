@@ -8,12 +8,13 @@ import java.lang.Float.min
 
 class GetColor(
     private val getArc: GetArc,
+    private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
 ) {
     @OptIn(ExperimentalGraphicsApi::class)
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = diskEntry.root,
+        fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ) = when (diskEntry) {
         is DiskEntry.File -> Color.hsl(
             hue = 0f,
@@ -30,6 +31,6 @@ class GetColor(
             }
         }
     }.run {
-        if (includeDiskEntry(diskEntry, fromDiskEntry)) this else copy(alpha = 0f)
+        takeIf { includeDiskEntry(diskEntry, fromDiskEntry) } ?: copy(alpha = 0f)
     }
 }

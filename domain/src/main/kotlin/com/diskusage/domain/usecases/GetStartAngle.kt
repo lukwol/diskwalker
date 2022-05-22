@@ -2,11 +2,14 @@ package com.diskusage.domain.usecases
 
 import com.diskusage.domain.entities.DiskEntry
 
-class GetStartAngle {
+class GetStartAngle(
+    private val getRoot: GetRoot,
+    private val getRelationship: GetRelationship,
+) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = diskEntry.root,
-    ): Float = when (diskEntry.relationship(fromDiskEntry)) {
+        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+    ): Float = when (getRelationship(diskEntry, fromDiskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
         DiskEntry.Relationship.Ancestor ->
             (calculateSize(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.size.toDouble())
@@ -27,6 +30,6 @@ class GetStartAngle {
     private fun largerSiblingsSize(diskEntry: DiskEntry) =
         (diskEntry.parent?.children ?: emptyList())
             .sortedWith(compareByDescending(DiskEntry::size).thenBy(DiskEntry::name))
-            .takeWhile { diskEntry.relationship(it) != DiskEntry.Relationship.Identity }
+            .takeWhile { getRelationship(diskEntry, it) != DiskEntry.Relationship.Identity }
             .sumOf(DiskEntry::size)
 }

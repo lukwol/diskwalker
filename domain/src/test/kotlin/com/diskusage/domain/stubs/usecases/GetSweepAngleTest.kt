@@ -22,6 +22,11 @@ class GetSweepAngleTest : KoinTest {
         modules(domainModule)
     }
 
+    @Test
+    fun `from disk entry was not passed`() {
+        getSweepAngle(DiskEntryStubs.file12) shouldBe 58f.plusOrMinus(1f)
+    }
+
     @Nested
     inner class FromSame {
         @Test

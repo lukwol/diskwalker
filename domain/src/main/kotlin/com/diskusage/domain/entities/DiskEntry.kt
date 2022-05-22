@@ -1,7 +1,6 @@
 package com.diskusage.domain.entities
 
 import java.nio.file.Path
-import kotlin.io.path.absolutePathString
 
 sealed class DiskEntry {
     abstract val name: String
@@ -30,17 +29,4 @@ sealed class DiskEntry {
         override var hasSizeCalculated: Boolean = false,
         var children: List<DiskEntry> = listOf(),
     ) : DiskEntry()
-
-    val root: DiskEntry get() = parent?.root ?: this
-
-    fun relationship(other: DiskEntry): Relationship {
-        return when {
-            path.absolutePathString() == other.path.absolutePathString() -> Relationship.Identity
-            other.path.absolutePathString() in (parent?.children ?: emptyList())
-                .map { it.path.absolutePathString() } -> Relationship.Sibling
-            path.absolutePathString().startsWith(other.path.absolutePathString()) -> Relationship.Ancestor
-            other.path.absolutePathString().startsWith(path.absolutePathString()) -> Relationship.Descendant
-            else -> Relationship.Unrelated
-        }
-    }
 }

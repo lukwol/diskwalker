@@ -22,6 +22,11 @@ class GetStartAngleTest : KoinTest {
         modules(domainModule)
     }
 
+    @Test
+    fun `from disk entry was not passed`() {
+        getStartAngle(DiskEntryStubs.file12) shouldBe 144f
+    }
+
     @Nested
     inner class FromSame {
         @Test

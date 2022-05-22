@@ -7,10 +7,11 @@ class GetArc(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
     private val getDepth: GetDepth,
+    private val getRoot: GetRoot,
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = diskEntry.root,
+        fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ): Arc = Arc(
         startAngle = getStartAngle(diskEntry, fromDiskEntry),
         sweepAngle = getSweepAngle(diskEntry, fromDiskEntry),

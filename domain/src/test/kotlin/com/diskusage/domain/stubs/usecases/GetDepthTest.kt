@@ -4,6 +4,7 @@ import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.mocks.DiskEntryStubs
 import com.diskusage.domain.usecases.GetDepth
 import io.kotest.matchers.shouldBe
+import io.mockk.verify
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -19,6 +20,11 @@ class GetDepthTest : KoinTest {
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
         modules(domainModule)
+    }
+
+    @Test
+    fun `from disk entry was not passed`() {
+        getDepth(DiskEntryStubs.file12) shouldBe 3f
     }
 
     @Nested

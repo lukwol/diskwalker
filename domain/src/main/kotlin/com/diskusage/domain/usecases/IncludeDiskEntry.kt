@@ -5,10 +5,11 @@ import com.diskusage.domain.entities.DiskEntry
 
 class IncludeDiskEntry(
     private val getDepth: GetDepth,
+    private val getRoot: GetRoot,
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = diskEntry.root,
+        fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ) = validateSize(diskEntry, fromDiskEntry) &&
         validateDepth(diskEntry, fromDiskEntry)
 
