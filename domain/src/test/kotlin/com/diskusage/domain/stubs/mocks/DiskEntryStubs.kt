@@ -18,7 +18,7 @@ object DiskEntryStubs {
         name = "dir",
         path = Path.of("/dir"),
         parent = null,
-        size = 12032,
+        size = 12800,
         hasSizeCalculated = true,
     )
 
@@ -34,7 +34,7 @@ object DiskEntryStubs {
         name = "dir1",
         path = Path.of("/dir/dir1"),
         parent = rootDir,
-        size = 3072,
+        size = 3840,
         hasSizeCalculated = true,
     )
 
@@ -108,5 +108,4 @@ object DiskEntryStubs {
         dir2.children = listOf(file21, file22)
         rootDir.children = listOf(file1, dir1, dir2)
     }
-
 }
