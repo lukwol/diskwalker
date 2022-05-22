@@ -9,9 +9,9 @@ class GetDepth {
     ) = depth(diskEntry, fromDiskEntry)
 
     private fun depth(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, depth: Float = 1f): Float =
-        when (fromDiskEntry.relationship(diskEntry)) {
+        when (diskEntry.relationship(fromDiskEntry)) {
             DiskEntry.Relationship.Identity -> depth
-            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Ancestor -> 0f
+            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0f
             else -> depth(diskEntry.parent!!, fromDiskEntry, depth + 1)
         }
 }
