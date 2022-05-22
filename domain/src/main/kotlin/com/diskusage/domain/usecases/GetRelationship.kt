@@ -1,23 +1,19 @@
 package com.diskusage.domain.usecases
 
 import com.diskusage.domain.entities.DiskEntry
-import java.nio.file.Path
-import kotlin.io.path.absolutePathString
 
 class GetRelationship {
-    operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry): DiskEntry.Relationship {
-        val pathString = diskEntry.path.absolutePathString()
-        val otherPathString = otherDiskEntry.path.absolutePathString()
-        val siblingsPathStrings = diskEntry.parent?.children
-            ?.map(DiskEntry::path)
-            ?.map(Path::absolutePathString)
-            ?: emptyList()
-        return when {
-            pathString == otherPathString -> DiskEntry.Relationship.Identity
-            otherPathString in siblingsPathStrings -> DiskEntry.Relationship.Sibling
-            pathString.startsWith(otherPathString) -> DiskEntry.Relationship.Ancestor
-            otherPathString.startsWith(pathString) -> DiskEntry.Relationship.Descendant
-            else -> DiskEntry.Relationship.Unrelated
-        }
+    operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry) = when {
+        diskEntry.path == otherDiskEntry.path -> DiskEntry.Relationship.Identity
+        otherDiskEntry.path in siblingsPaths(diskEntry) -> DiskEntry.Relationship.Sibling
+        diskEntry.path.startsWith(otherDiskEntry.path) -> DiskEntry.Relationship.Ancestor
+        otherDiskEntry.path.startsWith(diskEntry.path) -> DiskEntry.Relationship.Descendant
+        else -> DiskEntry.Relationship.Unrelated
     }
+
+    private fun siblingsPaths(diskEntry: DiskEntry) = (
+        diskEntry.parent?.children
+            ?.map(DiskEntry::path)
+            ?: emptyList()
+        )
 }

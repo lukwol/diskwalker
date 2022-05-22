@@ -44,7 +44,6 @@ fun FrameWindowScope.ChartScreen(
                 startItems = viewState.startItems,
                 endItems = viewState.endItems
             ) {
-                println("Selected ${it.diskEntry.name}")
                 viewModel.selectDiskEntry(it)
             }
         }

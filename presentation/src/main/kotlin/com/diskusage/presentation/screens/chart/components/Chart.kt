@@ -21,7 +21,7 @@ import com.diskusage.presentation.screens.chart.extensions.drawArc
 import kotlin.math.PI
 import kotlin.math.atan2
 
-private const val AnimationDuration = 2500
+private const val AnimationDuration = 1000
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -45,11 +45,13 @@ fun Chart(
                     val distance = position.getDistance()
                     val angle = position.calculateAngle()
 
-                    chartItems.find {
-                        it.arc.isSelected(angle, distance)
-                    }?.let {
-                        onSelect(it)
-                    }
+                    chartItems
+                        .filterNot { it.color.alpha == 0f }
+                        .find {
+                            it.arc.isSelected(angle, distance)
+                        }?.let {
+                            onSelect(it)
+                        }
                 }
             }
     ) {
