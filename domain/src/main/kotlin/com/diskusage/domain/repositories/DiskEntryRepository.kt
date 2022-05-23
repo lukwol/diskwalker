@@ -1,8 +1,8 @@
-package com.diskusage.domain.datasources
+package com.diskusage.domain.repositories
 
 import com.diskusage.domain.entities.DiskEntry
 import java.nio.file.Path
 
-interface DiskEntryDataSource {
+interface DiskEntryRepository {
     fun diskEntry(path: Path): DiskEntry
 }

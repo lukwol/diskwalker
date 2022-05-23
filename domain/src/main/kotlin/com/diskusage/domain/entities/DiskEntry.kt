@@ -7,7 +7,6 @@ sealed class DiskEntry {
     abstract val path: Path
     abstract var size: Long
     abstract val parent: Directory?
-    abstract var hasSizeCalculated: Boolean
 
     enum class Relationship {
         Identity, Ancestor, Descendant, Sibling, Unrelated
@@ -18,7 +17,6 @@ sealed class DiskEntry {
         override val path: Path,
         override var size: Long = 0,
         override val parent: Directory? = null,
-        override var hasSizeCalculated: Boolean = false,
     ) : DiskEntry()
 
     class Directory(
@@ -26,7 +24,6 @@ sealed class DiskEntry {
         override val path: Path,
         override var size: Long = 0,
         override val parent: Directory? = null,
-        override var hasSizeCalculated: Boolean = false,
         var children: List<DiskEntry> = listOf(),
     ) : DiskEntry()
 }

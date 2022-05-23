@@ -1,8 +1,8 @@
-package com.diskusage.data.datasources
+package com.diskusage.data.repositories
 
 import com.diskusage.data.di.dataModule
-import com.diskusage.domain.datasources.DiskEntryDataSource
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.support.FileSize
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
@@ -21,9 +21,9 @@ import org.koin.test.mock.declareMock
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 
-class DiskEntryDataSourceTest : KoinTest {
+class DiskEntryRepositoryTest : KoinTest {
 
-    private val diskEntryDataSource by inject<DiskEntryDataSource>()
+    private val diskEntryRepository by inject<DiskEntryRepository>()
 
     private val testDirPath = Path.of("src/test/kotlin/com/diskusage/data/testDir")
     private val subDirPath = Path.of("src/test/kotlin/com/diskusage/data/testDir/subDir")
@@ -57,7 +57,7 @@ class DiskEntryDataSourceTest : KoinTest {
             every { sizeOnDisk(bazFilePath.absolutePathString()) } returns 4096
         }
 
-        testDir = diskEntryDataSource.diskEntry(testDirPath) as DiskEntry.Directory
+        testDir = diskEntryRepository.diskEntry(testDirPath) as DiskEntry.Directory
         subDir = testDir.children.find { it is DiskEntry.Directory } as DiskEntry.Directory
         fooFile = testDir.children.find { it.name == "foo.txt" } as DiskEntry.File
         barFile = testDir.children.find { it.name == "bar.txt" } as DiskEntry.File
@@ -74,7 +74,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "testDir"
         path shouldBe testDirPath
         parent shouldBe null
-        hasSizeCalculated shouldBe true
         size shouldBe 256 + 1024 + 4096
         children shouldContainExactlyInAnyOrder listOf(subDir, barFile, fooFile)
         children.forEach { it.parent shouldBe testDir }
@@ -85,7 +84,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "subDir"
         path shouldBe subDirPath
         parent shouldBe testDir
-        hasSizeCalculated shouldBe true
         size shouldBe 4096
         children shouldContainExactlyInAnyOrder listOf(bazFile)
         children.forEach { it.parent shouldBe subDir }
@@ -96,7 +94,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "foo.txt"
         path shouldBe fooFilePath
         parent shouldBe testDir
-        hasSizeCalculated shouldBe true
         size shouldBe 256
     }
 
@@ -105,7 +102,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "bar.txt"
         path shouldBe barFilePath
         parent shouldBe testDir
-        hasSizeCalculated shouldBe true
         size shouldBe 1024
     }
 
@@ -114,7 +110,6 @@ class DiskEntryDataSourceTest : KoinTest {
         name shouldBe "baz.txt"
         path shouldBe bazFilePath
         parent shouldBe subDir
-        hasSizeCalculated shouldBe true
         size shouldBe 4096
     }
 }

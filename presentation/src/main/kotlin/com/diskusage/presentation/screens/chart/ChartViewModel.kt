@@ -1,21 +1,21 @@
 package com.diskusage.presentation.screens.chart
 
-import com.diskusage.domain.datasources.DiskEntryDataSource
 import com.diskusage.domain.entities.ChartItem
+import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.usecases.GetChartItems
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.nio.file.Path
 
 class ChartViewModel(
-    private val diskEntryDataSource: DiskEntryDataSource,
+    private val diskEntryRepository: DiskEntryRepository,
     private val getChartItems: GetChartItems,
 ) {
     private val mutableViewState = MutableStateFlow(ChartViewState())
     val viewState = mutableViewState.asStateFlow()
 
     fun selectScannedPath(path: Path) {
-        val diskEntry = diskEntryDataSource.diskEntry(path)
+        val diskEntry = diskEntryRepository.diskEntry(path)
         val startItems = getChartItems(diskEntry = diskEntry)
         mutableViewState.value = mutableViewState.value.copy(
             selectedDiskEntry = diskEntry,
