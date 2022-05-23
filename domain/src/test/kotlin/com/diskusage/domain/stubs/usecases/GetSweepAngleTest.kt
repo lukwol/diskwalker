@@ -1,7 +1,7 @@
 package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.mocks.DiskEntryStubs
+import com.diskusage.domain.stubs.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.GetSweepAngle
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe

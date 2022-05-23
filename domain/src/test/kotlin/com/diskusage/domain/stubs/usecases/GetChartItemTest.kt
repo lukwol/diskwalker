@@ -1,8 +1,8 @@
 package com.diskusage.domain.stubs.usecases
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.mocks.ArcStubs
-import com.diskusage.domain.stubs.mocks.DiskEntryStubs
+import com.diskusage.domain.stubs.stubs.ArcStubs
+import com.diskusage.domain.stubs.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.GetArc
 import com.diskusage.domain.usecases.GetChartItem
 import com.diskusage.domain.usecases.GetRoot

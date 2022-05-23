@@ -1,4 +1,4 @@
-package com.diskusage.domain.stubs.mocks
+package com.diskusage.domain.stubs.stubs
 
 import com.diskusage.domain.entities.Arc
 
