@@ -11,9 +11,12 @@ class GetChartItem(
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
-    ) = ChartItem(
-        diskEntry = diskEntry,
-        arc = getArc(diskEntry, fromDiskEntry),
-        color = getColor(diskEntry, fromDiskEntry)
-    )
+    ): ChartItem {
+        val arc = getArc(diskEntry, fromDiskEntry)
+        return ChartItem(
+            diskEntry = diskEntry,
+            arc = arc,
+            color = getColor(arc, diskEntry, fromDiskEntry)
+        )
+    }
 }

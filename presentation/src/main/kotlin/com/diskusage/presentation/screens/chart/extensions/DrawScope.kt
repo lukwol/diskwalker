@@ -9,6 +9,8 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 
 fun DrawScope.drawArc(arc: Arc, color: Color) {
+    if (arc.depth == 0f || arc.sweepAngle == 0f || color.alpha == 0f) return
+
     val scaledArcWidth = if (arc.depth < 1) Constants.ArcWidth * arc.depth else Constants.ArcWidth
     val radius = Constants.ArcWidth * arc.depth
     val arcSize = 2 * radius - scaledArcWidth
