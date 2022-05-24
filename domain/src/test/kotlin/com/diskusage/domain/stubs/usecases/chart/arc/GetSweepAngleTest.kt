@@ -1,8 +1,8 @@
-package com.diskusage.domain.stubs.usecases
+package com.diskusage.domain.stubs.usecases.chart.arc
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.GetStartAngle
+import com.diskusage.domain.usecases.chart.chartitem.arc.GetSweepAngle
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
@@ -12,9 +12,9 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
 
-class GetStartAngleTest : KoinTest {
+class GetSweepAngleTest : KoinTest {
 
-    private val getStartAngle by inject<GetStartAngle>()
+    private val getSweepAngle by inject<GetSweepAngle>()
 
     @JvmField
     @RegisterExtension
@@ -24,29 +24,29 @@ class GetStartAngleTest : KoinTest {
 
     @Test
     fun `from disk entry was not passed`() {
-        getStartAngle(DiskEntryStubs.file12) shouldBe 144f
+        getSweepAngle(DiskEntryStubs.file12) shouldBe 58f.plusOrMinus(1f)
     }
 
     @Nested
     inner class FromSame {
         @Test
         fun `file from file without parent`() {
-            getStartAngle(DiskEntryStubs.rootFile, DiskEntryStubs.rootFile) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootFile, DiskEntryStubs.rootFile) shouldBe 360f
         }
 
         @Test
         fun `file from file with parent`() {
-            getStartAngle(DiskEntryStubs.file1, DiskEntryStubs.file1) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file1, DiskEntryStubs.file1) shouldBe 360f
         }
 
         @Test
         fun `dir from dir without parent`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.rootDir) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.rootDir) shouldBe 360f
         }
 
         @Test
         fun `dir from dir with parent`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir1) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir1) shouldBe 360f
         }
     }
 
@@ -54,47 +54,47 @@ class GetStartAngleTest : KoinTest {
     inner class FromAncestor {
         @Test
         fun `child file from root dir`() {
-            getStartAngle(DiskEntryStubs.file1, DiskEntryStubs.rootDir) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file1, DiskEntryStubs.rootDir) shouldBe 144f
         }
 
         @Test
         fun `grandchild file from root dir`() {
-            getStartAngle(DiskEntryStubs.file11, DiskEntryStubs.rootDir) shouldBe 202f.plusOrMinus(1f)
+            getSweepAngle(DiskEntryStubs.file11, DiskEntryStubs.rootDir) shouldBe 29f.plusOrMinus(1f)
         }
 
         @Test
         fun `great-grandchild file from root dir`() {
-            getStartAngle(DiskEntryStubs.file112, DiskEntryStubs.rootDir) shouldBe 245f.plusOrMinus(1f)
+            getSweepAngle(DiskEntryStubs.file112, DiskEntryStubs.rootDir) shouldBe 8f.plusOrMinus(1f)
         }
 
         @Test
         fun `child dir from root dir`() {
-            getStartAngle(DiskEntryStubs.dir2, DiskEntryStubs.rootDir) shouldBe 252f
+            getSweepAngle(DiskEntryStubs.dir2, DiskEntryStubs.rootDir) shouldBe 108f.plusOrMinus(1f)
         }
 
         @Test
         fun `grandchild dir from root dir`() {
-            getStartAngle(DiskEntryStubs.dir11, DiskEntryStubs.rootDir) shouldBe 230f.plusOrMinus(1f)
+            getSweepAngle(DiskEntryStubs.dir11, DiskEntryStubs.rootDir) shouldBe 22f.plusOrMinus(1f)
         }
 
         @Test
         fun `grandchild dir from child dir`() {
-            getStartAngle(DiskEntryStubs.dir11, DiskEntryStubs.dir1) shouldBe 288f
+            getSweepAngle(DiskEntryStubs.dir11, DiskEntryStubs.dir1) shouldBe 72f
         }
 
         @Test
         fun `grandchild file from child dir`() {
-            getStartAngle(DiskEntryStubs.file11, DiskEntryStubs.dir1) shouldBe 192f
+            getSweepAngle(DiskEntryStubs.file11, DiskEntryStubs.dir1) shouldBe 96f.plusOrMinus(1f)
         }
 
         @Test
         fun `great-grandchild file from child dir`() {
-            getStartAngle(DiskEntryStubs.file111, DiskEntryStubs.dir1) shouldBe 288f
+            getSweepAngle(DiskEntryStubs.file111, DiskEntryStubs.dir1) shouldBe 48f.plusOrMinus(1f)
         }
 
         @Test
         fun `great-grandchild file from grandchild dir`() {
-            getStartAngle(DiskEntryStubs.file111, DiskEntryStubs.dir11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file111, DiskEntryStubs.dir11) shouldBe 240f
         }
     }
 
@@ -102,47 +102,47 @@ class GetStartAngleTest : KoinTest {
     inner class FromDescendant {
         @Test
         fun `root dir from child file`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file1) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file1) shouldBe 360f
         }
 
         @Test
         fun `root dir from grandchild file`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file11) shouldBe 360f
         }
 
         @Test
         fun `root dir from great-grandchild file`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file112) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.file112) shouldBe 360f
         }
 
         @Test
         fun `root dir from child dir`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.dir2) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.dir2) shouldBe 360f
         }
 
         @Test
         fun `root dir from grandchild dir`() {
-            getStartAngle(DiskEntryStubs.rootDir, DiskEntryStubs.dir11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.rootDir, DiskEntryStubs.dir11) shouldBe 360f
         }
 
         @Test
         fun `child dir from grandchild dir`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir11) shouldBe 360f
         }
 
         @Test
         fun `child dir from grandchild file`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.file11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.file11) shouldBe 360f
         }
 
         @Test
         fun `child dir from great-grandchild file`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.file111) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.file111) shouldBe 360f
         }
 
         @Test
         fun `grandchild dir from great-grandchild file`() {
-            getStartAngle(DiskEntryStubs.dir11, DiskEntryStubs.file111) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir11, DiskEntryStubs.file111) shouldBe 360f
         }
     }
 
@@ -150,22 +150,22 @@ class GetStartAngleTest : KoinTest {
     inner class FromSibling {
         @Test
         fun `file from file`() {
-            getStartAngle(DiskEntryStubs.file111, DiskEntryStubs.file112) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file111, DiskEntryStubs.file112) shouldBe 0f
         }
 
         @Test
         fun `dir from dir`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir2) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.dir2) shouldBe 0f
         }
 
         @Test
         fun `dir from file`() {
-            getStartAngle(DiskEntryStubs.dir1, DiskEntryStubs.file1) shouldBe 360f
+            getSweepAngle(DiskEntryStubs.dir1, DiskEntryStubs.file1) shouldBe 0f
         }
 
         @Test
         fun `file from dir`() {
-            getStartAngle(DiskEntryStubs.file12, DiskEntryStubs.dir11) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file12, DiskEntryStubs.dir11) shouldBe 0f
         }
     }
 
@@ -173,22 +173,22 @@ class GetStartAngleTest : KoinTest {
     inner class FromUnrelated {
         @Test
         fun `file from file`() {
-            getStartAngle(DiskEntryStubs.file12, DiskEntryStubs.file21) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file12, DiskEntryStubs.file21) shouldBe 0f
         }
 
         @Test
         fun `dir from dir`() {
-            getStartAngle(DiskEntryStubs.dir11, DiskEntryStubs.dir2) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.dir11, DiskEntryStubs.dir2) shouldBe 0f
         }
 
         @Test
         fun `dir from file`() {
-            getStartAngle(DiskEntryStubs.dir2, DiskEntryStubs.file111) shouldBe 360f
+            getSweepAngle(DiskEntryStubs.dir2, DiskEntryStubs.file111) shouldBe 0f
         }
 
         @Test
         fun `file from dir`() {
-            getStartAngle(DiskEntryStubs.file12, DiskEntryStubs.dir2) shouldBe 0f
+            getSweepAngle(DiskEntryStubs.file12, DiskEntryStubs.dir2) shouldBe 0f
         }
     }
 }

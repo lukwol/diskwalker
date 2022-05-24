@@ -1,13 +1,14 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart.chartitem
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.chart.IncludeDiskEntry
+import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class GetColor(
-    private val getArc: GetArc,
     private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
 ) {

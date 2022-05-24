@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.entities.DiskEntry
 

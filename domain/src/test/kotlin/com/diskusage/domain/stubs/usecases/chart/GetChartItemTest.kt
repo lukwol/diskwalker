@@ -1,11 +1,11 @@
-package com.diskusage.domain.stubs.usecases
+package com.diskusage.domain.stubs.usecases.chart
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.stubs.ArcStubs
 import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.GetArc
-import com.diskusage.domain.usecases.GetChartItem
-import com.diskusage.domain.usecases.GetRoot
+import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
+import com.diskusage.domain.usecases.chart.chartitem.GetChartItem
+import com.diskusage.domain.usecases.diskentry.GetRoot
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass

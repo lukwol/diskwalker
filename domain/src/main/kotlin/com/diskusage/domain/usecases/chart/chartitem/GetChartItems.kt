@@ -1,7 +1,9 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart.chartitem
 
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.chart.GetDiskEntries
+import com.diskusage.domain.usecases.chart.SortDiskEntries
 
 class GetChartItems(
     private val getDiskEntries: GetDiskEntries,
@@ -16,11 +18,9 @@ class GetChartItems(
     operator fun invoke(
         fromDiskEntry: DiskEntry,
         toDiskEntry: DiskEntry,
-    ): Pair<List<ChartItem>, List<ChartItem>> {
-        return (getDiskEntries(fromDiskEntry) + getDiskEntries(toDiskEntry))
-            .distinctBy(DiskEntry::path)
-            .let(sortDiskEntries::invoke)
-            .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
-            .unzip()
-    }
+    ) = (getDiskEntries(fromDiskEntry) + getDiskEntries(toDiskEntry))
+        .distinctBy(DiskEntry::path)
+        .let(sortDiskEntries::invoke)
+        .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
+        .unzip()
 }

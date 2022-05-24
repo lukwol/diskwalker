@@ -1,7 +1,9 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart.chartitem
 
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
+import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class GetChartItem(
     private val getArc: GetArc,

@@ -2,7 +2,7 @@ package com.diskusage.presentation.screens.chart
 
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.domain.usecases.GetChartItems
+import com.diskusage.domain.usecases.chart.chartitem.GetChartItems
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.nio.file.Path

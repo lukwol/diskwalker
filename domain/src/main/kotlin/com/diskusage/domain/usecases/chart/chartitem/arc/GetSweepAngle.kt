@@ -1,6 +1,8 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.diskentry.GetRelationship
+import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class GetSweepAngle(
     private val getRoot: GetRoot,

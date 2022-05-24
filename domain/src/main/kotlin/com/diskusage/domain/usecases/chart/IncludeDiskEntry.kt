@@ -1,7 +1,9 @@
-package com.diskusage.domain.usecases
+package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.diskentry.GetDepth
+import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class IncludeDiskEntry(
     private val getDepth: GetDepth,
@@ -10,10 +12,9 @@ class IncludeDiskEntry(
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
-    ) = validateSize(diskEntry, fromDiskEntry) &&
-        validateDepth(diskEntry, fromDiskEntry)
+    ) = checkSizeInRange(diskEntry, fromDiskEntry) && checkDepthInRange(diskEntry, fromDiskEntry)
 
-    private fun validateSize(
+    private fun checkSizeInRange(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
     ): Boolean {
@@ -21,7 +22,7 @@ class IncludeDiskEntry(
         return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.DiskEntrySizeFilterThreshold
     }
 
-    private fun validateDepth(
+    private fun checkDepthInRange(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
     ) = getDepth(diskEntry, fromDiskEntry) <= Constants.MaxChartDepth
