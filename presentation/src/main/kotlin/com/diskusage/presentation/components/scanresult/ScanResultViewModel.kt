@@ -11,8 +11,8 @@ class ScanResultViewModel(
     private val mutableViewState = MutableStateFlow(ScanResultViewState())
     val viewState = mutableViewState.asStateFlow()
 
-    fun selectScannedPath(path: Path) {
-        mutableViewState.value = mutableViewState.value.copy(
+    fun selectScannedPath(path: Path) = with(viewState.value) {
+        mutableViewState.value = copy(
             scannedDiskEntry = diskEntryRepository.diskEntry(path),
         )
     }

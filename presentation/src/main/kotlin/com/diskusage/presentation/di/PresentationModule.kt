@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val presentationModule = module {
     factory { ScanResultViewModel(get()) }
-    factory { (diskEntry: DiskEntry) -> ChartViewModel(diskEntry, get()) }
+    factory { (diskEntry: DiskEntry) -> ChartViewModel(diskEntry, get(), get(), get()) }
 }
