@@ -1,4 +1,4 @@
-package com.diskusage.presentation.common.components
+package com.diskusage.presentation.common.blocks
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable

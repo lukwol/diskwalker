@@ -1,10 +1,10 @@
-package com.diskusage.presentation.screens.chart
+package com.diskusage.presentation.components.chart
 
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
 
 data class ChartViewState(
-    val selectedDiskEntry: DiskEntry? = null,
-    val startItems: List<ChartItem> = emptyList(),
+    val diskEntry: DiskEntry,
+    val startItems: List<ChartItem>,
     val endItems: List<ChartItem>? = null,
 )

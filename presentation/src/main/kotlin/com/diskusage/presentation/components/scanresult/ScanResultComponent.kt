@@ -9,19 +9,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.FrameWindowScope
-import com.diskusage.presentation.common.components.FileDialog
-import com.diskusage.presentation.common.components.FileDialogMode
+import com.diskusage.presentation.common.blocks.FileDialog
+import com.diskusage.presentation.common.blocks.FileDialogMode
+import com.diskusage.presentation.components.chart.ChartComponent
 import com.diskusage.presentation.di.ViewModelProvider
-import com.diskusage.presentation.screens.chart.components.Chart
 
 @Composable
-fun FrameWindowScope.ChartScreen(
+fun FrameWindowScope.ScanResultComponent(
     isSupportLibraryLoaded: Boolean,
 ) {
-    val viewModel = remember { ViewModelProvider.chartViewModel }
+    val viewModel = remember { ViewModelProvider.getScanResultViewModel() }
     val viewState by viewModel.viewState.collectAsState()
 
     var showFileDialog by remember { mutableStateOf(false) }
+    val selectedDiskEntry = viewState.scannedDiskEntry
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -39,13 +40,8 @@ fun FrameWindowScope.ChartScreen(
             Text("Select directory")
         }
 
-        if (viewState.startItems.isNotEmpty()) {
-            Chart(
-                startItems = viewState.startItems,
-                endItems = viewState.endItems
-            ) {
-                viewModel.selectDiskEntry(it)
-            }
+        if (selectedDiskEntry != null) {
+            ChartComponent(diskEntry = selectedDiskEntry)
         }
 
         if (showFileDialog) {

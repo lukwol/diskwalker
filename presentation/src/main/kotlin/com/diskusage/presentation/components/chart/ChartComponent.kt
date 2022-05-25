@@ -1,12 +1,10 @@
-package com.diskusage.presentation.screens.chart.components
+@file:OptIn(ExperimentalComposeUiApi::class)
+
+package com.diskusage.presentation.components.chart
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -18,20 +16,22 @@ import androidx.compose.ui.unit.toOffset
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
-import com.diskusage.presentation.screens.chart.extensions.drawArc
-import kotlinx.coroutines.delay
+import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.presentation.di.ViewModelProvider
+import com.diskusage.presentation.components.chart.blocks.Chart
 import kotlin.math.PI
 import kotlin.math.atan2
 
 private const val AnimationDuration = 1000
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Chart(
-    startItems: List<ChartItem>,
-    endItems: List<ChartItem>?,
-    onSelect: (ChartItem) -> Unit,
-) {
+fun ChartComponent(diskEntry: DiskEntry) {
+    val viewModel = remember { ViewModelProvider.getChartViewModel(diskEntry) }
+    val viewState by viewModel.viewState.collectAsState()
+
+    val startItems = viewState.startItems
+    val endItems = viewState.endItems
+
     val animatable = remember(endItems) { Animatable(0f) }
 
     val chartItems = when {
@@ -40,32 +40,26 @@ fun Chart(
         else -> endItems
     }
 
-    Canvas(
-        modifier = Modifier
-            .fillMaxSize()
-            .onPointerEvent(PointerEventType.Press) { pointerEvent ->
-                if (!animatable.isRunning) {
-                    val position = pointerEvent.changes.first().position - size.center.toOffset()
-                    val distance = position.getDistance()
-                    val angle = position.calculateAngle()
+    Chart(
+        chartItems = chartItems,
+        modifier = Modifier.onPointerEvent(PointerEventType.Press) { pointerEvent ->
+            if (!animatable.isRunning) {
+                val position = pointerEvent.changes.first().position - size.center.toOffset()
+                val distance = position.getDistance()
+                val angle = position.calculateAngle()
 
-                    chartItems
-                        .filterNot { it.color.alpha == 0f }
-                        .find {
-                            it.arc.isSelected(angle, distance)
-                        }?.let {
-                            onSelect(it)
-                        }
-                }
+                chartItems
+                    .filterNot { it.color.alpha == 0f }
+                    .find {
+                        it.arc.isSelected(angle, distance)
+                    }?.let {
+                        viewModel.onSelectChartItem(it)
+                    }
             }
-    ) {
-        for (item in chartItems) {
-            drawArc(item.arc, item.color)
         }
-    }
+    )
 
     LaunchedEffect(endItems) {
-        delay(100) // Smoothes animation and prevents glitches
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDuration)
@@ -78,9 +72,9 @@ private fun Arc.isSelected(
     angle: Float,
     distance: Float,
 ) = angle >= startAngle &&
-        angle < startAngle + sweepAngle &&
-        distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
-        distance < depth * Constants.ArcWidth
+    angle < startAngle + sweepAngle &&
+    distance >= depth * Constants.ArcWidth - Constants.ArcWidth &&
+    distance < depth * Constants.ArcWidth
 
 // Extract to CalculateAngle
 private fun Offset.calculateAngle(): Float {

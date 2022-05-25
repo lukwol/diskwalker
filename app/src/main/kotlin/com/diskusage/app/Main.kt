@@ -1,6 +1,6 @@
 package com.diskusage.app
 
-import ChartScreen
+import ScanResultComponent
 import SupportLibrary
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.singleWindowApplication
@@ -22,7 +22,7 @@ fun main() {
     singleWindowApplication {
         var isSupportLibraryLoaded by remember { mutableStateOf(false) }
 
-        ChartScreen(isSupportLibraryLoaded)
+        ScanResultComponent(isSupportLibraryLoaded)
 
         LaunchedEffect(Unit) {
             SupportLibrary.loadLibrary()

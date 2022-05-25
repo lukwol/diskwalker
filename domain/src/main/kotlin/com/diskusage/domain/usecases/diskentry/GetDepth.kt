@@ -1,8 +1,6 @@
 package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.usecases.diskentry.GetRelationship
-import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class GetDepth(
     private val getRoot: GetRoot,
