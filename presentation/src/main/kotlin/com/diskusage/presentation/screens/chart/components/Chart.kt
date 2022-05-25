@@ -19,6 +19,7 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.presentation.screens.chart.extensions.drawArc
+import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.atan2
 
@@ -64,6 +65,7 @@ fun Chart(
     }
 
     LaunchedEffect(endItems) {
+        delay(100) // Smoothes animation and prevents glitches
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDuration)
