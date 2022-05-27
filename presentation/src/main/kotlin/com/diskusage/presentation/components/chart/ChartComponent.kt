@@ -18,6 +18,7 @@ import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.di.ViewModelProvider
+import kotlinx.coroutines.delay
 
 private const val AnimationDuration = 1000
 
@@ -48,6 +49,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     )
 
     LaunchedEffect(endItems) {
+        delay(100) // Smoothes animation and prevents glitches
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDuration)

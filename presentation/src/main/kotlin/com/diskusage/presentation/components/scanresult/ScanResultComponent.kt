@@ -31,17 +31,15 @@ fun FrameWindowScope.ScanResultComponent(
             .background(color = Color(0xFF363736))
             .fillMaxSize()
     ) {
-        Button(
-            enabled = isSupportLibraryLoaded,
-            onClick = {
-                showFileDialog = true
-            }
-        ) {
-            Text("Select directory")
-        }
-
         if (selectedDiskEntry != null) {
             ChartComponent(diskEntry = selectedDiskEntry)
+        } else {
+            Button(
+                enabled = isSupportLibraryLoaded,
+                onClick = { showFileDialog = true }
+            ) {
+                Text("Select directory")
+            }
         }
 
         if (showFileDialog) {
