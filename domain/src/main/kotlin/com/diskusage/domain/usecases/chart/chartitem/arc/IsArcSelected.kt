@@ -25,10 +25,8 @@ private fun Offset.getAngle(): Float {
     if (atan2 < 0) {
         atan2 += 2 * PI
     }
-    var degrees = (atan2 * (180 / PI))
+    var degrees = (atan2 * (180 / PI)).toFloat()
     degrees += 90
-    if (degrees > 360) {
-        degrees -= 360
-    }
-    return degrees.toFloat()
+    degrees %= 360
+    return degrees
 }

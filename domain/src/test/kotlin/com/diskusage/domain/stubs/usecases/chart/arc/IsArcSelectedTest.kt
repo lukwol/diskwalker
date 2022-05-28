@@ -194,4 +194,42 @@ class IsArcSelectedTest : KoinTest {
             }
         }
     }
+
+    @Nested
+    inner class EdgeCases {
+        private lateinit var arc0: Arc
+        private lateinit var arc1: Arc
+        private lateinit var arc2: Arc
+
+        @BeforeEach
+        internal fun setUp() {
+            arc0 = Arc(
+                startAngle = 0f,
+                sweepAngle = 360f,
+                depth = 1f
+            )
+            arc1 = Arc(
+                startAngle = 0f,
+                sweepAngle = 45f,
+                depth = 2f
+            )
+            arc2 = Arc(
+                startAngle = 45f,
+                sweepAngle = 60f,
+                depth = 2f
+            )
+        }
+
+        @Test
+        fun `between arc1 and arc2`() {
+            isArcSelected(arc = arc1, offset = closeOffset) shouldBe false
+            isArcSelected(arc = arc2, offset = closeOffset) shouldBe true
+        }
+
+        @Test
+        fun `between arc0 and arc2`() {
+            isArcSelected(arc = arc0, offset = Offset(0f, 100f)) shouldBe false
+            isArcSelected(arc = arc2, offset = Offset(0f, 100f)) shouldBe true
+        }
+    }
 }
