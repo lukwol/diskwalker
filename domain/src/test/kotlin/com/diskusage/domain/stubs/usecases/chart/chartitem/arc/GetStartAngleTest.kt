@@ -1,4 +1,4 @@
-package com.diskusage.domain.stubs.usecases.chart.arc
+package com.diskusage.domain.stubs.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.stubs.DiskEntryStubs

@@ -1,4 +1,4 @@
-package com.diskusage.domain.stubs.usecases.chart.arc
+package com.diskusage.domain.stubs.usecases.chart.chartitem.arc
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.di.domainModule
