@@ -37,7 +37,7 @@ class IncludeDiskEntryTest : KoinTest {
     }
 
     @Test
-    fun `normal disk entry`() {
+    fun `typical disk entry`() {
         includeDiskEntry.invoke(DiskEntryStubs.dir2) shouldBe true
         includeDiskEntry.invoke(DiskEntryStubs.file111, DiskEntryStubs.rootDir) shouldBe true
     }
