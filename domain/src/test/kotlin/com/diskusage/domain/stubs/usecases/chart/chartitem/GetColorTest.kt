@@ -11,9 +11,11 @@ import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
 import io.mockk.verify
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -39,6 +41,11 @@ class GetColorTest : KoinTest {
     @RegisterExtension
     val mockProvider = MockProviderExtension.create { clazz ->
         mockkClass(clazz)
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        clearAllMocks()
     }
 
     @Nested

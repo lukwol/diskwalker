@@ -3,6 +3,11 @@ package com.diskusage.domain.stubs.stubs
 import com.diskusage.domain.entities.Arc
 
 object ArcStubs {
+    val zero = Arc(
+        startAngle = 0f,
+        sweepAngle = 0f,
+        depth = 0f
+    )
     val hidden = Arc(
         startAngle = 0f,
         sweepAngle = 360f,

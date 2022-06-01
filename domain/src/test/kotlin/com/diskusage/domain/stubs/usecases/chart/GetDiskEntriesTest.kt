@@ -5,8 +5,10 @@ import com.diskusage.domain.stubs.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.GetDiskEntries
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -32,6 +34,11 @@ class GetDiskEntriesTest : KoinTest {
     @RegisterExtension
     val mockProvider = MockProviderExtension.create { clazz ->
         mockkClass(clazz)
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        clearAllMocks()
     }
 
     @Nested

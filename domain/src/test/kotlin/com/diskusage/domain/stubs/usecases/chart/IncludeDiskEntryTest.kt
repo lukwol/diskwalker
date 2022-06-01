@@ -7,8 +7,10 @@ import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 import io.kotest.matchers.shouldBe
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.koin.test.KoinTest
@@ -34,6 +36,11 @@ class IncludeDiskEntryTest : KoinTest {
     @RegisterExtension
     val mockProvider = MockProviderExtension.create { clazz ->
         mockkClass(clazz)
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        clearAllMocks()
     }
 
     @Test
