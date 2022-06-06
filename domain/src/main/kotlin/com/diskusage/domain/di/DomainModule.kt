@@ -20,7 +20,7 @@ val domainModule = module {
     single { GetSweepAngle(get(), get()) }
     single { IsArcSelected() }
     single { GetChartItems(get(), get(), get(), get(), get()) }
-    single { GetColor(get(), get()) }
+    single { GetColor(get(), get(), get()) }
     single { GetDiskEntries(get()) }
     single { IncludeDiskEntry(get(), get()) }
     single { SortDiskEntries() }

@@ -1,10 +1,10 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
-
 
 /**
  *  Usecase for calculating [Arc]
@@ -25,9 +25,15 @@ class GetArc(
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
-    ): Arc = Arc(
-        startAngle = getStartAngle(diskEntry, fromDiskEntry),
-        sweepAngle = getSweepAngle(diskEntry, fromDiskEntry),
-        depth = getDepth(diskEntry, fromDiskEntry)
-    )
+    ): Arc {
+        val startAngle = getStartAngle(diskEntry, fromDiskEntry)
+        val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
+        val depth = getDepth(diskEntry, fromDiskEntry)
+        val startRadius = (depth * Constants.ArcWidth - Constants.ArcWidth).coerceAtLeast(0f)
+        val endRadius = depth * Constants.ArcWidth
+        return Arc(
+            angleRange = startAngle..(startAngle + sweepAngle),
+            radiusRange = startRadius..endRadius,
+        )
+    }
 }

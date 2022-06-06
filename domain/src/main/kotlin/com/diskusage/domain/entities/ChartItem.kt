@@ -2,7 +2,6 @@ package com.diskusage.domain.entities
 
 import androidx.compose.ui.graphics.Color
 
-
 /**
  * Represents item drawn on chart
  *

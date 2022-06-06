@@ -6,11 +6,13 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
+import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
 class GetColor(
     private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
+    private val getDepth: GetDepth,
 ) {
     @OptIn(ExperimentalGraphicsApi::class)
     operator fun invoke(
@@ -25,9 +27,9 @@ class GetColor(
         )
         is DiskEntry.Directory -> with(precalculatedArc) {
             Color.hsl(
-                hue = (startAngle + sweepAngle).coerceIn(0f, 360f),
-                saturation = ((startAngle / 360f + sweepAngle / 360f) * 0.4f).coerceIn(0f, 1f),
-                lightness = (0.7f - (depth / Constants.MaxChartDepth) * 0.4f).coerceIn(0f, 1f),
+                hue = (angleRange.endInclusive).coerceIn(0f, 360f),
+                saturation = ((angleRange.endInclusive / 360f) * 0.4f).coerceIn(0f, 1f),
+                lightness = (0.7f - (getDepth(diskEntry, fromDiskEntry) / Constants.MaxChartDepth) * 0.4f).coerceIn(0f, 1f),
             )
         }
     }.run {

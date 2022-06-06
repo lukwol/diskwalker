@@ -3,14 +3,17 @@ package com.diskusage.domain.entities
 /**
  * An arc specification that will be used for drawing.
  *
- * @property startAngle Starting angle in degrees. 0 represents 3 o'clock
- * @property sweepAngle Size of the arc in degrees that is drawn clockwise relative to [startAngle]
- * @property depth determines how far from center [Arc] is drawn
+ * @property angleRange Angle rang in degrees 0 represents 3 o'clock
+ * @property radiusRange Range how far from center [Arc] is drawn
+ * @property sweepAngle Difference between end angle and start angle
+ * @property width Difference between end radius and start radius
  *
  * @see androidx.compose.ui.graphics.drawscope.DrawScope.drawArc
  */
 data class Arc(
-    val startAngle: Float,
-    val sweepAngle: Float,
-    val depth: Float,
-)
+    val angleRange: ClosedFloatingPointRange<Float>,
+    val radiusRange: ClosedFloatingPointRange<Float>,
+) {
+    val sweepAngle: Float = angleRange.endInclusive - angleRange.start
+    val width: Float = radiusRange.endInclusive - radiusRange.start
+}

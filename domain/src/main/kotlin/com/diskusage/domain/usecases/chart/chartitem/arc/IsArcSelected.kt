@@ -1,7 +1,6 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -11,12 +10,9 @@ class IsArcSelected {
         arc: Arc,
         offset: Offset,
     ): Boolean {
-        val distance = offset.getDistance()
         val angle = offset.getAngle()
-        return angle >= arc.startAngle &&
-            angle < arc.startAngle + arc.sweepAngle &&
-            distance >= arc.depth * Constants.ArcWidth - Constants.ArcWidth &&
-            distance < arc.depth * Constants.ArcWidth
+        val distance = offset.getDistance()
+        return angle in arc.angleRange && distance in arc.radiusRange
     }
 }
 

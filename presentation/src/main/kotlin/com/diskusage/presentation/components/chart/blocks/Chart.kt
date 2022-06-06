@@ -8,7 +8,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.ChartItem
 
 @Composable
@@ -28,17 +27,15 @@ fun Chart(
 }
 
 private fun isHidden(chartItem: ChartItem): Boolean = with(chartItem) {
-    return arc.depth == 0f || arc.sweepAngle == 0f || color.alpha == 0f
+    return arc.width == 0f || arc.sweepAngle == 0f || color.alpha == 0f
 }
 
 private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
-    val scaledArcWidth = if (arc.depth < 1) Constants.ArcWidth * arc.depth else Constants.ArcWidth
-    val radius = Constants.ArcWidth * arc.depth
-    val arcSize = 2 * radius - scaledArcWidth
+    val arcSize = 2 * arc.radiusRange.endInclusive - arc.width
 
     drawArc(
         color = color,
-        startAngle = arc.startAngle,
+        startAngle = arc.angleRange.start,
         sweepAngle = arc.sweepAngle,
         topLeft = Offset(
             x = size.width - arcSize,
@@ -48,7 +45,7 @@ private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
             width = arcSize,
             height = arcSize
         ),
-        style = Stroke(width = scaledArcWidth),
+        style = Stroke(width = arc.width),
         useCenter = false
     )
 }

@@ -49,7 +49,6 @@ fun ChartComponent(diskEntry: DiskEntry) {
     )
 
     LaunchedEffect(endItems) {
-        delay(100) // Smoothes animation and prevents glitches
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDuration)
@@ -74,9 +73,8 @@ private fun Animatable<Float, AnimationVector1D>.arcTransition(
     fromArc: Arc,
     toArc: Arc,
 ) = Arc(
-    startAngle = valueTransition(fromArc.startAngle, toArc.startAngle),
-    sweepAngle = valueTransition(fromArc.sweepAngle, toArc.sweepAngle),
-    depth = valueTransition(fromArc.depth, toArc.depth)
+    angleRange = rangeTransition(fromArc.angleRange, toArc.angleRange),
+    radiusRange = rangeTransition(fromArc.radiusRange, toArc.radiusRange),
 )
 
 private fun Animatable<Float, AnimationVector1D>.colorTransition(
@@ -88,6 +86,11 @@ private fun Animatable<Float, AnimationVector1D>.colorTransition(
     blue = valueTransition(fromColor.blue, toColor.blue),
     alpha = valueTransition(fromColor.alpha, toColor.alpha),
 )
+
+private fun Animatable<Float, AnimationVector1D>.rangeTransition(
+    fromRange: ClosedFloatingPointRange<Float>,
+    toRange: ClosedFloatingPointRange<Float>,
+) = valueTransition(fromRange.start, toRange.start)..valueTransition(fromRange.endInclusive, toRange.endInclusive)
 
 private fun Animatable<Float, AnimationVector1D>.valueTransition(
     fromValue: Float,
