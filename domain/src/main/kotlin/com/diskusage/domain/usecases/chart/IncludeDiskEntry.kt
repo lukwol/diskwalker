@@ -18,7 +18,7 @@ class IncludeDiskEntry(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
     ): Boolean {
-        val size = diskEntry.size.toDouble() / fromDiskEntry.size.toDouble()
+        val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
         return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.DiskEntrySizeFilterThreshold
     }
 

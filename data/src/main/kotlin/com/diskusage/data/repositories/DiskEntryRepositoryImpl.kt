@@ -36,7 +36,7 @@ class DiskEntryRepositoryImpl(private val fileSize: FileSize) : DiskEntryReposit
                 .map { diskEntry(it, this) }
         }
     }.apply {
-        size = sizeOnDisk()
+        sizeOnDisk = sizeOnDisk()
     }
 
     private fun DiskEntry.sizeOnDisk(): Long = cachedSizes[path]

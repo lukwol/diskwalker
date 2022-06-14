@@ -16,7 +16,7 @@ class GetStartAngle(
     ): Float = when (getRelationship(diskEntry, fromDiskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
         DiskEntry.Relationship.Ancestor ->
-            (calculateSize(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.size.toDouble())
+            (calculateSize(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
                 .takeIf(Double::isFinite)
                 ?.times(360)
                 ?.toFloat()
@@ -35,5 +35,5 @@ class GetStartAngle(
         (diskEntry.parent?.children ?: emptyList())
             .let(sortDiskEntries::invoke)
             .takeLastWhile { getRelationship(diskEntry, it) != DiskEntry.Relationship.Identity }
-            .sumOf(DiskEntry::size)
+            .sumOf(DiskEntry::sizeOnDisk)
 }

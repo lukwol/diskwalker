@@ -74,7 +74,7 @@ class DiskEntryRepositoryTest : KoinTest {
         name shouldBe "testDir"
         path shouldBe testDirPath
         parent shouldBe null
-        size shouldBe 256 + 1024 + 4096
+        sizeOnDisk shouldBe 256 + 1024 + 4096
         children shouldContainExactlyInAnyOrder listOf(subDir, barFile, fooFile)
         children.forEach { it.parent shouldBe testDir }
     }
@@ -84,7 +84,7 @@ class DiskEntryRepositoryTest : KoinTest {
         name shouldBe "subDir"
         path shouldBe subDirPath
         parent shouldBe testDir
-        size shouldBe 4096
+        sizeOnDisk shouldBe 4096
         children shouldContainExactlyInAnyOrder listOf(bazFile)
         children.forEach { it.parent shouldBe subDir }
     }
@@ -94,7 +94,7 @@ class DiskEntryRepositoryTest : KoinTest {
         name shouldBe "foo.txt"
         path shouldBe fooFilePath
         parent shouldBe testDir
-        size shouldBe 256
+        sizeOnDisk shouldBe 256
     }
 
     @Test
@@ -102,7 +102,7 @@ class DiskEntryRepositoryTest : KoinTest {
         name shouldBe "bar.txt"
         path shouldBe barFilePath
         parent shouldBe testDir
-        size shouldBe 1024
+        sizeOnDisk shouldBe 1024
     }
 
     @Test
@@ -110,6 +110,6 @@ class DiskEntryRepositoryTest : KoinTest {
         name shouldBe "baz.txt"
         path shouldBe bazFilePath
         parent shouldBe subDir
-        size shouldBe 4096
+        sizeOnDisk shouldBe 4096
     }
 }

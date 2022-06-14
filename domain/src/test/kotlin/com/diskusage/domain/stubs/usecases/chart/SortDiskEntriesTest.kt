@@ -69,19 +69,19 @@ class SortDiskEntriesTest : KoinTest {
             name = "bar",
             path = Path.of("/bar"),
             parent = null,
-            size = 1024,
+            sizeOnDisk = 1024,
         )
         val fooFile = DiskEntry.File(
             name = "foo",
             path = Path.of("/foo"),
             parent = null,
-            size = 1024,
+            sizeOnDisk = 1024,
         )
         val bazFile = DiskEntry.File(
             name = "baz",
             path = Path.of("/baz"),
             parent = null,
-            size = 1024,
+            sizeOnDisk = 1024,
         )
         sortDiskEntries(
             listOf(barFile, fooFile, bazFile)
