@@ -1,36 +1,27 @@
 package com.diskusage.domain.stubs.stubs
 
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.Arc
 
 object ArcStubs {
-    val zero = Arc(
-        startAngle = 0f,
-        sweepAngle = 0f,
-        depth = 0f
-    )
     val hidden = Arc(
-        startAngle = 0f,
-        sweepAngle = 360f,
-        depth = 0f
+        angleRange = 0f..360f,
+        radiusRange = 0f..0f
     )
     val selected = Arc(
-        startAngle = 0f,
-        sweepAngle = 360f,
-        depth = 1f
+        angleRange = 0f..360f,
+        radiusRange = 0f..Constants.ArcWidth,
     )
     val child1 = Arc(
-        startAngle = 0f,
-        sweepAngle = 45f,
-        depth = 2f
+        angleRange = 0f..45f,
+        radiusRange = Constants.ArcWidth..2 * Constants.ArcWidth,
     )
     val child2 = Arc(
-        startAngle = 45f,
-        sweepAngle = 60f,
-        depth = 2f
+        angleRange = 45f..105f,
+        radiusRange = Constants.ArcWidth..2 * Constants.ArcWidth,
     )
     val far = Arc(
-        startAngle = 30f,
-        sweepAngle = 60f,
-        depth = 8f
+        angleRange = 30f..90f,
+        radiusRange = 7 * Constants.ArcWidth..8 * Constants.ArcWidth,
     )
 }

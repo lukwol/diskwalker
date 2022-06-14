@@ -49,6 +49,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     )
 
     LaunchedEffect(endItems) {
+        delay(100) // Smoothes animation and prevents glitches
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDuration)
