@@ -19,7 +19,7 @@ class IncludeDiskEntry(
         fromDiskEntry: DiskEntry,
     ): Boolean {
         val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
-        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.DiskEntrySizeFilterThreshold
+        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.MinChartItemSize
     }
 
     private fun checkDepthInRange(
