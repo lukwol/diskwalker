@@ -16,8 +16,8 @@ class GetArc(
      * Calculate the [Arc] for [DiskEntry] starting from its root or specific [DiskEntry].
      *
      * @param diskEntry [DiskEntry] for which the [Arc] is calculated
-     * @param fromDiskEntry Currently selected [DiskEntry] from which calculation should start
-     * @return [Arc] with calculated start and sweep angles and depth
+     * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
+     * @return [Arc] with calculated [angle][Arc.angleRange] and [radius][Arc.radiusRange] [ranges][ClosedFloatingPointRange]
      */
     operator fun invoke(
         diskEntry: DiskEntry,
