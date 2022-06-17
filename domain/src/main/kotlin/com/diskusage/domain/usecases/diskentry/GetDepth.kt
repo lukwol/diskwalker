@@ -6,15 +6,22 @@ class GetDepth(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,
 ) {
+
+    /**
+     * Calculates depth level, how much nested [diskEntry] is compared to [fromDiskEntry]
+     *
+     * @param diskEntry [DiskEntry] for which the depth level will be calculated
+     * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
+     */
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ) = depth(diskEntry, fromDiskEntry)
 
-    private fun depth(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, depth: Float = 1f): Float =
+    private fun depth(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, depth: Int = 1): Int =
         when (getRelationship(diskEntry, fromDiskEntry)) {
             DiskEntry.Relationship.Identity -> depth
-            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0f
+            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0
             else -> depth(diskEntry.parent!!, fromDiskEntry, depth + 1)
         }
 }

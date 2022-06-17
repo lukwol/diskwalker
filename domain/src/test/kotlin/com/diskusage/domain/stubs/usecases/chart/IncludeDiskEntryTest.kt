@@ -52,7 +52,7 @@ class IncludeDiskEntryTest : KoinTest {
     @Test
     fun `too deep disk entry`() {
         getDepth = declareMock {
-            every { this@declareMock(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) } returns 11f
+            every { this@declareMock(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) } returns 11
         }
         includeDiskEntry.invoke(DiskEntryStubs.dir1) shouldBe false
         includeDiskEntry.invoke(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) shouldBe false
@@ -70,7 +70,7 @@ class IncludeDiskEntryTest : KoinTest {
             every { this@declareMock(fooFile) } returns DiskEntryStubs.rootDir
         }
         getDepth = declareMock {
-            every { this@declareMock(fooFile, DiskEntryStubs.rootDir) } returns 8f
+            every { this@declareMock(fooFile, DiskEntryStubs.rootDir) } returns 8
         }
         includeDiskEntry.invoke(fooFile) shouldBe false
         includeDiskEntry.invoke(fooFile, DiskEntryStubs.rootDir) shouldBe false

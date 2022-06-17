@@ -3,6 +3,16 @@ package com.diskusage.domain.usecases.diskentry
 import com.diskusage.domain.entities.DiskEntry
 
 class GetRelationship {
+
+    /**
+     * Define [Relationship][DiskEntry.Relationship] between two [disk entries][DiskEntry]
+     *
+     * Example relationship:
+     * [otherDiskEntry] is [Ancestor][DiskEntry.Relationship.Ancestor] for [diskEntry]
+     *
+     * @param diskEntry [DiskEntry] for which relationship will be defined
+     * @param otherDiskEntry [DiskEntry] which will be compared to given [diskEntry]
+     */
     operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry) = when {
         diskEntry.path == otherDiskEntry.path -> DiskEntry.Relationship.Identity
         otherDiskEntry.path in siblingsPaths(diskEntry) -> DiskEntry.Relationship.Sibling
@@ -11,6 +21,11 @@ class GetRelationship {
         else -> DiskEntry.Relationship.Unrelated
     }
 
+    /**
+     * All siblings for given [diskEntry] including given [diskEntry]
+     *
+     * @param diskEntry for which siblings will be looked for
+     */
     private fun siblingsPaths(diskEntry: DiskEntry) = (
         diskEntry.parent?.children
             ?.map(DiskEntry::path)

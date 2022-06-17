@@ -6,9 +6,6 @@ import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
-/**
- *  Usecase for calculating [Arc]
- */
 class GetArc(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,

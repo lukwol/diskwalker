@@ -29,7 +29,7 @@ class GetColor(
             Color.hsl(
                 hue = (angleRange.endInclusive).coerceIn(0f, 360f),
                 saturation = ((angleRange.endInclusive / 360f) * 0.4f).coerceIn(0f, 1f),
-                lightness = (0.7f - (getDepth(diskEntry, fromDiskEntry) / Constants.MaxChartDepth) * 0.4f).coerceIn(0f, 1f),
+                lightness = (0.7f - (getDepth(diskEntry, fromDiskEntry).toFloat() / Constants.MaxChartDepth) * 0.4f).coerceIn(0f, 1f),
             )
         }
     }.run {

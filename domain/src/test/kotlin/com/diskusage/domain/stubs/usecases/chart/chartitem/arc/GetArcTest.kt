@@ -6,7 +6,6 @@ import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetSweepAngle
 import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
@@ -28,7 +27,6 @@ class GetArcTest : KoinTest {
     private lateinit var getStartAngle: GetStartAngle
     private lateinit var getSweepAngle: GetSweepAngle
     private lateinit var getDepth: GetDepth
-    private lateinit var getRoot: GetRoot
 
     @JvmField
     @RegisterExtension
@@ -51,7 +49,7 @@ class GetArcTest : KoinTest {
             every { this@declareMock(any(), any()) } returns 200f
         }
         getDepth = declareMock {
-            every { this@declareMock(any(), any()) } returns 2f
+            every { this@declareMock(any(), any()) } returns 2
         }
     }
 
