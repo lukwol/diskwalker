@@ -37,7 +37,7 @@ class GetDiskEntriesTest : KoinTest {
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 
@@ -45,7 +45,7 @@ class GetDiskEntriesTest : KoinTest {
     inner class WithExcludedItems {
 
         @BeforeEach
-        internal fun setUp() {
+        fun setUp() {
             includeDiskEntry = declareMock {
                 every { this@declareMock(not(DiskEntryStubs.dir11), any()) } returns true
                 every { this@declareMock(DiskEntryStubs.dir11, any()) } returns false
@@ -53,7 +53,7 @@ class GetDiskEntriesTest : KoinTest {
         }
 
         @Test
-        internal fun `disk entries list`() {
+        fun `disk entries list`() {
             getDiskEntries(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
                 DiskEntryStubs.rootDir,
                 DiskEntryStubs.file1,
@@ -71,14 +71,14 @@ class GetDiskEntriesTest : KoinTest {
     inner class WithoutExcludedItems {
 
         @BeforeEach
-        internal fun setUp() {
+        fun setUp() {
             includeDiskEntry = declareMock {
                 every { this@declareMock(any(), any()) } returns true
             }
         }
 
         @Test
-        internal fun `disk entries list`() {
+        fun `disk entries list`() {
             getDiskEntries(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
                 DiskEntryStubs.rootDir,
                 DiskEntryStubs.file1,

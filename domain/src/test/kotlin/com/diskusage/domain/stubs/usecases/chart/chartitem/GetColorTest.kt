@@ -45,21 +45,21 @@ class GetColorTest : KoinTest {
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 
     @Nested
     inner class DiskEntryIsVisible {
         @BeforeEach
-        internal fun setUp() {
+        fun setUp() {
             includeDiskEntry = declareMock {
                 every { this@declareMock(any(), any()) } returns true
             }
         }
 
         @Test
-        internal fun file() {
+        fun file() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.file1
@@ -71,7 +71,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun directory() {
+        fun directory() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.dir11,
@@ -84,7 +84,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun `check if disk entry is included when from disk entry was not passed`() {
+        fun `check if disk entry is included when from disk entry was not passed`() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.file112
@@ -93,7 +93,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun `check if disk entry is included when from disk entry was passed`() {
+        fun `check if disk entry is included when from disk entry was passed`() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.dir11,
@@ -106,14 +106,14 @@ class GetColorTest : KoinTest {
     @Nested
     inner class DiskEntryIsHidden {
         @BeforeEach
-        internal fun setUp() {
+        fun setUp() {
             includeDiskEntry = declareMock {
                 every { this@declareMock(any(), any()) } returns false
             }
         }
 
         @Test
-        internal fun file() {
+        fun file() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.file1
@@ -126,7 +126,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun directory() {
+        fun directory() {
             getColor(
                 precalculatedArc = ArcStubs.child2,
                 diskEntry = DiskEntryStubs.dir2,
@@ -139,7 +139,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun `check if disk entry is included when from disk entry was not passed`() {
+        fun `check if disk entry is included when from disk entry was not passed`() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.file112
@@ -148,7 +148,7 @@ class GetColorTest : KoinTest {
         }
 
         @Test
-        internal fun `check if disk entry is included when from disk entry was passed`() {
+        fun `check if disk entry is included when from disk entry was passed`() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
                 diskEntry = DiskEntryStubs.dir11,

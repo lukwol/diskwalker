@@ -4,5 +4,5 @@ import com.diskusage.domain.entities.DiskEntry
 
 class SortDiskEntries {
     operator fun invoke(diskEntries: List<DiskEntry>) = diskEntries
-        .sortedWith(compareBy(DiskEntry::sizeOnDisk).thenByDescending(DiskEntry::name))
+        .sortedWith(compareByDescending(DiskEntry::sizeOnDisk).thenBy(DiskEntry::name))
 }

@@ -39,7 +39,7 @@ class IncludeDiskEntryTest : KoinTest {
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 

@@ -50,7 +50,7 @@ class DiskEntryRepositoryTest : KoinTest {
     }
 
     @BeforeEach
-    internal fun setUp() {
+    fun setUp() {
         declareMock<FileSize> {
             every { sizeOnDisk(fooFilePath.absolutePathString()) } returns 256
             every { sizeOnDisk(barFilePath.absolutePathString()) } returns 1024
@@ -65,7 +65,7 @@ class DiskEntryRepositoryTest : KoinTest {
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 

@@ -1,11 +1,13 @@
 package com.diskusage.domain.stubs.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.di.domainModule
+import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.stubs.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetSweepAngle
 import com.diskusage.domain.usecases.diskentry.GetDepth
+import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
@@ -41,26 +43,34 @@ class GetArcTest : KoinTest {
     }
 
     @BeforeEach
-    internal fun setUp() {
+    fun setUp() {
         getStartAngle = declareMock {
-            every { this@declareMock(any(), any()) } returns 100f
+            every { this@declareMock(any(), DiskEntryStubs.dir1) } returns 25f
+            every { this@declareMock(any(), DiskEntryStubs.rootDir) } returns 100f
         }
         getSweepAngle = declareMock {
-            every { this@declareMock(any(), any()) } returns 200f
+            every { this@declareMock(any(), DiskEntryStubs.dir1) } returns 60f
+            every { this@declareMock(any(), DiskEntryStubs.rootDir) } returns 200f
         }
         getDepth = declareMock {
-            every { this@declareMock(any(), any()) } returns 2
+            every { this@declareMock(any(), DiskEntryStubs.dir1) } returns 1
+            every { this@declareMock(any(), DiskEntryStubs.rootDir) } returns 2
         }
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 
     @Test
     fun `from disk entry was passed`() {
-        getArc(DiskEntryStubs.file12, DiskEntryStubs.dir1)
+        val arc = getArc(DiskEntryStubs.file12, DiskEntryStubs.dir1)
+        arc shouldBe Arc(
+            angleRange = 25f..85f,
+            radiusRange = 0f..100f
+        )
+
         verify { getStartAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.dir1) }
         verify { getSweepAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.dir1) }
         verify { getDepth.invoke(DiskEntryStubs.file12, DiskEntryStubs.dir1) }
@@ -68,7 +78,11 @@ class GetArcTest : KoinTest {
 
     @Test
     fun `from disk entry was not passed`() {
-        getArc(DiskEntryStubs.file12)
+        val arc = getArc(DiskEntryStubs.file12)
+        arc shouldBe Arc(
+            angleRange = 100f..300f,
+            radiusRange = 100f..200f
+        )
         verify { getStartAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }
         verify { getSweepAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }
         verify { getDepth.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }

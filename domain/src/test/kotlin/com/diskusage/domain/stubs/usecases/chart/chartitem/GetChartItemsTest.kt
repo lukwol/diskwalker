@@ -40,33 +40,33 @@ class GetChartItemsTest : KoinTest {
     }
 
     @BeforeEach
-    internal fun setUp() {
+    fun setUp() {
         sortDiskEntries = declareMock {
             every { this@declareMock(any()) } answers { callOriginal() }
         }
     }
 
     @AfterEach
-    internal fun tearDown() {
+    fun tearDown() {
         clearAllMocks()
     }
 
     @Nested
     inner class StaticChartItems {
         @Test
-        internal fun `simple file`() {
+        fun `simple file`() {
             getChartItems(DiskEntryStubs.rootFile) shouldHaveSize 1
             verify { sortDiskEntries.invoke(any()) }
         }
 
         @Test
-        internal fun `simple directory`() {
+        fun `simple directory`() {
             getChartItems(DiskEntryStubs.dir11) shouldHaveSize 3
             verify { sortDiskEntries.invoke(any()) }
         }
 
         @Test
-        internal fun `root directory`() {
+        fun `root directory`() {
             getChartItems(DiskEntryStubs.rootDir) shouldHaveSize 11
             verify { sortDiskEntries.invoke(any()) }
         }

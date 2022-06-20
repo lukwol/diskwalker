@@ -31,7 +31,7 @@ class SortDiskEntriesTest : KoinTest {
     }
 
     @Test
-    internal fun `items should be sorted with size ascending then by name descending`() {
+    fun `items should be sorted with size ascending then by name descending`() {
         sortDiskEntries(
             listOf(
                 DiskEntryStubs.file22,
@@ -48,23 +48,23 @@ class SortDiskEntriesTest : KoinTest {
                 DiskEntryStubs.dir2,
             )
         ) shouldBe listOf(
-            DiskEntryStubs.file112,
-            DiskEntryStubs.file111,
-            DiskEntryStubs.dir11,
-            DiskEntryStubs.file11,
-            DiskEntryStubs.file22,
-            DiskEntryStubs.file12,
-            DiskEntryStubs.file21,
-            DiskEntryStubs.dir2,
-            DiskEntryStubs.dir1,
-            DiskEntryStubs.file1,
-            DiskEntryStubs.rootFile,
             DiskEntryStubs.rootDir,
+            DiskEntryStubs.rootFile,
+            DiskEntryStubs.file1,
+            DiskEntryStubs.dir1,
+            DiskEntryStubs.dir2,
+            DiskEntryStubs.file21,
+            DiskEntryStubs.file12,
+            DiskEntryStubs.file22,
+            DiskEntryStubs.file11,
+            DiskEntryStubs.dir11,
+            DiskEntryStubs.file111,
+            DiskEntryStubs.file112,
         )
     }
 
     @Test
-    internal fun `more items with the same size should be sorted by name descending`() {
+    fun `more items with the same size should be sorted by name descending`() {
         val barFile = DiskEntry.File(
             name = "bar",
             path = Path.of("/bar"),
@@ -85,6 +85,6 @@ class SortDiskEntriesTest : KoinTest {
         )
         sortDiskEntries(
             listOf(barFile, fooFile, bazFile)
-        ) shouldBe listOf(fooFile, bazFile, barFile)
+        ) shouldBe listOf(barFile, bazFile, fooFile)
     }
 }
