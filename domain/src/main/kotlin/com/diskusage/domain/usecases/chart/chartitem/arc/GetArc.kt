@@ -13,7 +13,7 @@ class GetArc(
     private val getRoot: GetRoot,
 ) {
     /**
-     * Calculate the [Arc] for [DiskEntry] starting from its root or specific [DiskEntry].
+     * Calculate the [Arc] for given [diskEntry] starting from [fromDiskEntry]
      *
      * @param diskEntry [DiskEntry] for which the [Arc] is calculated
      * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given

@@ -12,23 +12,24 @@ class GetStartAngle(
     private val sortDiskEntries: SortDiskEntries,
 ) {
     /**
-     * Calculate start angle for the [Arc] based on [DiskEntry] starting from its root or specific [DiskEntry].
+     * Calculate start angle of the [Arc] based on given [diskEntry] starting from [fromDiskEntry].
      *
-     * To compute actual start angle it's necessary to first check the [Relationship][DiskEntry.Relationship].
+     * To compute start angle it's necessary to first check the [relationship][DiskEntry.Relationship]
      * between both [disk entries][DiskEntry].
      *
      * When both entries are the [same][DiskEntry.Relationship.Identity] [DiskEntry]
-     * or [fromDiskEntry] is [descendant][DiskEntry.Relationship.Ancestor] the result is **0f**.
+     * or [fromDiskEntry] is [descendant][DiskEntry.Relationship.Descendant] of [diskEntry] the result is **0f**.
      *
-     * When [fromDiskEntry] is [unrelated][DiskEntry.Relationship.Unrelated] or [sibling][DiskEntry.Relationship.Sibling],
-     * the result is either **360f** or **0f** depending on the position of [diskEntry] in relation to [fromDiskEntry].
+     * When [fromDiskEntry] is [unrelated][DiskEntry.Relationship.Unrelated] or [sibling][DiskEntry.Relationship.Sibling] to [diskEntry],
+     * the result is either **360f** or **0f** depending on the position of [diskEntry] towards [fromDiskEntry].
      *
-     * When [fromDiskEntry] is correctly an [ancestor][DiskEntry.Relationship.Ancestor] of [diskEntry]
-     * it's measured by calculating size offset of all preceding [disk entries][DiskEntry].
+     * When [fromDiskEntry] is an [ancestor][DiskEntry.Relationship.Ancestor] of [diskEntry]
+     * the result is computing size offset of all preceding [disk entries][DiskEntry] and converting it into actual angle.
      *
+     * @see calculateSizeOffset
      * @param diskEntry [DiskEntry] for which the start angle is calculated
      * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
-     * @return [Arc] with calculated start angle
+     * @return calculated start angle of an [Arc]
      */
     operator fun invoke(
         diskEntry: DiskEntry,
@@ -48,9 +49,10 @@ class GetStartAngle(
     }
 
     /**
-     * Calculate size offset by summing all larger siblings of [diskEntry]
-     * and all larger siblings of all it's ancestors traversing through it's [parents][DiskEntry.parent] recursively,
-     * until it reaches [fromDiskEntry] or root (given [diskEntry] has no parent).
+     * Calculate size offset by summing sizes for all larger siblings of [diskEntry]
+     * and all larger siblings of its ancestors.
+     *
+     * Traverses by [parent][DiskEntry.parent] until [fromDiskEntry] or root is reached.
      */
     private fun calculateSizeOffset(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, size: Long = 0): Long = when {
         diskEntry.parent == null -> 0L
