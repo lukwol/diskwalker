@@ -22,6 +22,8 @@ class GetDepth(
         when (getRelationship(diskEntry, fromDiskEntry)) {
             DiskEntry.Relationship.Identity -> depth
             DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0
-            else -> depth(diskEntry.parent!!, fromDiskEntry, depth + 1)
+            DiskEntry.Relationship.Ancestor, DiskEntry.Relationship.Sibling -> {
+                depth(diskEntry.parent!!, fromDiskEntry, depth + 1)
+            }
         }
 }

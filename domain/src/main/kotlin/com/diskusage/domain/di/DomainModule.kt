@@ -3,8 +3,8 @@ package com.diskusage.domain.di
 import com.diskusage.domain.usecases.chart.GetDiskEntries
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
-import com.diskusage.domain.usecases.chart.chartitem.GetChartItems
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
+import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetSweepAngle
@@ -19,7 +19,7 @@ val domainModule = module {
     single { GetStartAngle(get(), get(), get()) }
     single { GetSweepAngle(get(), get()) }
     single { IsArcSelected() }
-    single { GetChartItems(get(), get(), get(), get(), get()) }
+    single { GetSortedChartItems(get(), get(), get(), get(), get()) }
     single { GetColor(get(), get(), get()) }
     single { GetDiskEntries(get()) }
     single { IncludeDiskEntry(get(), get()) }

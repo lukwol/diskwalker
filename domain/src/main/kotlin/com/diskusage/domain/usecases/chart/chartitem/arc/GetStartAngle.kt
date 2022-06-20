@@ -20,11 +20,11 @@ class GetStartAngle(
      * When both entries are the [same][DiskEntry.Relationship.Identity] [DiskEntry]
      * or [fromDiskEntry] is [descendant][DiskEntry.Relationship.Ancestor] the result is **0f**.
      *
-     * When [fromDiskEntry] is correctly an [ancestor][DiskEntry.Relationship.Ancestor] of [diskEntry]
-     * it's measured by calculating size offset of all preceding [disk entries][DiskEntry].
-     *
      * When [fromDiskEntry] is [unrelated][DiskEntry.Relationship.Unrelated] or [sibling][DiskEntry.Relationship.Sibling],
      * the result is either **360f** or **0f** depending on the position of [diskEntry] in relation to [fromDiskEntry].
+     *
+     * When [fromDiskEntry] is correctly an [ancestor][DiskEntry.Relationship.Ancestor] of [diskEntry]
+     * it's measured by calculating size offset of all preceding [disk entries][DiskEntry].
      *
      * @param diskEntry [DiskEntry] for which the start angle is calculated
      * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
@@ -35,15 +35,15 @@ class GetStartAngle(
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ): Float = when (getRelationship(diskEntry, fromDiskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
+        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {
+            if (invoke(diskEntry) > invoke(fromDiskEntry)) 360f else 0f
+        }
         DiskEntry.Relationship.Ancestor -> {
             (calculateSizeOffset(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
                 .takeIf(Double::isFinite)
                 ?.times(360)
                 ?.toFloat()
                 ?: 0f
-        }
-        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {
-            if (invoke(diskEntry) > invoke(fromDiskEntry)) 360f else 0f
         }
     }
 

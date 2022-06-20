@@ -7,7 +7,7 @@ import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
-class GetChartItems(
+class GetSortedChartItems(
     private val getDiskEntries: GetDiskEntries,
     private val sortDiskEntries: SortDiskEntries,
     private val getRoot: GetRoot,

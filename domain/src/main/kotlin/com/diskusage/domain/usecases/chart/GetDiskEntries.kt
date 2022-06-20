@@ -13,6 +13,6 @@ class GetDiskEntries(
                 diskEntry.children
                     .filter { includeDiskEntry(it, fromDiskEntry) }
                     .flatMap { diskEntriesList(it, fromDiskEntry) }
-            else -> emptyList()
+            is DiskEntry.File -> emptyList()
         }
 }

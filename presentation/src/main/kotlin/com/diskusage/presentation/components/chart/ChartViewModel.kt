@@ -4,21 +4,21 @@ import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.chartitem.GetChartItems
+import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class ChartViewModel(
     diskEntry: DiskEntry,
-    private val getChartItems: GetChartItems,
+    private val getSortedChartItems: GetSortedChartItems,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected,
 ) {
     private val mutableViewState = MutableStateFlow(
         ChartViewState(
             diskEntry = diskEntry,
-            startItems = getChartItems(diskEntry)
+            startItems = getSortedChartItems(diskEntry)
         )
     )
     val viewState = mutableViewState.asStateFlow()
@@ -38,7 +38,7 @@ class ChartViewModel(
         }
 
         if (selectedDiskEntry != null) {
-            val (startItems, endItems) = getChartItems(
+            val (startItems, endItems) = getSortedChartItems(
                 fromDiskEntry = diskEntry,
                 toDiskEntry = selectedDiskEntry
             )
