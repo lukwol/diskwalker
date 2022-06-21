@@ -26,10 +26,10 @@ class GetStartAngle(
      * When [fromDiskEntry] is an [ancestor][DiskEntry.Relationship.Ancestor] of [diskEntry]
      * the result is computing size offset of all preceding [disk entries][DiskEntry] and converting it into actual angle.
      *
-     * @see calculateSizeOffset
      * @param diskEntry [DiskEntry] for which the start angle is calculated
      * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
      * @return calculated start angle of an [Arc]
+     * @see calculateSizeOffset
      */
     operator fun invoke(
         diskEntry: DiskEntry,

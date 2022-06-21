@@ -12,6 +12,7 @@ class GetRelationship {
      *
      * @param diskEntry [DiskEntry] for which relationship will be defined
      * @param otherDiskEntry [DiskEntry] which will be compared to given [diskEntry]
+     * @return found [relationship][DiskEntry.Relationship] between given [diskEntry] and [otherDiskEntry]
      */
     operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry) = when {
         diskEntry.path == otherDiskEntry.path -> DiskEntry.Relationship.Identity
@@ -25,6 +26,7 @@ class GetRelationship {
      * All siblings for given [diskEntry] including given [diskEntry]
      *
      * @param diskEntry for which siblings will be looked for
+     * @return all [diskEntry's][diskEntry] parent's [children][DiskEntry.Directory.children] or empty list if there are none
      */
     private fun siblingsPaths(diskEntry: DiskEntry) = (
         diskEntry.parent?.children

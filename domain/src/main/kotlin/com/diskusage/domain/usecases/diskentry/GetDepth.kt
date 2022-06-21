@@ -12,6 +12,7 @@ class GetDepth(
      *
      * @param diskEntry [DiskEntry] for which the depth level will be calculated
      * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
+     * @return Computed [diskEntry] depth in relation to [fromDiskEntry]
      */
     operator fun invoke(
         diskEntry: DiskEntry,
