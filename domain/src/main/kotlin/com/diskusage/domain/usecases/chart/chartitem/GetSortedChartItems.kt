@@ -36,7 +36,7 @@ class GetSortedChartItems(
         return ChartItem(
             diskEntry = diskEntry,
             arc = arc,
-            color = getColor(arc, diskEntry, fromDiskEntry)
+            color = getColor(diskEntry, fromDiskEntry, arc)
         )
     }
 }
