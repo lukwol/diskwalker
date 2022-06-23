@@ -1,6 +1,6 @@
 package com.diskusage.domain.di
 
-import com.diskusage.domain.usecases.chart.GetDiskEntries
+import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
@@ -21,7 +21,7 @@ val domainModule = module {
     single { IsArcSelected() }
     single { GetSortedChartItems(get(), get(), get(), get(), get()) }
     single { GetColor(get(), get(), get(), get()) }
-    single { GetDiskEntries(get()) }
+    single { GetDiskEntriesList(get()) }
     single { IncludeDiskEntry(get(), get()) }
     single { SortDiskEntries() }
     single { GetDepth(get(), get()) }

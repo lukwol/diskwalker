@@ -2,7 +2,7 @@ package com.diskusage.domain.stubs.usecases.chart
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.GetDiskEntries
+import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.mockk.clearAllMocks
@@ -19,9 +19,9 @@ import org.koin.test.junit5.KoinTestExtension
 import org.koin.test.junit5.mock.MockProviderExtension
 import org.koin.test.mock.declareMock
 
-class GetDiskEntriesTest : KoinTest {
+class GetDiskEntriesListTest : KoinTest {
 
-    private val getDiskEntries by inject<GetDiskEntries>()
+    private val getDiskEntriesList by inject<GetDiskEntriesList>()
     private lateinit var includeDiskEntry: IncludeDiskEntry
 
     @JvmField
@@ -54,7 +54,7 @@ class GetDiskEntriesTest : KoinTest {
 
         @Test
         fun `disk entries list`() {
-            getDiskEntries(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
+            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
                 DiskEntryStubs.rootDir,
                 DiskEntryStubs.file1,
                 DiskEntryStubs.dir1,
@@ -79,7 +79,7 @@ class GetDiskEntriesTest : KoinTest {
 
         @Test
         fun `disk entries list`() {
-            getDiskEntries(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
+            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
                 DiskEntryStubs.rootDir,
                 DiskEntryStubs.file1,
                 DiskEntryStubs.dir1,

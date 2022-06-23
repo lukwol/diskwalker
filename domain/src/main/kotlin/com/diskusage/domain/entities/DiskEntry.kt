@@ -26,12 +26,14 @@ sealed class DiskEntry {
         Identity,
 
         /**
-         * One [DiskEntry] contains other [DiskEntry], can have multiple intermediate [disk entries][DiskEntry]
+         * When [DiskEntry] contains other [DiskEntry] it's an [Ancestor],
+         * can have multiple intermediate [disk entries][DiskEntry]
          */
         Ancestor,
 
         /**
-         * One [DiskEntry] is contained by other [DiskEntry], can have multiple intermediate [disk entries][DiskEntry]
+         * When [DiskEntry] is contained by other [DiskEntry] it's a [Descendant],
+         * can have multiple intermediate [disk entries][DiskEntry]
          */
         Descendant,
 
@@ -41,14 +43,14 @@ sealed class DiskEntry {
         Sibling,
 
         /**
-         * Both [disk entries][DiskEntry] are in [Relationship] that is none of the above,
-         * they might have common ancestor at some point, but doesn't have to
+         * Both [disk entries][DiskEntry] are in [Unrelated] relationship,
+         * when they are not in any other [Relationship]
          */
         Unrelated
     }
 
     /**
-     * [DiskEntry] that is a [File]
+     * Represents [File]
      */
     class File(
         override val name: String,
@@ -58,7 +60,7 @@ sealed class DiskEntry {
     ) : DiskEntry()
 
     /**
-     * [DiskEntry] that is a [Directory]
+     * Represents [Directory]
      *
      * @property children List of contained [disk entries][DiskEntry], might be empty
      */
