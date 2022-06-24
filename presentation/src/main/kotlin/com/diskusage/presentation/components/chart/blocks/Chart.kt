@@ -22,7 +22,6 @@ fun Chart(
     ) {
         chartItems
             .filterNot(::isHidden)
-            .reversed()
             .forEach(::draw)
     }
 }
