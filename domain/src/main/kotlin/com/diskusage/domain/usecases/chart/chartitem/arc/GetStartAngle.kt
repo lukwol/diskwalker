@@ -17,7 +17,7 @@ class GetStartAngle(
      * To compute start angle it's necessary to first check the [relationship][DiskEntry.Relationship]
      * between both [disk entries][DiskEntry].
      *
-     * When both entries are the [same][DiskEntry.Relationship.Identity] [DiskEntry]
+     * When both entries are [the same][DiskEntry.Relationship.Identity]
      * or [fromDiskEntry] is [descendant][DiskEntry.Relationship.Descendant] of [diskEntry] the result is **0f**.
      *
      * When [fromDiskEntry] is [unrelated][DiskEntry.Relationship.Unrelated] or [sibling][DiskEntry.Relationship.Sibling] to [diskEntry],

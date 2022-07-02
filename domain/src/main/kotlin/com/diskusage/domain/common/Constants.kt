@@ -9,7 +9,7 @@ object Constants {
 
     /**
      * Minimum size of an item compared to currently selected root item.
-     * Entries that are smaller than 0.5% of the root item are not displayed.
+     * Entries that are smaller than [MinChartItemSize] of the root item are not displayed.
      */
     const val MinChartItemSize = 0.005f
 
