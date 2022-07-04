@@ -2,7 +2,8 @@ package com.diskusage.domain.usecases.chart.chartitem
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
-import com.diskusage.domain.common.Constants
+import com.diskusage.domain.common.Constants.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
@@ -48,7 +49,7 @@ class GetColor(
                 Color.hsl(
                     hue = (angleRange.end).coerceIn(0f, 360f),
                     saturation = ((angleRange.end / 360f) * 0.4f).coerceIn(0f, 1f),
-                    lightness = (0.7f - (depth.toFloat() / Constants.MaxArcsDepth) * 0.4f).coerceIn(0f, 1f),
+                    lightness = (0.7f - (depth.toFloat() / (MaxBigArcsDepth + MaxSmallArcsDepth)) * 0.4f).coerceIn(0f, 1f),
                 )
             }
         }

@@ -8,7 +8,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.diskusage.domain.common.Constants
+import com.diskusage.domain.common.Constants.BigArcWidth
+import com.diskusage.domain.common.Constants.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.SmallArcWidth
 import com.diskusage.domain.entities.ChartItem
 
 @Composable
@@ -33,7 +36,8 @@ private fun isHidden(chartItem: ChartItem): Boolean = with(chartItem) {
 
 private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
     val arcSize = 2 * arc.radiusRange.end - arc.width
-    val angleSpacer = (Constants.ChartRadius / arc.radiusRange.end) / 10f
+    val chartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
+    val angleSpacer = (chartRadius / arc.radiusRange.end) / 10f
     val levelSpacer = 1.3f
 
     drawArc(

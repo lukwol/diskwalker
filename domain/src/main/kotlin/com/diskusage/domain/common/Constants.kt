@@ -2,11 +2,20 @@ package com.diskusage.domain.common
 
 object Constants {
 
+    /**
+     * Maximum number of big items layers displayed in the Chart in given moment.
+     * Items that are nested deeper starting from root item are smaller drawn as smaller items.
+     * @see [BigArcWidth]
+     * @see [SmallArcWidth]
+     */
     const val MaxBigArcsDepth = 6
 
+    /**
+     * Maximum number of small items layers displayed in the Chart in given moment.
+     * Items that are nested deeper starting from [MaxSmallArcsDepth] are not displayed.
+     * @see [SmallArcWidth]
+     */
     const val MaxSmallArcsDepth = 8
-
-    const val MaxArcsDepth = MaxBigArcsDepth + MaxSmallArcsDepth
 
     /**
      * Width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn for each item close to the center of the chart.
@@ -23,6 +32,4 @@ object Constants {
      * Entries that are smaller than [MinChartItemAngle] of the root item are not displayed.
      */
     const val MinChartItemAngle = 0.005f
-
-    const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
 }
