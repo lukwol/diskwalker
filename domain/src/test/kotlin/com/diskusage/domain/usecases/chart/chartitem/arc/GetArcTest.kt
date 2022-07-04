@@ -1,11 +1,9 @@
-package com.diskusage.domain.stubs.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.chartitem.arc
 
+import com.diskusage.domain.common.until
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.Arc
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
-import com.diskusage.domain.usecases.chart.chartitem.arc.GetStartAngle
-import com.diskusage.domain.usecases.chart.chartitem.arc.GetSweepAngle
+import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -67,8 +65,8 @@ class GetArcTest : KoinTest {
     fun `from disk entry was passed`() {
         val arc = getArc(DiskEntryStubs.file12, DiskEntryStubs.dir1)
         arc shouldBe Arc(
-            angleRange = 25f..85f,
-            radiusRange = 0f..100f
+            angleRange = 25f until 85f,
+            radiusRange = 0f until 100f
         )
 
         verify { getStartAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.dir1) }
@@ -80,8 +78,8 @@ class GetArcTest : KoinTest {
     fun `from disk entry was not passed`() {
         val arc = getArc(DiskEntryStubs.file12)
         arc shouldBe Arc(
-            angleRange = 100f..300f,
-            radiusRange = 100f..200f
+            angleRange = 100f until 300f,
+            radiusRange = 100f until 200f
         )
         verify { getStartAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }
         verify { getSweepAngle.invoke(DiskEntryStubs.file12, DiskEntryStubs.rootDir) }

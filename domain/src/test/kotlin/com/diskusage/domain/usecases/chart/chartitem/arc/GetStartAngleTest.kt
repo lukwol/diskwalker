@@ -1,8 +1,7 @@
-package com.diskusage.domain.stubs.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.chartitem.arc.GetStartAngle
+import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested

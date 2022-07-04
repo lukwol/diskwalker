@@ -1,9 +1,8 @@
-package com.diskusage.domain.stubs.usecases.diskentry
+package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.diskentry.GetRelationship
+import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

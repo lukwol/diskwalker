@@ -1,10 +1,9 @@
-package com.diskusage.domain.stubs.usecases.chart.chartitem
+package com.diskusage.domain.usecases.chart.chartitem
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
+import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.SortDiskEntries
-import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks

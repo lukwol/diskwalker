@@ -1,9 +1,7 @@
-package com.diskusage.domain.stubs.usecases.chart
+package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.GetDiskEntriesList
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
+import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.mockk.clearAllMocks
 import io.mockk.every

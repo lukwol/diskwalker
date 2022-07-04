@@ -1,6 +1,6 @@
 package com.diskusage.domain.entities
 
-import com.diskusage.domain.usecases.chart.chartitem.arc.OpenFloatRange
+import com.diskusage.domain.common.HalfOpenFloatRange
 
 /**
  * An arc specification that will be used for drawing.
@@ -13,8 +13,8 @@ import com.diskusage.domain.usecases.chart.chartitem.arc.OpenFloatRange
  * @see androidx.compose.ui.graphics.drawscope.DrawScope.drawArc
  */
 data class Arc(
-    val angleRange: OpenFloatRange,
-    val radiusRange: OpenFloatRange,
+    val angleRange: HalfOpenFloatRange,
+    val radiusRange: HalfOpenFloatRange,
 ) {
     val sweepAngle: Float = angleRange.end - angleRange.start
     val width: Float = radiusRange.end - radiusRange.start

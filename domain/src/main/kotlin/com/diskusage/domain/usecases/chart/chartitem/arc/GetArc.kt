@@ -1,6 +1,7 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.common.Constants
+import com.diskusage.domain.common.until
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
@@ -48,8 +49,3 @@ class GetArc(
         )
     }
 }
-
-data class OpenFloatRange(val start: Float, val end: Float)
-
-infix fun Float.until(to: Float) = OpenFloatRange(this, to)
-operator fun OpenFloatRange.contains(f: Float) = start < f && f < end

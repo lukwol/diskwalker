@@ -1,9 +1,10 @@
-package com.diskusage.domain.stubs.usecases.chart
+package com.diskusage.domain.usecases.chart
 
+import com.diskusage.domain.common.Constants.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.stubs.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
+import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 import io.kotest.matchers.shouldBe
@@ -52,7 +53,7 @@ class IncludeDiskEntryTest : KoinTest {
     @Test
     fun `too deep disk entry`() {
         getDepth = declareMock {
-            every { this@declareMock(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) } returns 11
+            every { this@declareMock(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) } returns MaxBigArcsDepth + MaxSmallArcsDepth + 1
         }
         includeDiskEntry.invoke(DiskEntryStubs.dir1) shouldBe false
         includeDiskEntry.invoke(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) shouldBe false
