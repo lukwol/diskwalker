@@ -19,10 +19,7 @@ class IsArcSelected {
     ): Boolean {
         val angle = offset.getAngle()
         val distance = offset.getDistance()
-        return angle >= arc.angleRange.start &&
-            angle < arc.angleRange.endInclusive &&
-            distance >= arc.radiusRange.start &&
-            distance < arc.radiusRange.endInclusive
+        return angle in arc.angleRange && distance in arc.radiusRange
     }
 }
 

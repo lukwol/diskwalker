@@ -34,7 +34,7 @@ class IncludeDiskEntry(
         fromDiskEntry: DiskEntry,
     ): Boolean {
         val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
-        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.MinChartItemSize
+        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.MinChartItemAngle
     }
 
     /**
@@ -44,5 +44,5 @@ class IncludeDiskEntry(
     private fun checkDepthInRange(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry,
-    ) = getDepth(diskEntry, fromDiskEntry) <= Constants.MaxChartDepth
+    ) = getDepth(diskEntry, fromDiskEntry) <= Constants.MaxArcsDepth
 }

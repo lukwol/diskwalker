@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.entities.ChartItem
 
 @Composable
@@ -31,21 +32,31 @@ private fun isHidden(chartItem: ChartItem): Boolean = with(chartItem) {
 }
 
 private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
-    val arcSize = 2 * arc.radiusRange.endInclusive - arc.width
+    val arcSize = 2 * arc.radiusRange.end - arc.width
+    val angleSpacer = (Constants.ChartRadius / arc.radiusRange.end) / 10f
+    val levelSpacer = 1.3f
 
     drawArc(
         color = color,
-        startAngle = arc.angleRange.start,
-        sweepAngle = arc.sweepAngle,
+        startAngle = when (arc.sweepAngle) {
+            360f -> arc.angleRange.start
+            else -> arc.angleRange.start + angleSpacer
+        },
+        sweepAngle = when (arc.sweepAngle) {
+            360f -> arc.sweepAngle
+            else -> arc.sweepAngle - angleSpacer
+        },
         topLeft = Offset(
-            x = size.width - arcSize,
-            y = size.height - arcSize
+            x = size.width - arcSize + levelSpacer,
+            y = size.height - arcSize + levelSpacer
         ) / 2f,
         size = Size(
-            width = arcSize,
-            height = arcSize
+            width = arcSize - levelSpacer,
+            height = arcSize - levelSpacer
         ),
-        style = Stroke(width = arc.width),
+        style = Stroke(
+            width = (arc.width - levelSpacer).coerceAtLeast(0f)
+        ),
         useCenter = false
     )
 }

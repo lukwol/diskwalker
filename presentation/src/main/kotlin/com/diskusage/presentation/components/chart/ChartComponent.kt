@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.toOffset
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.usecases.chart.chartitem.arc.OpenFloatRange
+import com.diskusage.domain.usecases.chart.chartitem.arc.until
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.di.ViewModelProvider
 
@@ -87,9 +89,9 @@ private fun Animatable<Float, AnimationVector1D>.colorTransition(
 )
 
 private fun Animatable<Float, AnimationVector1D>.rangeTransition(
-    fromRange: ClosedFloatingPointRange<Float>,
-    toRange: ClosedFloatingPointRange<Float>,
-) = valueTransition(fromRange.start, toRange.start)..valueTransition(fromRange.endInclusive, toRange.endInclusive)
+    fromRange: OpenFloatRange,
+    toRange: OpenFloatRange,
+) = valueTransition(fromRange.start, toRange.start) until valueTransition(fromRange.end, toRange.end)
 
 private fun Animatable<Float, AnimationVector1D>.valueTransition(
     fromValue: Float,

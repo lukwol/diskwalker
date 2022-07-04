@@ -26,11 +26,30 @@ class GetArc(
         val startAngle = getStartAngle(diskEntry, fromDiskEntry)
         val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
         val depth = getDepth(diskEntry, fromDiskEntry)
-        val startRadius = (depth * Constants.ArcWidth - Constants.ArcWidth).coerceAtLeast(0f)
-        val endRadius = depth * Constants.ArcWidth
+        var startRadius = depth.coerceAtMost(Constants.MaxBigArcsDepth) * Constants.BigArcWidth - Constants.BigArcWidth
+        if (depth > Constants.MaxBigArcsDepth) {
+            startRadius += (depth - Constants.MaxBigArcsDepth) * Constants.SmallArcWidth - Constants.SmallArcWidth + Constants.BigArcWidth
+        }
+        startRadius = startRadius.coerceAtLeast(0f)
+
+        val endRadius = when {
+            depth == 0 -> 0f
+            depth <= Constants.MaxBigArcsDepth -> {
+                startRadius + Constants.BigArcWidth
+            }
+            else -> {
+                startRadius + Constants.SmallArcWidth
+            }
+        }
+
         return Arc(
-            angleRange = startAngle..(startAngle + sweepAngle),
-            radiusRange = startRadius..endRadius,
+            angleRange = startAngle until (startAngle + sweepAngle),
+            radiusRange = startRadius until endRadius,
         )
     }
 }
+
+data class OpenFloatRange(val start: Float, val end: Float)
+
+infix fun Float.until(to: Float) = OpenFloatRange(this, to)
+operator fun OpenFloatRange.contains(f: Float) = start < f && f < end

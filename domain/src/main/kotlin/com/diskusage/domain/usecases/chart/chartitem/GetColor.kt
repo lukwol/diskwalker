@@ -46,9 +46,9 @@ class GetColor(
             is DiskEntry.Directory -> with(precalculatedArc) {
                 val depth = getDepth(diskEntry, fromDiskEntry)
                 Color.hsl(
-                    hue = (angleRange.endInclusive).coerceIn(0f, 360f),
-                    saturation = ((angleRange.endInclusive / 360f) * 0.4f).coerceIn(0f, 1f),
-                    lightness = (0.7f - (depth.toFloat() / Constants.MaxChartDepth) * 0.4f).coerceIn(0f, 1f),
+                    hue = (angleRange.end).coerceIn(0f, 360f),
+                    saturation = ((angleRange.end / 360f) * 0.4f).coerceIn(0f, 1f),
+                    lightness = (0.7f - (depth.toFloat() / Constants.MaxArcsDepth) * 0.4f).coerceIn(0f, 1f),
                 )
             }
         }
