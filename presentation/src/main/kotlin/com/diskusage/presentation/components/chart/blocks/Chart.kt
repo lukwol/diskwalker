@@ -30,8 +30,12 @@ fun Chart(
         Modifier
             .fillMaxSize()
             .scale(chartScale)
-            .onSizeChanged { chartScale = it.toSize().minDimension / (ChartRadius * 2) }
             .then(modifier)
+            .onSizeChanged {
+                val minDimension = it.toSize().minDimension
+                val chartDiameter = ChartRadius * 2
+                chartScale = (minDimension / chartDiameter).coerceAtLeast(1f)
+            }
     ) {
         chartItems
             .filterNot(::isHidden)
@@ -46,7 +50,7 @@ private fun isHidden(chartItem: ChartItem): Boolean = with(chartItem) {
 private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
     val arcSize = 2 * arc.radiusRange.end - arc.width
     val angleSpacer = (ChartRadius / arc.radiusRange.end) / 10f
-    val levelSpacer = 1.3f
+    val levelSpacer = 0.3f
 
     drawArc(
         color = color,

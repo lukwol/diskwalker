@@ -38,7 +38,7 @@ class GetArcTest : KoinTest {
         val arc = getArc(DiskEntryStubs.file12, DiskEntryStubs.dir1)
         arc shouldBe Arc(
             angleRange = 0f until 192f,
-            radiusRange = 100f until 200f
+            radiusRange = 25f until 50f
         )
     }
 
@@ -47,7 +47,7 @@ class GetArcTest : KoinTest {
         val arc = getArc(DiskEntryStubs.file12)
         arc shouldBe Arc(
             angleRange = 144f until 201.6f,
-            radiusRange = 200f until 300f
+            radiusRange = 50f until 75f
         )
     }
 }
