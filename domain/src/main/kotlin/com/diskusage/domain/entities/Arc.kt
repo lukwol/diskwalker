@@ -1,5 +1,7 @@
 package com.diskusage.domain.entities
 
+import com.diskusage.domain.common.HalfOpenFloatRange
+
 /**
  * An arc specification that will be used for drawing.
  *
@@ -11,9 +13,9 @@ package com.diskusage.domain.entities
  * @see androidx.compose.ui.graphics.drawscope.DrawScope.drawArc
  */
 data class Arc(
-    val angleRange: ClosedFloatingPointRange<Float>,
-    val radiusRange: ClosedFloatingPointRange<Float>,
+    val angleRange: HalfOpenFloatRange,
+    val radiusRange: HalfOpenFloatRange,
 ) {
-    val sweepAngle: Float = angleRange.endInclusive - angleRange.start
-    val width: Float = radiusRange.endInclusive - radiusRange.start
+    val sweepAngle: Float = angleRange.end - angleRange.start
+    val width: Float = radiusRange.end - radiusRange.start
 }

@@ -1,4 +1,4 @@
-package com.diskusage.domain.stubs.stubs
+package com.diskusage.domain.stubs
 
 import com.diskusage.domain.entities.DiskEntry
 import java.nio.file.Path

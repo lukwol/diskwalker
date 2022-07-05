@@ -1,20 +1,42 @@
 package com.diskusage.domain.common
 
 object Constants {
-    /**
-     * Maximum number of layers displayed in the Chart in given moment.
-     * Entries that are nested more than 10 levels from root item are not displayed.
-     */
-    const val MaxChartDepth = 10
 
     /**
-     * Minimum size of an item compared to currently selected root item.
-     * Entries that are smaller than [MinChartItemSize] of the root item are not displayed.
+     * Chart related constants
      */
-    const val MinChartItemSize = 0.005f
+    object Chart {
+        /**
+         * Maximum number of big items layers displayed in the Chart in given moment.
+         * Items that are nested deeper starting from root item are smaller drawn as smaller items.
+         */
+        const val MaxBigArcsDepth = 6
 
-    /**
-     * Default width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn on a Chart for each item.
-     */
-    const val ArcWidth = 100f
+        /**
+         * Maximum number of small items layers displayed in the Chart in given moment.
+         * Items that are nested deeper starting from [MaxSmallArcsDepth] are not displayed.
+         */
+        const val MaxSmallArcsDepth = 8
+
+        /**
+         * Width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn for each item close to the center of the chart.
+         */
+        const val BigArcWidth = 25f
+
+        /**
+         * Width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn for each item far from the center of the chart.
+         */
+        const val SmallArcWidth = 5f
+
+        /**
+         * Minimum size of an item compared to currently selected root item.
+         * Entries that are smaller than [MinChartItemAngle] of the root item are not displayed.
+         */
+        const val MinChartItemAngle = 0.005f
+
+        /**
+         * Duration of chart items animation in milliseconds
+         */
+        const val AnimationDurationMillis = 1000
+    }
 }
