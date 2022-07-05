@@ -9,15 +9,12 @@ object Constants {
         /**
          * Maximum number of big items layers displayed in the Chart in given moment.
          * Items that are nested deeper starting from root item are smaller drawn as smaller items.
-         * @see [BigArcWidth]
-         * @see [SmallArcWidth]
          */
         const val MaxBigArcsDepth = 6
 
         /**
          * Maximum number of small items layers displayed in the Chart in given moment.
          * Items that are nested deeper starting from [MaxSmallArcsDepth] are not displayed.
-         * @see [SmallArcWidth]
          */
         const val MaxSmallArcsDepth = 8
 
@@ -37,6 +34,9 @@ object Constants {
          */
         const val MinChartItemAngle = 0.005f
 
-        const val AnimationDuration = 1000
+        /**
+         * Duration of chart items animation in milliseconds
+         */
+        const val AnimationDurationMillis = 1000
     }
 }

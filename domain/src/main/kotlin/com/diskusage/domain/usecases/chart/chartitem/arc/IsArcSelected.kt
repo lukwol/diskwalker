@@ -5,14 +5,10 @@ import com.diskusage.domain.entities.Arc
 import kotlin.math.PI
 import kotlin.math.atan2
 
+/**
+ * Check whether given `offset` is within `arc's` [angle][Arc.angleRange] and [radius][Arc.radiusRange] ranges.
+ */
 class IsArcSelected {
-
-    /**
-     * Check whether given [offset] is within [arc's][arc] [angle][Arc.angleRange] and [radius][Arc.radiusRange] ranges.
-     *
-     * @return answer if [arc] is selected - [offset] is within [arc's][arc] ranges.
-     * @see getAngle
-     */
     operator fun invoke(
         arc: Arc,
         offset: Offset,
@@ -25,8 +21,6 @@ class IsArcSelected {
 
 /**
  * Calculate [angle][Float] based from [Offset]
- *
- * @return computed [angle][Float]
  */
 private fun Offset.getAngle(): Float {
     var atan2 = 0 * PI - atan2(x, y)

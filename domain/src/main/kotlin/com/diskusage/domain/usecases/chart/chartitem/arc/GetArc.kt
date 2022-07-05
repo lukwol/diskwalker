@@ -6,6 +6,9 @@ import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
+/**
+ * Calculate the [Arc] for given `diskEntry` starting from `fromDiskEntry`
+ */
 class GetArc(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
@@ -14,13 +17,7 @@ class GetArc(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
 ) {
-    /**
-     * Calculate the [Arc] for given [diskEntry] starting from [fromDiskEntry]
-     *
-     * @param diskEntry [DiskEntry] for which the [Arc] is calculated
-     * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
-     * @return [Arc] with calculated [angle][Arc.angleRange] and [radius][Arc.radiusRange] [ranges][ClosedFloatingPointRange]
-     */
+
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),

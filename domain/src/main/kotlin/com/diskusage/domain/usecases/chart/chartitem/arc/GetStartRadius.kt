@@ -4,6 +4,9 @@ import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 
+/**
+ * Calculates how far from the center of the chart, the arc should start
+ */
 class GetStartRadius {
     operator fun invoke(itemDepth: Int): Float {
         return if (itemDepth <= MaxBigArcsDepth) {

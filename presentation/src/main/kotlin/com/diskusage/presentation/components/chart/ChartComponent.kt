@@ -13,7 +13,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.toOffset
-import com.diskusage.domain.common.Constants.Chart.AnimationDuration
+import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.common.HalfOpenFloatRange
 import com.diskusage.domain.common.until
 import com.diskusage.domain.entities.Arc
@@ -51,7 +51,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     LaunchedEffect(endItems) {
         animatable.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = AnimationDuration)
+            animationSpec = tween(durationMillis = AnimationDurationMillis)
         )
     }
 }

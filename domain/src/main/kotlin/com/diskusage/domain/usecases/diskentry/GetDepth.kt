@@ -2,19 +2,13 @@ package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.entities.DiskEntry
 
+/**
+ * Calculates depth level, how much nested `diskEntry` is compared to `fromDiskEntry`
+ */
 class GetDepth(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,
 ) {
-
-    /**
-     * Calculates depth level, how much nested [diskEntry] is compared to [fromDiskEntry]
-     *
-     * @param diskEntry [DiskEntry] for which the depth level will be calculated
-     * @param fromDiskEntry [DiskEntry] from which calculation will start, uses root if not given
-     * @return Computed [diskEntry] depth in relation to [fromDiskEntry]
-     * @see com.diskusage.domain.common.Constants.MaxArcsDepth
-     */
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
