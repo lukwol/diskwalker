@@ -36,5 +36,7 @@ object Constants {
          * Entries that are smaller than [MinChartItemAngle] of the root item are not displayed.
          */
         const val MinChartItemAngle = 0.005f
+
+        const val AnimationDuration = 1000
     }
 }
