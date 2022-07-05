@@ -10,6 +10,7 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
 class GetArc(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
+    private val getStartRadius: GetStartRadius,
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
 ) {
@@ -27,11 +28,7 @@ class GetArc(
         val startAngle = getStartAngle(diskEntry, fromDiskEntry)
         val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
         val depth = getDepth(diskEntry, fromDiskEntry)
-        var startRadius = depth.coerceAtMost(Constants.MaxBigArcsDepth) * Constants.BigArcWidth - Constants.BigArcWidth
-        if (depth > Constants.MaxBigArcsDepth) {
-            startRadius += (depth - Constants.MaxBigArcsDepth) * Constants.SmallArcWidth - Constants.SmallArcWidth + Constants.BigArcWidth
-        }
-        startRadius = startRadius.coerceAtLeast(0f)
+        val startRadius = getStartRadius(diskEntry, fromDiskEntry)
 
         val endRadius = when {
             depth == 0 -> 0f
