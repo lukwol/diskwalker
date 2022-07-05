@@ -21,8 +21,8 @@ class GetRelationship {
      * All siblings for given [diskEntry] including given [diskEntry]
      */
     private fun siblingsPaths(diskEntry: DiskEntry) = (
-            diskEntry.parent?.children
-                ?.map(DiskEntry::path)
-                ?: emptyList()
-            )
+        diskEntry.parent?.children
+            ?.map(DiskEntry::path)
+            ?: emptyList()
+        )
 }

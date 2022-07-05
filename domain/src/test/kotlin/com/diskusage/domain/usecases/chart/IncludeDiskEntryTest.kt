@@ -6,7 +6,6 @@ import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -25,7 +24,6 @@ class IncludeDiskEntryTest : KoinTest {
 
     private val includeDiskEntry by inject<IncludeDiskEntry>()
     private lateinit var getDepth: GetDepth
-    private lateinit var getRoot: GetRoot
 
     @JvmField
     @RegisterExtension
@@ -53,7 +51,12 @@ class IncludeDiskEntryTest : KoinTest {
     @Test
     fun `too deep disk entry`() {
         getDepth = declareMock {
-            every { this@declareMock(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) } returns MaxBigArcsDepth + MaxSmallArcsDepth + 1
+            every {
+                this@declareMock(
+                    DiskEntryStubs.dir1,
+                    DiskEntryStubs.rootDir
+                )
+            } returns MaxBigArcsDepth + MaxSmallArcsDepth + 1
         }
         includeDiskEntry.invoke(DiskEntryStubs.dir1) shouldBe false
         includeDiskEntry.invoke(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) shouldBe false
@@ -67,12 +70,6 @@ class IncludeDiskEntryTest : KoinTest {
             parent = DiskEntryStubs.dir11,
             sizeOnDisk = 32,
         )
-        getRoot = declareMock {
-            every { this@declareMock(fooFile) } returns DiskEntryStubs.rootDir
-        }
-        getDepth = declareMock {
-            every { this@declareMock(fooFile, DiskEntryStubs.rootDir) } returns 8
-        }
         includeDiskEntry.invoke(fooFile) shouldBe false
         includeDiskEntry.invoke(fooFile, DiskEntryStubs.rootDir) shouldBe false
     }

@@ -17,14 +17,15 @@ class GetArc(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
 ) {
-
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
     ): Arc {
+        val depth = getDepth(diskEntry, fromDiskEntry)
+
         val startAngle = getStartAngle(diskEntry, fromDiskEntry)
         val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
-        val depth = getDepth(diskEntry, fromDiskEntry)
+
         val startRadius = getStartRadius(depth)
         val arcWidth = getArcWidth(depth)
 
