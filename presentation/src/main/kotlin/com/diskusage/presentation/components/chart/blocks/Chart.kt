@@ -8,10 +8,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.diskusage.domain.common.Constants.BigArcWidth
-import com.diskusage.domain.common.Constants.MaxBigArcsDepth
-import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
-import com.diskusage.domain.common.Constants.SmallArcWidth
+import com.diskusage.domain.common.Constants.Chart.BigArcWidth
+import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 import com.diskusage.domain.entities.ChartItem
 
 @Composable

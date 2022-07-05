@@ -1,6 +1,5 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.until
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
@@ -11,6 +10,7 @@ class GetArc(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
     private val getStartRadius: GetStartRadius,
+    private val getArcWidth: GetArcWidth,
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
 ) {
@@ -28,21 +28,12 @@ class GetArc(
         val startAngle = getStartAngle(diskEntry, fromDiskEntry)
         val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
         val depth = getDepth(diskEntry, fromDiskEntry)
-        val startRadius = getStartRadius(diskEntry, fromDiskEntry)
-
-        val endRadius = when {
-            depth == 0 -> 0f
-            depth <= Constants.MaxBigArcsDepth -> {
-                startRadius + Constants.BigArcWidth
-            }
-            else -> {
-                startRadius + Constants.SmallArcWidth
-            }
-        }
+        val startRadius = getStartRadius(depth)
+        val arcWidth = getArcWidth(depth)
 
         return Arc(
             angleRange = startAngle until (startAngle + sweepAngle),
-            radiusRange = startRadius until endRadius,
+            radiusRange = startRadius until (startRadius + arcWidth),
         )
     }
 }

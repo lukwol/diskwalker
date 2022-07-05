@@ -1,8 +1,8 @@
 package com.diskusage.domain.usecases.chart
 
-import com.diskusage.domain.common.Constants
-import com.diskusage.domain.common.Constants.MaxBigArcsDepth
-import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
@@ -36,7 +36,7 @@ class IncludeDiskEntry(
         fromDiskEntry: DiskEntry,
     ): Boolean {
         val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
-        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= Constants.MinChartItemAngle
+        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= MinChartItemAngle
     }
 
     /**

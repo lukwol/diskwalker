@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart
 
-import com.diskusage.domain.common.Constants.MaxBigArcsDepth
-import com.diskusage.domain.common.Constants.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs

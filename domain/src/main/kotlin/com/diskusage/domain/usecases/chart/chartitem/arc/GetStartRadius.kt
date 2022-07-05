@@ -1,25 +1,15 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.domain.common.Constants.BigArcWidth
-import com.diskusage.domain.common.Constants.MaxBigArcsDepth
-import com.diskusage.domain.common.Constants.SmallArcWidth
-import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.common.Constants.Chart.BigArcWidth
+import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
+import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 
-class GetStartRadius(
-    private val getRoot: GetRoot,
-    private val getDepth: GetDepth,
-) {
-    operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
-    ): Float {
-        val depth = getDepth(diskEntry, fromDiskEntry)
-        return if (depth <= MaxBigArcsDepth) {
-            (depth * BigArcWidth - BigArcWidth).coerceAtLeast(0f)
+class GetStartRadius {
+    operator fun invoke(itemDepth: Int): Float {
+        return if (itemDepth <= MaxBigArcsDepth) {
+            (itemDepth * BigArcWidth - BigArcWidth).coerceAtLeast(0f)
         } else {
-            MaxBigArcsDepth * BigArcWidth + ((depth - MaxBigArcsDepth) * SmallArcWidth - SmallArcWidth).coerceAtLeast(0f)
+            MaxBigArcsDepth * BigArcWidth + ((itemDepth - MaxBigArcsDepth) * SmallArcWidth - SmallArcWidth).coerceAtLeast(0f)
         }
     }
 }

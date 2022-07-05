@@ -12,10 +12,11 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
 import org.koin.dsl.module
 
 val domainModule = module {
-    single { GetArc(get(), get(), get(), get(), get()) }
+    single { GetArc(get(), get(), get(), get(), get(), get()) }
     single { GetStartAngle(get(), get(), get()) }
     single { GetSweepAngle(get(), get()) }
-    single { GetStartRadius(get(), get()) }
+    single { GetStartRadius() }
+    single { GetArcWidth() }
     single { IsArcSelected() }
     single { GetSortedChartItems(get(), get(), get(), get(), get()) }
     single { GetColor(get(), get(), get(), get()) }
