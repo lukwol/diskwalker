@@ -1,10 +1,11 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.di.domainModule
+import com.diskusage.domain.di.DomainModule
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
+import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -16,7 +17,7 @@ class GetArcWidthTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(domainModule)
+        modules(DomainModule.module)
     }
 
     @Test

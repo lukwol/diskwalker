@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":libraries:support"))
 
     implementation(Dependencies.Koin.core)
+
     implementation(compose.desktop.currentOs)
 }
 

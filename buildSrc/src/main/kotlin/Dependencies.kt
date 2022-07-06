@@ -16,6 +16,12 @@ object Dependencies {
         const val core = "io.insert-koin:koin-core:$version"
         const val test = "io.insert-koin:koin-test:$version"
         const val junit5 = "io.insert-koin:koin-test-junit5:$version"
+
+        object Annotations {
+            private const val version = "1.0.1"
+            const val compiler = "io.insert-koin:koin-ksp-compiler:$version"
+            const val annotations = "io.insert-koin:koin-annotations:$version"
+        }
     }
 
     object Junit {

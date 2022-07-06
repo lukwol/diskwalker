@@ -5,17 +5,18 @@ import SupportLibrary
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.singleWindowApplication
 import com.diskusage.data.di.dataModule
-import com.diskusage.domain.di.domainModule
+import com.diskusage.domain.di.DomainModule
 import com.diskusage.presentation.di.presentationModule
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.ksp.generated.module
 
 fun main() {
     startKoin {
         printLogger(Level.ERROR)
         modules(
             dataModule,
-            domainModule,
+            DomainModule.module,
             presentationModule
         )
     }

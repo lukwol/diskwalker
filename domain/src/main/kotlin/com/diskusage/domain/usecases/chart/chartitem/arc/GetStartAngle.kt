@@ -5,6 +5,7 @@ import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
+import org.koin.core.annotation.Single
 
 /**
  * Calculate start angle of the [Arc] based on given `diskEntry` starting from `fromDiskEntry`.
@@ -23,6 +24,7 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
  *
  * @see calculateSizeOffset
  */
+@Single
 class GetStartAngle(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,

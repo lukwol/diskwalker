@@ -1,10 +1,12 @@
 package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.entities.DiskEntry
+import org.koin.core.annotation.Single
 
 /**
  * Calculates depth level, how much nested `diskEntry` is compared to `fromDiskEntry`
  */
+@Single
 class GetDepth(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,
