@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":libraries:core"))
+    implementation(project(":libraries:ranges"))
 
     implementation(Dependencies.Koin.core)
     implementation(compose.desktop.currentOs)

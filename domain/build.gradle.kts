@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":libraries:core"))
+    implementation(project(":libraries:ranges"))
 
     implementation(Dependencies.Koin.core)
 

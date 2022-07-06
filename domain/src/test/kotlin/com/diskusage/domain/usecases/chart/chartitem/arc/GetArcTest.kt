@@ -1,9 +1,9 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.core.until
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.stubs.DiskEntryStubs
+import com.diskusage.ranges.until
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import org.junit.jupiter.api.AfterEach

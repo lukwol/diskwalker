@@ -1,10 +1,10 @@
 package com.diskusage.domain.stubs
 
-import com.diskusage.core.until
 import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 import com.diskusage.domain.entities.Arc
+import com.diskusage.ranges.until
 
 object ArcStubs {
     val hidden = Arc(

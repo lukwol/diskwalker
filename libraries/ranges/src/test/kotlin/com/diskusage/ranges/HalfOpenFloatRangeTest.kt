@@ -1,4 +1,4 @@
-package com.diskusage.core
+package com.diskusage.ranges
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
