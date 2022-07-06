@@ -8,9 +8,12 @@ import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
 
+@Factory
 class ChartViewModel(
-    diskEntry: DiskEntry,
+    @InjectedParam diskEntry: DiskEntry,
     private val getSortedChartItems: GetSortedChartItems,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected,
