@@ -1,6 +1,6 @@
 package com.diskusage.domain.entities
 
-import com.diskusage.ranges.HalfOpenFloatRange
+import com.diskusage.libraries.ranges.HalfOpenFloatRange
 
 /**
  * An arc specification that will be used for drawing.

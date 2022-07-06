@@ -5,4 +5,4 @@ import org.koin.core.annotation.Module
 
 @Module
 @ComponentScan("com.diskusage.domain")
-object DomainModule
+class DomainModule

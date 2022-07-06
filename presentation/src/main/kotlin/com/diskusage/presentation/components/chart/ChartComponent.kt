@@ -17,10 +17,10 @@ import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.libraries.ranges.HalfOpenFloatRange
+import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.di.ViewModelProvider
-import com.diskusage.ranges.HalfOpenFloatRange
-import com.diskusage.ranges.until
 
 @Composable
 fun ChartComponent(diskEntry: DiskEntry) {

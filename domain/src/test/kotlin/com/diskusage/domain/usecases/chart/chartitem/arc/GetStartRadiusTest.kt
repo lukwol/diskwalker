@@ -17,7 +17,7 @@ class GetStartRadiusTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(DomainModule.module)
+        modules(DomainModule().module)
     }
 
     @Test

@@ -30,7 +30,7 @@ class GetSortedChartItemsTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(DomainModule.module)
+        modules(DomainModule().module)
     }
 
     @JvmField

@@ -4,7 +4,7 @@ import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
-import com.diskusage.ranges.until
+import com.diskusage.libraries.ranges.until
 import org.koin.core.annotation.Single
 
 /**

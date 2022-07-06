@@ -4,8 +4,9 @@ import ScanResultComponent
 import SupportLibrary
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.singleWindowApplication
-import com.diskusage.data.di.dataModule
+import com.diskusage.data.di.DataModule
 import com.diskusage.domain.di.DomainModule
+import com.diskusage.libraries.support.di.SupportLibraryModule
 import com.diskusage.presentation.di.PresentationModule
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
@@ -15,9 +16,10 @@ fun main() {
     startKoin {
         printLogger(Level.ERROR)
         modules(
-            dataModule,
-            DomainModule.module,
-            PresentationModule.module,
+            SupportLibraryModule().module,
+            DataModule().module,
+            DomainModule().module,
+            PresentationModule().module,
         )
     }
     singleWindowApplication {
