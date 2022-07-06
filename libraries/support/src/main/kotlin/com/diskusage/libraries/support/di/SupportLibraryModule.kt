@@ -1,13 +1,8 @@
 package com.diskusage.libraries.support.di
 
-import FileSizeFFI
-import com.diskusage.domain.services.FileSizeService
-import org.koin.core.module.Module
-import org.koin.dsl.module
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
 
-class SupportLibraryModule {
-    val module: Module
-        get() = module {
-            single<FileSizeService> { FileSizeFFI }
-        }
-}
+@Module
+@ComponentScan("com.diskusage.libraries.support")
+class SupportLibraryModule
