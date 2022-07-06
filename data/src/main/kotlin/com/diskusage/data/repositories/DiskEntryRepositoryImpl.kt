@@ -2,14 +2,16 @@ package com.diskusage.data.repositories
 
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.support.FileSize
+import com.diskusage.domain.services.FileSizeService
+import org.koin.core.annotation.Single
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
-class DiskEntryRepositoryImpl(private val fileSize: FileSize) : DiskEntryRepository {
+@Single
+class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : DiskEntryRepository {
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
@@ -42,7 +44,7 @@ class DiskEntryRepositoryImpl(private val fileSize: FileSize) : DiskEntryReposit
     private fun DiskEntry.sizeOnDisk(): Long = cachedSizes[path]
         ?: when (this) {
             is DiskEntry.Directory -> children.sumOf { it.sizeOnDisk() }
-            is DiskEntry.File -> fileSize.sizeOnDisk(path.absolutePathString())
+            is DiskEntry.File -> fileSizeService.sizeOnDisk(path.absolutePathString())
         }.also { size ->
             cachedSizes[path] = size
         }

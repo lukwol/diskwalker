@@ -1,6 +1,7 @@
 package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.entities.DiskEntry
+import org.koin.core.annotation.Single
 
 /**
  * Define [Relationship][DiskEntry.Relationship] between two [disk entries][DiskEntry]
@@ -8,6 +9,7 @@ import com.diskusage.domain.entities.DiskEntry
  * Example relationship:
  * `otherDiskEntry` is [Ancestor][DiskEntry.Relationship.Ancestor] for `diskEntry`
  */
+@Single
 class GetRelationship {
     operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry) = when {
         diskEntry.path == otherDiskEntry.path -> DiskEntry.Relationship.Identity

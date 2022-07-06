@@ -1,6 +1,6 @@
-package com.diskusage.support
+package com.diskusage.domain.services
 
-interface FileSize {
+interface FileSizeService {
     fun sizeOnDisk(path: String): Long
     fun sizeOnDiskFast(path: String): Long
 }

@@ -1,9 +1,9 @@
 package com.diskusage.data.repositories
 
-import com.diskusage.data.di.dataModule
+import com.diskusage.data.di.DataModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.support.FileSize
+import com.diskusage.domain.services.FileSizeService
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
+import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -40,7 +41,7 @@ class DiskEntryRepositoryTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(dataModule)
+        modules(DataModule().module)
     }
 
     @JvmField
@@ -51,7 +52,7 @@ class DiskEntryRepositoryTest : KoinTest {
 
     @BeforeEach
     fun setUp() {
-        declareMock<FileSize> {
+        declareMock<FileSizeService> {
             every { sizeOnDisk(fooFilePath.absolutePathString()) } returns 256
             every { sizeOnDisk(barFilePath.absolutePathString()) } returns 1024
             every { sizeOnDisk(bazFilePath.absolutePathString()) } returns 4096

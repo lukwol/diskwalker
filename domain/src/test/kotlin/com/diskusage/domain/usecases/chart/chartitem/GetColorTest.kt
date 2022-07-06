@@ -4,11 +4,10 @@ package com.diskusage.domain.usecases.chart.chartitem
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
-import com.diskusage.domain.di.domainModule
+import com.diskusage.domain.di.DomainModule
 import com.diskusage.domain.stubs.ArcStubs
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -20,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
+import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -34,7 +34,7 @@ class GetColorTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(domainModule)
+        modules(DomainModule().module)
     }
 
     @JvmField

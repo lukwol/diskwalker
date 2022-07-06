@@ -1,4 +1,4 @@
-package com.diskusage.ranges
+package com.diskusage.libraries.ranges
 
 /**
  * Represents a half-open range of floating point numbers.

@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 plugins {
     kotlin(GradlePlugins.Kotlin.jvm) version Common.Kotlin.version apply false
     id(GradlePlugins.Compose.id) version GradlePlugins.Compose.version apply false
+    id(GradlePlugins.Ksp.id) version GradlePlugins.Ksp.version apply false
     id(GradlePlugins.Versions.id) version GradlePlugins.Versions.version
     id(GradlePlugins.Spotless.id) version GradlePlugins.Spotless.version
 }

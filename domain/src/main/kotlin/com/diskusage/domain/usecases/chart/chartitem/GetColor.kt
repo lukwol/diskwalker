@@ -10,6 +10,7 @@ import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
+import org.koin.core.annotation.Single
 
 /**
  * Get proper [Color] in [HSL representation][Color.hsl] for given `diskEntry` starting from `fromDiskEntry`.
@@ -21,6 +22,7 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
  *
  * If `diskEntry` won't [be visible on chart][includeDiskEntry], set's it's [alpha][Color.alpha] value to **0f**.
  */
+@Single
 class GetColor(
     private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
