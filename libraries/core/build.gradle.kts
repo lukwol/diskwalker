@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    testImplementation(Dependencies.Junit.junit5)
+    testImplementation(kotlin(Dependencies.Kotlin.test))
     testImplementation(Dependencies.Kotest.kotest)
 }
 

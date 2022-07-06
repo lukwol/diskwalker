@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.domain.common.until
+import com.diskusage.core.until
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth

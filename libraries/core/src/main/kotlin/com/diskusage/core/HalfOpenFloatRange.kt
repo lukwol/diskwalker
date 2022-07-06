@@ -1,4 +1,4 @@
-package com.diskusage.domain.common
+package com.diskusage.core
 
 /**
  * Represents a half-open range of floating point numbers.

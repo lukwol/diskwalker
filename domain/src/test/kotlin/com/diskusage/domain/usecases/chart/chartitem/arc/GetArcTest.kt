@@ -1,10 +1,9 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.domain.common.until
+import com.diskusage.core.until
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.diskentry.GetDepth
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import org.junit.jupiter.api.AfterEach
@@ -17,10 +16,6 @@ import org.koin.test.junit5.KoinTestExtension
 class GetArcTest : KoinTest {
 
     private val getArc by inject<GetArc>()
-
-    private lateinit var getStartAngle: GetStartAngle
-    private lateinit var getSweepAngle: GetSweepAngle
-    private lateinit var getDepth: GetDepth
 
     @JvmField
     @RegisterExtension

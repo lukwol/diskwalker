@@ -13,9 +13,9 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.toOffset
+import com.diskusage.core.HalfOpenFloatRange
+import com.diskusage.core.until
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
-import com.diskusage.domain.common.HalfOpenFloatRange
-import com.diskusage.domain.common.until
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry

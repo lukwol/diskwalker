@@ -1,6 +1,10 @@
 @file:Suppress("unused", "SpellCheckingInspection", "MemberVisibilityCanBePrivate")
 
 object Dependencies {
+    object Kotlin {
+        const val test = "test"
+    }
+
     object Coroutines {
         private const val version = "1.6.0"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"

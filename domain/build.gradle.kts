@@ -6,6 +6,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":libraries:core"))
+
     implementation(Dependencies.Koin.core)
 
     implementation(compose.desktop.currentOs)

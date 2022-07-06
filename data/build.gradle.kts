@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":libraries:core"))
     implementation(project(":libraries:support"))
 
     implementation(Dependencies.Koin.core)
