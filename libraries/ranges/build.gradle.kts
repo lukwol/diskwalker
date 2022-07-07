@@ -1,10 +1,13 @@
+@file:Suppress("UnstableApiUsage")
+
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin(GradlePlugins.Kotlin.jvm)
+    id(libs.plugins.kotlin.jvm.get().pluginId)
 }
 
 dependencies {
-    testImplementation(kotlin(Dependencies.Kotlin.test))
-    testImplementation(Dependencies.Kotest.kotest)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotest.assertions)
 }
 
 tasks.test {

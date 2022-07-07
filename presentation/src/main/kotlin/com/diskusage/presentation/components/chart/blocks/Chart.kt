@@ -22,7 +22,7 @@ private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDept
 @Composable
 fun Chart(
     chartItems: List<ChartItem>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     var chartScale by remember { mutableStateOf(1f) }
 

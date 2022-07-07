@@ -4,13 +4,11 @@ import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.shouldBe
-import io.mockk.mockkClass
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
-import org.koin.test.junit5.mock.MockProviderExtension
 import java.nio.file.Path
 
 class SortDiskEntriesTest : KoinTest {
@@ -21,12 +19,6 @@ class SortDiskEntriesTest : KoinTest {
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
         modules(domainModule)
-    }
-
-    @JvmField
-    @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
-        mockkClass(clazz)
     }
 
     @Test
@@ -44,7 +36,7 @@ class SortDiskEntriesTest : KoinTest {
                 DiskEntryStubs.rootFile,
                 DiskEntryStubs.file21,
                 DiskEntryStubs.file1,
-                DiskEntryStubs.dir2,
+                DiskEntryStubs.dir2
             )
         ) shouldBe listOf(
             DiskEntryStubs.rootDir,
@@ -58,7 +50,7 @@ class SortDiskEntriesTest : KoinTest {
             DiskEntryStubs.file11,
             DiskEntryStubs.dir11,
             DiskEntryStubs.file111,
-            DiskEntryStubs.file112,
+            DiskEntryStubs.file112
         )
     }
 
@@ -68,19 +60,19 @@ class SortDiskEntriesTest : KoinTest {
             name = "bar",
             path = Path.of("/bar"),
             parent = null,
-            sizeOnDisk = 1024,
+            sizeOnDisk = 1024
         )
         val fooFile = DiskEntry.File(
             name = "foo",
             path = Path.of("/foo"),
             parent = null,
-            sizeOnDisk = 1024,
+            sizeOnDisk = 1024
         )
         val bazFile = DiskEntry.File(
             name = "baz",
             path = Path.of("/baz"),
             parent = null,
-            sizeOnDisk = 1024,
+            sizeOnDisk = 1024
         )
         sortDiskEntries(
             listOf(barFile, fooFile, bazFile)

@@ -26,11 +26,11 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
 class GetStartAngle(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,
-    private val sortDiskEntries: SortDiskEntries,
+    private val sortDiskEntries: SortDiskEntries
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+        fromDiskEntry: DiskEntry = getRoot(diskEntry)
     ): Float = when (getRelationship(diskEntry, fromDiskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
         DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {

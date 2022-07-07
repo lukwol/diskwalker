@@ -25,13 +25,13 @@ class GetColor(
     private val getRoot: GetRoot,
     private val includeDiskEntry: IncludeDiskEntry,
     private val getDepth: GetDepth,
-    private val getArc: GetArc,
+    private val getArc: GetArc
 ) {
     @OptIn(ExperimentalGraphicsApi::class)
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
-        precalculatedArc: Arc = getArc(diskEntry, fromDiskEntry),
+        precalculatedArc: Arc = getArc(diskEntry, fromDiskEntry)
     ): Color {
         val color = when (diskEntry) {
             is DiskEntry.File -> Color.hsl(
@@ -47,7 +47,7 @@ class GetColor(
                     lightness = (0.7f - (depth.toFloat() / (MaxBigArcsDepth + MaxSmallArcsDepth)) * 0.4f).coerceIn(
                         0f,
                         1f
-                    ),
+                    )
                 )
             }
         }

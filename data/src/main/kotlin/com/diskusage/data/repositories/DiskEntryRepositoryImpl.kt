@@ -19,7 +19,7 @@ class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : Di
 
     private fun diskEntry(
         path: Path,
-        parent: DiskEntry.Directory?,
+        parent: DiskEntry.Directory?
     ): DiskEntry = when {
         path.isRegularFile() -> DiskEntry.File(
             path = path,
@@ -29,7 +29,7 @@ class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : Di
         else -> DiskEntry.Directory(
             path = path,
             name = path.name,
-            parent = parent,
+            parent = parent
         ).apply {
             children = path
                 .listDirectoryEntries()

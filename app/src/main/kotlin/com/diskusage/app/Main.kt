@@ -18,7 +18,7 @@ fun main() {
             supportLibraryModule,
             dataModule,
             domainModule,
-            presentationModule,
+            presentationModule
         )
     }
     singleWindowApplication {

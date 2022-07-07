@@ -20,7 +20,7 @@ enum class FileDialogMode(val value: Int) {
 fun FrameWindowScope.FileDialog(
     title: String,
     mode: FileDialogMode,
-    onResult: (result: Path?) -> Unit,
+    onResult: (result: Path?) -> Unit
 ) = AwtWindow(
     create = {
         if (currentOS == OS.MacOS) {

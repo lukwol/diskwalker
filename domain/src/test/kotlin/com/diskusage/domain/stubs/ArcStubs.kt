@@ -13,15 +13,15 @@ object ArcStubs {
     )
     val selected = Arc(
         angleRange = 0f until 360f,
-        radiusRange = 0f until BigArcWidth,
+        radiusRange = 0f until BigArcWidth
     )
     val child1 = Arc(
         angleRange = 0f until 45f,
-        radiusRange = BigArcWidth until 2 * BigArcWidth,
+        radiusRange = BigArcWidth until 2 * BigArcWidth
     )
     val child2 = Arc(
         angleRange = 45f until 105f,
-        radiusRange = BigArcWidth until 2 * BigArcWidth,
+        radiusRange = BigArcWidth until 2 * BigArcWidth
     )
     val far = Arc(
         angleRange = 30f until 90f,

@@ -17,11 +17,11 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
  */
 class IncludeDiskEntry(
     private val getDepth: GetDepth,
-    private val getRoot: GetRoot,
+    private val getRoot: GetRoot
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+        fromDiskEntry: DiskEntry = getRoot(diskEntry)
     ) = checkSizeInRange(diskEntry, fromDiskEntry) && checkDepthInRange(diskEntry, fromDiskEntry)
 
     /**
@@ -32,7 +32,7 @@ class IncludeDiskEntry(
      */
     private fun checkSizeInRange(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry
     ): Boolean {
         val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
         return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= MinChartItemAngle
@@ -47,6 +47,6 @@ class IncludeDiskEntry(
      */
     private fun checkDepthInRange(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry
     ) = getDepth(diskEntry, fromDiskEntry) <= MaxBigArcsDepth + MaxSmallArcsDepth
 }
