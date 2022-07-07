@@ -60,7 +60,7 @@ class GetDiskEntriesListTest : KoinTest {
                 DiskEntryStubs.file12,
                 DiskEntryStubs.dir2,
                 DiskEntryStubs.file21,
-                DiskEntryStubs.file22,
+                DiskEntryStubs.file22
             )
         }
     }
@@ -88,7 +88,7 @@ class GetDiskEntriesListTest : KoinTest {
                 DiskEntryStubs.file112,
                 DiskEntryStubs.dir2,
                 DiskEntryStubs.file21,
-                DiskEntryStubs.file22,
+                DiskEntryStubs.file22
             )
         }
     }

@@ -7,7 +7,7 @@ import com.diskusage.domain.entities.DiskEntry
  * and collect them to single [List]
  */
 class GetDiskEntriesList(
-    private val includeDiskEntry: IncludeDiskEntry,
+    private val includeDiskEntry: IncludeDiskEntry
 ) {
     operator fun invoke(diskEntry: DiskEntry) = diskEntriesList(diskEntry)
 

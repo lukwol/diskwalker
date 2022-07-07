@@ -6,5 +6,5 @@ import com.diskusage.domain.entities.DiskEntry
 data class ChartViewState(
     val diskEntry: DiskEntry,
     val startItems: List<ChartItem>,
-    val endItems: List<ChartItem>? = null,
+    val endItems: List<ChartItem>? = null
 )

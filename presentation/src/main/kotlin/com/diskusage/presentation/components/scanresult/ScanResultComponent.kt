@@ -16,7 +16,7 @@ import com.diskusage.presentation.di.ViewModelProvider
 
 @Composable
 fun FrameWindowScope.ScanResultComponent(
-    isSupportLibraryLoaded: Boolean,
+    isSupportLibraryLoaded: Boolean
 ) {
     val viewModel = remember { ViewModelProvider.getScanResultViewModel() }
     val viewState by viewModel.viewState.collectAsState()

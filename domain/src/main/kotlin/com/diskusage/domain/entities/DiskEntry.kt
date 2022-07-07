@@ -56,7 +56,7 @@ sealed class DiskEntry {
         override val name: String,
         override val path: Path,
         override var sizeOnDisk: Long = 0,
-        override val parent: Directory? = null,
+        override val parent: Directory? = null
     ) : DiskEntry()
 
     /**
@@ -69,6 +69,6 @@ sealed class DiskEntry {
         override val path: Path,
         override var sizeOnDisk: Long = 0,
         override val parent: Directory? = null,
-        var children: List<DiskEntry> = emptyList(),
+        var children: List<DiskEntry> = emptyList()
     ) : DiskEntry()
 }

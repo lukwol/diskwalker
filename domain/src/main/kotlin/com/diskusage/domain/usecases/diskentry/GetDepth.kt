@@ -7,11 +7,11 @@ import com.diskusage.domain.entities.DiskEntry
  */
 class GetDepth(
     private val getRoot: GetRoot,
-    private val getRelationship: GetRelationship,
+    private val getRelationship: GetRelationship
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+        fromDiskEntry: DiskEntry = getRoot(diskEntry)
     ) = depth(diskEntry, fromDiskEntry)
 
     private fun depth(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, depth: Int = 1): Int =

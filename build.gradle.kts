@@ -36,7 +36,7 @@ spotless {
         targetExclude("bin/**/*.kt")
 
         ktlint(libs.versions.ktlint.get())
-            .userData(mapOf("disabled_rules" to "no-wildcard-imports"))
+            .editorConfigOverride(mapOf("disabled_rules" to "no-wildcard-imports"))
     }
 }
 

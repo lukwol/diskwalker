@@ -19,7 +19,7 @@ class GetSortedChartItems(
     private val sortDiskEntries: SortDiskEntries,
     private val getRoot: GetRoot,
     private val getArc: GetArc,
-    private val getColor: GetColor,
+    private val getColor: GetColor
 ) {
     operator fun invoke(diskEntry: DiskEntry): List<ChartItem> =
         getDiskEntriesList(diskEntry)
@@ -28,7 +28,7 @@ class GetSortedChartItems(
 
     operator fun invoke(
         fromDiskEntry: DiskEntry,
-        toDiskEntry: DiskEntry,
+        toDiskEntry: DiskEntry
     ) = (getDiskEntriesList(fromDiskEntry) + getDiskEntriesList(toDiskEntry))
         .distinctBy(DiskEntry::path)
         .let(sortDiskEntries::invoke)
@@ -37,7 +37,7 @@ class GetSortedChartItems(
 
     private fun getChartItem(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+        fromDiskEntry: DiskEntry = getRoot(diskEntry)
     ): ChartItem {
         val arc = getArc(diskEntry, fromDiskEntry)
         return ChartItem(

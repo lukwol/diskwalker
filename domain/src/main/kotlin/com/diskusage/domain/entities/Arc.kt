@@ -14,7 +14,7 @@ import com.diskusage.libraries.ranges.HalfOpenFloatRange
  */
 data class Arc(
     val angleRange: HalfOpenFloatRange,
-    val radiusRange: HalfOpenFloatRange,
+    val radiusRange: HalfOpenFloatRange
 ) {
     val sweepAngle: Float = angleRange.end - angleRange.start
     val width: Float = radiusRange.end - radiusRange.start

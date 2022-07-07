@@ -22,11 +22,11 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
  */
 class GetSweepAngle(
     private val getRoot: GetRoot,
-    private val getRelationship: GetRelationship,
+    private val getRelationship: GetRelationship
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
+        fromDiskEntry: DiskEntry = getRoot(diskEntry)
     ) = when (getRelationship(diskEntry, fromDiskEntry)) {
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
         DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> 0f

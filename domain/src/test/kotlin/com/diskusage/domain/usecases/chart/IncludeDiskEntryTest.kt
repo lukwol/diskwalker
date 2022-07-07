@@ -68,7 +68,7 @@ class IncludeDiskEntryTest : KoinTest {
             name = "foo",
             path = Path.of("/dir/dir1/dir11/foo"),
             parent = DiskEntryStubs.dir11,
-            sizeOnDisk = 32,
+            sizeOnDisk = 32
         )
         includeDiskEntry.invoke(fooFile) shouldBe false
         includeDiskEntry.invoke(fooFile, DiskEntryStubs.rootDir) shouldBe false

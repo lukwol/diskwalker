@@ -72,7 +72,7 @@ class GetColorTest : KoinTest {
         fun directory() {
             getColor(
                 precalculatedArc = ArcStubs.child1,
-                diskEntry = DiskEntryStubs.dir11,
+                diskEntry = DiskEntryStubs.dir11
             ).run {
                 red shouldBe 0.64f.plusOrMinus(0.1f)
                 green shouldBe 0.6f.plusOrMinus(0.1f)
@@ -127,7 +127,7 @@ class GetColorTest : KoinTest {
         fun directory() {
             getColor(
                 precalculatedArc = ArcStubs.child2,
-                diskEntry = DiskEntryStubs.dir2,
+                diskEntry = DiskEntryStubs.dir2
             ).run {
                 red shouldBe 0.62f.plusOrMinus(0.01f)
                 green shouldBe 0.69f.plusOrMinus(0.01f)

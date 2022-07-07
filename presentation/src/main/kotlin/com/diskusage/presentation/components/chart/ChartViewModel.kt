@@ -16,7 +16,7 @@ class ChartViewModel(
     diskEntry: DiskEntry,
     private val getSortedChartItems: GetSortedChartItems,
     private val includeDiskEntry: IncludeDiskEntry,
-    private val isArcSelected: IsArcSelected,
+    private val isArcSelected: IsArcSelected
 ) {
     private val mutableViewState = MutableStateFlow(
         ChartViewState(
