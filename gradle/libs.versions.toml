@@ -1,0 +1,10 @@
+[versions]
+kotlin = "1.6.10"
+compose = "1.1.1"
+ktlint = "0.43.2"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
+dependency-updates = { id = "com.github.ben-manes.versions", version = "0.41.0" }
+spotless = { id = "com.diffplug.spotless", version = "6.2.1" }

@@ -1,5 +1,9 @@
+@Suppress(
+    "DSL_SCOPE_VIOLATION",
+    "UnstableApiUsage",
+)
 plugins {
-    kotlin(GradlePlugins.Kotlin.jvm)
+    id(libs.plugins.kotlin.jvm.get().pluginId)
 }
 
 dependencies {

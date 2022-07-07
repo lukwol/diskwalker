@@ -7,6 +7,8 @@ pluginManagement {
 
 rootProject.name = "DiskUsage"
 
+enableFeaturePreview("VERSION_CATALOGS")
+
 include(":app")
 include(":data")
 include(":domain")

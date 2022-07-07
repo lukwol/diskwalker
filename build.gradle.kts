@@ -2,11 +2,15 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 
+@Suppress(
+    "DSL_SCOPE_VIOLATION",
+    "UnstableApiUsage",
+)
 plugins {
-    kotlin(GradlePlugins.Kotlin.jvm) version Common.Kotlin.version apply false
-    id(GradlePlugins.Compose.id) version GradlePlugins.Compose.version apply false
-    id(GradlePlugins.Versions.id) version GradlePlugins.Versions.version
-    id(GradlePlugins.Spotless.id) version GradlePlugins.Spotless.version
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
+    alias(libs.plugins.dependency.updates)
+    alias(libs.plugins.spotless)
 }
 
 allprojects {
@@ -31,7 +35,7 @@ spotless {
         targetExclude("$buildDir/**/*.kt")
         targetExclude("bin/**/*.kt")
 
-        ktlint(GradlePlugins.Spotless.ktlintVersion)
+        ktlint(libs.versions.ktlint.get())
             .userData(mapOf("disabled_rules" to "no-wildcard-imports"))
     }
 }
