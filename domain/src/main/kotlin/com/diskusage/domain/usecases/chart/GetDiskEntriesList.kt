@@ -1,13 +1,11 @@
 package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.entities.DiskEntry
-import org.koin.core.annotation.Single
 
 /**
  * Recursively traverses through all [children][DiskEntry.Directory.children] of given `diskEntry`
  * and collect them to single [List]
  */
-@Single
 class GetDiskEntriesList(
     private val includeDiskEntry: IncludeDiskEntry,
 ) {

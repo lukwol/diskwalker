@@ -2,14 +2,12 @@ package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.entities.Arc
-import org.koin.core.annotation.Single
 import kotlin.math.PI
 import kotlin.math.atan2
 
 /**
  * Check whether given `offset` is within `arc's` [angle][Arc.angleRange] and [radius][Arc.radiusRange] ranges.
  */
-@Single
 class IsArcSelected {
     operator fun invoke(
         arc: Arc,

@@ -4,7 +4,6 @@ import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
-import org.koin.core.annotation.Single
 
 /**
  * Calculate sweep angle of the [Arc] based on given `diskEntry` starting from `fromDiskEntry`.
@@ -21,7 +20,6 @@ import org.koin.core.annotation.Single
  * When `fromDiskEntry` is an [ancestor][DiskEntry.Relationship.Ancestor] of `diskEntry`
  * the result is dividing `diskEntry` size by `fromDiskEntry` size and converting it into actual angle.
  */
-@Single
 class GetSweepAngle(
     private val getRoot: GetRoot,
     private val getRelationship: GetRelationship,

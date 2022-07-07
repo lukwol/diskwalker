@@ -1,14 +1,13 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.di.DomainModule
+import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.ArcStubs
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -23,7 +22,7 @@ class IsArcSelectedTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(DomainModule().module)
+        modules(domainModule)
     }
 
     @Nested

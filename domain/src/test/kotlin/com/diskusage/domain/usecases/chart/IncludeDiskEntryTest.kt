@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
-import com.diskusage.domain.di.DomainModule
+import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.diskentry.GetDepth
@@ -13,7 +13,6 @@ import io.mockk.mockkClass
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -29,7 +28,7 @@ class IncludeDiskEntryTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(DomainModule().module)
+        modules(domainModule)
     }
 
     @JvmField

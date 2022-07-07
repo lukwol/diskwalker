@@ -1,8 +1,11 @@
 package com.diskusage.presentation.di
 
-import org.koin.core.annotation.ComponentScan
-import org.koin.core.annotation.Module
+import com.diskusage.presentation.components.chart.ChartViewModel
+import com.diskusage.presentation.components.scanresult.ScanResultViewModel
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.module
 
-@Module
-@ComponentScan("com.diskusage.presentation")
-class PresentationModule
+val presentationModule = module {
+    factoryOf(::ScanResultViewModel)
+    factoryOf(::ChartViewModel)
+}

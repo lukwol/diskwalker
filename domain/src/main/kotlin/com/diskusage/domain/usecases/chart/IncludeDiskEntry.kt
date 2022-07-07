@@ -6,7 +6,6 @@ import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
-import org.koin.core.annotation.Single
 
 /**
  * Checks whether given `diskEntry` should be included when drawing the chart starting from `fromDiskEntry`.
@@ -16,7 +15,6 @@ import org.koin.core.annotation.Single
  * @see checkSizeInRange
  * @see checkDepthInRange
  */
-@Single
 class IncludeDiskEntry(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,

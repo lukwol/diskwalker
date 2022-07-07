@@ -9,6 +9,5 @@ import org.koin.core.parameter.parametersOf
 
 object ViewModelProvider : KoinComponent {
     fun getScanResultViewModel(): ScanResultViewModel = get()
-    fun getChartViewModel(diskEntry: DiskEntry): ChartViewModel =
-        get(parameters = { parametersOf(diskEntry) })
+    fun getChartViewModel(diskEntry: DiskEntry): ChartViewModel = get(parameters = { parametersOf(diskEntry) })
 }

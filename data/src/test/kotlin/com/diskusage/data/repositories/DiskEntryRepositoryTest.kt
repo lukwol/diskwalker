@@ -1,6 +1,6 @@
 package com.diskusage.data.repositories
 
-import com.diskusage.data.di.DataModule
+import com.diskusage.data.di.dataModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.ksp.generated.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
@@ -41,7 +40,7 @@ class DiskEntryRepositoryTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(DataModule().module)
+        modules(dataModule)
     }
 
     @JvmField

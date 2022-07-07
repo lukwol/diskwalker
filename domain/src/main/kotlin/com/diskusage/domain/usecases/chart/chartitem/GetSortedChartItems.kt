@@ -6,7 +6,6 @@ import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetRoot
-import org.koin.core.annotation.Single
 
 /**
  * Get a sorted [chart items][ChartItem] list required for drawing the chart.
@@ -15,7 +14,6 @@ import org.koin.core.annotation.Single
  *
  * @see sortDiskEntries
  */
-@Single
 class GetSortedChartItems(
     private val getDiskEntriesList: GetDiskEntriesList,
     private val sortDiskEntries: SortDiskEntries,

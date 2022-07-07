@@ -3,11 +3,6 @@ class GradlePlugins {
         const val jvm = "jvm"
     }
 
-    object Ksp {
-        const val version = "1.6.10-1.0.4"
-        const val id = "com.google.devtools.ksp"
-    }
-
     object Compose {
         const val version = "1.1.1"
         const val id = "org.jetbrains.compose"

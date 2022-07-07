@@ -3,14 +3,12 @@ package com.diskusage.data.repositories
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
-import org.koin.core.annotation.Single
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
-@Single
 class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : DiskEntryRepository {
 
     private val cachedSizes = mutableMapOf<Path, Long>()
