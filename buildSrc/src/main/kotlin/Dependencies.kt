@@ -8,6 +8,7 @@ object Dependencies {
     object Coroutines {
         private const val version = "1.6.0"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+        const val swing = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$version"
         const val test = "org.jetbgrains.kotlinx:kotlinx-coroutines-test:$version"
     }
 
