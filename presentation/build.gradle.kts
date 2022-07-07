@@ -1,9 +1,8 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.compose.compose
 
-@Suppress(
-    "DSL_SCOPE_VIOLATION",
-    "UnstableApiUsage",
-)
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id(libs.plugins.kotlin.jvm.get().pluginId)
     id(libs.plugins.compose.multiplatform.get().pluginId)
@@ -13,10 +12,10 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":libraries:ranges"))
 
-    implementation(Dependencies.Coroutines.core)
-    implementation(Dependencies.Coroutines.swing)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.swing)
 
-    implementation(Dependencies.Koin.core)
+    implementation(libs.koin.core)
 
     implementation(compose.desktop.currentOs)
 }

@@ -19,7 +19,7 @@ allprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = BuildConstants.jvmTarget
+        kotlinOptions.jvmTarget = "16"
     }
 }
 

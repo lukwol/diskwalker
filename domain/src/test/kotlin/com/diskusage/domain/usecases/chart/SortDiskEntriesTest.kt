@@ -23,12 +23,6 @@ class SortDiskEntriesTest : KoinTest {
         modules(domainModule)
     }
 
-    @JvmField
-    @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
-        mockkClass(clazz)
-    }
-
     @Test
     fun `items should be sorted with size ascending then by name descending`() {
         sortDiskEntries(
