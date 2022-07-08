@@ -23,7 +23,6 @@ import java.nio.file.Path
 class IncludeDiskEntryTest : KoinTest {
 
     private val includeDiskEntry by inject<IncludeDiskEntry>()
-    private lateinit var getDepth: GetDepth
 
     @JvmField
     @RegisterExtension
@@ -50,7 +49,7 @@ class IncludeDiskEntryTest : KoinTest {
 
     @Test
     fun `too deep disk entry`() {
-        getDepth = declareMock {
+        declareMock<GetDepth> {
             every {
                 this@declareMock(
                     DiskEntryStubs.dir1,

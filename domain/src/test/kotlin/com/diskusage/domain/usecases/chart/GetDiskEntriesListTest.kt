@@ -20,7 +20,6 @@ import org.koin.test.mock.declareMock
 class GetDiskEntriesListTest : KoinTest {
 
     private val getDiskEntriesList by inject<GetDiskEntriesList>()
-    private lateinit var includeDiskEntry: IncludeDiskEntry
 
     @JvmField
     @RegisterExtension
@@ -44,7 +43,7 @@ class GetDiskEntriesListTest : KoinTest {
 
         @BeforeEach
         fun setUp() {
-            includeDiskEntry = declareMock {
+            declareMock<IncludeDiskEntry> {
                 every { this@declareMock(not(DiskEntryStubs.dir11), any()) } returns true
                 every { this@declareMock(DiskEntryStubs.dir11, any()) } returns false
             }
@@ -70,7 +69,7 @@ class GetDiskEntriesListTest : KoinTest {
 
         @BeforeEach
         fun setUp() {
-            includeDiskEntry = declareMock {
+            declareMock<IncludeDiskEntry> {
                 every { this@declareMock(any(), any()) } returns true
             }
         }
