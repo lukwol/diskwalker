@@ -21,6 +21,7 @@ import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.di.ViewModelProvider
+import kotlinx.coroutines.delay
 
 @Composable
 fun ChartComponent(diskEntry: DiskEntry) {
@@ -49,6 +50,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     )
 
     LaunchedEffect(endItems) {
+        delay(100)
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDurationMillis)
