@@ -6,6 +6,8 @@ import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetRoot
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Get a sorted [chart items][ChartItem] list required for drawing the chart.
@@ -26,14 +28,16 @@ class GetSortedChartItems(
             .let(sortDiskEntries::invoke)
             .map { getChartItem(it, diskEntry) }
 
-    operator fun invoke(
+    suspend operator fun invoke(
         fromDiskEntry: DiskEntry,
         toDiskEntry: DiskEntry
-    ) = (getDiskEntriesList(fromDiskEntry) + getDiskEntriesList(toDiskEntry))
-        .distinctBy(DiskEntry::path)
-        .let(sortDiskEntries::invoke)
-        .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
-        .unzip()
+    ) = withContext(Dispatchers.Default) {
+        (getDiskEntriesList(fromDiskEntry) + getDiskEntriesList(toDiskEntry))
+            .distinctBy(DiskEntry::path)
+            .let(sortDiskEntries::invoke)
+            .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
+            .unzip()
+    }
 
     private fun getChartItem(
         diskEntry: DiskEntry,

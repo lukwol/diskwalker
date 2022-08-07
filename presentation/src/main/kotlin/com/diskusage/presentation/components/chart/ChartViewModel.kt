@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class ChartViewModel(
     diskEntry: DiskEntry,
@@ -43,15 +44,17 @@ class ChartViewModel(
         }
 
         if (selectedDiskEntry != null) {
-            val (startItems, endItems) = getSortedChartItems(
-                fromDiskEntry = diskEntry,
-                toDiskEntry = selectedDiskEntry
-            )
-            mutableViewState.value = copy(
-                diskEntry = selectedDiskEntry,
-                startItems = startItems,
-                endItems = endItems
-            )
+            viewModelScope.launch {
+                val (startItems, endItems) = getSortedChartItems(
+                    fromDiskEntry = diskEntry,
+                    toDiskEntry = selectedDiskEntry
+                )
+                mutableViewState.value = copy(
+                    diskEntry = selectedDiskEntry,
+                    startItems = startItems,
+                    endItems = endItems
+                )
+            }
         }
     }
 }
