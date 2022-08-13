@@ -1,7 +1,6 @@
 package com.diskusage.presentation.components.chart.blocks
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -18,6 +17,7 @@ import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 import com.diskusage.domain.entities.ChartItem
 
 private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
+private const val ChartDiameter = ChartRadius * 2
 
 @Composable
 fun Chart(
@@ -28,14 +28,12 @@ fun Chart(
 
     Canvas(
         Modifier
-            .fillMaxSize()
             .scale(chartScale)
-            .then(modifier)
             .onSizeChanged {
                 val minDimension = it.toSize().minDimension
-                val chartDiameter = ChartRadius * 2
-                chartScale = (minDimension / chartDiameter).coerceAtLeast(1f)
+                chartScale = (minDimension / ChartDiameter).coerceAtLeast(1f)
             }
+            .then(modifier)
     ) {
         chartItems
             .filterNot(::isHidden)

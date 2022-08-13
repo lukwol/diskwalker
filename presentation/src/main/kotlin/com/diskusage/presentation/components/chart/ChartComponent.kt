@@ -5,6 +5,9 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -12,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.entities.Arc
@@ -20,8 +24,12 @@ import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
+import com.diskusage.presentation.components.chart.blocks.ItemsList
 import com.diskusage.presentation.di.ViewModelProvider
 import kotlinx.coroutines.delay
+
+private const val ChartWeight = 4f
+private const val ListWeight = 1f
 
 @Composable
 fun ChartComponent(diskEntry: DiskEntry) {
@@ -39,15 +47,29 @@ fun ChartComponent(diskEntry: DiskEntry) {
         else -> endItems
     }
 
-    Chart(
-        chartItems = chartItems,
-        modifier = Modifier.onPointerEvent(PointerEventType.Press) { pointerEvent ->
-            if (!animatable.isRunning) {
-                val position = pointerEvent.changes.first().position - size.center.toOffset()
-                viewModel.onChartPositionClicked(position)
-            }
-        }
-    )
+    Row(
+        modifier = Modifier.padding(20.dp)
+    ) {
+        ItemsList(
+            chartItems = listOf(),
+            modifier = Modifier
+                .weight(ListWeight)
+                .fillMaxHeight()
+        )
+
+        Chart(
+            chartItems = chartItems,
+            modifier = Modifier
+                .weight(ChartWeight)
+                .fillMaxHeight()
+                .onPointerEvent(PointerEventType.Press) { pointerEvent ->
+                    if (!animatable.isRunning) {
+                        val position = pointerEvent.changes.first().position - size.center.toOffset()
+                        viewModel.onChartPositionClicked(position)
+                    }
+                }
+        )
+    }
 
     LaunchedEffect(endItems) {
         delay(100)

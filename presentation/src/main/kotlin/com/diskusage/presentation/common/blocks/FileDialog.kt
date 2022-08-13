@@ -1,6 +1,5 @@
 package com.diskusage.presentation.common.blocks
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.AwtWindow
 import androidx.compose.ui.window.FrameWindowScope
@@ -15,7 +14,6 @@ enum class FileDialogMode(val value: Int) {
     Save(FileDialog.SAVE)
 }
 
-@Preview
 @Composable
 fun FrameWindowScope.FileDialog(
     title: String,
