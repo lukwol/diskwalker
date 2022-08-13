@@ -6,14 +6,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import java.nio.file.Path
 
 class ScanResultViewModel(
-    private val diskEntryRepository: DiskEntryRepository,
+    private val diskEntryRepository: DiskEntryRepository
 ) {
     private val mutableViewState = MutableStateFlow(ScanResultViewState())
     val viewState = mutableViewState.asStateFlow()
 
     fun selectScannedPath(path: Path) = with(viewState.value) {
         mutableViewState.value = copy(
-            scannedDiskEntry = diskEntryRepository.diskEntry(path),
+            scannedDiskEntry = diskEntryRepository.diskEntry(path)
         )
     }
 }

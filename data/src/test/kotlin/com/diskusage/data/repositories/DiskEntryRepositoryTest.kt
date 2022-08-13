@@ -3,7 +3,7 @@ package com.diskusage.data.repositories
 import com.diskusage.data.di.dataModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.support.FileSize
+import com.diskusage.domain.services.FileSizeService
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -51,7 +51,7 @@ class DiskEntryRepositoryTest : KoinTest {
 
     @BeforeEach
     fun setUp() {
-        declareMock<FileSize> {
+        declareMock<FileSizeService> {
             every { sizeOnDisk(fooFilePath.absolutePathString()) } returns 256
             every { sizeOnDisk(barFilePath.absolutePathString()) } returns 1024
             every { sizeOnDisk(bazFilePath.absolutePathString()) } returns 4096

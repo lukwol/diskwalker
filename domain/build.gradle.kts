@@ -1,20 +1,26 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.compose.compose
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin(GradlePlugins.Kotlin.jvm)
-    id(GradlePlugins.Compose.id)
+    id(libs.plugins.kotlin.jvm.get().pluginId)
+    id(libs.plugins.compose.multiplatform.get().pluginId)
 }
 
 dependencies {
-    implementation(Dependencies.Koin.core)
+    implementation(project(":libraries:ranges"))
+
+    implementation(libs.koin.core)
 
     implementation(compose.desktop.currentOs)
 
-    testImplementation(Dependencies.Junit.junit5)
-    testImplementation(Dependencies.Kotest.kotest)
-    testImplementation(Dependencies.Mockk.mockk)
-    testImplementation(Dependencies.Koin.test)
-    testImplementation(Dependencies.Koin.junit5)
+    testImplementation(libs.junit5)
+    testImplementation(libs.kotest.assertions)
+    testImplementation(libs.mockk)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.junit5)
+    testImplementation(libs.coroutines.test)
 }
 
 tasks.test {

@@ -13,13 +13,15 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.toOffset
+import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.entities.Arc
 import com.diskusage.domain.entities.ChartItem
 import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.libraries.ranges.HalfOpenFloatRange
+import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.di.ViewModelProvider
-
-private const val AnimationDuration = 1000
+import kotlinx.coroutines.delay
 
 @Composable
 fun ChartComponent(diskEntry: DiskEntry) {
@@ -48,16 +50,17 @@ fun ChartComponent(diskEntry: DiskEntry) {
     )
 
     LaunchedEffect(endItems) {
+        delay(100)
         animatable.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = AnimationDuration)
+            animationSpec = tween(durationMillis = AnimationDurationMillis)
         )
     }
 }
 
 private fun Animatable<Float, AnimationVector1D>.itemsTransition(
     fromItems: List<ChartItem>,
-    toItems: List<ChartItem>,
+    toItems: List<ChartItem>
 ) = fromItems
     .zip(toItems)
     .map { (fromItem, toItem) ->
@@ -70,28 +73,28 @@ private fun Animatable<Float, AnimationVector1D>.itemsTransition(
 
 private fun Animatable<Float, AnimationVector1D>.arcTransition(
     fromArc: Arc,
-    toArc: Arc,
+    toArc: Arc
 ) = Arc(
     angleRange = rangeTransition(fromArc.angleRange, toArc.angleRange),
-    radiusRange = rangeTransition(fromArc.radiusRange, toArc.radiusRange),
+    radiusRange = rangeTransition(fromArc.radiusRange, toArc.radiusRange)
 )
 
 private fun Animatable<Float, AnimationVector1D>.colorTransition(
     fromColor: Color,
-    toColor: Color,
+    toColor: Color
 ) = Color(
     red = valueTransition(fromColor.red, toColor.red),
     green = valueTransition(fromColor.green, toColor.green),
     blue = valueTransition(fromColor.blue, toColor.blue),
-    alpha = valueTransition(fromColor.alpha, toColor.alpha),
+    alpha = valueTransition(fromColor.alpha, toColor.alpha)
 )
 
 private fun Animatable<Float, AnimationVector1D>.rangeTransition(
-    fromRange: ClosedFloatingPointRange<Float>,
-    toRange: ClosedFloatingPointRange<Float>,
-) = valueTransition(fromRange.start, toRange.start)..valueTransition(fromRange.endInclusive, toRange.endInclusive)
+    fromRange: HalfOpenFloatRange,
+    toRange: HalfOpenFloatRange
+) = valueTransition(fromRange.start, toRange.start) until valueTransition(fromRange.end, toRange.end)
 
 private fun Animatable<Float, AnimationVector1D>.valueTransition(
     fromValue: Float,
-    toValue: Float,
+    toValue: Float
 ) = fromValue + (toValue - fromValue) * value
