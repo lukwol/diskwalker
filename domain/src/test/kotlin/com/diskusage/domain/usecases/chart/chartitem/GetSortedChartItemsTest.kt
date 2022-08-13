@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.diskusage.domain.usecases.chart.chartitem
 
 import com.diskusage.domain.di.domainModule
@@ -10,6 +12,8 @@ import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -77,7 +81,7 @@ class GetSortedChartItemsTest : KoinTest {
         @Nested
         inner class FromSame {
             @Test
-            fun `file from file without parent`() {
+            fun `file from file without parent`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootFile, DiskEntryStubs.rootFile)
                 fromItems shouldHaveSize 1
                 toItems shouldHaveSize 1
@@ -86,7 +90,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `file from file with parent`() {
+            fun `file from file with parent`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file1, DiskEntryStubs.file1)
                 fromItems shouldHaveSize 1
                 toItems shouldHaveSize 1
@@ -95,7 +99,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from dir without parent`() {
+            fun `dir from dir without parent`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -104,7 +108,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from dir with parent`() {
+            fun `dir from dir with parent`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.dir1)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -116,7 +120,7 @@ class GetSortedChartItemsTest : KoinTest {
         @Nested
         inner class FromAncestor {
             @Test
-            fun `child file from root dir`() {
+            fun `child file from root dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file1, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -125,7 +129,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `grandchild file from root dir`() {
+            fun `grandchild file from root dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file11, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -134,7 +138,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `great-grandchild file from root dir`() {
+            fun `great-grandchild file from root dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file112, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -143,7 +147,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `child dir from root dir`() {
+            fun `child dir from root dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir2, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -152,7 +156,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `grandchild dir from root dir`() {
+            fun `grandchild dir from root dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir11, DiskEntryStubs.rootDir)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -161,7 +165,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `grandchild dir from child dir`() {
+            fun `grandchild dir from child dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir11, DiskEntryStubs.dir1)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -170,7 +174,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `grandchild file from child dir`() {
+            fun `grandchild file from child dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file11, DiskEntryStubs.dir1)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -179,7 +183,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `great-grandchild file from child dir`() {
+            fun `great-grandchild file from child dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file111, DiskEntryStubs.dir1)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -188,7 +192,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `great-grandchild file from grandchild dir`() {
+            fun `great-grandchild file from grandchild dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file111, DiskEntryStubs.dir11)
                 fromItems shouldHaveSize 3
                 toItems shouldHaveSize 3
@@ -200,7 +204,7 @@ class GetSortedChartItemsTest : KoinTest {
         @Nested
         inner class FromDescendant {
             @Test
-            fun `root dir from child file`() {
+            fun `root dir from child file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.file1)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -209,7 +213,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `root dir from grandchild file`() {
+            fun `root dir from grandchild file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.file11)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -218,7 +222,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `root dir from great-grandchild file`() {
+            fun `root dir from great-grandchild file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.file112)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -227,7 +231,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `root dir from child dir`() {
+            fun `root dir from child dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.dir2)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -236,7 +240,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `root dir from grandchild dir`() {
+            fun `root dir from grandchild dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.rootDir, DiskEntryStubs.dir11)
                 fromItems shouldHaveSize 11
                 toItems shouldHaveSize 11
@@ -245,7 +249,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `child dir from grandchild dir`() {
+            fun `child dir from grandchild dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.dir11)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -254,7 +258,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `child dir from grandchild file`() {
+            fun `child dir from grandchild file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.file11)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -263,7 +267,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `child dir from great-grandchild file`() {
+            fun `child dir from great-grandchild file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.file111)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -272,7 +276,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `grandchild dir from great-grandchild file`() {
+            fun `grandchild dir from great-grandchild file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir11, DiskEntryStubs.file111)
                 fromItems shouldHaveSize 3
                 toItems shouldHaveSize 3
@@ -284,7 +288,7 @@ class GetSortedChartItemsTest : KoinTest {
         @Nested
         inner class FromSibling {
             @Test
-            fun `file from file`() {
+            fun `file from file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file111, DiskEntryStubs.file112)
                 fromItems shouldHaveSize 2
                 toItems shouldHaveSize 2
@@ -293,7 +297,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from dir`() {
+            fun `dir from dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.dir2)
                 fromItems shouldHaveSize 9
                 toItems shouldHaveSize 9
@@ -302,7 +306,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from file`() {
+            fun `dir from file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir1, DiskEntryStubs.file1)
                 fromItems shouldHaveSize 7
                 toItems shouldHaveSize 7
@@ -311,7 +315,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `file from dir`() {
+            fun `file from dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file12, DiskEntryStubs.dir11)
                 fromItems shouldHaveSize 4
                 toItems shouldHaveSize 4
@@ -323,7 +327,7 @@ class GetSortedChartItemsTest : KoinTest {
         @Nested
         inner class FromUnrelated {
             @Test
-            fun `file from file`() {
+            fun `file from file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file12, DiskEntryStubs.file21)
                 fromItems shouldHaveSize 2
                 toItems shouldHaveSize 2
@@ -332,7 +336,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from dir`() {
+            fun `dir from dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir11, DiskEntryStubs.dir2)
                 fromItems shouldHaveSize 6
                 toItems shouldHaveSize 6
@@ -341,7 +345,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `dir from file`() {
+            fun `dir from file`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.dir2, DiskEntryStubs.file111)
                 fromItems shouldHaveSize 4
                 toItems shouldHaveSize 4
@@ -350,7 +354,7 @@ class GetSortedChartItemsTest : KoinTest {
             }
 
             @Test
-            fun `file from dir`() {
+            fun `file from dir`() = runTest {
                 val (fromItems, toItems) = getSortedChartItems(DiskEntryStubs.file12, DiskEntryStubs.dir2)
                 fromItems shouldHaveSize 4
                 toItems shouldHaveSize 4

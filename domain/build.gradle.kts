@@ -20,6 +20,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.junit5)
+    testImplementation(libs.coroutines.test)
 }
 
 tasks.test {
