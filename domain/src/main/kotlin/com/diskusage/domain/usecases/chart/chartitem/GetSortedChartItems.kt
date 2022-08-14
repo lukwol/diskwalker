@@ -23,10 +23,11 @@ class GetSortedChartItems(
     private val getArc: GetArc,
     private val getColor: GetColor
 ) {
-    operator fun invoke(diskEntry: DiskEntry): List<ChartItem> =
+    suspend operator fun invoke(diskEntry: DiskEntry) = withContext(Dispatchers.Default) {
         getDiskEntriesList(diskEntry)
             .let(sortDiskEntries::invoke)
             .map { getChartItem(it, diskEntry) }
+    }
 
     suspend operator fun invoke(
         fromDiskEntry: DiskEntry,

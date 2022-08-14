@@ -19,15 +19,19 @@ class ChartViewModel(
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected
 ) {
-    private val mutableViewState = MutableStateFlow(
-        ChartViewState(
-            diskEntry = diskEntry,
-            startItems = getSortedChartItems(diskEntry)
-        )
-    )
+    private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    private val mutableViewState = MutableStateFlow(ChartViewState(diskEntry))
+
     val viewState = mutableViewState.asStateFlow()
 
-    private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    init {
+        with(viewState.value) {
+            viewModelScope.launch {
+                mutableViewState.value = copy(startItems = getSortedChartItems(diskEntry))
+            }
+        }
+    }
 
     fun onChartPositionClicked(position: Offset) = with(viewState.value) {
         (endItems ?: startItems)
