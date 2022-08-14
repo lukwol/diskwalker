@@ -6,6 +6,7 @@ import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
+import com.diskusage.domain.usecases.chart.listItem.GetSortedListItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 class ChartViewModel(
     diskEntry: DiskEntry,
     private val getSortedChartItems: GetSortedChartItems,
+    private val getSortedListItems: GetSortedListItems,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected
 ) {
@@ -28,7 +30,10 @@ class ChartViewModel(
     init {
         with(viewState.value) {
             viewModelScope.launch {
-                mutableViewState.value = copy(startItems = getSortedChartItems(diskEntry))
+                mutableViewState.value = copy(
+                    listItems = getSortedListItems(diskEntry),
+                    startItems = getSortedChartItems(diskEntry)
+                )
             }
         }
     }
@@ -53,8 +58,10 @@ class ChartViewModel(
                     fromDiskEntry = diskEntry,
                     toDiskEntry = selectedDiskEntry
                 )
+
                 mutableViewState.value = copy(
                     diskEntry = selectedDiskEntry,
+                    listItems = getSortedListItems(selectedDiskEntry),
                     startItems = startItems,
                     endItems = endItems
                 )

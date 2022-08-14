@@ -26,7 +26,6 @@ import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.components.chart.blocks.ItemsList
 import com.diskusage.presentation.di.ViewModelProvider
-import kotlinx.coroutines.delay
 
 private const val ChartWeight = 4f
 private const val ListWeight = 1f
@@ -36,6 +35,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     val viewModel = remember { ViewModelProvider.getChartViewModel(diskEntry) }
     val viewState by viewModel.viewState.collectAsState()
 
+    val listItems = viewState.listItems
     val startItems = viewState.startItems
     val endItems = viewState.endItems
 
@@ -51,7 +51,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
         modifier = Modifier.padding(20.dp)
     ) {
         ItemsList(
-            chartItems = listOf(),
+            chartItems = listItems,
             modifier = Modifier
                 .weight(ListWeight)
                 .fillMaxHeight()
@@ -72,7 +72,6 @@ fun ChartComponent(diskEntry: DiskEntry) {
     }
 
     LaunchedEffect(endItems) {
-        delay(100)
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDurationMillis)

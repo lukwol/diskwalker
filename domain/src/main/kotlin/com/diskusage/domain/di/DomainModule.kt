@@ -6,6 +6,7 @@ import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
 import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.*
+import com.diskusage.domain.usecases.chart.listItem.GetSortedListItems
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
@@ -19,6 +20,7 @@ val domainModule = module {
     singleOf(::GetStartRadius)
     singleOf(::GetArcWidth)
     singleOf(::IsArcSelected)
+    singleOf(::GetSortedListItems)
     singleOf(::GetSortedChartItems)
     singleOf(::GetColor)
     singleOf(::GetDiskEntriesList)
