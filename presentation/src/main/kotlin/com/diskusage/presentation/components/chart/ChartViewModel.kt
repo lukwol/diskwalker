@@ -38,11 +38,27 @@ class ChartViewModel(
         }
     }
 
+    fun onChartPositionHovered(position: Offset) = with(viewState.value) {
+        (endItems ?: startItems)
+            .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+            .find { isArcSelected(it.arc, position) }
+            .let(::onHoverDiskEntry)
+    }
+
     fun onChartPositionClicked(position: Offset) = with(viewState.value) {
         (endItems ?: startItems)
             .filter { includeDiskEntry(it.diskEntry, diskEntry) }
             .find { isArcSelected(it.arc, position) }
             ?.let(::onSelectChartItem)
+    }
+
+    private fun onHoverDiskEntry(chartItem: ChartItem?) = with(viewState.value) {
+        val selectedDiskEntry = chartItem?.diskEntry ?: diskEntry
+        viewModelScope.launch {
+            mutableViewState.value = copy(
+                listItems = getSortedListItems(selectedDiskEntry)
+            )
+        }
     }
 
     private fun onSelectChartItem(chartItem: ChartItem) = with(viewState.value) {

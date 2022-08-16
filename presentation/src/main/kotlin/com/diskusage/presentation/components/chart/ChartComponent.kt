@@ -62,6 +62,12 @@ fun ChartComponent(diskEntry: DiskEntry) {
             modifier = Modifier
                 .weight(ChartWeight)
                 .fillMaxHeight()
+                .onPointerEvent(PointerEventType.Move) { pointerEvent ->
+                    if (!animatable.isRunning) {
+                        val position = pointerEvent.changes.first().position - size.center.toOffset()
+                        viewModel.onChartPositionHovered(position)
+                    }
+                }
                 .onPointerEvent(PointerEventType.Press) { pointerEvent ->
                     if (!animatable.isRunning) {
                         val position = pointerEvent.changes.first().position - size.center.toOffset()
