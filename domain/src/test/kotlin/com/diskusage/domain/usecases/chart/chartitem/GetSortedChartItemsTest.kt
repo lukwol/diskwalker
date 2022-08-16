@@ -57,19 +57,19 @@ class GetSortedChartItemsTest : KoinTest {
     @Nested
     inner class StaticChartItems {
         @Test
-        fun `simple file`() {
+        fun `simple file`() = runTest {
             getSortedChartItems(DiskEntryStubs.rootFile) shouldHaveSize 1
             verify { sortDiskEntries.invoke(any()) }
         }
 
         @Test
-        fun `simple directory`() {
+        fun `simple directory`() = runTest {
             getSortedChartItems(DiskEntryStubs.dir11) shouldHaveSize 3
             verify { sortDiskEntries.invoke(any()) }
         }
 
         @Test
-        fun `root directory`() {
+        fun `root directory`() = runTest {
             getSortedChartItems(DiskEntryStubs.rootDir) shouldHaveSize 11
             verify { sortDiskEntries.invoke(any()) }
         }
