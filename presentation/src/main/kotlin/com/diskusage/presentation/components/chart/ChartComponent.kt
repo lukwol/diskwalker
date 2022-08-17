@@ -5,6 +5,7 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -48,6 +49,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     }
 
     Row(
+        horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.padding(20.dp)
     ) {
         ItemsList(

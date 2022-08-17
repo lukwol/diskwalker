@@ -16,7 +16,8 @@ fun ItemsList(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier.verticalScroll(rememberScrollState())
+        modifier
+            .verticalScroll(rememberScrollState())
     ) {
         chartItems.forEach { listItem ->
             Text(

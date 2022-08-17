@@ -3,6 +3,7 @@ package com.diskusage.presentation.components.chart.blocks
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -28,11 +29,12 @@ fun Chart(
 
     Canvas(
         Modifier
-            .scale(chartScale)
             .onSizeChanged {
                 val minDimension = it.toSize().minDimension
                 chartScale = (minDimension / ChartDiameter).coerceAtLeast(1f)
             }
+            .clipToBounds()
+            .scale(chartScale)
             .then(modifier)
     ) {
         chartItems
