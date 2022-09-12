@@ -1,5 +1,6 @@
 package com.diskusage.domain.usecases.chart
 
+import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
@@ -48,5 +49,5 @@ class IncludeDiskEntry(
     private fun checkDepthInRange(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry
-    ) = getDepth(diskEntry, fromDiskEntry) <= MaxBigArcsDepth + MaxSmallArcsDepth
+    ) = getDepth(diskEntry, fromDiskEntry) <= MaxArcsDepth
 }

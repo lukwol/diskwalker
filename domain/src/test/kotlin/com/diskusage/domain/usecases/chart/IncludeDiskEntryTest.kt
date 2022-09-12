@@ -1,7 +1,6 @@
 package com.diskusage.domain.usecases.chart
 
-import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
-import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
+import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.entities.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
@@ -55,7 +54,7 @@ class IncludeDiskEntryTest : KoinTest {
                     DiskEntryStubs.dir1,
                     DiskEntryStubs.rootDir
                 )
-            } returns MaxBigArcsDepth + MaxSmallArcsDepth + 1
+            } returns MaxArcsDepth + 1
         }
         includeDiskEntry.invoke(DiskEntryStubs.dir1) shouldBe false
         includeDiskEntry.invoke(DiskEntryStubs.dir1, DiskEntryStubs.rootDir) shouldBe false
