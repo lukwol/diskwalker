@@ -3,18 +3,28 @@ package com.diskusage.domain.entities
 import java.nio.file.Path
 
 /**
- * Entry at [Path] that can either be [File] or [Directory]
+ * Entry at [Path] that can either be a [file][Type.File] or a [directory][Type.Directory]
  *
  * @property name Name of [DiskEntry]
  * @property path [Path] where [DiskEntry] is located
  * @property sizeOnDisk Calculated real space occupied on disk
- * @property parent [Directory] which contains [DiskEntry], if it's root parent is null
+ * @property parent [DiskEntry] which contains [DiskEntry], if it's root parent is null
  */
-sealed class DiskEntry {
-    abstract val name: String
-    abstract val path: Path
-    abstract var sizeOnDisk: Long
-    abstract val parent: Directory?
+class DiskEntry(
+    val name: String,
+    val type: Type,
+    val path: Path,
+    val parent: DiskEntry?,
+    var sizeOnDisk: Long = 0,
+    var children: List<DiskEntry> = emptyList()
+) {
+
+    /**
+     * Type of [DiskEntry], can either be a [File] or [Directory]
+     */
+    enum class Type {
+        Directory, File
+    }
 
     /**
      * Relationship between two [disk entries][DiskEntry]
@@ -48,27 +58,4 @@ sealed class DiskEntry {
          */
         Unrelated
     }
-
-    /**
-     * Represents [File]
-     */
-    class File(
-        override val name: String,
-        override val path: Path,
-        override var sizeOnDisk: Long = 0,
-        override val parent: Directory? = null
-    ) : DiskEntry()
-
-    /**
-     * Represents [Directory]
-     *
-     * @property children List of contained [disk entries][DiskEntry], might be empty
-     */
-    class Directory(
-        override val name: String,
-        override val path: Path,
-        override var sizeOnDisk: Long = 0,
-        override val parent: Directory? = null,
-        var children: List<DiskEntry> = emptyList()
-    ) : DiskEntry()
 }

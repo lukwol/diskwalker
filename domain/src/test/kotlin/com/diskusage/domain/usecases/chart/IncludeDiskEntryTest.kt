@@ -62,8 +62,9 @@ class IncludeDiskEntryTest : KoinTest {
 
     @Test
     fun `too small disk entry`() {
-        val fooFile = DiskEntry.File(
+        val fooFile = DiskEntry(
             name = "foo",
+            type = DiskEntry.Type.File,
             path = Path.of("/dir/dir1/dir11/foo"),
             parent = DiskEntryStubs.dir11,
             sizeOnDisk = 32

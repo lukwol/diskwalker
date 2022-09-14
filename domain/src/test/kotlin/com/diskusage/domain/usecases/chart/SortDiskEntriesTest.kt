@@ -56,20 +56,23 @@ class SortDiskEntriesTest : KoinTest {
 
     @Test
     fun `more items with the same size should be sorted by name descending`() {
-        val barFile = DiskEntry.File(
+        val barFile = DiskEntry(
             name = "bar",
+            type = DiskEntry.Type.File,
             path = Path.of("/bar"),
             parent = null,
             sizeOnDisk = 1024
         )
-        val fooFile = DiskEntry.File(
+        val fooFile = DiskEntry(
             name = "foo",
+            type = DiskEntry.Type.File,
             path = Path.of("/foo"),
             parent = null,
             sizeOnDisk = 1024
         )
-        val bazFile = DiskEntry.File(
+        val bazFile = DiskEntry(
             name = "baz",
+            type = DiskEntry.Type.File,
             path = Path.of("/baz"),
             parent = null,
             sizeOnDisk = 1024

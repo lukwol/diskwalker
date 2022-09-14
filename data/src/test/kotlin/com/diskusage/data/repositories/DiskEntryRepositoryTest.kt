@@ -31,11 +31,11 @@ class DiskEntryRepositoryTest : KoinTest {
     private val barFilePath = Path.of("src/test/kotlin/com/diskusage/data/testDir/bar.txt")
     private val bazFilePath = Path.of("src/test/kotlin/com/diskusage/data/testDir/subDir/baz.txt")
 
-    private lateinit var testDir: DiskEntry.Directory
-    private lateinit var subDir: DiskEntry.Directory
-    private lateinit var fooFile: DiskEntry.File
-    private lateinit var barFile: DiskEntry.File
-    private lateinit var bazFile: DiskEntry.File
+    private lateinit var testDir: DiskEntry
+    private lateinit var subDir: DiskEntry
+    private lateinit var fooFile: DiskEntry
+    private lateinit var barFile: DiskEntry
+    private lateinit var bazFile: DiskEntry
 
     @JvmField
     @RegisterExtension
@@ -57,11 +57,11 @@ class DiskEntryRepositoryTest : KoinTest {
             every { sizeOnDisk(bazFilePath.absolutePathString()) } returns 4096
         }
 
-        testDir = diskEntryRepository.diskEntry(testDirPath) as DiskEntry.Directory
-        subDir = testDir.children.find { it is DiskEntry.Directory } as DiskEntry.Directory
-        fooFile = testDir.children.find { it.name == "foo.txt" } as DiskEntry.File
-        barFile = testDir.children.find { it.name == "bar.txt" } as DiskEntry.File
-        bazFile = subDir.children.find { it.name == "baz.txt" } as DiskEntry.File
+        testDir = diskEntryRepository.diskEntry(testDirPath)
+        subDir = testDir.children.first { it.type == DiskEntry.Type.Directory }
+        fooFile = testDir.children.first { it.name == "foo.txt" }
+        barFile = testDir.children.first { it.name == "bar.txt" }
+        bazFile = subDir.children.first { it.name == "baz.txt" }
     }
 
     @AfterEach

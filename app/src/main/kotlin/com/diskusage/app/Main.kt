@@ -1,6 +1,5 @@
 package com.diskusage.app
 
-import ScanResultComponent
 import SupportLibrary
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -10,6 +9,7 @@ import androidx.compose.ui.window.singleWindowApplication
 import com.diskusage.data.di.dataModule
 import com.diskusage.domain.di.domainModule
 import com.diskusage.libraries.support.di.supportLibraryModule
+import com.diskusage.presentation.components.scanresult.ScanResultComponent
 import com.diskusage.presentation.di.presentationModule
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level

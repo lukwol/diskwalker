@@ -1,3 +1,5 @@
+package com.diskusage.presentation.components.scanresult
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

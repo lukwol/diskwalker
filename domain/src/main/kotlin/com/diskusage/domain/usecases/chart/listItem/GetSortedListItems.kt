@@ -21,17 +21,11 @@ class GetSortedListItems(
     private val getColor: GetColor
 ) {
     suspend operator fun invoke(diskEntry: DiskEntry) = withContext(Dispatchers.Default) {
-        getChildDiskEntries(diskEntry)
+        (listOf(diskEntry) + diskEntry.children)
             .filter { includeDiskEntry(it, diskEntry) }
             .let(sortDiskEntries::invoke)
             .map { getListItem(it, diskEntry) }
     }
-
-    private fun getChildDiskEntries(diskEntry: DiskEntry) =
-        listOf(diskEntry) + when (diskEntry) {
-            is DiskEntry.Directory -> diskEntry.children
-            is DiskEntry.File -> emptyList()
-        }
 
     private fun getListItem(
         diskEntry: DiskEntry,

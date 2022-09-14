@@ -13,9 +13,9 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
 /**
  * Get proper [Color] in [HSL representation][Color.hsl] for given `diskEntry` starting from `fromDiskEntry`.
  *
- * When `diskEntry` is a [file][DiskEntry.File] color is always the same.
+ * When `diskEntry` is a [file][DiskEntry.Type.File] color is always the same.
  *
- * When `diskEntry` is a [directory][DiskEntry.Directory] color is computed based on [arc][getArc] and [depth][getDepth].
+ * When `diskEntry` is a [directory][DiskEntry.Type.Directory] color is computed based on [arc][getArc] and [depth][getDepth].
  * Uses `precalculatedArc` is it's provided.
  *
  * If `diskEntry` won't [be visible on chart][includeDiskEntry], set's it's [alpha][Color.alpha] value to **0f**.
@@ -32,13 +32,13 @@ class GetColor(
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
         precalculatedArc: Arc = getArc(diskEntry, fromDiskEntry)
     ): Color {
-        val color = when (diskEntry) {
-            is DiskEntry.File -> Color.hsl(
+        val color = when (diskEntry.type) {
+            DiskEntry.Type.File -> Color.hsl(
                 hue = 0f,
                 saturation = 0f,
                 lightness = 0.35f
             )
-            is DiskEntry.Directory -> with(precalculatedArc) {
+            DiskEntry.Type.Directory -> with(precalculatedArc) {
                 val depth = getDepth(diskEntry, fromDiskEntry)
                 Color.hsl(
                     hue = (angleRange.end).coerceIn(0f, 360f),
