@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.entities.Arc
+import com.diskusage.domain.model.Arc
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.libraries.ranges.until
 import io.kotest.matchers.shouldBe

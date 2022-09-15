@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

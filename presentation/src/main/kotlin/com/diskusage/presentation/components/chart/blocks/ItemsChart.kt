@@ -15,13 +15,13 @@ import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
-import com.diskusage.domain.entities.ChartItem
+import com.diskusage.domain.model.ChartItem
 
 private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
 private const val ChartDiameter = ChartRadius * 2
 
 @Composable
-fun Chart(
+fun ItemsChart(
     chartItems: List<ChartItem>,
     modifier: Modifier = Modifier
 ) {

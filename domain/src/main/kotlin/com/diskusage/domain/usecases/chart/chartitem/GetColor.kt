@@ -3,8 +3,8 @@ package com.diskusage.domain.usecases.chart.chartitem
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
-import com.diskusage.domain.entities.Arc
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.Arc
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetDepth

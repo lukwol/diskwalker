@@ -25,12 +25,12 @@ object Constants {
         const val MaxArcsDepth = MaxBigArcsDepth + MaxSmallArcsDepth
 
         /**
-         * Width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn for each item close to the center of the chart.
+         * Width of an [Arc][com.diskusage.domain.model.Arc] that are drawn for each item close to the center of the chart.
          */
         const val BigArcWidth = 25f
 
         /**
-         * Width of an [Arc][com.diskusage.domain.entities.Arc] that are drawn for each item far from the center of the chart.
+         * Width of an [Arc][com.diskusage.domain.model.Arc] that are drawn for each item far from the center of the chart.
          */
         const val SmallArcWidth = 5f
 

@@ -8,18 +8,20 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.diskusage.domain.entities.ListItem
+import com.diskusage.domain.model.ListItemsCollection
 
 @Composable
 fun ItemsList(
-    chartItems: List<ListItem>,
+    listItemsCollection: ListItemsCollection,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier
             .verticalScroll(rememberScrollState())
     ) {
-        chartItems.forEach { listItem ->
+        val (selectedItem, childItems, _) = listItemsCollection
+
+        (listOf(selectedItem) + childItems).forEach { listItem ->
             Text(
                 text = listItem.diskEntry.name,
                 modifier = Modifier

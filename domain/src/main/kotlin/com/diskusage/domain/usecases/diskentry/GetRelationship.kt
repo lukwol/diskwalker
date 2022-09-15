@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.diskentry
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 
 /**
  * Define [Relationship][DiskEntry.Relationship] between two [disk entries][DiskEntry]

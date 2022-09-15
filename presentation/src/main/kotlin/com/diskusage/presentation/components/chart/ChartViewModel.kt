@@ -1,11 +1,14 @@
 package com.diskusage.presentation.components.chart
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.ChartItem
+import com.diskusage.domain.model.ChartItemsCollection
+import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.ListItemsCollection
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
 import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
+import com.diskusage.domain.usecases.chart.listItem.GetListItem
 import com.diskusage.domain.usecases.chart.listItem.GetSortedListItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +21,7 @@ class ChartViewModel(
     diskEntry: DiskEntry,
     private val getSortedChartItems: GetSortedChartItems,
     private val getSortedListItems: GetSortedListItems,
+    private val getListItem: GetListItem,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected
 ) {
@@ -31,32 +35,54 @@ class ChartViewModel(
         with(viewState.value) {
             viewModelScope.launch {
                 mutableViewState.value = copy(
-                    listItems = getSortedListItems(diskEntry),
-                    startItems = getSortedChartItems(diskEntry)
+                    listItemsCollection = ListItemsCollection(
+                        selectedItem = getListItem(diskEntry),
+                        childItems = getSortedListItems(diskEntry),
+                        foldedChildItems = emptyList()
+                    ),
+                    chartItemsCollection = ChartItemsCollection(
+                        startItems = getSortedChartItems(diskEntry)
+                    )
                 )
             }
         }
     }
 
     fun onChartPositionHovered(position: Offset) = with(viewState.value) {
-        (endItems ?: startItems)
-            .filter { includeDiskEntry(it.diskEntry, diskEntry) }
-            .find { isArcSelected(it.arc, position) }
-            .let(::onHoverDiskEntry)
+        if (chartItemsCollection != null) {
+            val (startItems, endItems) = chartItemsCollection
+            (endItems ?: startItems)
+                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .find { isArcSelected(it.arc, position) }
+                .let(::onHoverDiskEntry)
+        }
     }
 
     fun onChartPositionClicked(position: Offset) = with(viewState.value) {
-        (endItems ?: startItems)
-            .filter { includeDiskEntry(it.diskEntry, diskEntry) }
-            .find { isArcSelected(it.arc, position) }
-            ?.let(::onSelectChartItem)
+        if (chartItemsCollection != null) {
+            val (startItems, endItems) = chartItemsCollection
+            (endItems ?: startItems)
+                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .find { isArcSelected(it.arc, position) }
+                ?.let(::onSelectChartItem)
+        }
     }
 
     private fun onHoverDiskEntry(chartItem: ChartItem?) = with(viewState.value) {
         val selectedDiskEntry = chartItem?.diskEntry ?: diskEntry
         viewModelScope.launch {
             mutableViewState.value = copy(
-                listItems = getSortedListItems(selectedDiskEntry)
+                listItemsCollection = ListItemsCollection(
+                    selectedItem = getListItem(
+                        diskEntry = selectedDiskEntry,
+                        fromDiskEntry = diskEntry
+                    ),
+                    childItems = getSortedListItems(
+                        diskEntry = selectedDiskEntry,
+                        fromDiskEntry = diskEntry
+                    ),
+                    foldedChildItems = emptyList()
+                )
             )
         }
     }
@@ -70,16 +96,22 @@ class ChartViewModel(
 
         if (selectedDiskEntry != null) {
             viewModelScope.launch {
-                val (startItems, endItems) = getSortedChartItems(
+                val (startChartItems, endChartItems) = getSortedChartItems(
                     fromDiskEntry = diskEntry,
                     toDiskEntry = selectedDiskEntry
                 )
 
                 mutableViewState.value = copy(
                     diskEntry = selectedDiskEntry,
-                    listItems = getSortedListItems(selectedDiskEntry),
-                    startItems = startItems,
-                    endItems = endItems
+                    listItemsCollection = ListItemsCollection(
+                        selectedItem = getListItem(selectedDiskEntry),
+                        foldedChildItems = emptyList(),
+                        childItems = getSortedListItems(selectedDiskEntry)
+                    ),
+                    chartItemsCollection = ChartItemsCollection(
+                        startItems = startChartItems,
+                        endItems = endChartItems
+                    )
                 )
             }
         }

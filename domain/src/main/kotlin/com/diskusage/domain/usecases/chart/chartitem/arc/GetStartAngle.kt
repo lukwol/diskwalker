@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
-import com.diskusage.domain.entities.Arc
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.Arc
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot

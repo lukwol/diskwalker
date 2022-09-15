@@ -4,7 +4,7 @@ import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 

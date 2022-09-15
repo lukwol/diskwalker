@@ -1,11 +1,9 @@
 package com.diskusage.domain.usecases.chart.listItem
 
-import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.entities.ListItem
+import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.ListItem
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
-import com.diskusage.domain.usecases.chart.chartitem.GetColor
-import com.diskusage.domain.usecases.diskentry.GetRoot
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,21 +15,17 @@ import kotlinx.coroutines.withContext
 class GetSortedListItems(
     private val sortDiskEntries: SortDiskEntries,
     private val includeDiskEntry: IncludeDiskEntry,
-    private val getRoot: GetRoot,
-    private val getColor: GetColor
+    private val getListItem: GetListItem
 ) {
-    suspend operator fun invoke(diskEntry: DiskEntry) = withContext(Dispatchers.Default) {
-        (listOf(diskEntry) + diskEntry.children)
+    suspend operator fun invoke(
+        diskEntry: DiskEntry,
+        fromDiskEntry: DiskEntry = diskEntry
+    ) = withContext(Dispatchers.Default) {
+        diskEntry.children
             .filter { includeDiskEntry(it, diskEntry) }
             .let(sortDiskEntries::invoke)
-            .map { getListItem(it, diskEntry) }
+            .map { getListItem(it, fromDiskEntry) }
     }
 
-    private fun getListItem(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ) = ListItem(
-        diskEntry = diskEntry,
-        color = getColor(diskEntry, fromDiskEntry)
-    )
+    // TODO: Should return ListItemsCollection
 }

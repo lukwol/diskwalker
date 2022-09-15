@@ -1,4 +1,4 @@
-package com.diskusage.domain.entities
+package com.diskusage.domain.model
 
 import java.nio.file.Path
 

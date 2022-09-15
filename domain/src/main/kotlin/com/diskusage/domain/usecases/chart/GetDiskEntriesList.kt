@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.chart
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 
 /**
  * Recursively traverses through all [children][DiskEntry.children] of given `diskEntry`

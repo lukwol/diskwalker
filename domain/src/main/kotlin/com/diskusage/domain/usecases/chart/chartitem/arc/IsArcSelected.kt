@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.entities.Arc
+import com.diskusage.domain.model.Arc
 import kotlin.math.PI
 import kotlin.math.atan2
 

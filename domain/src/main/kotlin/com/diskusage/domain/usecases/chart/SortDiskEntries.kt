@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.chart
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 
 /**
  * Sorts given list of `diskEntries`, first by [size][DiskEntry.sizeOnDisk] - from the biggest to the smallest,

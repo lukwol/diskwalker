@@ -1,4 +1,4 @@
-package com.diskusage.domain.entities
+package com.diskusage.domain.model
 
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 
