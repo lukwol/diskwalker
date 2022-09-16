@@ -7,9 +7,9 @@ import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
-// TODO: Add tests and documentation
-
 /**
+ * Creates [ChartItem] for given `diskEntry` starting from `fromDiskEntry`.
+ *
  * If [ChartItem] won't [be visible on chart][includeDiskEntry], set's it's [alpha][Color.alpha] value to **0f**.
  */
 class GetChartItem(

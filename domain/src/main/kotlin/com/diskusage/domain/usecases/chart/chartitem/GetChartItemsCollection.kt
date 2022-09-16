@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.chart.chartitem
 
-import com.diskusage.domain.model.ChartItem
+import com.diskusage.domain.model.ChartItemsCollection
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.SortDiskEntries
@@ -8,13 +8,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Get a sorted [chart items][ChartItem] list required for drawing the chart.
+ * Get a [GetChartItemsCollection] with sorted [startItems][ChartItemsCollection.startItems]
+ * and sorted [endItems][ChartItemsCollection.endItems].
  *
- * Can return a pair of lists for chart to be able to animate from one to another.
+ * If `toDiskEntry` is not provided, [endItems][ChartItemsCollection.endItems] is `null`.
  *
  * @see sortDiskEntries
  */
-class GetSortedChartItems(
+class GetChartItemsCollection(
     private val getDiskEntriesList: GetDiskEntriesList,
     private val sortDiskEntries: SortDiskEntries,
     private val getChartItem: GetChartItem
@@ -23,6 +24,12 @@ class GetSortedChartItems(
         getDiskEntriesList(diskEntry)
             .let(sortDiskEntries::invoke)
             .map { getChartItem(it, diskEntry) }
+            .let { startItems ->
+                ChartItemsCollection(
+                    startItems = startItems,
+                    endItems = null
+                )
+            }
     }
 
     suspend operator fun invoke(
@@ -34,7 +41,8 @@ class GetSortedChartItems(
             .let(sortDiskEntries::invoke)
             .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
             .unzip()
+            .let { (startItems, endItems) ->
+                ChartItemsCollection(startItems, endItems)
+            }
     }
-
-    // TODO: Should return ListItemsCollection
 }

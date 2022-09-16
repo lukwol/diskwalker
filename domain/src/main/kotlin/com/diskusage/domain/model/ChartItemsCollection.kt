@@ -1,7 +1,8 @@
 package com.diskusage.domain.model
 
-// TODO: documentation
-
+/**
+ * A pair of lists for chart to be able to animate from one to another.
+ */
 data class ChartItemsCollection(
     val startItems: List<ChartItem>,
     val endItems: List<ChartItem>? = null

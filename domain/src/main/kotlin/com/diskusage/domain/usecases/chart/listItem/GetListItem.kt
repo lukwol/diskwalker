@@ -4,8 +4,9 @@ import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListItem
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
 
-// TODO: Add tests and documentation
-
+/**
+ * Creates [ListItem] for given `diskEntry` starting from `fromDiskEntry`.
+ */
 class GetListItem(
     private val getColor: GetColor
 ) {

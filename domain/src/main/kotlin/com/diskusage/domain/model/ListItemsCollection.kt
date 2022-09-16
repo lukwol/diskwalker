@@ -1,8 +1,9 @@
 package com.diskusage.domain.model
 
-// TODO: Add documentation
-
+/**
+ * List items collection with `parent` [ListItem] and list of it's [`child list items`][ListItem].
+ */
 data class ListItemsCollection(
-    val selectedItem: ListItem,
+    val parentItem: ListItem,
     val childItems: List<ListItem>
 )
