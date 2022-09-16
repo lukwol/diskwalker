@@ -4,6 +4,5 @@ package com.diskusage.domain.model
 
 data class ListItemsCollection(
     val selectedItem: ListItem,
-    val childItems: List<ListItem>,
-    val foldedChildItems: List<ListItem>
+    val childItems: List<ListItem>
 )

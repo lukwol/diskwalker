@@ -19,7 +19,7 @@ fun ItemsList(
         modifier
             .verticalScroll(rememberScrollState())
     ) {
-        val (selectedItem, childItems, _) = listItemsCollection
+        val (selectedItem, childItems) = listItemsCollection
 
         (listOf(selectedItem) + childItems).forEach { listItem ->
             Text(

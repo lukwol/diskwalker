@@ -21,7 +21,7 @@ private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDept
 private const val ChartDiameter = ChartRadius * 2
 
 @Composable
-fun ItemsChart(
+fun Chart(
     chartItems: List<ChartItem>,
     modifier: Modifier = Modifier
 ) {

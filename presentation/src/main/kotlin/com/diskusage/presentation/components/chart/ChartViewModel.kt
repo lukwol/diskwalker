@@ -37,8 +37,7 @@ class ChartViewModel(
                 mutableViewState.value = copy(
                     listItemsCollection = ListItemsCollection(
                         selectedItem = getListItem(diskEntry),
-                        childItems = getSortedListItems(diskEntry),
-                        foldedChildItems = emptyList()
+                        childItems = getSortedListItems(diskEntry)
                     ),
                     chartItemsCollection = ChartItemsCollection(
                         startItems = getSortedChartItems(diskEntry)
@@ -80,8 +79,7 @@ class ChartViewModel(
                     childItems = getSortedListItems(
                         diskEntry = selectedDiskEntry,
                         fromDiskEntry = diskEntry
-                    ),
-                    foldedChildItems = emptyList()
+                    )
                 )
             )
         }
@@ -105,7 +103,6 @@ class ChartViewModel(
                     diskEntry = selectedDiskEntry,
                     listItemsCollection = ListItemsCollection(
                         selectedItem = getListItem(selectedDiskEntry),
-                        foldedChildItems = emptyList(),
                         childItems = getSortedListItems(selectedDiskEntry)
                     ),
                     chartItemsCollection = ChartItemsCollection(

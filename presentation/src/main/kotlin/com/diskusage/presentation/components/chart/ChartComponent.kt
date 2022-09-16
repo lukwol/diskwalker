@@ -20,7 +20,7 @@ import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.model.*
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
-import com.diskusage.presentation.components.chart.blocks.ItemsChart
+import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.components.chart.blocks.ItemsList
 import com.diskusage.presentation.di.ViewModelProvider
 
@@ -85,7 +85,7 @@ private fun RowScope.ItemsChartBlock(
         )
     }
 
-    ItemsChart(
+    Chart(
         chartItems = chartItems,
         modifier = Modifier
             .weight(ChartWeight)
