@@ -35,12 +35,12 @@ fun ChartComponent(diskEntry: DiskEntry) {
     val viewModel = remember { ViewModelProvider.getChartViewModel(diskEntry) }
     val viewState by viewModel.viewState.collectAsState()
 
-    val listItemsCollection = viewState.listItemsCollection
-    val chartItemsCollection = viewState.chartItemsCollection
+    val listData = viewState.listData
+    val chartData = viewState.chartData
 
-    val animatable = remember(chartItemsCollection?.endItems) { Animatable(0f) }
+    val animatable = remember(chartData?.endItems) { Animatable(0f) }
 
-    LaunchedEffect(chartItemsCollection?.endItems) {
+    LaunchedEffect(chartData?.endItems) {
         animatable.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = AnimationDurationMillis)
@@ -51,30 +51,28 @@ fun ChartComponent(diskEntry: DiskEntry) {
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.padding(20.dp)
     ) {
-        if (listItemsCollection != null) {
+        if (listData != null) {
             Column(
                 Modifier
                     .weight(ListWeight)
                     .fillMaxHeight()
                     .verticalScroll(rememberScrollState())
             ) {
-                val (selectedItem, childItems) = listItemsCollection
+                val (selectedItem, childItems) = listData
 
-                (listOf(selectedItem) + childItems).forEach { listItem ->
+                (listOf(selectedItem) + childItems).forEach { item ->
                     ItemRow(
-                        listItem = listItem,
+                        item = item,
                         modifier = Modifier.clickable(
-                            enabled = !animatable.isRunning &&
-                                listItem.diskEntry.type == DiskEntry.Type.Directory &&
-                                listItem.diskEntry.sizeOnDisk > 0,
-                            onClick = { viewModel.onSelectListItem(listItem) }
+                            enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
+                            onClick = { viewModel.onSelectChartItem(item) }
                         )
                     )
                 }
             }
         }
-        if (chartItemsCollection != null) {
-            val (startChartItems, endChartItems) = chartItemsCollection
+        if (chartData != null) {
+            val (startChartItems, endChartItems) = chartData
             val chartItems = when {
                 endChartItems == null -> startChartItems
                 animatable.value < 1f -> animatable.itemsTransition(startChartItems, endChartItems)

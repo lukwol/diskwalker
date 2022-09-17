@@ -3,12 +3,11 @@ package com.diskusage.domain.di
 import com.diskusage.domain.usecases.chart.GetDiskEntriesList
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
+import com.diskusage.domain.usecases.chart.chartitem.GetChartData
 import com.diskusage.domain.usecases.chart.chartitem.GetChartItem
-import com.diskusage.domain.usecases.chart.chartitem.GetChartItemsCollection
 import com.diskusage.domain.usecases.chart.chartitem.GetColor
+import com.diskusage.domain.usecases.chart.chartitem.GetListData
 import com.diskusage.domain.usecases.chart.chartitem.arc.*
-import com.diskusage.domain.usecases.chart.listItem.GetListItem
-import com.diskusage.domain.usecases.chart.listItem.GetListItemsCollection
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
@@ -22,10 +21,9 @@ val domainModule = module {
     singleOf(::GetStartRadius)
     singleOf(::GetArcWidth)
     singleOf(::IsArcSelected)
-    singleOf(::GetListItem)
     singleOf(::GetChartItem)
-    singleOf(::GetListItemsCollection)
-    singleOf(::GetChartItemsCollection)
+    singleOf(::GetListData)
+    singleOf(::GetChartData)
     singleOf(::GetColor)
     singleOf(::GetDiskEntriesList)
     singleOf(::IncludeDiskEntry)

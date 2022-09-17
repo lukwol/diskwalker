@@ -17,19 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.diskusage.domain.model.Arc
+import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.model.ListItem
+import com.diskusage.libraries.ranges.until
 import java.nio.file.Path
 
 @Composable
 fun ItemRow(
-    listItem: ListItem,
+    item: ChartItem,
     modifier: Modifier = Modifier
 ) {
-    val type = listItem.diskEntry.type
-    val name = listItem.diskEntry.name
-    val color = listItem.color
-    val sizeOnDisk = listItem.diskEntry.sizeOnDisk
+    val type = item.diskEntry.type
+    val name = item.diskEntry.name
+    val color = item.color
+    val sizeOnDisk = item.diskEntry.sizeOnDisk
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -77,13 +79,17 @@ private fun humanReadableSize(bytes: Double) = when {
 @Composable
 private fun Preview() {
     ItemRow(
-        listItem = ListItem(
+        item = ChartItem(
             diskEntry = DiskEntry(
                 name = "file",
                 type = DiskEntry.Type.File,
                 path = Path.of("/file"),
                 parent = null,
                 sizeOnDisk = 8192
+            ),
+            arc = Arc(
+                angleRange = 0f until 360f,
+                radiusRange = 0f until 360f
             ),
             color = Color.Cyan
         )
