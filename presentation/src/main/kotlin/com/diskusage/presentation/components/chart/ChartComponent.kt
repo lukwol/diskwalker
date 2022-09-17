@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalComposeUiApi::class)
-
 package com.diskusage.presentation.components.chart
 
 import androidx.compose.animation.core.Animatable
@@ -24,7 +22,7 @@ import com.diskusage.presentation.components.chart.blocks.Chart
 import com.diskusage.presentation.components.chart.blocks.ItemsList
 import com.diskusage.presentation.di.ViewModelProvider
 
-private const val ChartWeight = 4f
+private const val ChartWeight = 2f
 private const val ListWeight = 1f
 
 @Composable
@@ -62,6 +60,7 @@ private fun RowScope.ItemsListBlock(listItemsCollection: ListItemsCollection) {
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun RowScope.ItemsChartBlock(
     chartItemsCollection: ChartItemsCollection,
