@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.Arc
@@ -24,8 +26,21 @@ import com.diskusage.libraries.ranges.until
 import java.nio.file.Path
 
 @Composable
+fun ItemHeader(
+    item: ChartItem,
+    modifier: Modifier = Modifier
+) {
+    ItemRow(
+        item = item,
+        textStyle = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.ExtraBold),
+        modifier = modifier
+    )
+}
+
+@Composable
 fun ItemRow(
     item: ChartItem,
+    textStyle: TextStyle = MaterialTheme.typography.subtitle2,
     modifier: Modifier = Modifier
 ) {
     val type = item.diskEntry.type
@@ -54,6 +69,7 @@ fun ItemRow(
             color = MaterialTheme.colors.onBackground,
             maxLines = 1,
             overflow = TextOverflow.Clip,
+            style = textStyle,
             modifier = Modifier.weight(1f)
         )
 
@@ -63,11 +79,13 @@ fun ItemRow(
             text = humanReadableSize(sizeOnDisk.toDouble()),
             color = MaterialTheme.colors.onBackground,
             maxLines = 1,
-            overflow = TextOverflow.Clip
+            overflow = TextOverflow.Clip,
+            style = textStyle
         )
     }
 }
 
+// TODO: Move to usecase
 private fun humanReadableSize(bytes: Double) = when {
     bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
     bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
@@ -92,6 +110,7 @@ private fun Preview() {
                 radiusRange = 0f until 360f
             ),
             color = Color.Cyan
-        )
+        ),
+        textStyle = MaterialTheme.typography.body2
     )
 }

@@ -3,10 +3,8 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,6 +21,7 @@ import com.diskusage.domain.model.DiskEntry
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.components.chart.blocks.Chart
+import com.diskusage.presentation.components.chart.blocks.ItemHeader
 import com.diskusage.presentation.components.chart.blocks.ItemRow
 import com.diskusage.presentation.di.ViewModelProvider
 
@@ -52,22 +51,36 @@ fun ChartComponent(diskEntry: DiskEntry) {
         modifier = Modifier.padding(20.dp)
     ) {
         if (listData != null) {
-            Column(
-                Modifier
-                    .weight(ListWeight)
-                    .fillMaxHeight()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                val (selectedItem, childItems) = listData
+            val (selectedItem, childItems) = listData
 
-                (listOf(selectedItem) + childItems).forEach { item ->
-                    ItemRow(
-                        item = item,
-                        modifier = Modifier.clickable(
-                            enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
-                            onClick = { viewModel.onSelectChartItem(item) }
+            Column(
+                modifier = Modifier
+                    .weight(ListWeight)
+            ) {
+                ItemHeader(
+                    item = selectedItem,
+                    modifier = Modifier
+                        .clickable(
+                            enabled = !animatable.isRunning
+                                    && selectedItem.diskEntry.type == DiskEntry.Type.Directory
+                                    && selectedItem.diskEntry.parent != null,
+                            onClick = { viewModel.onSelectChartItem(selectedItem) }
                         )
-                    )
+                )
+
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    (childItems).forEach { item ->
+                        ItemRow(
+                            item = item,
+                            modifier = Modifier.clickable(
+                                enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
+                                onClick = { viewModel.onSelectChartItem(item) }
+                            )
+                        )
+                    }
                 }
             }
         }

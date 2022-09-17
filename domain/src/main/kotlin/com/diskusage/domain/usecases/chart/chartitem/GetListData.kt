@@ -2,6 +2,7 @@ package com.diskusage.domain.usecases.chart.chartitem
 
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListData
+import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
  */
 class GetListData(
     private val sortDiskEntries: SortDiskEntries,
-    private val getChartItem: GetChartItem
+    private val getChartItem: GetChartItem,
+    private val includeDiskEntry: IncludeDiskEntry
 ) {
     suspend operator fun invoke(
         diskEntry: DiskEntry,
@@ -25,6 +27,7 @@ class GetListData(
         ListData(
             parentItem = getChartItem(diskEntry, fromDiskEntry),
             childItems = diskEntry.children
+                .filter { includeDiskEntry(it, diskEntry) }
                 .let(sortDiskEntries::invoke)
                 .map { getChartItem(it, fromDiskEntry) }
         )
