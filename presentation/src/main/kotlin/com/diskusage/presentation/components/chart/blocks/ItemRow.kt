@@ -1,7 +1,6 @@
 package com.diskusage.presentation.components.chart.blocks
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -25,7 +24,6 @@ import java.nio.file.Path
 @Composable
 fun ItemRow(
     listItem: ListItem,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val type = listItem.diskEntry.type
@@ -35,10 +33,8 @@ fun ItemRow(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clickable(onClick = onClick)
+        modifier = modifier
             .padding(10.dp)
-            .then(modifier)
     ) {
         Icon(
             imageVector = when (type) {
@@ -90,7 +86,6 @@ private fun Preview() {
                 sizeOnDisk = 8192
             ),
             color = Color.Cyan
-        ),
-        onClick = {}
+        )
     )
 }

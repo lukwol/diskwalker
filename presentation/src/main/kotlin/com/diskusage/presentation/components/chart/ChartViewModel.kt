@@ -3,6 +3,7 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.ListItem
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.chartitem.GetChartItemsCollection
 import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
@@ -67,6 +68,33 @@ class ChartViewModel(
                         diskEntry = selectedDiskEntry,
                         fromDiskEntry = diskEntry
                     )
+                )
+            }
+        }
+    }
+
+    fun onSelectListItem(listItem: ListItem) = with(viewState.value) {
+        val selectedDiskEntry = if (listItem.diskEntry == diskEntry) {
+            listItem.diskEntry.parent
+        } else {
+            listItem.diskEntry
+        }
+
+        if (selectedDiskEntry != null) {
+            viewModelScope.launch {
+                val listItemsCollection = async {
+                    getListItemsCollection(selectedDiskEntry)
+                }
+                val chartItemsCollection = async {
+                    getChartItemsCollection(
+                        fromDiskEntry = diskEntry,
+                        toDiskEntry = selectedDiskEntry
+                    )
+                }
+                mutableViewState.value = copy(
+                    diskEntry = selectedDiskEntry,
+                    listItemsCollection = listItemsCollection.await(),
+                    chartItemsCollection = chartItemsCollection.await()
                 )
             }
         }
