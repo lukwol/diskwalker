@@ -2,7 +2,6 @@ package com.diskusage.domain.usecases.chart.listItem
 
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListItemsCollection
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
 import com.diskusage.domain.usecases.chart.SortDiskEntries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,12 +12,10 @@ import kotlinx.coroutines.withContext
  *
  * [ChildItems][ListItemsCollection.childItems] are sorted and have smaller items filtered out.
  *
- * @see includeDiskEntry
  * @see sortDiskEntries
  */
 class GetListItemsCollection(
     private val sortDiskEntries: SortDiskEntries,
-    private val includeDiskEntry: IncludeDiskEntry,
     private val getListItem: GetListItem
 ) {
     suspend operator fun invoke(
@@ -28,7 +25,6 @@ class GetListItemsCollection(
         ListItemsCollection(
             parentItem = getListItem(diskEntry, fromDiskEntry),
             childItems = diskEntry.children
-                .filter { includeDiskEntry(it, diskEntry) }
                 .let(sortDiskEntries::invoke)
                 .map { getListItem(it, fromDiskEntry) }
         )

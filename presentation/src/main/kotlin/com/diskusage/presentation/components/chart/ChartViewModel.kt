@@ -55,6 +55,7 @@ class ChartViewModel(
             (endItems ?: startItems)
                 .filter { includeDiskEntry(it.diskEntry, diskEntry) }
                 .find { isArcSelected(it.arc, position) }
+                ?.takeIf { it.diskEntry.type == DiskEntry.Type.Directory && it.diskEntry.sizeOnDisk > 0 }
                 ?.let(::onSelectChartItem)
         }
     }

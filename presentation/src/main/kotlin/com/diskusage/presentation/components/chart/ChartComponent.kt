@@ -64,7 +64,9 @@ fun ChartComponent(diskEntry: DiskEntry) {
                     ItemRow(
                         listItem = listItem,
                         modifier = Modifier.clickable(
-                            enabled = !animatable.isRunning,
+                            enabled = !animatable.isRunning &&
+                                listItem.diskEntry.type == DiskEntry.Type.Directory &&
+                                listItem.diskEntry.sizeOnDisk > 0,
                             onClick = { viewModel.onSelectListItem(listItem) }
                         )
                     )
