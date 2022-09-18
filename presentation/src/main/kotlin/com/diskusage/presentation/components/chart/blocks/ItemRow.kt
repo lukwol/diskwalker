@@ -9,8 +9,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Article
-import androidx.compose.material.icons.outlined.Folder
+import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,8 +55,8 @@ fun ItemRow(
     ) {
         Icon(
             imageVector = when (type) {
-                DiskEntry.Type.Directory -> Icons.Outlined.Folder
-                DiskEntry.Type.File -> Icons.Outlined.Article
+                DiskEntry.Type.Directory -> Icons.Default.Folder
+                DiskEntry.Type.File -> Icons.Default.Article
             },
             contentDescription = type.name,
             tint = color
