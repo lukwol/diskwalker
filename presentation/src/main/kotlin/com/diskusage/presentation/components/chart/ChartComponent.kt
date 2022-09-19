@@ -61,9 +61,9 @@ fun ChartComponent(diskEntry: DiskEntry) {
                     item = selectedItem,
                     modifier = Modifier
                         .clickable(
-                            enabled = !animatable.isRunning
-                                    && selectedItem.diskEntry.type == DiskEntry.Type.Directory
-                                    && selectedItem.diskEntry.parent != null,
+                            enabled = !animatable.isRunning &&
+                                selectedItem.diskEntry.type == DiskEntry.Type.Directory &&
+                                selectedItem.diskEntry.parent != null,
                             onClick = { viewModel.onSelectChartItem(selectedItem) }
                         )
                 )
