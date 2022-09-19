@@ -20,6 +20,10 @@ class GetListData(
     private val getChartItem: GetChartItem,
     private val includeDiskEntry: IncludeDiskEntry
 ) {
+
+    // TODO: Should operate on ListItem(diskEntry, color).
+    //  Create optimized usecase GetListItem that calculates color based on given ChartItem
+
     suspend operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = diskEntry

@@ -23,6 +23,7 @@ class DiskEntry(
      * Type of [DiskEntry], can either be a [File] or [Directory]
      */
     enum class Type {
+        // TODO: Start by adding new type Group
         Directory, File
     }
 
