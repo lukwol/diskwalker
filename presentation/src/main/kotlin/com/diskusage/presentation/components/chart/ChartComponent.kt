@@ -3,11 +3,18 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
@@ -53,12 +60,23 @@ fun ChartComponent(diskEntry: DiskEntry) {
         if (listData != null) {
             val (selectedItem, childItems) = listData
 
+            val smallerItemsSize = childItems
+                .map(ChartItem::diskEntry)
+                .sumOf(DiskEntry::sizeOnDisk)
+                .let { selectedItem.diskEntry.sizeOnDisk - it }
+
             Column(
                 modifier = Modifier
                     .weight(ListWeight)
             ) {
                 ItemHeader(
-                    item = selectedItem,
+                    name = selectedItem.diskEntry.name,
+                    description = humanReadableSize(selectedItem.diskEntry.sizeOnDisk.toDouble()),
+                    icon = when (selectedItem.diskEntry.type) {
+                        DiskEntry.Type.Directory -> Icons.Default.Folder
+                        DiskEntry.Type.File -> Icons.Default.Description
+                    },
+                    color = selectedItem.color,
                     modifier = Modifier
                         .clickable(
                             enabled = !animatable.isRunning &&
@@ -74,11 +92,27 @@ fun ChartComponent(diskEntry: DiskEntry) {
                 ) {
                     (childItems).forEach { item ->
                         ItemRow(
-                            item = item,
+                            name = item.diskEntry.name,
+                            description = humanReadableSize(item.diskEntry.sizeOnDisk.toDouble()),
+                            icon = when (item.diskEntry.type) {
+                                DiskEntry.Type.Directory -> Icons.Default.Folder
+                                DiskEntry.Type.File -> Icons.Default.Description
+                            },
+                            color = item.color,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
                                 onClick = { viewModel.onSelectChartItem(item) }
                             )
+                        )
+                    }
+
+                    if (smallerItemsSize > 0) {
+                        ItemRow(
+                            name = "smaller items...",
+                            description = humanReadableSize((smallerItemsSize).toDouble()),
+                            icon = Icons.Default.MoreHoriz,
+                            color = Color.LightGray,
+                            modifier = Modifier.alpha(0.5f)
                         )
                     }
                 }
@@ -112,6 +146,14 @@ fun ChartComponent(diskEntry: DiskEntry) {
             )
         }
     }
+}
+
+// TODO: Move to usecase
+private fun humanReadableSize(bytes: Double) = when {
+    bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
+    bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
+    bytes >= 1 shl 10 -> "%.0f kB".format(bytes / (1 shl 10))
+    else -> "${bytes.toInt()} bytes"
 }
 
 private fun Animatable<Float, AnimationVector1D>.itemsTransition(

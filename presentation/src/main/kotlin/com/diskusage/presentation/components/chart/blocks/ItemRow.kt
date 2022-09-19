@@ -12,33 +12,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
-import com.diskusage.libraries.ranges.until
-import java.nio.file.Path
 
 @Composable
 fun ItemHeader(
-    item: ChartItem,
+    name: String,
+    description: String,
+    icon: ImageVector,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
-    val type = item.diskEntry.type
-    val name = item.diskEntry.name
-    val color = item.color
-    val sizeOnDisk = item.diskEntry.sizeOnDisk
-
     Item(
         icon = {
             Icon(
-                imageVector = when (type) {
-                    DiskEntry.Type.Directory -> Icons.Default.Folder
-                    DiskEntry.Type.File -> Icons.Default.Article
-                },
-                contentDescription = type.name,
+                imageVector = icon,
+                contentDescription = null,
                 tint = color,
                 modifier = Modifier.fillMaxSize()
             )
@@ -55,7 +46,7 @@ fun ItemHeader(
         },
         description = {
             Text(
-                text = humanReadableSize(sizeOnDisk.toDouble()),
+                text = description,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -68,22 +59,17 @@ fun ItemHeader(
 
 @Composable
 fun ItemRow(
-    item: ChartItem,
+    name: String,
+    description: String,
+    icon: ImageVector,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
-    val type = item.diskEntry.type
-    val name = item.diskEntry.name
-    val color = item.color
-    val sizeOnDisk = item.diskEntry.sizeOnDisk
-
     Item(
         icon = {
             Icon(
-                imageVector = when (type) {
-                    DiskEntry.Type.Directory -> Icons.Default.Folder
-                    DiskEntry.Type.File -> Icons.Default.Article
-                },
-                contentDescription = type.name,
+                imageVector = icon,
+                contentDescription = null,
                 tint = color
             )
         },
@@ -99,7 +85,7 @@ fun ItemRow(
         },
         description = {
             Text(
-                text = humanReadableSize(sizeOnDisk.toDouble()),
+                text = description,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -139,32 +125,14 @@ private fun Item(
     }
 }
 
-// TODO: Move to usecase
-private fun humanReadableSize(bytes: Double) = when {
-    bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
-    bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
-    bytes >= 1 shl 10 -> "%.0f kB".format(bytes / (1 shl 10))
-    else -> "${bytes.toInt()} bytes"
-}
-
 @Preview
 @Composable
 private fun ItemHeaderPreview() {
-    ItemRow(
-        item = ChartItem(
-            diskEntry = DiskEntry(
-                name = "dir",
-                type = DiskEntry.Type.Directory,
-                path = Path.of("/dir"),
-                parent = null,
-                sizeOnDisk = 12800
-            ),
-            arc = Arc(
-                angleRange = 0f until 360f,
-                radiusRange = 0f until 360f
-            ),
-            color = Color.Magenta
-        )
+    ItemHeader(
+        name = "Folder 1",
+        description = "24 MB",
+        icon = Icons.Default.Folder,
+        color = Color.Cyan
     )
 }
 
@@ -172,19 +140,9 @@ private fun ItemHeaderPreview() {
 @Composable
 private fun ItemRowPreview() {
     ItemRow(
-        item = ChartItem(
-            diskEntry = DiskEntry(
-                name = "file",
-                type = DiskEntry.Type.File,
-                path = Path.of("/file"),
-                parent = null,
-                sizeOnDisk = 8192
-            ),
-            arc = Arc(
-                angleRange = 0f until 360f,
-                radiusRange = 0f until 360f
-            ),
-            color = Color.Cyan
-        )
+        name = "File 1",
+        description = "42 kB",
+        icon = Icons.Default.Article,
+        color = Color.Magenta
     )
 }
