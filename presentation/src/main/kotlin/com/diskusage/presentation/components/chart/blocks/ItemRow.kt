@@ -8,6 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.outlined.Article
+import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -106,7 +108,7 @@ private fun Item(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .padding(10.dp)
+            .padding(4.dp)
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -115,11 +117,11 @@ private fun Item(
             icon()
         }
 
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(8.dp))
 
         name()
 
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(8.dp))
 
         description()
     }
@@ -131,7 +133,7 @@ private fun ItemHeaderPreview() {
     ItemHeader(
         name = "Folder 1",
         description = "24 MB",
-        icon = Icons.Default.Folder,
+        icon = Icons.Outlined.Folder,
         color = Color.Cyan
     )
 }
@@ -142,7 +144,7 @@ private fun ItemRowPreview() {
     ItemRow(
         name = "File 1",
         description = "42 kB",
-        icon = Icons.Default.Article,
+        icon = Icons.Outlined.Article,
         color = Color.Magenta
     )
 }

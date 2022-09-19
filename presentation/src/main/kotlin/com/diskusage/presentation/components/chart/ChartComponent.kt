@@ -3,15 +3,14 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.outlined.Article
+import androidx.compose.material.icons.outlined.Folder
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -44,6 +43,8 @@ fun ChartComponent(diskEntry: DiskEntry) {
     val listData = viewState.listData
     val chartData = viewState.chartData
 
+    val scrollState = rememberScrollState()
+
     val animatable = remember(chartData?.endItems) { Animatable(0f) }
 
     LaunchedEffect(chartData?.endItems) {
@@ -54,7 +55,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier.padding(20.dp)
     ) {
         if (listData != null) {
@@ -64,6 +65,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
                 .map(ChartItem::diskEntry)
                 .sumOf(DiskEntry::sizeOnDisk)
                 .let { selectedItem.diskEntry.sizeOnDisk - it }
+                .takeIf { it > 0 }
 
             Column(
                 modifier = Modifier
@@ -73,11 +75,12 @@ fun ChartComponent(diskEntry: DiskEntry) {
                     name = selectedItem.diskEntry.name,
                     description = humanReadableSize(selectedItem.diskEntry.sizeOnDisk.toDouble()),
                     icon = when (selectedItem.diskEntry.type) {
-                        DiskEntry.Type.Directory -> Icons.Default.Folder
-                        DiskEntry.Type.File -> Icons.Default.Description
+                        DiskEntry.Type.Directory -> Icons.Outlined.Folder
+                        DiskEntry.Type.File -> Icons.Outlined.Article
                     },
                     color = selectedItem.color,
                     modifier = Modifier
+                        .padding(end = 10.dp)
                         .clickable(
                             enabled = !animatable.isRunning &&
                                 selectedItem.diskEntry.type == DiskEntry.Type.Directory &&
@@ -86,35 +89,46 @@ fun ChartComponent(diskEntry: DiskEntry) {
                         )
                 )
 
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    (childItems).forEach { item ->
-                        ItemRow(
-                            name = item.diskEntry.name,
-                            description = humanReadableSize(item.diskEntry.sizeOnDisk.toDouble()),
-                            icon = when (item.diskEntry.type) {
-                                DiskEntry.Type.Directory -> Icons.Default.Folder
-                                DiskEntry.Type.File -> Icons.Default.Description
-                            },
-                            color = item.color,
-                            modifier = Modifier.clickable(
-                                enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
-                                onClick = { viewModel.onSelectChartItem(item) }
+                Box {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(scrollState)
+                            .padding(end = 10.dp)
+                    ) {
+                        (childItems).forEach { item ->
+                            ItemRow(
+                                name = item.diskEntry.name,
+                                description = humanReadableSize(item.diskEntry.sizeOnDisk.toDouble()),
+                                icon = when (item.diskEntry.type) {
+                                    DiskEntry.Type.Directory -> Icons.Outlined.Folder
+                                    DiskEntry.Type.File -> Icons.Outlined.Article
+                                },
+                                color = item.color,
+                                modifier = Modifier.clickable(
+                                    enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
+                                    onClick = { viewModel.onSelectChartItem(item) }
+                                )
                             )
-                        )
+                        }
+
+                        if (selectedItem.diskEntry.type == DiskEntry.Type.Directory) {
+                            ItemRow(
+                                name = "Other",
+                                description = humanReadableSize(
+                                    (smallerItemsSize ?: selectedItem.diskEntry.sizeOnDisk).toDouble()
+                                ),
+                                icon = Icons.Outlined.MoreHoriz,
+                                color = Color.LightGray,
+                                modifier = Modifier.alpha(0.5f)
+                            )
+                        }
                     }
 
-                    if (smallerItemsSize > 0) {
-                        ItemRow(
-                            name = "smaller items...",
-                            description = humanReadableSize((smallerItemsSize).toDouble()),
-                            icon = Icons.Default.MoreHoriz,
-                            color = Color.LightGray,
-                            modifier = Modifier.alpha(0.5f)
-                        )
-                    }
+                    VerticalScrollbar(
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                            .fillMaxHeight(),
+                        adapter = rememberScrollbarAdapter(scrollState)
+                    )
                 }
             }
         }
