@@ -11,7 +11,6 @@ class GetListItem(
     private val getColor: GetColor
 ) {
 
-    //  TODO: Optimize color calculation based on given chartItem
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = diskEntry

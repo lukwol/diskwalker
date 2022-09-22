@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
  */
 class GetListData(
     private val sortDiskEntries: SortDiskEntries,
-    private val getListItem: GetListItem,
+    private val getListItem: GetListItem
 ) {
     suspend operator fun invoke(
         diskEntry: DiskEntry,
