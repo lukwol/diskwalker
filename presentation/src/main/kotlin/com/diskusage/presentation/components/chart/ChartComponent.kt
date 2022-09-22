@@ -66,12 +66,6 @@ fun ChartComponent(diskEntry: DiskEntry) {
         if (listData != null) {
             val (selectedItem, childItems) = listData
 
-            val smallerItemsSize = childItems
-                .map(ChartItem::diskEntry)
-                .sumOf(DiskEntry::sizeOnDisk)
-                .let { selectedItem.diskEntry.sizeOnDisk - it }
-                .takeIf { it > 0 }
-
             Box(
                 modifier = Modifier.weight(ListWeight)
             ) {
@@ -95,7 +89,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
                                     enabled = !animatable.isRunning &&
                                         selectedItem.diskEntry.type == DiskEntry.Type.Directory &&
                                         selectedItem.diskEntry.parent != null,
-                                    onClick = { viewModel.onSelectChartItem(selectedItem) }
+                                    onClick = { viewModel.onSelectDiskEntry(selectedItem.diskEntry) }
                                 )
                         )
                     }
@@ -111,7 +105,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
                             color = item.color,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
-                                onClick = { viewModel.onSelectChartItem(item) }
+                                onClick = { viewModel.onSelectDiskEntry(item.diskEntry) }
                             )
                         )
                     }

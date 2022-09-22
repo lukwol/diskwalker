@@ -4,9 +4,9 @@ import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.chartitem.GetChartData
-import com.diskusage.domain.usecases.chart.chartitem.GetListData
-import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
+import com.diskusage.domain.usecases.chart.item.chart.GetChartData
+import com.diskusage.domain.usecases.chart.item.chart.arc.IsArcSelected
+import com.diskusage.domain.usecases.chart.item.list.GetListData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -55,7 +55,8 @@ class ChartViewModel(
                 .filter { includeDiskEntry(it.diskEntry, diskEntry) }
                 .find { isArcSelected(it.arc, position) }
                 ?.takeIf { it.diskEntry.type == DiskEntry.Type.Directory }
-                ?.let(::onSelectChartItem)
+                ?.let(ChartItem::diskEntry)
+                ?.let(::onSelectDiskEntry)
         }
     }
 
@@ -73,11 +74,12 @@ class ChartViewModel(
         }
     }
 
-    fun onSelectChartItem(chartItem: ChartItem) = with(viewState.value) {
-        val selectedDiskEntry = if (chartItem.diskEntry == diskEntry) {
-            chartItem.diskEntry.parent
+    fun onSelectDiskEntry(diskEntry: DiskEntry) = with(viewState.value) {
+        val previousDiskEntry = this.diskEntry
+        val selectedDiskEntry = if (diskEntry == previousDiskEntry) {
+            diskEntry.parent
         } else {
-            chartItem.diskEntry
+            diskEntry
         }
 
         if (selectedDiskEntry != null) {
@@ -87,7 +89,7 @@ class ChartViewModel(
                 }
                 val chartData = async {
                     getChartData(
-                        fromDiskEntry = diskEntry,
+                        fromDiskEntry = previousDiskEntry,
                         toDiskEntry = selectedDiskEntry
                     )
                 }

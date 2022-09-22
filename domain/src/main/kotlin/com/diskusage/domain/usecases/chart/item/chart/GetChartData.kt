@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.chart.chartitem
+package com.diskusage.domain.usecases.chart.item.chart
 
 import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.model.ChartData

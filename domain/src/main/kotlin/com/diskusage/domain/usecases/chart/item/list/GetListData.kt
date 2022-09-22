@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.chart.chartitem
+package com.diskusage.domain.usecases.chart.item.list
 
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListData
@@ -17,23 +17,19 @@ import kotlinx.coroutines.withContext
  */
 class GetListData(
     private val sortDiskEntries: SortDiskEntries,
-    private val getChartItem: GetChartItem,
+    private val getListItem: GetListItem,
     private val includeDiskEntry: IncludeDiskEntry
 ) {
-
-    // TODO: Should operate on ListItem(diskEntry, color).
-    //  Create optimized usecase GetListItem that calculates color based on given ChartItem
-
     suspend operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = diskEntry
     ) = withContext(Dispatchers.Default) {
         ListData(
-            parentItem = getChartItem(diskEntry, fromDiskEntry),
+            parentItem = getListItem(diskEntry, fromDiskEntry),
             childItems = diskEntry.children
                 .filter { includeDiskEntry(it, diskEntry) }
                 .let(sortDiskEntries::invoke)
-                .map { getChartItem(it, fromDiskEntry) }
+                .map { getListItem(it, fromDiskEntry) }
         )
     }
 }

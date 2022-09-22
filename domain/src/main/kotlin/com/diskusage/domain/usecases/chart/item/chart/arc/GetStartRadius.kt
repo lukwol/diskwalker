@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.item.chart.arc
 
 import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth

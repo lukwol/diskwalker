@@ -1,9 +1,9 @@
 package com.diskusage.domain.model
 
 /**
- * `Parent` [ChartItem] and a list of it's [`child items`][ChartItem].
+ * `Parent` [ListItem] and a list of it's [`child items`][ListItem].
  */
 data class ListData(
-    val parentItem: ChartItem,
-    val childItems: List<ChartItem>
+    val parentItem: ListItem,
+    val childItems: List<ListItem>
 )

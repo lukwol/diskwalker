@@ -6,6 +6,7 @@ import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.SortDiskEntries
+import com.diskusage.domain.usecases.chart.item.chart.GetChartData
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
