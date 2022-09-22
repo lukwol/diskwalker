@@ -26,7 +26,7 @@ class GetColor(
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
-        precalculatedArc: Arc = getArc(diskEntry, fromDiskEntry)
+        precalculatedArc: Arc? = null
     ) = when (diskEntry.type) {
         DiskEntry.Type.File -> Color.hsl(
             hue = 0f,
@@ -34,7 +34,7 @@ class GetColor(
             lightness = 0.35f
         )
 
-        DiskEntry.Type.Directory -> with(precalculatedArc) {
+        DiskEntry.Type.Directory -> with(precalculatedArc ?: getArc(diskEntry, fromDiskEntry)) {
             val depth = getDepth(diskEntry, fromDiskEntry)
             Color.hsl(
                 hue = (angleRange.end).coerceIn(0f, 360f),
