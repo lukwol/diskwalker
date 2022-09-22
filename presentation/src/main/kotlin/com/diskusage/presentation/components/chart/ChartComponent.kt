@@ -86,9 +86,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
                             color = selectedItem.color,
                             modifier = Modifier
                                 .clickable(
-                                    enabled = !animatable.isRunning &&
-                                        selectedItem.diskEntry.type == DiskEntry.Type.Directory &&
-                                        selectedItem.diskEntry.parent != null,
+                                    enabled = !animatable.isRunning,
                                     onClick = { viewModel.onSelectDiskEntry(selectedItem.diskEntry) }
                                 )
                         )
@@ -104,7 +102,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
                             },
                             color = item.color,
                             modifier = Modifier.clickable(
-                                enabled = !animatable.isRunning && item.diskEntry.type == DiskEntry.Type.Directory,
+                                enabled = !animatable.isRunning,
                                 onClick = { viewModel.onSelectDiskEntry(item.diskEntry) }
                             )
                         )

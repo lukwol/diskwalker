@@ -54,7 +54,6 @@ class ChartViewModel(
             (endItems ?: startItems)
                 .filter { includeDiskEntry(it.diskEntry, diskEntry) }
                 .find { isArcSelected(it.arc, position) }
-                ?.takeIf { it.diskEntry.type == DiskEntry.Type.Directory }
                 ?.let(ChartItem::diskEntry)
                 ?.let(::onSelectDiskEntry)
         }
@@ -76,10 +75,11 @@ class ChartViewModel(
 
     fun onSelectDiskEntry(diskEntry: DiskEntry) = with(viewState.value) {
         val previousDiskEntry = this.diskEntry
-        val selectedDiskEntry = if (diskEntry == previousDiskEntry) {
-            diskEntry.parent
-        } else {
-            diskEntry
+        val selectedDiskEntry = when {
+            diskEntry.type != DiskEntry.Type.Directory -> null
+            diskEntry.sizeOnDisk == 0L -> null
+            diskEntry == previousDiskEntry -> diskEntry.parent
+            else -> diskEntry
         }
 
         if (selectedDiskEntry != null) {
