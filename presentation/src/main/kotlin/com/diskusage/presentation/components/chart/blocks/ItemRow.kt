@@ -7,39 +7,39 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
-import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.ListItem
+import java.nio.file.Path
 
 @Composable
 fun ItemHeader(
-    name: String,
-    description: String,
-    icon: ImageVector,
-    color: Color,
+    listItem: ListItem,
     modifier: Modifier = Modifier
 ) {
     Item(
         icon = {
             Icon(
-                imageVector = icon,
+                imageVector = when (listItem.diskEntry.type) {
+                    DiskEntry.Type.Directory -> Icons.Outlined.Folder
+                    DiskEntry.Type.File -> Icons.Outlined.Article
+                },
                 contentDescription = null,
-                tint = color,
+                tint = listItem.color,
                 modifier = Modifier.fillMaxSize()
             )
         },
         name = {
             Text(
-                text = name,
+                text = listItem.diskEntry.name,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -49,7 +49,7 @@ fun ItemHeader(
         },
         description = {
             Text(
-                text = description,
+                text = humanReadableSize(listItem.diskEntry.sizeOnDisk.toDouble()),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -62,23 +62,23 @@ fun ItemHeader(
 
 @Composable
 fun ItemRow(
-    name: String,
-    description: String,
-    icon: ImageVector,
-    color: Color,
+    listItem: ListItem,
     modifier: Modifier = Modifier
 ) {
     Item(
         icon = {
             Icon(
-                imageVector = icon,
+                imageVector = when (listItem.diskEntry.type) {
+                    DiskEntry.Type.Directory -> Icons.Outlined.Folder
+                    DiskEntry.Type.File -> Icons.Outlined.Article
+                },
                 contentDescription = null,
-                tint = color
+                tint = listItem.color
             )
         },
         name = {
             Text(
-                text = name,
+                text = listItem.diskEntry.name,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -88,7 +88,7 @@ fun ItemRow(
         },
         description = {
             Text(
-                text = description,
+                text = humanReadableSize(listItem.diskEntry.sizeOnDisk.toDouble()),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -132,14 +132,28 @@ private fun Item(
     }
 }
 
+// TODO: Move to library
+private fun humanReadableSize(bytes: Double) = when {
+    bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
+    bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
+    bytes >= 1 shl 10 -> "%.0f kB".format(bytes / (1 shl 10))
+    else -> "${bytes.toInt()} bytes"
+}
+
 @Preview
 @Composable
 private fun ItemHeaderPreview() {
     ItemHeader(
-        name = "Folder 1",
-        description = "24 MB",
-        icon = Icons.Outlined.Folder,
-        color = Color.Cyan
+        listItem = ListItem(
+            diskEntry = DiskEntry(
+                name = "dir",
+                type = DiskEntry.Type.Directory,
+                path = Path.of("/dir"),
+                parent = null,
+                sizeOnDisk = 12800
+            ),
+            color = Color.Cyan
+        )
     )
 }
 
@@ -147,9 +161,15 @@ private fun ItemHeaderPreview() {
 @Composable
 private fun ItemRowPreview() {
     ItemRow(
-        name = "File 1",
-        description = "42 kB",
-        icon = Icons.Outlined.Article,
-        color = Color.Magenta
+        ListItem(
+            diskEntry = DiskEntry(
+                name = "file1",
+                type = DiskEntry.Type.File,
+                path = Path.of("/dir/file1"),
+                parent = null,
+                sizeOnDisk = 5120
+            ),
+            color = Color.Magenta
+        )
     )
 }

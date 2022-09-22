@@ -11,10 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
-import androidx.compose.material.icons.outlined.Article
-import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -77,16 +73,10 @@ fun ChartComponent(diskEntry: DiskEntry) {
                 ) {
                     stickyHeader {
                         ItemHeader(
-                            name = selectedItem.diskEntry.name,
-                            description = humanReadableSize(selectedItem.diskEntry.sizeOnDisk.toDouble()),
-                            icon = when (selectedItem.diskEntry.type) {
-                                DiskEntry.Type.Directory -> Icons.Outlined.Folder
-                                DiskEntry.Type.File -> Icons.Default.Article
-                            },
-                            color = selectedItem.color,
+                            listItem = selectedItem,
                             modifier = Modifier
                                 .clickable(
-                                    enabled = !animatable.isRunning,
+                                    enabled = !animatable.isRunning && selectedItem.diskEntry.parent != null,
                                     onClick = { viewModel.onSelectDiskEntry(selectedItem.diskEntry) }
                                 )
                         )
@@ -94,15 +84,11 @@ fun ChartComponent(diskEntry: DiskEntry) {
 
                     items(childItems) { item ->
                         ItemRow(
-                            name = item.diskEntry.name,
-                            description = humanReadableSize(item.diskEntry.sizeOnDisk.toDouble()),
-                            icon = when (item.diskEntry.type) {
-                                DiskEntry.Type.Directory -> Icons.Outlined.Folder
-                                DiskEntry.Type.File -> Icons.Outlined.Article
-                            },
-                            color = item.color,
+                            listItem = item,
                             modifier = Modifier.clickable(
-                                enabled = !animatable.isRunning,
+                                enabled = !animatable.isRunning &&
+                                    item.diskEntry.type == DiskEntry.Type.Directory &&
+                                    item.diskEntry.sizeOnDisk > 0L,
                                 onClick = { viewModel.onSelectDiskEntry(item.diskEntry) }
                             )
                         )
@@ -145,14 +131,6 @@ fun ChartComponent(diskEntry: DiskEntry) {
             )
         }
     }
-}
-
-// TODO: Move to library
-private fun humanReadableSize(bytes: Double) = when {
-    bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
-    bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
-    bytes >= 1 shl 10 -> "%.0f kB".format(bytes / (1 shl 10))
-    else -> "${bytes.toInt()} bytes"
 }
 
 private fun Animatable<Float, AnimationVector1D>.itemsTransition(
