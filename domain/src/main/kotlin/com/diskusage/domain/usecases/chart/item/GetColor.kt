@@ -6,6 +6,8 @@ import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
+import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
+import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
@@ -20,6 +22,8 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
 class GetColor(
     private val getRoot: GetRoot,
     private val getDepth: GetDepth,
+    private val getStartAngle: GetStartAngle,
+    private val getSweepAngle: GetSweepAngle,
     private val getArc: GetArc
 ) {
     @OptIn(ExperimentalGraphicsApi::class)
@@ -34,11 +38,14 @@ class GetColor(
             lightness = 0.35f
         )
 
-        DiskEntry.Type.Directory -> with(precalculatedArc ?: getArc(diskEntry, fromDiskEntry)) {
+        DiskEntry.Type.Directory -> {
+            val angleEnd = precalculatedArc?.angleRange?.end
+                ?: (getStartAngle(diskEntry, fromDiskEntry) + getSweepAngle(diskEntry, fromDiskEntry))
+
             val depth = getDepth(diskEntry, fromDiskEntry)
             Color.hsl(
-                hue = (angleRange.end).coerceIn(0f, 360f),
-                saturation = ((angleRange.end / 360f) * 0.4f).coerceIn(0f, 0.4f),
+                hue = angleEnd,
+                saturation = ((angleEnd / 360f) * 0.4f).coerceIn(0f, 0.4f),
                 lightness = (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.4f).coerceIn(0.3f, 0.7f)
             )
         }
