@@ -147,7 +147,7 @@ fun ChartComponent(diskEntry: DiskEntry) {
     }
 }
 
-// TODO: Move to usecase
+// TODO: Move to library
 private fun humanReadableSize(bytes: Double) = when {
     bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
     bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))

@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.usecases.chart.item.chart.arc.GetArcWidth
+import com.diskusage.domain.usecases.chart.item.arc.GetArcWidth
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension

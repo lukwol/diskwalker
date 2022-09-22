@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.chart.item.chart.arc
+package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.DiskEntry

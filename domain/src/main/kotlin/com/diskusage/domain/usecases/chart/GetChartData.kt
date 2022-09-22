@@ -1,12 +1,10 @@
-package com.diskusage.domain.usecases.chart.item.chart
+package com.diskusage.domain.usecases.chart
 
 import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.model.ChartData
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.usecases.chart.GetDiskEntriesList
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.SortDiskEntries
+import com.diskusage.domain.usecases.chart.item.GetChartItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

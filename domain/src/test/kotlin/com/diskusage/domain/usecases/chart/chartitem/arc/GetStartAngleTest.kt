@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.chart.chartitem.arc
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.item.chart.arc.GetStartAngle
+import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested

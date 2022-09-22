@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.chart.item.chart.arc
+package com.diskusage.domain.usecases.chart.item.arc
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.Arc

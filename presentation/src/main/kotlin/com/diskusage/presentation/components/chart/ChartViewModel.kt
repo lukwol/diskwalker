@@ -3,10 +3,10 @@ package com.diskusage.presentation.components.chart
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.item.chart.GetChartData
-import com.diskusage.domain.usecases.chart.item.chart.arc.IsArcSelected
-import com.diskusage.domain.usecases.chart.item.list.GetListData
+import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
+import com.diskusage.domain.usecases.list.GetListData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

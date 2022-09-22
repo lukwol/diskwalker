@@ -1,8 +1,8 @@
-package com.diskusage.domain.usecases.chart.item.list
+package com.diskusage.domain.usecases.list.item
 
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListItem
-import com.diskusage.domain.usecases.chart.item.chart.GetColor
+import com.diskusage.domain.usecases.chart.item.GetColor
 
 /**
  * Creates [ListItem] for given `diskEntry` starting from `fromDiskEntry`.

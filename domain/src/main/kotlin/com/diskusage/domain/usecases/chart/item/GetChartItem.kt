@@ -1,8 +1,8 @@
-package com.diskusage.domain.usecases.chart.item.chart
+package com.diskusage.domain.usecases.chart.item
 
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.usecases.chart.item.chart.arc.GetArc
+import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.diskentry.GetRoot
 
 /**
