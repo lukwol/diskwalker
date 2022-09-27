@@ -51,7 +51,7 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `unspecified offset`() {
-            shouldThrow<java.lang.IllegalStateException> {
+            shouldThrow<IllegalStateException> {
                 isArcSelected(arc = ArcStubs.hidden, offset = Offset.Unspecified)
             }
         }
@@ -82,7 +82,7 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `unspecified offset`() {
-            shouldThrow<java.lang.IllegalStateException> {
+            shouldThrow<IllegalStateException> {
                 isArcSelected(arc = ArcStubs.selected, offset = Offset.Unspecified)
             }
         }
@@ -113,7 +113,7 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `unspecified offset`() {
-            shouldThrow<java.lang.IllegalStateException> {
+            shouldThrow<IllegalStateException> {
                 isArcSelected(arc = ArcStubs.child1, offset = Offset.Unspecified)
             }
         }
@@ -144,7 +144,7 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `unspecified offset`() {
-            shouldThrow<java.lang.IllegalStateException> {
+            shouldThrow<IllegalStateException> {
                 isArcSelected(arc = ArcStubs.far, offset = Offset.Unspecified)
             }
         }

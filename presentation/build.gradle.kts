@@ -10,6 +10,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
 
     implementation(libs.coroutines.core)

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListItem
+import com.diskusage.libraries.formatters.FileSizeFormatter
 import java.nio.file.Path
 
 @Composable
@@ -49,7 +50,7 @@ fun ItemHeader(
         },
         description = {
             Text(
-                text = humanReadableSize(listItem.diskEntry.sizeOnDisk.toDouble()),
+                text = FileSizeFormatter.toSiFormat(listItem.diskEntry.sizeOnDisk),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -88,7 +89,7 @@ fun ItemRow(
         },
         description = {
             Text(
-                text = humanReadableSize(listItem.diskEntry.sizeOnDisk.toDouble()),
+                text = FileSizeFormatter.toSiFormat(listItem.diskEntry.sizeOnDisk),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -130,14 +131,6 @@ private fun Item(
 
         description()
     }
-}
-
-// TODO: Move to library
-private fun humanReadableSize(bytes: Double) = when {
-    bytes >= 1 shl 30 -> "%.1f GB".format(bytes / (1 shl 30))
-    bytes >= 1 shl 20 -> "%.1f MB".format(bytes / (1 shl 20))
-    bytes >= 1 shl 10 -> "%.0f kB".format(bytes / (1 shl 10))
-    else -> "${bytes.toInt()} bytes"
 }
 
 @Preview
