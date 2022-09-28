@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.list
 
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListData
-import com.diskusage.domain.usecases.chart.SortDiskEntries
+import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 import com.diskusage.domain.usecases.list.item.GetListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

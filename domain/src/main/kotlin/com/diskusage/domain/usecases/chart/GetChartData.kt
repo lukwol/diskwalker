@@ -5,6 +5,9 @@ import com.diskusage.domain.model.ChartData
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.item.GetChartItem
+import com.diskusage.domain.usecases.diskentry.GetDiskEntriesList
+import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
+import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

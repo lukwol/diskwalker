@@ -1,12 +1,10 @@
-package com.diskusage.domain.usecases.chart
+package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
 
 /**
  * Checks whether given `diskEntry` should be included when drawing the chart starting from `fromDiskEntry`.

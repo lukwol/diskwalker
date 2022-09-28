@@ -2,9 +2,9 @@ package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.usecases.chart.SortDiskEntries
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 
 /**
  * Calculate start angle of the [Arc] based on given `diskEntry` starting from `fromDiskEntry`.
@@ -36,6 +36,7 @@ class GetStartAngle(
         DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {
             if (invoke(diskEntry) > invoke(fromDiskEntry)) 360f else 0f
         }
+
         DiskEntry.Relationship.Ancestor -> {
             (calculateSizeOffset(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
                 .takeIf(Double::isFinite)
@@ -57,7 +58,7 @@ class GetStartAngle(
         diskEntry.parent == null -> 0L
         diskEntry == fromDiskEntry -> 0L
         diskEntry.parent == fromDiskEntry -> size + largerSiblingsSize(diskEntry)
-        else -> calculateSizeOffset(diskEntry.parent!!, fromDiskEntry, size + largerSiblingsSize(diskEntry))
+        else -> calculateSizeOffset(diskEntry.parent, fromDiskEntry, size + largerSiblingsSize(diskEntry))
     }
 
     /**

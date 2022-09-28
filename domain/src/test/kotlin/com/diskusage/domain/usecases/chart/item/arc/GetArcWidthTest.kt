@@ -1,8 +1,7 @@
-package com.diskusage.domain.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.usecases.chart.item.arc.GetStartRadius
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -10,9 +9,9 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
 
-class GetStartRadiusTest : KoinTest {
+class GetArcWidthTest : KoinTest {
 
-    private val getStartRadius by inject<GetStartRadius>()
+    private val getArcWidth by inject<GetArcWidth>()
 
     @JvmField
     @RegisterExtension
@@ -22,26 +21,26 @@ class GetStartRadiusTest : KoinTest {
 
     @Test
     fun `zero depth`() {
-        getStartRadius(0) shouldBe 0f
+        getArcWidth(0) shouldBe 0f
     }
 
     @Test
     fun `root item`() {
-        getStartRadius(1) shouldBe 0f
+        getArcWidth(1) shouldBe Constants.Chart.BigArcWidth
     }
 
     @Test
     fun `child item`() {
-        getStartRadius(2) shouldBe Constants.Chart.BigArcWidth
+        getArcWidth(2) shouldBe Constants.Chart.BigArcWidth
     }
 
     @Test
     fun `grand child item`() {
-        getStartRadius(3) shouldBe 2 * Constants.Chart.BigArcWidth
+        getArcWidth(3) shouldBe Constants.Chart.BigArcWidth
     }
 
     @Test
     fun `deeply nested item`() {
-        getStartRadius(10) shouldBe 165f
+        getArcWidth(10) shouldBe Constants.Chart.SmallArcWidth
     }
 }

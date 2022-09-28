@@ -1,10 +1,9 @@
-package com.diskusage.domain.usecases.chart
+package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.diskentry.GetDepth
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every

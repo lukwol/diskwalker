@@ -1,14 +1,13 @@
 @file:OptIn(ExperimentalGraphicsApi::class)
 
-package com.diskusage.domain.usecases.chart.chartitem
+package com.diskusage.domain.usecases.chart.item
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.ArcStubs
 import com.diskusage.domain.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.item.GetColor
+import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks

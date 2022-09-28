@@ -1,9 +1,8 @@
-package com.diskusage.domain.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.item.arc
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.ArcStubs
-import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested

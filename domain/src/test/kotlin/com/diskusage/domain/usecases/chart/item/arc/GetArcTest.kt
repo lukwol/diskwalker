@@ -1,9 +1,8 @@
-package com.diskusage.domain.usecases.chart.chartitem.arc
+package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.stubs.DiskEntryStubs
-import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.libraries.ranges.until
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
