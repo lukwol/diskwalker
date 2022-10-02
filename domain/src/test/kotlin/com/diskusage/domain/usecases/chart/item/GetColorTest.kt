@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalGraphicsApi::class)
-
 package com.diskusage.domain.usecases.chart.item
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ExperimentalGraphicsApi
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.stubs.ArcStubs
 import com.diskusage.domain.stubs.DiskEntryStubs
@@ -57,11 +54,7 @@ class GetColorTest : KoinTest {
         getColor(
             precalculatedArc = ArcStubs.child1,
             diskEntry = DiskEntryStubs.file1
-        ) shouldBe Color.hsl(
-            hue = 0f,
-            saturation = 0f,
-            lightness = 0.35f
-        )
+        ) shouldBe Constants.Chart.FileColor
     }
 
     @Test

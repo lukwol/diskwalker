@@ -1,5 +1,8 @@
 package com.diskusage.domain.model
 
+import com.diskusage.domain.model.DiskEntry.Type
+import com.diskusage.domain.model.DiskEntry.Type.Directory
+import com.diskusage.domain.model.DiskEntry.Type.File
 import java.nio.file.Path
 
 /**
@@ -58,4 +61,6 @@ class DiskEntry(
          */
         Unrelated
     }
+
+    override fun toString() = name
 }

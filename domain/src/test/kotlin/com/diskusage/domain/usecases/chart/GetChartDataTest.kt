@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.di.domainModule
@@ -54,6 +52,7 @@ class GetChartDataTest : KoinTest {
         clearAllMocks()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Nested
     inner class StaticChartItems {
         @Test
@@ -84,6 +83,7 @@ class GetChartDataTest : KoinTest {
     @Nested
     inner class ChartItemsForTransition {
 
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Nested
         inner class FromSame {
             @Test
@@ -123,6 +123,7 @@ class GetChartDataTest : KoinTest {
             }
         }
 
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Nested
         inner class FromAncestor {
             @Test
@@ -207,6 +208,7 @@ class GetChartDataTest : KoinTest {
             }
         }
 
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Nested
         inner class FromDescendant {
             @Test
@@ -291,6 +293,7 @@ class GetChartDataTest : KoinTest {
             }
         }
 
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Nested
         inner class FromSibling {
             @Test
@@ -330,6 +333,7 @@ class GetChartDataTest : KoinTest {
             }
         }
 
+        @OptIn(ExperimentalCoroutinesApi::class)
         @Nested
         inner class FromUnrelated {
             @Test

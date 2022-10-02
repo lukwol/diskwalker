@@ -2,6 +2,7 @@ package com.diskusage.domain.usecases.chart.item
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.DiskEntry
@@ -32,11 +33,7 @@ class GetColor(
         fromDiskEntry: DiskEntry = getRoot(diskEntry),
         precalculatedArc: Arc? = null
     ) = when (diskEntry.type) {
-        DiskEntry.Type.File -> Color.hsl(
-            hue = 0f,
-            saturation = 0f,
-            lightness = 0.35f
-        )
+        DiskEntry.Type.File -> Constants.Chart.FileColor
 
         DiskEntry.Type.Directory -> {
             val angleEnd = precalculatedArc?.angleRange?.end

@@ -1,5 +1,8 @@
 package com.diskusage.domain.common
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ExperimentalGraphicsApi
+
 object Constants {
 
     /**
@@ -44,5 +47,15 @@ object Constants {
          * Duration of chart items animation in milliseconds
          */
         const val AnimationDurationMillis = 1000
+
+        /**
+         * Color for items of type [File][com.diskusage.domain.model.DiskEntry.Type.File].
+         */
+        @OptIn(ExperimentalGraphicsApi::class)
+        val FileColor = Color.hsl(
+            hue = 0f,
+            saturation = 0f,
+            lightness = 0.35f
+        )
     }
 }
