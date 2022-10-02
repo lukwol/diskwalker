@@ -1,16 +1,14 @@
 package com.diskusage.app
 
 import SupportLibrary
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.singleWindowApplication
 import com.diskusage.data.di.dataModule
 import com.diskusage.domain.di.domainModule
 import com.diskusage.libraries.support.di.supportLibraryModule
 import com.diskusage.presentation.components.scanresult.ScanResultComponent
 import com.diskusage.presentation.di.presentationModule
+import com.diskusage.presentation.theme.AppTheme
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
@@ -27,11 +25,7 @@ fun main() {
     singleWindowApplication {
         var isSupportLibraryLoaded by remember { mutableStateOf(false) }
 
-        MaterialTheme(
-            colors = darkColors(
-                background = Color(0xFF363736)
-            )
-        ) {
+        AppTheme {
             ScanResultComponent(isSupportLibraryLoaded)
         }
 
