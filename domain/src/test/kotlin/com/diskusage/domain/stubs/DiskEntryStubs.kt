@@ -1,90 +1,102 @@
 package com.diskusage.domain.stubs
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import java.nio.file.Path
 
 @Suppress("MemberVisibilityCanBePrivate")
 object DiskEntryStubs {
 
-    val rootFile = DiskEntry.File(
+    val rootFile = DiskEntry(
         name = "file",
+        type = DiskEntry.Type.File,
         path = Path.of("/file"),
         parent = null,
         sizeOnDisk = 8192
     )
 
-    val rootDir = DiskEntry.Directory(
+    val rootDir = DiskEntry(
         name = "dir",
+        type = DiskEntry.Type.Directory,
         path = Path.of("/dir"),
         parent = null,
         sizeOnDisk = 12800
     )
 
-    val file1 = DiskEntry.File(
+    val file1 = DiskEntry(
         name = "file1",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/file1"),
         parent = rootDir,
         sizeOnDisk = 5120
     )
 
-    val dir1 = DiskEntry.Directory(
+    val dir1 = DiskEntry(
         name = "dir1",
+        type = DiskEntry.Type.Directory,
         path = Path.of("/dir/dir1"),
         parent = rootDir,
         sizeOnDisk = 3840
     )
 
-    val file11 = DiskEntry.File(
+    val file11 = DiskEntry(
         name = "file11",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir1/file11"),
         parent = dir1,
         sizeOnDisk = 1024
     )
 
-    val file12 = DiskEntry.File(
+    val file12 = DiskEntry(
         name = "file12",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir1/file12"),
         parent = dir1,
         sizeOnDisk = 2048
     )
 
-    val dir11 = DiskEntry.Directory(
+    val dir11 = DiskEntry(
         name = "dir11",
+        type = DiskEntry.Type.Directory,
         path = Path.of("/dir/dir1/dir11"),
         parent = dir1,
         sizeOnDisk = 768
     )
 
-    val file111 = DiskEntry.File(
+    val file111 = DiskEntry(
         name = "file111",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir1/dir11/file111"),
         parent = dir11,
         sizeOnDisk = 512
     )
 
-    val file112 = DiskEntry.File(
+    val file112 = DiskEntry(
         name = "file112",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir1/dir11/file112"),
         parent = dir11,
         sizeOnDisk = 256
     )
 
-    val dir2 = DiskEntry.Directory(
+    val dir2 = DiskEntry(
         name = "dir2",
+        type = DiskEntry.Type.Directory,
         path = Path.of("/dir/dir2"),
         parent = rootDir,
         sizeOnDisk = 3840
     )
 
-    val file21 = DiskEntry.File(
+    val file21 = DiskEntry(
         name = "file21",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir2/file21"),
         parent = dir2,
         sizeOnDisk = 2304
     )
 
-    val file22 = DiskEntry.File(
+    val file22 = DiskEntry(
         name = "file22",
+        type = DiskEntry.Type.File,
         path = Path.of("/dir/dir2/file22"),
         parent = dir2,
         sizeOnDisk = 1536

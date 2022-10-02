@@ -1,6 +1,6 @@
 package com.diskusage.data.repositories
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
 import java.nio.file.Path
@@ -19,30 +19,28 @@ class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : Di
 
     private fun diskEntry(
         path: Path,
-        parent: DiskEntry.Directory?
-    ): DiskEntry = when {
-        path.isRegularFile() -> DiskEntry.File(
-            path = path,
-            name = path.name,
-            parent = parent
-        )
-        else -> DiskEntry.Directory(
-            path = path,
-            name = path.name,
-            parent = parent
-        ).apply {
-            children = path
-                .listDirectoryEntries()
-                .map { diskEntry(it, this) }
+        parent: DiskEntry?
+    ): DiskEntry = DiskEntry(
+        path = path,
+        name = path.name,
+        parent = parent,
+        type = if (path.isRegularFile()) DiskEntry.Type.File else DiskEntry.Type.Directory
+    )
+        .apply {
+            if (type == DiskEntry.Type.Directory) {
+                children = path
+                    .listDirectoryEntries()
+                    .map { diskEntry(it, this) }
+            }
         }
-    }.apply {
-        sizeOnDisk = sizeOnDisk()
-    }
+        .apply {
+            sizeOnDisk = sizeOnDisk()
+        }
 
     private fun DiskEntry.sizeOnDisk(): Long = cachedSizes[path]
-        ?: when (this) {
-            is DiskEntry.Directory -> children.sumOf { it.sizeOnDisk() }
-            is DiskEntry.File -> fileSizeService.sizeOnDisk(path.absolutePathString())
+        ?: when (this.type) {
+            DiskEntry.Type.Directory -> children.sumOf { it.sizeOnDisk() }
+            DiskEntry.Type.File -> fileSizeService.sizeOnDisk(path.absolutePathString())
         }.also { size ->
             cachedSizes[path] = size
         }

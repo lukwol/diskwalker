@@ -3,6 +3,7 @@ package com.diskusage.presentation.components.chart.blocks
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -14,7 +15,7 @@ import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
-import com.diskusage.domain.entities.ChartItem
+import com.diskusage.domain.model.ChartItem
 
 private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
 private const val ChartDiameter = ChartRadius * 2
@@ -28,11 +29,12 @@ fun Chart(
 
     Canvas(
         Modifier
-            .scale(chartScale)
             .onSizeChanged {
                 val minDimension = it.toSize().minDimension
                 chartScale = (minDimension / ChartDiameter).coerceAtLeast(1f)
             }
+            .clipToBounds()
+            .scale(chartScale)
             .then(modifier)
     ) {
         chartItems

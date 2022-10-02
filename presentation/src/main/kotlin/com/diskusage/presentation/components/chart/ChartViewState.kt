@@ -1,10 +1,11 @@
 package com.diskusage.presentation.components.chart
 
-import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.ChartData
+import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.ListData
 
 data class ChartViewState(
     val diskEntry: DiskEntry,
-    val startItems: List<ChartItem> = listOf(),
-    val endItems: List<ChartItem>? = null
+    val listData: ListData? = null,
+    val chartData: ChartData? = null
 )

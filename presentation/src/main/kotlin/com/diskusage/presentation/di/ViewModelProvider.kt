@@ -1,6 +1,6 @@
 package com.diskusage.presentation.di
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import com.diskusage.presentation.components.chart.ChartViewModel
 import com.diskusage.presentation.components.scanresult.ScanResultViewModel
 import org.koin.core.component.KoinComponent

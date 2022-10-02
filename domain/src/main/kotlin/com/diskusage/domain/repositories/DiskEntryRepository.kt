@@ -1,6 +1,6 @@
 package com.diskusage.domain.repositories
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 import java.nio.file.Path
 
 /**

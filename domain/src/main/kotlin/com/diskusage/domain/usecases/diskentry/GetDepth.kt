@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.diskentry
 
-import com.diskusage.domain.entities.DiskEntry
+import com.diskusage.domain.model.DiskEntry
 
 /**
  * Calculates depth level, how much nested `diskEntry` is compared to `fromDiskEntry`

@@ -10,6 +10,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
 
     implementation(libs.coroutines.core)
@@ -18,4 +19,5 @@ dependencies {
     implementation(libs.koin.core)
 
     implementation(compose.desktop.currentOs)
+    implementation(libs.compose.icons)
 }

@@ -1,21 +1,20 @@
 package com.diskusage.presentation.components.chart
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.entities.ChartItem
-import com.diskusage.domain.entities.DiskEntry
-import com.diskusage.domain.usecases.chart.IncludeDiskEntry
-import com.diskusage.domain.usecases.chart.chartitem.GetSortedChartItems
-import com.diskusage.domain.usecases.chart.chartitem.arc.IsArcSelected
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import com.diskusage.domain.model.ChartItem
+import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.usecases.chart.GetChartData
+import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
+import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
+import com.diskusage.domain.usecases.list.GetListData
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class ChartViewModel(
     diskEntry: DiskEntry,
-    private val getSortedChartItems: GetSortedChartItems,
+    private val getChartData: GetChartData,
+    private val getListData: GetListData,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected
 ) {
@@ -28,35 +27,76 @@ class ChartViewModel(
     init {
         with(viewState.value) {
             viewModelScope.launch {
-                mutableViewState.value = copy(startItems = getSortedChartItems(diskEntry))
+                val listData = async { getListData(diskEntry) }
+                val chartData = async { getChartData(diskEntry) }
+
+                mutableViewState.value = copy(
+                    listData = listData.await(),
+                    chartData = chartData.await()
+                )
             }
         }
     }
 
-    fun onChartPositionClicked(position: Offset) = with(viewState.value) {
-        (endItems ?: startItems)
-            .filter { includeDiskEntry(it.diskEntry, diskEntry) }
-            .find { isArcSelected(it.arc, position) }
-            ?.let(::onSelectChartItem)
+    fun onChartPositionHovered(position: Offset) = with(viewState.value) {
+        if (chartData != null) {
+            val (startItems, endItems) = chartData
+            (endItems ?: startItems)
+                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .find { isArcSelected(it.arc, position) }
+                .let(::onHoverDiskEntry)
+        }
     }
 
-    private fun onSelectChartItem(chartItem: ChartItem) = with(viewState.value) {
-        val selectedDiskEntry = if (chartItem.diskEntry == diskEntry) {
-            chartItem.diskEntry.parent
-        } else {
-            chartItem.diskEntry
+    fun onChartPositionClicked(position: Offset) = with(viewState.value) {
+        if (chartData != null) {
+            val (startItems, endItems) = chartData
+            (endItems ?: startItems)
+                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .find { isArcSelected(it.arc, position) }
+                ?.let(ChartItem::diskEntry)
+                ?.let(::onSelectDiskEntry)
+        }
+    }
+
+    private fun onHoverDiskEntry(chartItem: ChartItem?) = with(viewState.value) {
+        val selectedDiskEntry = chartItem?.diskEntry ?: diskEntry
+        if (selectedDiskEntry != listData?.parentItem?.diskEntry) {
+            viewModelScope.launch {
+                mutableViewState.value = copy(
+                    listData = getListData(
+                        diskEntry = selectedDiskEntry,
+                        fromDiskEntry = diskEntry
+                    )
+                )
+            }
+        }
+    }
+
+    fun onSelectDiskEntry(diskEntry: DiskEntry) = with(viewState.value) {
+        val previousDiskEntry = this.diskEntry
+        val selectedDiskEntry = when {
+            diskEntry.type != DiskEntry.Type.Directory -> null
+            diskEntry.sizeOnDisk == 0L -> null
+            diskEntry == previousDiskEntry -> diskEntry.parent
+            else -> diskEntry
         }
 
         if (selectedDiskEntry != null) {
             viewModelScope.launch {
-                val (startItems, endItems) = getSortedChartItems(
-                    fromDiskEntry = diskEntry,
-                    toDiskEntry = selectedDiskEntry
-                )
+                val listData = async {
+                    getListData(selectedDiskEntry)
+                }
+                val chartData = async {
+                    getChartData(
+                        fromDiskEntry = previousDiskEntry,
+                        toDiskEntry = selectedDiskEntry
+                    )
+                }
                 mutableViewState.value = copy(
                     diskEntry = selectedDiskEntry,
-                    startItems = startItems,
-                    endItems = endItems
+                    listData = listData.await(),
+                    chartData = chartData.await()
                 )
             }
         }
