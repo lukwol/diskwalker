@@ -5,8 +5,6 @@ import com.diskusage.domain.model.Arc
 import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.libraries.ranges.until
 import io.kotest.matchers.shouldBe
-import io.mockk.clearAllMocks
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.koin.test.KoinTest
@@ -21,11 +19,6 @@ class GetArcTest : KoinTest {
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
         modules(domainModule)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        clearAllMocks()
     }
 
     @Test
