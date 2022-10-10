@@ -25,7 +25,7 @@ fun SecondScreen() {
 
         Button(
             onClick = {
-                navController.navigate(AppRoutes.FirstScreen)
+                navController.popBack(upToRoute = AppRoutes.FirstScreen)
             }
         ) {
             Text("Go Back")
