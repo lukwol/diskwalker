@@ -24,7 +24,7 @@ fun SecondScreen() {
 
         Button(
             onClick = {
-                navController.popBack()
+                navController.pop()
             }
         ) {
             Text("Go Back")

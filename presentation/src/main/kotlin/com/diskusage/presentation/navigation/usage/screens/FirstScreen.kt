@@ -24,7 +24,7 @@ fun FirstScreen() {
         Spacer(Modifier.height(20.dp))
 
         Button(
-            onClick = { navController.navigate(AppRoutes.SecondScreen, "hello world") }
+            onClick = { navController.push(AppRoutes.SecondScreen, "hello world") }
         ) {
             Text("Go to SecondScreen")
         }

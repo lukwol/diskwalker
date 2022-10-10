@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 
 @Composable
 fun NavHost(
-    startRoute: String,
+    startRoute: NavRoute,
     builder: NavMapBuilder.() -> Unit
 ) {
     val mapBuilder = NavMapBuilder()
