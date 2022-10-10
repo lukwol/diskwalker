@@ -4,20 +4,21 @@ import androidx.compose.runtime.*
 
 @Composable
 fun NavHost(
-    startRoute: NavRoute,
-    builder: NavDestinationBuilder.() -> Unit
+    startRoute: String,
+    builder: NavMapBuilder.() -> Unit
 ) {
-    val destinationsBuilder = NavDestinationBuilder()
-    destinationsBuilder.builder()
+    val mapBuilder = NavMapBuilder()
+    mapBuilder.builder()
 
-    val destinations = remember { destinationsBuilder.build() }
+    val navigationMap = remember { mapBuilder.build() }
     val navController = remember { NavController(startRoute) }
 
-    val routes by navController.routesFlow.collectAsState()
+    val routesWithArguments by navController.routesFlow.collectAsState()
 
     CompositionLocalProvider(
         LocalNavController provides navController
     ) {
-        destinations.getValue(routes.last())()
+        val (route, arguments) = routesWithArguments.last()
+        navigationMap.getValue(route)(arguments)
     }
 }

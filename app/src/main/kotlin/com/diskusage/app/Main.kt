@@ -1,7 +1,7 @@
 package com.diskusage.app
 
 import androidx.compose.ui.window.singleWindowApplication
-import com.diskusage.presentation.navigation.usage.graph.AppGraph
+import com.diskusage.presentation.navigation.usage.navigation.AppNavigation
 
 fun main() {
 //    startKoin {
@@ -14,7 +14,7 @@ fun main() {
 //        )
 //    }
     singleWindowApplication {
-        AppGraph()
+        AppNavigation()
 
 //        var isSupportLibraryLoaded by remember { mutableStateOf(false) }
 //

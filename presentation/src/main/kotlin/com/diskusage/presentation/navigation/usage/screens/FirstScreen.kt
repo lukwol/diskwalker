@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.presentation.navigation.LocalNavController
-import com.diskusage.presentation.navigation.usage.graph.AppRoutes
+import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
 @Composable
 fun FirstScreen() {
@@ -24,7 +24,7 @@ fun FirstScreen() {
         Spacer(Modifier.height(20.dp))
 
         Button(
-            onClick = { navController.navigate(AppRoutes.SecondScreen) }
+            onClick = { navController.navigate(AppRoutes.SecondScreen, "hello world") }
         ) {
             Text("Go to SecondScreen")
         }

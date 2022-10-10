@@ -8,7 +8,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.presentation.navigation.LocalNavController
-import com.diskusage.presentation.navigation.usage.graph.AppRoutes
 
 @Composable
 fun SecondScreen() {
@@ -25,7 +24,7 @@ fun SecondScreen() {
 
         Button(
             onClick = {
-                navController.popBack(upToRoute = AppRoutes.FirstScreen)
+                navController.popBack()
             }
         ) {
             Text("Go Back")

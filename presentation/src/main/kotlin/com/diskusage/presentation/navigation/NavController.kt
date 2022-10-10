@@ -3,16 +3,19 @@ package com.diskusage.presentation.navigation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class NavController(startRoute: NavRoute) {
-    private val routesSink = MutableStateFlow(listOf(startRoute))
+typealias RouteWithArguments = Pair<String, Any?>
+
+class NavController(startRoute: String) {
+    private val routesSink = MutableStateFlow(listOf<RouteWithArguments>(startRoute to null))
 
     val routesFlow = routesSink.asStateFlow()
 
-    fun navigate(route: NavRoute) = routesSink.tryEmit(routesSink.value + route)
+    fun navigate(route: String, arguments: Any? = null) =
+        routesSink.tryEmit(routesSink.value + (route to arguments))
 
-    fun popBack(upToRoute: NavRoute? = null) = if (upToRoute == null) {
+    fun popBack(upToRoute: String? = null) = if (upToRoute == null) {
         routesSink.tryEmit(routesSink.value.dropLast(1))
     } else {
-        routesSink.tryEmit(routesSink.value.dropLastWhile { it != upToRoute })
+        routesSink.tryEmit(routesSink.value.dropLastWhile { it.first != upToRoute })
     }
 }
