@@ -14,11 +14,11 @@ fun NavHost(
     val navController = remember { NavController(startRoute) }
 
     val routesWithArguments by navController.routesFlow.collectAsState()
+    val (route, arguments) = routesWithArguments.last()
 
     CompositionLocalProvider(
         LocalNavController provides navController
     ) {
-        val (route, arguments) = routesWithArguments.last()
         navigationMap.getValue(route)(arguments)
     }
 }

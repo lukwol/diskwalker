@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.presentation.navigation.LocalNavController
 
+class SecondScreenViewModel
+
 @Composable
 fun SecondScreen() {
     val navController = LocalNavController.current

@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.dp
 import com.diskusage.presentation.navigation.LocalNavController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
+class FirstScreenViewModel
+
 @Composable
 fun FirstScreen() {
     val navController = LocalNavController.current
