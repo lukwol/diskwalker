@@ -46,3 +46,21 @@ private fun <VM> NavMapBuilder.composable(
         }
     }
 }
+
+/*
+ *    ┌─────┐
+ *    │ MVI │
+ *    └──┬──┘
+ *       │
+ *       │ depends on
+ *       │
+ * ┌─────▼──────┐
+ * │ View Model │
+ * └─────┬──────┘
+ *       │
+ *       │ depends on
+ *       │
+ * ┌─────▼──────┐
+ * │ Navigation │
+ * └────────────┘
+ */
