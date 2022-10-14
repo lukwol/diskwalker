@@ -1,4 +1,4 @@
-package com.diskusage.presentation.navigation
+package com.diskusage.libraries.navigation
 
 import androidx.compose.runtime.*
 

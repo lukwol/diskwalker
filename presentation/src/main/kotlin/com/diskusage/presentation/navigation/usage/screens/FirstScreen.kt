@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.diskusage.libraries.navigation.LocalNavController
 import com.diskusage.libraries.viewmodel.ViewModel
-import com.diskusage.presentation.navigation.LocalNavController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
-class FirstScreenViewModel: ViewModel()
+class FirstScreenViewModel : ViewModel()
 
 @Composable
 fun FirstScreen() {

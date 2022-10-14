@@ -3,11 +3,11 @@ package com.diskusage.presentation.navigation.usage.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import com.diskusage.libraries.navigation.NavArguments
+import com.diskusage.libraries.navigation.NavHost
+import com.diskusage.libraries.navigation.NavMapBuilder
+import com.diskusage.libraries.navigation.NavRoute
 import com.diskusage.libraries.viewmodel.ViewModel
-import com.diskusage.presentation.navigation.NavArguments
-import com.diskusage.presentation.navigation.NavHost
-import com.diskusage.presentation.navigation.NavMapBuilder
-import com.diskusage.presentation.navigation.NavRoute
 import com.diskusage.presentation.navigation.usage.screens.FirstScreen
 import com.diskusage.presentation.navigation.usage.screens.FirstScreenViewModel
 import com.diskusage.presentation.navigation.usage.screens.SecondScreen

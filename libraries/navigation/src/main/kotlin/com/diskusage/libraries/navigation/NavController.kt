@@ -1,4 +1,4 @@
-package com.diskusage.presentation.navigation
+package com.diskusage.libraries.navigation
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class NavController(startRoute: NavRoute) {
     private val routesSink = MutableStateFlow(listOf(RouteWithArguments(startRoute)))
 
-    val routesFlow = routesSink.asStateFlow()
+    internal val routesFlow = routesSink.asStateFlow()
 
     fun push(route: NavRoute, arguments: NavArguments? = null) =
         routesSink.tryEmit(routesSink.value + RouteWithArguments(route, arguments))
