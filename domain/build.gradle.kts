@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 import org.jetbrains.compose.compose
 
 @Suppress("DSL_SCOPE_VIOLATION")
