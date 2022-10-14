@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":libraries:viewmodel"))
     implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
 

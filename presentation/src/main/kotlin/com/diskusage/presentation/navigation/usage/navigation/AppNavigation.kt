@@ -3,6 +3,7 @@ package com.diskusage.presentation.navigation.usage.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import com.diskusage.libraries.viewmodel.ViewModel
 import com.diskusage.presentation.navigation.NavArguments
 import com.diskusage.presentation.navigation.NavHost
 import com.diskusage.presentation.navigation.NavMapBuilder
@@ -11,6 +12,7 @@ import com.diskusage.presentation.navigation.usage.screens.FirstScreen
 import com.diskusage.presentation.navigation.usage.screens.FirstScreenViewModel
 import com.diskusage.presentation.navigation.usage.screens.SecondScreen
 import com.diskusage.presentation.navigation.usage.screens.SecondScreenViewModel
+import kotlinx.coroutines.cancel
 
 @Composable
 fun AppNavigation() {
@@ -33,7 +35,7 @@ fun AppNavigation() {
     }
 }
 
-private fun <VM> NavMapBuilder.composable(
+private fun <VM : ViewModel> NavMapBuilder.composable(
     route: NavRoute,
     viewModelFactory: (NavArguments?) -> VM,
     content: @Composable (VM) -> Unit
@@ -42,7 +44,7 @@ private fun <VM> NavMapBuilder.composable(
         val viewModel = remember(route) { viewModelFactory(arguments) }
         content(viewModel)
         DisposableEffect(route) {
-            onDispose { println("Cancel view model scope ${viewModel!!::class.java}") }
+            onDispose(viewModel.viewModelScope::cancel)
         }
     }
 }
