@@ -2,14 +2,12 @@ package com.diskusage.presentation.navigation
 
 import androidx.compose.runtime.Composable
 
-private typealias Content = @Composable (NavArguments?) -> Unit
-
 class NavMapBuilder {
-    private val destinations = mutableMapOf<NavRoute, Content>()
+    private val destinations = mutableMapOf<NavRoute, @Composable (NavArguments?) -> Unit>()
 
     fun composable(
         route: NavRoute,
-        content: Content
+        content: @Composable (NavArguments?) -> Unit
     ) {
         destinations[route] = content
     }
