@@ -8,6 +8,8 @@ class NavController(startRoute: NavRoute) {
 
     internal val routesFlow = routesSink.asStateFlow()
 
+    val routes get() = routesFlow.value.map(RouteWithArguments::route)
+
     fun push(route: NavRoute, arguments: NavArguments? = null) =
         routesSink.tryEmit(routesSink.value + RouteWithArguments(route, arguments))
 
