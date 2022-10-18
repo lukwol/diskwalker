@@ -9,9 +9,10 @@ plugins {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":libraries:formatters"))
-    implementation(project(":libraries:navigation"))
     implementation(project(":libraries:ranges"))
     implementation(project(":libraries:viewmodel"))
+    implementation(project(":libraries:navigation"))
+    implementation(project(":libraries:viewmodel-navigation"))
 
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
