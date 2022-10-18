@@ -1,12 +1,13 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(libs.plugins.kotlin.jvm.get().pluginId)
+    alias(libs.plugins.kotlin.jvm)
 }
 
 dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
 
+    testImplementation(libs.junit5)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotest.assertions)
     testImplementation(libs.coroutines.test)
