@@ -5,10 +5,10 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import com.diskusage.libraries.navigation.*
 import com.diskusage.libraries.viewmodel.ViewModel
-import com.diskusage.presentation.navigation.usage.screens.FirstScreen
-import com.diskusage.presentation.navigation.usage.screens.FirstScreenViewModel
-import com.diskusage.presentation.navigation.usage.screens.SecondScreen
-import com.diskusage.presentation.navigation.usage.screens.SecondScreenViewModel
+import com.diskusage.presentation.navigation.usage.greeter.GreeterScreen
+import com.diskusage.presentation.navigation.usage.greeter.GreeterViewModel
+import com.diskusage.presentation.navigation.usage.greeting.GreetingScreen
+import com.diskusage.presentation.navigation.usage.greeting.GreetingScreenViewModel
 import kotlinx.coroutines.cancel
 
 @Composable
@@ -18,16 +18,16 @@ fun AppNavigation() {
     ) {
         composable(
             route = AppRoutes.FirstScreen,
-            viewModelFactory = { FirstScreenViewModel() }
+            viewModelFactory = { GreetingScreenViewModel() }
         ) {
-            FirstScreen()
+            GreetingScreen(it)
         }
 
         composable(
             route = AppRoutes.SecondScreen,
-            viewModelFactory = { SecondScreenViewModel() }
+            viewModelFactory = { GreeterViewModel(it as String) }
         ) {
-            SecondScreen()
+            GreeterScreen(it)
         }
     }
 }
