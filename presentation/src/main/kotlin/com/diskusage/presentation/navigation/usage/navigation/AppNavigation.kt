@@ -2,7 +2,7 @@ package com.diskusage.presentation.navigation.usage.navigation
 
 import androidx.compose.runtime.Composable
 import com.diskusage.libraries.navigation.NavHost
-import com.diskusage.libraries.viewmodel.navigation.composable
+import com.diskusage.libraries.viewmodel.navigation.mvvm
 import com.diskusage.presentation.navigation.usage.greeter.GreeterScreen
 import com.diskusage.presentation.navigation.usage.greeter.GreeterViewModel
 import com.diskusage.presentation.navigation.usage.greeting.GreetingScreen
@@ -13,14 +13,14 @@ fun AppNavigation() {
     NavHost(
         startRoute = AppRoutes.FirstScreen
     ) {
-        composable(
+        mvvm(
             route = AppRoutes.FirstScreen,
             viewModelFactory = { GreetingScreenViewModel() }
         ) {
             GreetingScreen(it)
         }
 
-        composable(
+        mvvm(
             route = AppRoutes.SecondScreen,
             viewModelFactory = { GreeterViewModel(it as String) }
         ) {
@@ -30,23 +30,13 @@ fun AppNavigation() {
 }
 
 /*
- *    ┌─────┐    depends on
- *    │ MVI ◄────────────────────┐
- *    └──┬──┘                    │
- *       │            ┌──────────┴─────┐
- *       │            │ MVI Navigation │
- *       │depends on  └──────────┬─────┘
- *       │                       │
- *       │                       │
- * ┌─────▼──────┐                │depends on
- * │ View Model ◄───────────┐    │
- * └────────────┘ depends on│    │
- *                          │    │
- *                    ┌─────┴────▼────┐
- *                    │ VM Navigation │
- *                    └─────┬─────────┘
- *                          │
- * ┌────────────┐ depends on│
- * │ Navigation ◄───────────┘
- * └────────────┘
+ *              ┌───────────────┐
+ *        ┌─────┤ VM Navigation ├──────┐
+ *        │     └───────────────┘      │
+ *        │                            │
+ *        │ depends on                 │ depends on
+ *        │                            │
+ * ┌──────▼─────┐               ┌──────▼─────┐
+ * │ View Model │               │ Navigation │
+ * └────────────┘               └────────────┘
  */

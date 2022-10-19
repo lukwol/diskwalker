@@ -7,8 +7,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":libraries:viewmodel"))
-    implementation(project(":libraries:navigation"))
+    api(project(":libraries:viewmodel"))
+    api(project(":libraries:navigation"))
 
     implementation(compose.desktop.currentOs)
 
