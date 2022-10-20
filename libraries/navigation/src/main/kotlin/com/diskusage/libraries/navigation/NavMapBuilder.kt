@@ -7,7 +7,7 @@ class NavMapBuilder {
 
     fun composable(
         route: NavRoute,
-        content: @Composable (NavArguments?) -> Unit
+        content: @Composable (args: NavArguments?) -> Unit
     ) {
         destinations[route] = content
     }

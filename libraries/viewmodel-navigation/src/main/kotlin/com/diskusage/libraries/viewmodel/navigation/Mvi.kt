@@ -9,7 +9,7 @@ import com.diskusage.libraries.viewmodel.MviViewModel
 
 fun <S, C> NavMapBuilder.mvi(
     route: NavRoute,
-    viewModelFactory: (NavArguments?) -> MviViewModel<S, C>,
+    viewModelFactory: (args: NavArguments?) -> MviViewModel<S, C>,
     content: @Composable (state: S, commands: (C) -> Unit) -> Unit
 ) {
     mvvm(
