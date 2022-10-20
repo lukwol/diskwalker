@@ -2,7 +2,7 @@ package com.diskusage.presentation.navigation.usage.navigation
 
 import androidx.compose.runtime.Composable
 import com.diskusage.libraries.navigation.NavHost
-import com.diskusage.libraries.viewmodel.navigation.mvvm
+import com.diskusage.libraries.viewmodel.navigation.composable
 import com.diskusage.presentation.navigation.usage.greeter.GreeterScreen
 import com.diskusage.presentation.navigation.usage.greeter.GreeterViewModel
 import com.diskusage.presentation.navigation.usage.greeting.GreetingScreen
@@ -11,32 +11,20 @@ import com.diskusage.presentation.navigation.usage.greeting.GreetingScreenViewMo
 @Composable
 fun AppNavigation() {
     NavHost(
-        startRoute = AppRoutes.FirstScreen
+        startRoute = AppRoutes.GreetingScreen
     ) {
-        mvvm(
-            route = AppRoutes.FirstScreen,
+        composable(
+            route = AppRoutes.GreetingScreen,
             viewModelFactory = { GreetingScreenViewModel() }
-        ) {
-            GreetingScreen(it)
+        ) { viewModel ->
+            GreetingScreen(viewModel)
         }
 
-        mvvm(
-            route = AppRoutes.SecondScreen,
+        composable(
+            route = AppRoutes.GreeterScreen,
             viewModelFactory = { GreeterViewModel(it as String) }
-        ) {
-            GreeterScreen(it)
+        ) { viewModel ->
+            GreeterScreen(viewModel)
         }
     }
 }
-
-/*
- *              ┌───────────────┐
- *        ┌─────┤ VM Navigation ├──────┐
- *        │     └───────────────┘      │
- *        │                            │
- *        │ depends on                 │ depends on
- *        │                            │
- * ┌──────▼─────┐               ┌──────▼─────┐
- * │ View Model │               │ Navigation │
- * └────────────┘               └────────────┘
- */

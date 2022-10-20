@@ -12,13 +12,14 @@ import com.diskusage.libraries.navigation.LocalNavController
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
     val navController = LocalNavController.current
+    val name = viewModel.name
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("Hello ${viewModel.name}")
+        Text("Hello $name")
 
         Spacer(Modifier.height(20.dp))
 

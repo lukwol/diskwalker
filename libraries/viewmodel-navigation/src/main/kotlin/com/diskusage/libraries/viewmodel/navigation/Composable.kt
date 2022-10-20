@@ -11,7 +11,7 @@ import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 
 @Suppress("UNCHECKED_CAST")
-fun <VM : ViewModel> NavMapBuilder.mvvm(
+fun <VM : ViewModel> NavMapBuilder.composable(
     route: NavRoute,
     viewModelFactory: (args: NavArguments?) -> VM,
     content: @Composable (viewModel: VM) -> Unit

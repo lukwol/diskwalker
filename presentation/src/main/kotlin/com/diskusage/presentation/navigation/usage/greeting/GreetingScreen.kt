@@ -5,6 +5,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -15,6 +17,7 @@ import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 fun GreetingScreen(
     viewModel: GreetingScreenViewModel
 ) {
+    var name by viewModel.name
     val navController = LocalNavController.current
 
     Column(
@@ -23,14 +26,14 @@ fun GreetingScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         OutlinedTextField(
-            value = viewModel.name.value,
-            onValueChange = { viewModel.name.value = it }
+            value = name,
+            onValueChange = { name = it }
         )
 
         Spacer(Modifier.height(20.dp))
 
         Button(
-            onClick = { navController.push(AppRoutes.SecondScreen, viewModel.name.value) }
+            onClick = { navController.push(AppRoutes.GreeterScreen, name) }
         ) {
             Text("Greet")
         }
