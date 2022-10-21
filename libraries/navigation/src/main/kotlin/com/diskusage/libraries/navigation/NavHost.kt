@@ -1,6 +1,9 @@
 package com.diskusage.libraries.navigation
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 
 @Composable
 fun NavHost(
@@ -13,7 +16,7 @@ fun NavHost(
     val navigationMap = remember { mapBuilder.build() }
     val navController = remember { NavController(startRoute) }
 
-    val routesWithArguments by navController.routesFlow.collectAsState()
+    val routesWithArguments by navController.routesState
     val (route, arguments) = routesWithArguments.last()
 
     CompositionLocalProvider(
