@@ -8,4 +8,9 @@ plugins {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotest.assertions)
+    testImplementation(libs.compose.test)
+    testImplementation(libs.compose.test.junit4)
 }

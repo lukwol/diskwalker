@@ -11,13 +11,11 @@ class NavController(startRoute: NavRoute) {
         routesState.value += RouteWithArguments(route, arguments)
     }
 
-    fun pop(upToRoute: NavRoute? = null) = if (upToRoute == null) {
-        routesState.value = routesState.value.dropLast(1)
-    } else {
-        routesState.value = routesState.value.dropLastWhile { it.route != upToRoute }
-    }
-
-    fun popToRoot() {
-        routesState.value = routesState.value.take(1)
+    fun pop(upToRoute: NavRoute? = null) = when {
+        upToRoute != null && upToRoute !in routes -> throw IllegalArgumentException("There is no $upToRoute on the stack")
+        upToRoute == routes.last() -> throw IllegalArgumentException("Cannot pop up to current route $upToRoute")
+        routes.size == 1 -> throw IllegalStateException("Cannot pop start route")
+        upToRoute == null -> routesState.value = routesState.value.dropLast(1)
+        else -> routesState.value = routesState.value.dropLastWhile { it.route != upToRoute }
     }
 }
