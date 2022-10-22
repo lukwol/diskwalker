@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.DiskEntryStubs
+import com.diskusage.domain.stubs.DiskEntries
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -44,22 +44,22 @@ class GetDiskEntriesListTest : KoinTest {
         @BeforeEach
         fun setUp() {
             declareMock<IncludeDiskEntry> {
-                every { this@declareMock(not(DiskEntryStubs.dir11), any()) } returns true
-                every { this@declareMock(DiskEntryStubs.dir11, any()) } returns false
+                every { this@declareMock(not(DiskEntries.dir11), any()) } returns true
+                every { this@declareMock(DiskEntries.dir11, any()) } returns false
             }
         }
 
         @Test
         fun `disk entries list`() {
-            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
-                DiskEntryStubs.rootDir,
-                DiskEntryStubs.file1,
-                DiskEntryStubs.dir1,
-                DiskEntryStubs.file11,
-                DiskEntryStubs.file12,
-                DiskEntryStubs.dir2,
-                DiskEntryStubs.file21,
-                DiskEntryStubs.file22
+            getDiskEntriesList(DiskEntries.rootDir) shouldContainExactlyInAnyOrder listOf(
+                DiskEntries.rootDir,
+                DiskEntries.file1,
+                DiskEntries.dir1,
+                DiskEntries.file11,
+                DiskEntries.file12,
+                DiskEntries.dir2,
+                DiskEntries.file21,
+                DiskEntries.file22
             )
         }
     }
@@ -76,18 +76,18 @@ class GetDiskEntriesListTest : KoinTest {
 
         @Test
         fun `disk entries list`() {
-            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
-                DiskEntryStubs.rootDir,
-                DiskEntryStubs.file1,
-                DiskEntryStubs.dir1,
-                DiskEntryStubs.file11,
-                DiskEntryStubs.file12,
-                DiskEntryStubs.dir11,
-                DiskEntryStubs.file111,
-                DiskEntryStubs.file112,
-                DiskEntryStubs.dir2,
-                DiskEntryStubs.file21,
-                DiskEntryStubs.file22
+            getDiskEntriesList(DiskEntries.rootDir) shouldContainExactlyInAnyOrder listOf(
+                DiskEntries.rootDir,
+                DiskEntries.file1,
+                DiskEntries.dir1,
+                DiskEntries.file11,
+                DiskEntries.file12,
+                DiskEntries.dir11,
+                DiskEntries.file111,
+                DiskEntries.file112,
+                DiskEntries.dir2,
+                DiskEntries.file21,
+                DiskEntries.file22
             )
         }
     }

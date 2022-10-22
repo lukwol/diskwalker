@@ -3,8 +3,7 @@ package com.diskusage.domain.stubs
 import com.diskusage.domain.model.DiskEntry
 import java.nio.file.Path
 
-@Suppress("MemberVisibilityCanBePrivate")
-object DiskEntryStubs {
+object DiskEntries {
 
     val rootFile = DiskEntry(
         name = "file",

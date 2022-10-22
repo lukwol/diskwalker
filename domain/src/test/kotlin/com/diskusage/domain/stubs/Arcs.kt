@@ -6,7 +6,7 @@ import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 import com.diskusage.domain.model.Arc
 import com.diskusage.libraries.ranges.until
 
-object ArcStubs {
+object Arcs {
     val hidden = Arc(
         angleRange = 0f until 360f,
         radiusRange = 0f until 0f

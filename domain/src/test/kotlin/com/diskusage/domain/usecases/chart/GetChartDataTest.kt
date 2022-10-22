@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.chart
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.stubs.DiskEntryStubs
+import com.diskusage.domain.stubs.DiskEntries
 import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -57,7 +57,7 @@ class GetChartDataTest : KoinTest {
     inner class StaticChartItems {
         @Test
         fun `simple file`() = runTest {
-            val (startItems, endItems) = getChartData(DiskEntryStubs.rootFile)
+            val (startItems, endItems) = getChartData(DiskEntries.rootFile)
             startItems shouldHaveSize 1
             endItems shouldBe null
             verify { sortDiskEntries.invoke(any()) }
@@ -65,7 +65,7 @@ class GetChartDataTest : KoinTest {
 
         @Test
         fun `simple directory`() = runTest {
-            val (startItems, endItems) = getChartData(DiskEntryStubs.dir11)
+            val (startItems, endItems) = getChartData(DiskEntries.dir11)
             startItems shouldHaveSize 3
             endItems shouldBe null
             verify { sortDiskEntries.invoke(any()) }
@@ -73,7 +73,7 @@ class GetChartDataTest : KoinTest {
 
         @Test
         fun `root directory`() = runTest {
-            val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir)
+            val (startItems, endItems) = getChartData(DiskEntries.rootDir)
             startItems shouldHaveSize 11
             endItems shouldBe null
             verify { sortDiskEntries.invoke(any()) }
@@ -88,7 +88,7 @@ class GetChartDataTest : KoinTest {
         inner class FromSame {
             @Test
             fun `file from file without parent`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootFile, DiskEntryStubs.rootFile)
+                val (startItems, endItems) = getChartData(DiskEntries.rootFile, DiskEntries.rootFile)
                 startItems shouldHaveSize 1
                 endItems!! shouldHaveSize 1
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -97,7 +97,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `file from file with parent`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file1, DiskEntryStubs.file1)
+                val (startItems, endItems) = getChartData(DiskEntries.file1, DiskEntries.file1)
                 startItems shouldHaveSize 1
                 endItems!! shouldHaveSize 1
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -106,7 +106,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from dir without parent`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -115,7 +115,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from dir with parent`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.dir1)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.dir1)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -128,7 +128,7 @@ class GetChartDataTest : KoinTest {
         inner class FromAncestor {
             @Test
             fun `child file from root dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file1, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.file1, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -137,7 +137,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `grandchild file from root dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file11, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.file11, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -146,7 +146,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `great-grandchild file from root dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file112, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.file112, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -155,7 +155,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `child dir from root dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir2, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.dir2, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -164,7 +164,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `grandchild dir from root dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir11, DiskEntryStubs.rootDir)
+                val (startItems, endItems) = getChartData(DiskEntries.dir11, DiskEntries.rootDir)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -173,7 +173,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `grandchild dir from child dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir11, DiskEntryStubs.dir1)
+                val (startItems, endItems) = getChartData(DiskEntries.dir11, DiskEntries.dir1)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -182,7 +182,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `grandchild file from child dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file11, DiskEntryStubs.dir1)
+                val (startItems, endItems) = getChartData(DiskEntries.file11, DiskEntries.dir1)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -191,7 +191,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `great-grandchild file from child dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file111, DiskEntryStubs.dir1)
+                val (startItems, endItems) = getChartData(DiskEntries.file111, DiskEntries.dir1)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -200,7 +200,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `great-grandchild file from grandchild dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file111, DiskEntryStubs.dir11)
+                val (startItems, endItems) = getChartData(DiskEntries.file111, DiskEntries.dir11)
                 startItems shouldHaveSize 3
                 endItems!! shouldHaveSize 3
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -213,7 +213,7 @@ class GetChartDataTest : KoinTest {
         inner class FromDescendant {
             @Test
             fun `root dir from child file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.file1)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.file1)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -222,7 +222,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `root dir from grandchild file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.file11)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.file11)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -231,7 +231,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `root dir from great-grandchild file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.file112)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.file112)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -240,7 +240,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `root dir from child dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.dir2)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.dir2)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -249,7 +249,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `root dir from grandchild dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.rootDir, DiskEntryStubs.dir11)
+                val (startItems, endItems) = getChartData(DiskEntries.rootDir, DiskEntries.dir11)
                 startItems shouldHaveSize 11
                 endItems!! shouldHaveSize 11
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -258,7 +258,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `child dir from grandchild dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.dir11)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.dir11)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -267,7 +267,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `child dir from grandchild file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.file11)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.file11)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -276,7 +276,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `child dir from great-grandchild file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.file111)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.file111)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -285,7 +285,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `grandchild dir from great-grandchild file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir11, DiskEntryStubs.file111)
+                val (startItems, endItems) = getChartData(DiskEntries.dir11, DiskEntries.file111)
                 startItems shouldHaveSize 3
                 endItems!! shouldHaveSize 3
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -298,7 +298,7 @@ class GetChartDataTest : KoinTest {
         inner class FromSibling {
             @Test
             fun `file from file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file111, DiskEntryStubs.file112)
+                val (startItems, endItems) = getChartData(DiskEntries.file111, DiskEntries.file112)
                 startItems shouldHaveSize 2
                 endItems!! shouldHaveSize 2
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -307,7 +307,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.dir2)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.dir2)
                 startItems shouldHaveSize 9
                 endItems!! shouldHaveSize 9
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -316,7 +316,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir1, DiskEntryStubs.file1)
+                val (startItems, endItems) = getChartData(DiskEntries.dir1, DiskEntries.file1)
                 startItems shouldHaveSize 7
                 endItems!! shouldHaveSize 7
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -325,7 +325,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `file from dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file12, DiskEntryStubs.dir11)
+                val (startItems, endItems) = getChartData(DiskEntries.file12, DiskEntries.dir11)
                 startItems shouldHaveSize 4
                 endItems!! shouldHaveSize 4
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -338,7 +338,7 @@ class GetChartDataTest : KoinTest {
         inner class FromUnrelated {
             @Test
             fun `file from file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file12, DiskEntryStubs.file21)
+                val (startItems, endItems) = getChartData(DiskEntries.file12, DiskEntries.file21)
                 startItems shouldHaveSize 2
                 endItems!! shouldHaveSize 2
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -347,7 +347,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir11, DiskEntryStubs.dir2)
+                val (startItems, endItems) = getChartData(DiskEntries.dir11, DiskEntries.dir2)
                 startItems shouldHaveSize 6
                 endItems!! shouldHaveSize 6
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -356,7 +356,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `dir from file`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.dir2, DiskEntryStubs.file111)
+                val (startItems, endItems) = getChartData(DiskEntries.dir2, DiskEntries.file111)
                 startItems shouldHaveSize 4
                 endItems!! shouldHaveSize 4
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)
@@ -365,7 +365,7 @@ class GetChartDataTest : KoinTest {
 
             @Test
             fun `file from dir`() = runTest {
-                val (startItems, endItems) = getChartData(DiskEntryStubs.file12, DiskEntryStubs.dir2)
+                val (startItems, endItems) = getChartData(DiskEntries.file12, DiskEntries.dir2)
                 startItems shouldHaveSize 4
                 endItems!! shouldHaveSize 4
                 startItems.map(ChartItem::diskEntry) shouldBe endItems.map(ChartItem::diskEntry)

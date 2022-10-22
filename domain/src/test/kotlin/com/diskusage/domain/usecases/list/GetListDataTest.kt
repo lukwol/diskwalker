@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.list
 
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.DiskEntryStubs
+import com.diskusage.domain.stubs.DiskEntries
 import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -54,16 +54,16 @@ class GetListDataTest : KoinTest {
 
     @Test
     fun file() = runTest {
-        val (parentItem, childItems) = getListData(DiskEntryStubs.file111)
-        parentItem.diskEntry shouldBe DiskEntryStubs.file111
+        val (parentItem, childItems) = getListData(DiskEntries.file111)
+        parentItem.diskEntry shouldBe DiskEntries.file111
         childItems shouldHaveSize 0
         verify { sortDiskEntries.invoke(any()) }
     }
 
     @Test
     fun directory() = runTest {
-        val (parentItem, childItems) = getListData(DiskEntryStubs.dir1)
-        parentItem.diskEntry shouldBe DiskEntryStubs.dir1
+        val (parentItem, childItems) = getListData(DiskEntries.dir1)
+        parentItem.diskEntry shouldBe DiskEntries.dir1
         childItems shouldHaveSize 3
         verify { sortDiskEntries.invoke(any()) }
     }

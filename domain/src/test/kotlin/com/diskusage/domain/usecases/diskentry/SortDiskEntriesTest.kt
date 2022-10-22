@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.stubs.DiskEntryStubs
+import com.diskusage.domain.stubs.DiskEntries
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -25,32 +25,32 @@ class SortDiskEntriesTest : KoinTest {
     fun `items should be sorted with size ascending then by name descending`() {
         sortDiskEntries(
             listOf(
-                DiskEntryStubs.file22,
-                DiskEntryStubs.dir1,
-                DiskEntryStubs.file11,
-                DiskEntryStubs.file111,
-                DiskEntryStubs.file112,
-                DiskEntryStubs.dir11,
-                DiskEntryStubs.rootDir,
-                DiskEntryStubs.file12,
-                DiskEntryStubs.rootFile,
-                DiskEntryStubs.file21,
-                DiskEntryStubs.file1,
-                DiskEntryStubs.dir2
+                DiskEntries.file22,
+                DiskEntries.dir1,
+                DiskEntries.file11,
+                DiskEntries.file111,
+                DiskEntries.file112,
+                DiskEntries.dir11,
+                DiskEntries.rootDir,
+                DiskEntries.file12,
+                DiskEntries.rootFile,
+                DiskEntries.file21,
+                DiskEntries.file1,
+                DiskEntries.dir2
             )
         ) shouldBe listOf(
-            DiskEntryStubs.rootDir,
-            DiskEntryStubs.rootFile,
-            DiskEntryStubs.file1,
-            DiskEntryStubs.dir1,
-            DiskEntryStubs.dir2,
-            DiskEntryStubs.file21,
-            DiskEntryStubs.file12,
-            DiskEntryStubs.file22,
-            DiskEntryStubs.file11,
-            DiskEntryStubs.dir11,
-            DiskEntryStubs.file111,
-            DiskEntryStubs.file112
+            DiskEntries.rootDir,
+            DiskEntries.rootFile,
+            DiskEntries.file1,
+            DiskEntries.dir1,
+            DiskEntries.dir2,
+            DiskEntries.file21,
+            DiskEntries.file12,
+            DiskEntries.file22,
+            DiskEntries.file11,
+            DiskEntries.dir11,
+            DiskEntries.file111,
+            DiskEntries.file112
         )
     }
 

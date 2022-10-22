@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.chart.item.arc
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.ArcStubs
+import com.diskusage.domain.stubs.Arcs
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
@@ -30,28 +30,28 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `close offset`() {
-            isArcSelected(arc = ArcStubs.hidden, offset = closeOffset) shouldBe false
+            isArcSelected(arc = Arcs.hidden, offset = closeOffset) shouldBe false
         }
 
         @Test
         fun `far offset`() {
-            isArcSelected(arc = ArcStubs.hidden, offset = farOffset) shouldBe false
+            isArcSelected(arc = Arcs.hidden, offset = farOffset) shouldBe false
         }
 
         @Test
         fun `zero offset`() {
-            isArcSelected(arc = ArcStubs.hidden, offset = Offset.Zero) shouldBe false
+            isArcSelected(arc = Arcs.hidden, offset = Offset.Zero) shouldBe false
         }
 
         @Test
         fun `infinite offset`() {
-            isArcSelected(arc = ArcStubs.hidden, offset = Offset.Infinite) shouldBe false
+            isArcSelected(arc = Arcs.hidden, offset = Offset.Infinite) shouldBe false
         }
 
         @Test
         fun `unspecified offset`() {
             shouldThrow<IllegalStateException> {
-                isArcSelected(arc = ArcStubs.hidden, offset = Offset.Unspecified)
+                isArcSelected(arc = Arcs.hidden, offset = Offset.Unspecified)
             }
         }
     }
@@ -61,28 +61,28 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `close offset`() {
-            isArcSelected(arc = ArcStubs.selected, offset = closeOffset) shouldBe false
+            isArcSelected(arc = Arcs.selected, offset = closeOffset) shouldBe false
         }
 
         @Test
         fun `far offset`() {
-            isArcSelected(arc = ArcStubs.selected, offset = farOffset) shouldBe false
+            isArcSelected(arc = Arcs.selected, offset = farOffset) shouldBe false
         }
 
         @Test
         fun `zero offset`() {
-            isArcSelected(arc = ArcStubs.selected, offset = Offset.Zero) shouldBe true
+            isArcSelected(arc = Arcs.selected, offset = Offset.Zero) shouldBe true
         }
 
         @Test
         fun `infinite offset`() {
-            isArcSelected(arc = ArcStubs.selected, offset = Offset.Infinite) shouldBe false
+            isArcSelected(arc = Arcs.selected, offset = Offset.Infinite) shouldBe false
         }
 
         @Test
         fun `unspecified offset`() {
             shouldThrow<IllegalStateException> {
-                isArcSelected(arc = ArcStubs.selected, offset = Offset.Unspecified)
+                isArcSelected(arc = Arcs.selected, offset = Offset.Unspecified)
             }
         }
     }
@@ -92,28 +92,28 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `close offset`() {
-            isArcSelected(arc = ArcStubs.child2, offset = closeOffset) shouldBe true
+            isArcSelected(arc = Arcs.child2, offset = closeOffset) shouldBe true
         }
 
         @Test
         fun `far offset`() {
-            isArcSelected(arc = ArcStubs.child2, offset = farOffset) shouldBe false
+            isArcSelected(arc = Arcs.child2, offset = farOffset) shouldBe false
         }
 
         @Test
         fun `zero offset`() {
-            isArcSelected(arc = ArcStubs.child2, offset = Offset.Zero) shouldBe false
+            isArcSelected(arc = Arcs.child2, offset = Offset.Zero) shouldBe false
         }
 
         @Test
         fun `infinite offset`() {
-            isArcSelected(arc = ArcStubs.child2, offset = Offset.Infinite) shouldBe false
+            isArcSelected(arc = Arcs.child2, offset = Offset.Infinite) shouldBe false
         }
 
         @Test
         fun `unspecified offset`() {
             shouldThrow<IllegalStateException> {
-                isArcSelected(arc = ArcStubs.child1, offset = Offset.Unspecified)
+                isArcSelected(arc = Arcs.child1, offset = Offset.Unspecified)
             }
         }
     }
@@ -123,28 +123,28 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `close offset`() {
-            isArcSelected(arc = ArcStubs.far, offset = closeOffset) shouldBe false
+            isArcSelected(arc = Arcs.far, offset = closeOffset) shouldBe false
         }
 
         @Test
         fun `far offset`() {
-            isArcSelected(arc = ArcStubs.far, offset = farOffset) shouldBe true
+            isArcSelected(arc = Arcs.far, offset = farOffset) shouldBe true
         }
 
         @Test
         fun `zero offset`() {
-            isArcSelected(arc = ArcStubs.far, offset = Offset.Zero) shouldBe false
+            isArcSelected(arc = Arcs.far, offset = Offset.Zero) shouldBe false
         }
 
         @Test
         fun `infinite offset`() {
-            isArcSelected(arc = ArcStubs.far, offset = Offset.Infinite) shouldBe false
+            isArcSelected(arc = Arcs.far, offset = Offset.Infinite) shouldBe false
         }
 
         @Test
         fun `unspecified offset`() {
             shouldThrow<IllegalStateException> {
-                isArcSelected(arc = ArcStubs.far, offset = Offset.Unspecified)
+                isArcSelected(arc = Arcs.far, offset = Offset.Unspecified)
             }
         }
     }
@@ -154,14 +154,14 @@ class IsArcSelectedTest : KoinTest {
 
         @Test
         fun `between arc1 and arc2`() {
-            isArcSelected(arc = ArcStubs.child1, offset = closeOffset) shouldBe false
-            isArcSelected(arc = ArcStubs.child2, offset = closeOffset) shouldBe true
+            isArcSelected(arc = Arcs.child1, offset = closeOffset) shouldBe false
+            isArcSelected(arc = Arcs.child2, offset = closeOffset) shouldBe true
         }
 
         @Test
         fun `between arc0 and arc2`() {
-            isArcSelected(arc = ArcStubs.selected, offset = Offset(0f, 25f)) shouldBe false
-            isArcSelected(arc = ArcStubs.child2, offset = Offset(0f, 25f)) shouldBe true
+            isArcSelected(arc = Arcs.selected, offset = Offset(0f, 25f)) shouldBe false
+            isArcSelected(arc = Arcs.child2, offset = Offset(0f, 25f)) shouldBe true
         }
     }
 }

@@ -9,7 +9,11 @@ class NavMapBuilder {
         route: NavRoute,
         content: @Composable (args: NavArguments?) -> Unit
     ) {
-        destinations[route] = content
+        if (destinations.containsKey(route)) {
+            throw IllegalArgumentException("Route: $route is already registered")
+        } else {
+            destinations[route] = content
+        }
     }
 
     fun build() = destinations.toMap()
