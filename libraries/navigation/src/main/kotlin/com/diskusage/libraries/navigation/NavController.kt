@@ -2,20 +2,34 @@ package com.diskusage.libraries.navigation
 
 import androidx.compose.runtime.mutableStateOf
 
-class NavController(startRoute: NavRoute) {
+interface NavController {
+    val routes: List<NavRoute>
+    fun push(route: NavRoute, arguments: NavArguments? = null)
+    fun pop(upToRoute: NavRoute? = null)
+}
+
+internal class NavControllerImpl(startRoute: NavRoute) : NavController {
     internal val routesState = mutableStateOf(listOf(RouteWithArguments(startRoute)))
 
-    val routes get() = routesState.value.map(RouteWithArguments::route)
+    override val routes get() = routesState.value.map(RouteWithArguments::route)
 
-    fun push(route: NavRoute, arguments: NavArguments? = null) {
+    override fun push(route: NavRoute, arguments: NavArguments?) {
         routesState.value += RouteWithArguments(route, arguments)
     }
 
-    fun pop(upToRoute: NavRoute? = null) = when {
+    override fun pop(upToRoute: NavRoute?) = when {
         upToRoute != null && upToRoute !in routes -> throw IllegalArgumentException("There is no $upToRoute on the stack")
         upToRoute == routes.last() -> throw IllegalArgumentException("Cannot pop up to current route $upToRoute")
         routes.size == 1 -> throw IllegalStateException("Cannot pop start route")
         upToRoute == null -> routesState.value = routesState.value.dropLast(1)
         else -> routesState.value = routesState.value.dropLastWhile { it.route != upToRoute }
     }
+}
+
+internal object NavControllerNoOp : NavController {
+    override val routes: List<NavRoute> = emptyList()
+
+    override fun push(route: NavRoute, arguments: NavArguments?) = Unit
+
+    override fun pop(upToRoute: NavRoute?) = Unit
 }

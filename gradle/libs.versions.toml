@@ -3,7 +3,8 @@ kotlin = "1.6.10"
 compose = "1.1.1"
 coroutines = "1.6.3"
 koin = "3.2.0"
-junit = "5.8.2"
+junit4 = "4.13"
+junit5 = "5.8.2"
 mockk = "1.12.4"
 kotest = "5.3.2"
 dependency-updates = "0.42.0"
@@ -27,6 +28,7 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
-junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }

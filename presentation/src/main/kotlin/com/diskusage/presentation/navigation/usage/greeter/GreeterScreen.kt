@@ -1,5 +1,6 @@
 package com.diskusage.presentation.navigation.usage.greeter
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -31,4 +32,10 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
             Text("Go Back")
         }
     }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    GreeterScreen(GreeterViewModel("Adam"))
 }

@@ -1,5 +1,6 @@
 package com.diskusage.presentation.navigation.usage.greeting
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -38,4 +39,10 @@ fun GreetingScreen(
             Text("Greet")
         }
     }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    GreetingScreen(GreetingScreenViewModel())
 }

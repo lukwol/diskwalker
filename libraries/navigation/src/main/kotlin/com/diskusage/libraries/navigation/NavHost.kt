@@ -14,7 +14,7 @@ fun NavHost(
     mapBuilder.builder()
 
     val navigationMap = remember { mapBuilder.build() }
-    val navController = remember { NavController(startRoute) }
+    val navController = remember { NavControllerImpl(startRoute) }
 
     val routesWithArguments by navController.routesState
     val (route, arguments) = routesWithArguments.last()
