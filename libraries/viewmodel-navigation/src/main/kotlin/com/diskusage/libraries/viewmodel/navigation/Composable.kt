@@ -17,9 +17,11 @@ fun <VM : ViewModel> NavMapBuilder.composable(
     content: @Composable (viewModel: VM) -> Unit
 ) {
     composable(route) { arguments ->
+        val viewModelStore = LocalViewModelStore.current
         val navController = LocalNavController.current
+
         val viewModel = remember(route) {
-            ViewModelStore.viewModels.getOrPut(route) { viewModelFactory(arguments) } as VM
+            viewModelStore.viewModels.getOrPut(route) { viewModelFactory(arguments) } as VM
         }
 
         content(viewModel)
@@ -28,7 +30,7 @@ fun <VM : ViewModel> NavMapBuilder.composable(
             onDispose {
                 viewModel.viewModelScope.cancel()
                 if (route !in navController.routes) {
-                    ViewModelStore.viewModels.remove(route)
+                    viewModelStore.viewModels.remove(route)
                 }
             }
         }
