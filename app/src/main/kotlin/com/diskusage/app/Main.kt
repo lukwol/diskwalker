@@ -1,6 +1,6 @@
 package com.diskusage.app
 
-import androidx.compose.ui.window.singleWindowApplication
+import androidx.compose.ui.window.application
 import com.diskusage.presentation.navigation.usage.navigation.AppNavigation
 
 // import SupportLibrary
@@ -24,7 +24,7 @@ fun main() {
 //            presentationModule
 //        )
 //    }
-    singleWindowApplication {
+    application {
         AppNavigation()
 
 //        var isSupportLibraryLoaded by remember { mutableStateOf(false) }

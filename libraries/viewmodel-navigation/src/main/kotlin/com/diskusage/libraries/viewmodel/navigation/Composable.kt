@@ -3,12 +3,14 @@ package com.diskusage.libraries.viewmodel.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
-import com.diskusage.libraries.navigation.LocalNavController
-import com.diskusage.libraries.navigation.NavArguments
-import com.diskusage.libraries.navigation.NavMapBuilder
-import com.diskusage.libraries.navigation.NavRoute
+import com.diskusage.libraries.navigation.*
 import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
+
+internal data class WindowRoute(
+    val window: String,
+    val route: NavRoute
+)
 
 @Suppress("UNCHECKED_CAST")
 fun <VM : ViewModel> NavMapBuilder.composable(
@@ -19,9 +21,12 @@ fun <VM : ViewModel> NavMapBuilder.composable(
     composable(route) { arguments ->
         val viewModelStore = LocalViewModelStore.current
         val navController = LocalNavController.current
+        val windowsController = LocalWindowController.current
+
+        val windowRoute = WindowRoute(window, route)
 
         val viewModel = remember(route) {
-            viewModelStore.viewModels.getOrPut(route) { viewModelFactory(arguments) } as VM
+            viewModelStore.viewModels.getOrPut(windowRoute) { viewModelFactory(arguments) } as VM
         }
 
         content(viewModel)
@@ -29,9 +34,16 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         DisposableEffect(route) {
             onDispose {
                 viewModel.viewModelScope.cancel()
-                if (route !in navController.routes) {
-                    viewModelStore.viewModels.remove(route)
+                if (window !in windowsController.windows) {
+                    viewModelStore.viewModels.keys.filter {
+                        it.window == window
+                    }.forEach {
+                        viewModelStore.viewModels.remove(it)
+                    }
+                } else if (route !in navController.routes) {
+                    viewModelStore.viewModels.remove(windowRoute)
                 }
+                println("viewModelStore = $viewModelStore, viewModels = ${viewModelStore.viewModels.keys}")
             }
         }
     }

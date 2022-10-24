@@ -9,10 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.libraries.navigation.LocalNavController
+import com.diskusage.libraries.navigation.LocalWindowController
+import com.diskusage.presentation.navigation.usage.navigation.AppWindows
 
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
     val navController = LocalNavController.current
+    val windowsController = LocalWindowController.current
     val name = viewModel.name
 
     Column(
@@ -30,6 +33,16 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
             }
         ) {
             Text("Go Back")
+        }
+
+        Spacer(Modifier.height(20.dp))
+
+        Button(
+            onClick = {
+                windowsController.open(AppWindows.OtherWindow)
+            }
+        ) {
+            Text("Other Window")
         }
     }
 }
