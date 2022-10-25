@@ -41,11 +41,11 @@ class WindowsController(startWindow: String) {
 
     val windowRoutes get() = windowRoutesState.value
 
-    fun open(window: String) {
-        windowRoutesState.value += window
+    fun open(windowRoute: String) {
+        windowRoutesState.value += windowRoute
     }
 
-    fun close(window: String) {
-        windowRoutesState.value -= window
+    fun close(windowRoute: String) {
+        windowRoutesState.value -= windowRoute
     }
 }

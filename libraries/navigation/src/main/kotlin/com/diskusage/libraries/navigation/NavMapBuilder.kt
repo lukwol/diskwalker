@@ -30,8 +30,8 @@ class WindowsMapBuilder {
     private val windows = mutableMapOf<String, @Composable () -> Unit>()
 
     fun window(
-        title: String,
-        route: String = title,
+        route: String,
+        title: String = route,
         content: @Composable RoutedWindowScope.() -> Unit
     ) {
         window(

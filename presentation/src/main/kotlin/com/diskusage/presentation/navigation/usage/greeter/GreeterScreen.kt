@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.libraries.navigation.LocalNavController
 import com.diskusage.libraries.navigation.LocalWindowController
-import com.diskusage.presentation.navigation.usage.navigation.AppWindows
+import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
@@ -39,7 +39,7 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
 
         Button(
             onClick = {
-                windowsController.open(AppWindows.OtherWindow)
+                windowsController.open(AppRoutes.Windows.Second)
             }
         ) {
             Text("Other Window")

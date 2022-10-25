@@ -34,7 +34,7 @@ fun GreetingScreen(
         Spacer(Modifier.height(20.dp))
 
         Button(
-            onClick = { navController.push(AppRoutes.GreeterScreen, name) }
+            onClick = { navController.push(AppRoutes.Screens.Greeter, name) }
         ) {
             Text("Greet")
         }
