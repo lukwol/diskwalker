@@ -1,5 +1,6 @@
 package com.diskusage.libraries.navigation
 
+import com.diskusage.libraries.navigation.screens.NavMapBuilder
 import com.diskusage.libraries.navigation.stubs.Routes
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder

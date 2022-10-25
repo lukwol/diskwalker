@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.diskusage.libraries.navigation.LocalNavController
-import com.diskusage.libraries.navigation.LocalWindowController
+import com.diskusage.libraries.navigation.screens.LocalNavController
+import com.diskusage.libraries.navigation.windows.LocalWindowController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
 @Composable

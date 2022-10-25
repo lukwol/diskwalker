@@ -1,4 +1,4 @@
-package com.diskusage.libraries.navigation
+package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.mutableStateOf
 
@@ -34,18 +34,4 @@ internal object NavControllerNoOp : NavController {
     override fun push(route: String, arguments: NavArguments?) = Unit
 
     override fun pop(upToRoute: String?) = Unit
-}
-
-class WindowsController(startWindow: String) {
-    internal val windowRoutesState = mutableStateOf(setOf(startWindow))
-
-    val windows get() = windowRoutesState.value
-
-    fun open(windowRoute: String) {
-        windowRoutesState.value += windowRoute
-    }
-
-    fun close(windowRoute: String) {
-        windowRoutesState.value -= windowRoute
-    }
 }

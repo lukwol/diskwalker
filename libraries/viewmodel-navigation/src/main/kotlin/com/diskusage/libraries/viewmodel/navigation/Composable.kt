@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import com.diskusage.libraries.navigation.*
+import com.diskusage.libraries.navigation.screens.LocalNavController
+import com.diskusage.libraries.navigation.screens.NavArguments
+import com.diskusage.libraries.navigation.screens.NavMapBuilder
 import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 

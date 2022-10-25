@@ -1,25 +1,8 @@
-package com.diskusage.libraries.navigation
+package com.diskusage.libraries.navigation.windows
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
-
-class NavMapBuilder {
-    private val destinations = mutableMapOf<String, @Composable (NavArguments?) -> Unit>()
-
-    fun composable(
-        route: String,
-        content: @Composable (args: NavArguments?) -> Unit
-    ) {
-        if (destinations.containsKey(route)) {
-            throw IllegalArgumentException("Route: $route is already registered")
-        } else {
-            destinations[route] = content
-        }
-    }
-
-    fun build() = destinations.toMap()
-}
 
 class WindowsMapBuilder {
     private val windows = mutableMapOf<String, @Composable () -> Unit>()
