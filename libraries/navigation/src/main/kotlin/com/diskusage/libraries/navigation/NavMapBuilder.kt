@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 
-class NavMapBuilder(val windowRoute: String) {
-    private val destinations = mutableMapOf<NavRoute, @Composable (NavArguments?) -> Unit>()
+class NavMapBuilder {
+    private val destinations = mutableMapOf<String, @Composable (NavArguments?) -> Unit>()
 
     fun composable(
-        route: NavRoute,
+        route: String,
         content: @Composable (args: NavArguments?) -> Unit
     ) {
         if (destinations.containsKey(route)) {

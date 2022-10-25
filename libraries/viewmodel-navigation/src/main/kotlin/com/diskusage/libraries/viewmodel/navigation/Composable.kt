@@ -7,28 +7,18 @@ import com.diskusage.libraries.navigation.*
 import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 
-internal data class CombinedRoute(
-    val windowRoute: String,
-    val route: NavRoute
-)
-
 @Suppress("UNCHECKED_CAST")
 fun <VM : ViewModel> NavMapBuilder.composable(
-    route: NavRoute,
+    route: String,
     viewModelFactory: (args: NavArguments?) -> VM,
     content: @Composable (viewModel: VM) -> Unit
 ) {
     composable(route) { arguments ->
-        val viewModelStore = LocalViewModelStore.current
         val navController = LocalNavController.current
-        val windowsController = LocalWindowController.current
 
-        val combinedRoute = CombinedRoute(windowRoute, route)
-
-        println("combinedRoute = $combinedRoute")
-
+        val viewModelStore = remember { ViewModelStore() }
         val viewModel = remember(route) {
-            viewModelStore.getOrPut(combinedRoute) { viewModelFactory(arguments) } as VM
+            viewModelStore.getOrPut(route) { viewModelFactory(arguments) } as VM
         }
 
         content(viewModel)
@@ -36,12 +26,9 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         DisposableEffect(route) {
             onDispose {
                 viewModel.viewModelScope.cancel()
-                if (windowRoute !in windowsController.windowRoutes) {
-                    viewModelStore.remove(windowRoute)
-                } else if (route !in navController.routes) {
-                    viewModelStore.remove(combinedRoute)
+                if (route !in navController.routes) {
+                    viewModelStore.remove(route)
                 }
-                println("viewModelStore = $viewModelStore, viewModels = ${viewModelStore.keys}")
             }
         }
     }
