@@ -10,7 +10,7 @@ class ScreensMapBuilder {
         content: @Composable (args: Arguments?) -> Unit
     ) {
         if (destinations.containsKey(route)) {
-            throw IllegalArgumentException("Route: $route is already registered")
+            throw IllegalArgumentException("$route is already registered")
         } else {
             destinations[route] = content
         }
