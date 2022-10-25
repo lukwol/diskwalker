@@ -25,6 +25,8 @@ fun <VM : ViewModel> NavMapBuilder.composable(
 
         val combinedRoute = CombinedRoute(windowRoute, route)
 
+        println("combinedRoute = $combinedRoute")
+
         val viewModel = remember(route) {
             viewModelStore.getOrPut(combinedRoute) { viewModelFactory(arguments) } as VM
         }

@@ -21,31 +21,48 @@ class NavMapBuilder(val windowRoute: String) {
     fun build() = destinations.toMap()
 }
 
+class RoutedWindowScope(
+    val windowRoute: String,
+    val frameWindowScope: FrameWindowScope
+)
+
 class WindowsMapBuilder {
     private val windows = mutableMapOf<String, @Composable () -> Unit>()
 
     fun window(
         title: String,
-        content: @Composable FrameWindowScope.() -> Unit
+        route: String = title,
+        content: @Composable RoutedWindowScope.() -> Unit
     ) {
-        customWindow(route = title) {
-            val windowsController = LocalWindowController.current
+        window(
+            route = route,
+            windowFactory = {
+                val windowsController = LocalWindowController.current
 
-            Window(
-                title = title,
-                onCloseRequest = {
-                    windowsController.close(title)
-                },
-                content = content
-            )
-        }
+                Window(
+                    title = title,
+                    onCloseRequest = {
+                        windowsController.close(route)
+                    },
+                    content = it
+                )
+            },
+            content = content
+        )
     }
 
-    fun customWindow(
+    fun window(
         route: String,
-        window: @Composable () -> Unit
+        windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
+        content: @Composable RoutedWindowScope.() -> Unit
     ) {
-        windows[route] = window
+        windows[route] = {
+            windowFactory {
+                with(RoutedWindowScope(route, this)) {
+                    content()
+                }
+            }
+        }
     }
 
     fun build() = windows.toMap()

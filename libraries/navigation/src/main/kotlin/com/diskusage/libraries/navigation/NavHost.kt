@@ -8,9 +8,25 @@ import androidx.compose.ui.window.FrameWindowScope
 
 @Composable
 fun FrameWindowScope.NavHost(
-    windowRoute: String = window.title,
     startRoute: NavRoute,
     builder: NavMapBuilder.() -> Unit
+) {
+    NavHost(window.title, builder, startRoute)
+}
+
+@Composable
+fun RoutedWindowScope.NavHost(
+    startRoute: NavRoute,
+    builder: NavMapBuilder.() -> Unit
+) {
+    NavHost(windowRoute, builder, startRoute)
+}
+
+@Composable
+private fun NavHost(
+    windowRoute: String,
+    builder: NavMapBuilder.() -> Unit,
+    startRoute: NavRoute
 ) {
     val mapBuilder = NavMapBuilder(windowRoute)
     mapBuilder.builder()
@@ -31,7 +47,6 @@ fun FrameWindowScope.NavHost(
         navigationMap.getValue(route)(arguments)
     }
 }
-
 
 @Composable
 fun WindowsHost(

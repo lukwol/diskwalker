@@ -1,6 +1,5 @@
 package com.diskusage.app
 
-import androidx.compose.ui.window.application
 import com.diskusage.presentation.navigation.usage.navigation.AppNavigation
 
 // import SupportLibrary
@@ -24,9 +23,6 @@ fun main() {
 //            presentationModule
 //        )
 //    }
-    application {
-        AppNavigation()
-
 //        var isSupportLibraryLoaded by remember { mutableStateOf(false) }
 //
 //        AppTheme {
@@ -37,5 +33,5 @@ fun main() {
 //            SupportLibrary.loadLibrary()
 //            isSupportLibraryLoaded = true
 //        }
-    }
+    AppNavigation()
 }
