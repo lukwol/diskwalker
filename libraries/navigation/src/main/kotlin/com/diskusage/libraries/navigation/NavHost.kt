@@ -10,8 +10,7 @@ import androidx.compose.ui.window.FrameWindowScope
 fun FrameWindowScope.NavHost(
     startRoute: String,
     builder: NavMapBuilder.() -> Unit
-) = NavHost(
-    windowRoute = window.title,
+) = NavHostImpl(
     startRoute = startRoute,
     builder = builder
 )
@@ -20,15 +19,19 @@ fun FrameWindowScope.NavHost(
 fun RoutedWindowScope.NavHost(
     startRoute: String,
     builder: NavMapBuilder.() -> Unit
-) = NavHost(
-    windowRoute = windowRoute,
-    startRoute = startRoute,
-    builder = builder
-)
+) {
+    CompositionLocalProvider(
+        LocalWindowController providesDefault remember { WindowsController(windowRoute) },
+    ) {
+        NavHostImpl(
+            startRoute = startRoute,
+            builder = builder
+        )
+    }
+}
 
 @Composable
-private fun NavHost(
-    windowRoute: String,
+private fun NavHostImpl(
     startRoute: String,
     builder: NavMapBuilder.() -> Unit
 ) {
@@ -42,8 +45,6 @@ private fun NavHost(
     val (route, arguments) = routesWithArguments.last()
 
     CompositionLocalProvider(
-        // TODO: Implement SingleWindowsController that cannot open or close windows
-        LocalWindowController providesDefault remember { WindowsController(windowRoute) },
         LocalNavController provides navController
     ) {
         navigationMap.getValue(route)(arguments)
