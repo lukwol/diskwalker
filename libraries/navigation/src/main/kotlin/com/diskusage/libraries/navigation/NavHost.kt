@@ -4,34 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.window.FrameWindowScope
 
 @Composable
-fun FrameWindowScope.NavHost(
-    startRoute: String,
-    builder: NavMapBuilder.() -> Unit
-) = NavHostImpl(
-    startRoute = startRoute,
-    builder = builder
-)
-
-@Composable
-fun RoutedWindowScope.NavHost(
-    startRoute: String,
-    builder: NavMapBuilder.() -> Unit
-) {
-    CompositionLocalProvider(
-        LocalWindowController providesDefault remember { WindowsController(windowRoute) },
-    ) {
-        NavHostImpl(
-            startRoute = startRoute,
-            builder = builder
-        )
-    }
-}
-
-@Composable
-private fun NavHostImpl(
+fun NavHost(
     startRoute: String,
     builder: NavMapBuilder.() -> Unit
 ) {

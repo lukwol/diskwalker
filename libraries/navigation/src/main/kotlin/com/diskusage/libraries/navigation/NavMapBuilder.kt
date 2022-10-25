@@ -21,18 +21,13 @@ class NavMapBuilder {
     fun build() = destinations.toMap()
 }
 
-class RoutedWindowScope(
-    val windowRoute: String,
-    val frameWindowScope: FrameWindowScope
-)
-
 class WindowsMapBuilder {
     private val windows = mutableMapOf<String, @Composable () -> Unit>()
 
     fun window(
         route: String,
         title: String = route,
-        content: @Composable RoutedWindowScope.() -> Unit
+        content: @Composable FrameWindowScope.() -> Unit
     ) {
         window(
             route = route,
@@ -54,14 +49,10 @@ class WindowsMapBuilder {
     fun window(
         route: String,
         windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
-        content: @Composable RoutedWindowScope.() -> Unit
+        content: @Composable FrameWindowScope.() -> Unit
     ) {
         windows[route] = {
-            windowFactory {
-                with(RoutedWindowScope(route, this)) {
-                    content()
-                }
-            }
+            windowFactory { content() }
         }
     }
 
