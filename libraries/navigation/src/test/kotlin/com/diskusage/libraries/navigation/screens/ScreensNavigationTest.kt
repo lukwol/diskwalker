@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.diskusage.libraries.navigation.stubs.Routes
+import com.diskusage.libraries.navigation.screens.data.TestRoutes
 import io.kotest.assertions.throwables.shouldThrow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -35,50 +35,50 @@ private object Arguments {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class NavHostTest {
+class ScreensNavigationTest {
     @get:Rule
     val compose = createComposeRule()
 
     @Before
     fun setUp() = compose.setContent {
-        NavHost(
-            startRoute = Routes.start
+        ScreensNavigation(
+            startRoute = TestRoutes.StartScreen
         ) {
-            composable(Routes.start) {
-                val navController = LocalNavController.current
+            screen(TestRoutes.StartScreen) {
+                val screensController = LocalScreensController.current
 
                 Button(
-                    onClick = { navController.push(Routes.first, Arguments.FirstScreen) }
+                    onClick = { screensController.push(TestRoutes.FirstScreen, Arguments.FirstScreen) }
                 ) {
                     Text(ButtonsTexts.PushFirstScreen)
                 }
             }
 
-            composable(Routes.first) { args ->
-                val navController = LocalNavController.current
+            screen(TestRoutes.FirstScreen) { args ->
+                val screensController = LocalScreensController.current
 
                 Column {
                     Text(args as String)
                     Button(
-                        onClick = { navController.push(Routes.second, Arguments.SecondScreen) }
+                        onClick = { screensController.push(TestRoutes.SecondScreen, Arguments.SecondScreen) }
                     ) {
                         Text(ButtonsTexts.PushSecondScreen)
                     }
                 }
             }
 
-            composable(Routes.second) { args ->
-                val navController = LocalNavController.current
+            screen(TestRoutes.SecondScreen) { args ->
+                val screensController = LocalScreensController.current
 
                 Column {
                     Text((args as SecondScreenArgs).toString())
                     Button(
-                        onClick = { navController.pop() }
+                        onClick = { screensController.pop() }
                     ) {
                         Text(ButtonsTexts.PopScreen)
                     }
                     Button(
-                        onClick = { navController.pop(upToRoute = Routes.start) }
+                        onClick = { screensController.pop(upToRoute = TestRoutes.StartScreen) }
                     ) {
                         Text(ButtonsTexts.PopToStartScreen)
                     }
@@ -154,10 +154,10 @@ class NavHostTest {
     fun `missing start route composable`() {
         shouldThrow<NoSuchElementException> {
             compose.setContent {
-                NavHost(
-                    startRoute = Routes.start
+                ScreensNavigation(
+                    startRoute = TestRoutes.StartScreen
                 ) {
-                    composable(Routes.first) {}
+                    screen(TestRoutes.FirstScreen) {}
                 }
             }
         }
@@ -167,8 +167,8 @@ class NavHostTest {
     fun `empty navigation graph`() {
         shouldThrow<NoSuchElementException> {
             compose.setContent {
-                NavHost(
-                    startRoute = Routes.start
+                ScreensNavigation(
+                    startRoute = TestRoutes.StartScreen
                 ) {}
             }
         }

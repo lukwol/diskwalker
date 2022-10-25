@@ -6,25 +6,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
 @Composable
-fun WindowsHost(
-    startWindow: String,
+fun WindowsNavigation(
+    startRoute: WindowRoute,
     builder: WindowsMapBuilder.() -> Unit
 ) {
     val mapBuilder = WindowsMapBuilder()
     builder(mapBuilder)
 
     val windowsMap = remember { mapBuilder.build() }
-    val windowsController = remember { WindowsControllerImpl(startWindow) }
+    val windowsController = remember { WindowsControllerImpl(startRoute) }
 
-    val windows by windowsController.windowsState
+    val routes by windowsController.routesState
 
     CompositionLocalProvider(
         LocalWindowController provides windowsController
     ) {
-        windowsMap.forEach { (window, content) ->
+        windowsMap.forEach { (route, content) ->
             @Composable
             fun window() {
-                if (window in windows) {
+                if (route in routes) {
                     content()
                 }
             }

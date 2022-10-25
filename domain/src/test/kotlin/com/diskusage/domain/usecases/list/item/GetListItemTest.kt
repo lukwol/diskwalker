@@ -1,10 +1,10 @@
 package com.diskusage.domain.usecases.list.item
 
 import com.diskusage.domain.common.Constants
+import com.diskusage.domain.data.TestArcs
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.ListItem
-import com.diskusage.domain.stubs.Arcs
-import com.diskusage.domain.stubs.DiskEntries
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -40,8 +40,8 @@ class GetListItemTest : KoinTest {
     @BeforeEach
     fun setUp() {
         getArc = declareMock {
-            every { this@declareMock(DiskEntries.file11, DiskEntries.rootDir) } answers { Arcs.child1 }
-            every { this@declareMock(DiskEntries.file12, DiskEntries.dir1) } answers { Arcs.child2 }
+            every { this@declareMock(TestDiskEntries.file11, TestDiskEntries.rootDir) } answers { TestArcs.child1 }
+            every { this@declareMock(TestDiskEntries.file12, TestDiskEntries.dir1) } answers { TestArcs.child2 }
         }
     }
 
@@ -53,9 +53,9 @@ class GetListItemTest : KoinTest {
     @Test
     fun `when from item is not passed`() {
         getListItem(
-            diskEntry = DiskEntries.file11
+            diskEntry = TestDiskEntries.file11
         ) shouldBe ListItem(
-            diskEntry = DiskEntries.file11,
+            diskEntry = TestDiskEntries.file11,
             color = Constants.Chart.FileColor
         )
     }
@@ -63,10 +63,10 @@ class GetListItemTest : KoinTest {
     @Test
     fun `when from item is passed`() {
         getListItem(
-            diskEntry = DiskEntries.file12,
-            fromDiskEntry = DiskEntries.dir1
+            diskEntry = TestDiskEntries.file12,
+            fromDiskEntry = TestDiskEntries.dir1
         ) shouldBe ListItem(
-            diskEntry = DiskEntries.file12,
+            diskEntry = TestDiskEntries.file12,
             color = Constants.Chart.FileColor
         )
     }

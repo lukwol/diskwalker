@@ -1,4 +1,4 @@
-package com.diskusage.domain.stubs
+package com.diskusage.domain.data
 
 import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
@@ -6,7 +6,7 @@ import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
 import com.diskusage.domain.model.Arc
 import com.diskusage.libraries.ranges.until
 
-object Arcs {
+object TestArcs {
     val hidden = Arc(
         angleRange = 0f until 360f,
         radiusRange = 0f until 0f

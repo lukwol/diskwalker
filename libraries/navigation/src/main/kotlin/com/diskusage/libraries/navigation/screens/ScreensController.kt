@@ -2,22 +2,22 @@ package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.mutableStateOf
 
-interface NavController {
-    val routes: List<String>
-    fun push(route: String, arguments: NavArguments? = null)
-    fun pop(upToRoute: String? = null)
+interface ScreensController {
+    val routes: List<ScreenRoute>
+    fun push(route: ScreenRoute, arguments: Arguments? = null)
+    fun pop(upToRoute: ScreenRoute? = null)
 }
 
-internal class NavControllerImpl(startRoute: String) : NavController {
+internal class ScreensControllerImpl(startRoute: ScreenRoute) : ScreensController {
     internal val routesState = mutableStateOf(listOf(RouteWithArguments(startRoute)))
 
     override val routes get() = routesState.value.map(RouteWithArguments::route)
 
-    override fun push(route: String, arguments: NavArguments?) {
+    override fun push(route: ScreenRoute, arguments: Arguments?) {
         routesState.value += RouteWithArguments(route, arguments)
     }
 
-    override fun pop(upToRoute: String?) {
+    override fun pop(upToRoute: ScreenRoute?) {
         return when {
             upToRoute != null && upToRoute !in routes -> throw IllegalArgumentException("There is no $upToRoute on the stack")
             upToRoute == routes.last() -> throw IllegalArgumentException("Cannot pop up to current route $upToRoute")
@@ -28,10 +28,10 @@ internal class NavControllerImpl(startRoute: String) : NavController {
     }
 }
 
-internal object NavControllerNoOp : NavController {
-    override val routes: List<String> = emptyList()
+internal object ScreensControllerNoOp : ScreensController {
+    override val routes: List<ScreenRoute> = emptyList()
 
-    override fun push(route: String, arguments: NavArguments?) = Unit
+    override fun push(route: ScreenRoute, arguments: Arguments?) = Unit
 
-    override fun pop(upToRoute: String?) = Unit
+    override fun pop(upToRoute: ScreenRoute?) = Unit
 }

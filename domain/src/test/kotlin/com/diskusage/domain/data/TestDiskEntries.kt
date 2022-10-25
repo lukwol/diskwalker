@@ -1,9 +1,9 @@
-package com.diskusage.domain.stubs
+package com.diskusage.domain.data
 
 import com.diskusage.domain.model.DiskEntry
 import java.nio.file.Path
 
-object DiskEntries {
+object TestDiskEntries {
 
     val rootFile = DiskEntry(
         name = "file",

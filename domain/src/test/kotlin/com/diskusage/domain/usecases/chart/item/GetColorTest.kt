@@ -1,9 +1,9 @@
 package com.diskusage.domain.usecases.chart.item
 
 import com.diskusage.domain.common.Constants
+import com.diskusage.domain.data.TestArcs
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.Arcs
-import com.diskusage.domain.stubs.DiskEntries
 import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
@@ -52,16 +52,16 @@ class GetColorTest : KoinTest {
     @Test
     fun file() {
         getColor(
-            precalculatedArc = Arcs.child1,
-            diskEntry = DiskEntries.file1
+            precalculatedArc = TestArcs.child1,
+            diskEntry = TestDiskEntries.file1
         ) shouldBe Constants.Chart.FileColor
     }
 
     @Test
     fun directory() {
         getColor(
-            precalculatedArc = Arcs.child1,
-            diskEntry = DiskEntries.dir11
+            precalculatedArc = TestArcs.child1,
+            diskEntry = TestDiskEntries.dir11
         ).run {
             red shouldBe 0.64f.plusOrMinus(0.1f)
             green shouldBe 0.6f.plusOrMinus(0.1f)

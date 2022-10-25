@@ -1,8 +1,8 @@
 package com.diskusage.domain.usecases.diskentry
 
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.stubs.DiskEntries
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -11,7 +11,7 @@ import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
 import java.nio.file.Path
 
-class SortDiskEntriesTest : KoinTest {
+class SortTestDiskEntriesTest : KoinTest {
 
     private val sortDiskEntries by inject<SortDiskEntries>()
 
@@ -25,32 +25,32 @@ class SortDiskEntriesTest : KoinTest {
     fun `items should be sorted with size ascending then by name descending`() {
         sortDiskEntries(
             listOf(
-                DiskEntries.file22,
-                DiskEntries.dir1,
-                DiskEntries.file11,
-                DiskEntries.file111,
-                DiskEntries.file112,
-                DiskEntries.dir11,
-                DiskEntries.rootDir,
-                DiskEntries.file12,
-                DiskEntries.rootFile,
-                DiskEntries.file21,
-                DiskEntries.file1,
-                DiskEntries.dir2
+                TestDiskEntries.file22,
+                TestDiskEntries.dir1,
+                TestDiskEntries.file11,
+                TestDiskEntries.file111,
+                TestDiskEntries.file112,
+                TestDiskEntries.dir11,
+                TestDiskEntries.rootDir,
+                TestDiskEntries.file12,
+                TestDiskEntries.rootFile,
+                TestDiskEntries.file21,
+                TestDiskEntries.file1,
+                TestDiskEntries.dir2
             )
         ) shouldBe listOf(
-            DiskEntries.rootDir,
-            DiskEntries.rootFile,
-            DiskEntries.file1,
-            DiskEntries.dir1,
-            DiskEntries.dir2,
-            DiskEntries.file21,
-            DiskEntries.file12,
-            DiskEntries.file22,
-            DiskEntries.file11,
-            DiskEntries.dir11,
-            DiskEntries.file111,
-            DiskEntries.file112
+            TestDiskEntries.rootDir,
+            TestDiskEntries.rootFile,
+            TestDiskEntries.file1,
+            TestDiskEntries.dir1,
+            TestDiskEntries.dir2,
+            TestDiskEntries.file21,
+            TestDiskEntries.file12,
+            TestDiskEntries.file22,
+            TestDiskEntries.file11,
+            TestDiskEntries.dir11,
+            TestDiskEntries.file111,
+            TestDiskEntries.file112
         )
     }
 

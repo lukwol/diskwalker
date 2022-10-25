@@ -2,12 +2,12 @@ package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.Composable
 
-class NavMapBuilder {
-    private val destinations = mutableMapOf<String, @Composable (NavArguments?) -> Unit>()
+class ScreensMapBuilder {
+    private val destinations = mutableMapOf<ScreenRoute, @Composable (Arguments?) -> Unit>()
 
-    fun composable(
-        route: String,
-        content: @Composable (args: NavArguments?) -> Unit
+    fun screen(
+        route: ScreenRoute,
+        content: @Composable (args: Arguments?) -> Unit
     ) {
         if (destinations.containsKey(route)) {
             throw IllegalArgumentException("Route: $route is already registered")

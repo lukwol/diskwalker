@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.diskusage.libraries.navigation.screens.LocalNavController
+import com.diskusage.libraries.navigation.screens.LocalScreensController
 import com.diskusage.libraries.navigation.windows.LocalWindowController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
-    val navController = LocalNavController.current
+    val screensController = LocalScreensController.current
     val windowsController = LocalWindowController.current
     val name = viewModel.name
 
@@ -29,7 +29,7 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
 
         Button(
             onClick = {
-                navController.pop()
+                screensController.pop()
             }
         ) {
             Text("Go Back")
@@ -39,10 +39,10 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
 
         Button(
             onClick = {
-                if (AppRoutes.Windows.First in windowsController.windows) {
-                    windowsController.open(AppRoutes.Windows.Second)
+                if (AppRoutes.FirstWindow in windowsController.routes) {
+                    windowsController.open(AppRoutes.SecondWindow)
                 } else {
-                    windowsController.open(AppRoutes.Windows.First)
+                    windowsController.open(AppRoutes.FirstWindow)
                 }
             }
         ) {

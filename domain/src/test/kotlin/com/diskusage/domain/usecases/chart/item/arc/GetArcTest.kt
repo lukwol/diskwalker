@@ -1,8 +1,8 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.stubs.DiskEntries
 import com.diskusage.libraries.ranges.until
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -23,7 +23,7 @@ class GetArcTest : KoinTest {
 
     @Test
     fun `from disk entry was passed`() {
-        val arc = getArc(DiskEntries.file12, DiskEntries.dir1)
+        val arc = getArc(TestDiskEntries.file12, TestDiskEntries.dir1)
         arc shouldBe Arc(
             angleRange = 0f until 192f,
             radiusRange = 25f until 50f
@@ -32,7 +32,7 @@ class GetArcTest : KoinTest {
 
     @Test
     fun `from disk entry was not passed`() {
-        val arc = getArc(DiskEntries.file12)
+        val arc = getArc(TestDiskEntries.file12)
         arc shouldBe Arc(
             angleRange = 144f until 201.6f,
             radiusRange = 50f until 75f

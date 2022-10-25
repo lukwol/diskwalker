@@ -1,13 +1,12 @@
 package com.diskusage.presentation.navigation.usage.navigation
 
-object AppRoutes {
-    object Screens {
-        const val Greeting = "greeting-screen"
-        const val Greeter = "greeter-screen"
-    }
+import com.diskusage.libraries.navigation.screens.ScreenRoute
+import com.diskusage.libraries.navigation.windows.WindowRoute
 
-    object Windows {
-        const val First = "first-window"
-        const val Second = "second-window"
-    }
+object AppRoutes {
+    val GreetingScreen = ScreenRoute("greeting-screen")
+    val GreeterScreen = ScreenRoute("greeter-screen")
+
+    val FirstWindow = WindowRoute("first-window")
+    val SecondWindow = WindowRoute("second-window")
 }

@@ -1,9 +1,9 @@
 package com.diskusage.domain.usecases.diskentry
 
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.stubs.DiskEntries
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -41,8 +41,8 @@ class IncludeDiskEntryTest : KoinTest {
 
     @Test
     fun `typical disk entry`() {
-        includeDiskEntry.invoke(DiskEntries.dir2) shouldBe true
-        includeDiskEntry.invoke(DiskEntries.file111, DiskEntries.rootDir) shouldBe true
+        includeDiskEntry.invoke(TestDiskEntries.dir2) shouldBe true
+        includeDiskEntry.invoke(TestDiskEntries.file111, TestDiskEntries.rootDir) shouldBe true
     }
 
     @Test
@@ -50,13 +50,13 @@ class IncludeDiskEntryTest : KoinTest {
         declareMock<GetDepth> {
             every {
                 this@declareMock(
-                    DiskEntries.dir1,
-                    DiskEntries.rootDir
+                    TestDiskEntries.dir1,
+                    TestDiskEntries.rootDir
                 )
             } returns MaxArcsDepth + 1
         }
-        includeDiskEntry.invoke(DiskEntries.dir1) shouldBe false
-        includeDiskEntry.invoke(DiskEntries.dir1, DiskEntries.rootDir) shouldBe false
+        includeDiskEntry.invoke(TestDiskEntries.dir1) shouldBe false
+        includeDiskEntry.invoke(TestDiskEntries.dir1, TestDiskEntries.rootDir) shouldBe false
     }
 
     @Test
@@ -65,10 +65,10 @@ class IncludeDiskEntryTest : KoinTest {
             name = "foo",
             type = DiskEntry.Type.File,
             path = Path.of("/dir/dir1/dir11/foo"),
-            parent = DiskEntries.dir11,
+            parent = TestDiskEntries.dir11,
             sizeOnDisk = 32
         )
         includeDiskEntry.invoke(fooFile) shouldBe false
-        includeDiskEntry.invoke(fooFile, DiskEntries.rootDir) shouldBe false
+        includeDiskEntry.invoke(fooFile, TestDiskEntries.rootDir) shouldBe false
     }
 }

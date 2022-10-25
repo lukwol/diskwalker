@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.diskusage.libraries.navigation.screens.LocalNavController
+import com.diskusage.libraries.navigation.screens.LocalScreensController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 
 @Composable
@@ -19,7 +19,7 @@ fun GreetingScreen(
     viewModel: GreetingScreenViewModel
 ) {
     var name by viewModel.name
-    val navController = LocalNavController.current
+    val screensController = LocalScreensController.current
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -34,7 +34,7 @@ fun GreetingScreen(
         Spacer(Modifier.height(20.dp))
 
         Button(
-            onClick = { navController.push(AppRoutes.Screens.Greeter, name) }
+            onClick = { screensController.push(AppRoutes.GreeterScreen, name) }
         ) {
             Text("Greet")
         }

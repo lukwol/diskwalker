@@ -5,11 +5,11 @@ import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 
 class WindowsMapBuilder {
-    private val windows = mutableMapOf<String, @Composable () -> Unit>()
+    private val windows = mutableMapOf<WindowRoute, @Composable () -> Unit>()
 
     fun window(
-        route: String,
-        title: String = route,
+        route: WindowRoute,
+        title: String = route.value,
         content: @Composable FrameWindowScope.() -> Unit
     ) {
         window(
@@ -30,7 +30,7 @@ class WindowsMapBuilder {
     }
 
     fun window(
-        route: String,
+        route: WindowRoute,
         windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
         content: @Composable FrameWindowScope.() -> Unit
     ) {

@@ -3,29 +3,29 @@ package com.diskusage.libraries.navigation.windows
 import androidx.compose.runtime.mutableStateOf
 
 interface WindowsController {
-    val windows: Set<String>
-    fun open(window: String)
-    fun close(window: String)
+    val routes: Set<WindowRoute>
+    fun open(route: WindowRoute)
+    fun close(route: WindowRoute)
 }
 
-class WindowsControllerImpl(startWindow: String) : WindowsController {
-    internal val windowsState = mutableStateOf(setOf(startWindow))
+class WindowsControllerImpl(startRoute: WindowRoute) : WindowsController {
+    internal val routesState = mutableStateOf(setOf(startRoute))
 
-    override val windows get() = windowsState.value
+    override val routes get() = routesState.value
 
-    override fun open(window: String) {
-        windowsState.value += window
+    override fun open(route: WindowRoute) {
+        routesState.value += route
     }
 
-    override fun close(window: String) {
-        windowsState.value -= window
+    override fun close(route: WindowRoute) {
+        routesState.value -= route
     }
 }
 
 internal object WindowsControllerNoOp : WindowsController {
-    override val windows: Set<String> = emptySet()
+    override val routes: Set<WindowRoute> = emptySet()
 
-    override fun open(window: String) = Unit
+    override fun open(route: WindowRoute) = Unit
 
-    override fun close(window: String) = Unit
+    override fun close(route: WindowRoute) = Unit
 }
