@@ -12,7 +12,7 @@ class NavControllerTest {
 
     @Before
     fun setUp() {
-        navController = NavControllerImpl(Routes.start, window.title)
+        navController = NavControllerImpl(Routes.start)
     }
 
     @Test
