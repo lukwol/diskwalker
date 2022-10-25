@@ -10,26 +10,30 @@ import androidx.compose.ui.window.FrameWindowScope
 fun FrameWindowScope.NavHost(
     startRoute: NavRoute,
     builder: NavMapBuilder.() -> Unit
-) {
-    NavHost(window.title, builder, startRoute)
-}
+) = NavHost(
+    windowRoute = window.title,
+    startRoute = startRoute,
+    builder = builder
+)
 
 @Composable
 fun RoutedWindowScope.NavHost(
     startRoute: NavRoute,
     builder: NavMapBuilder.() -> Unit
-) {
-    NavHost(windowRoute, builder, startRoute)
-}
+) = NavHost(
+    windowRoute = windowRoute,
+    startRoute = startRoute,
+    builder = builder
+)
 
 @Composable
 private fun NavHost(
     windowRoute: String,
-    builder: NavMapBuilder.() -> Unit,
-    startRoute: NavRoute
+    startRoute: NavRoute,
+    builder: NavMapBuilder.() -> Unit
 ) {
     val mapBuilder = NavMapBuilder(windowRoute)
-    mapBuilder.builder()
+    builder(mapBuilder)
 
     val navigationMap = remember { mapBuilder.build() }
     val navController = remember { NavControllerImpl(startRoute) }
@@ -37,11 +41,10 @@ private fun NavHost(
     val routesWithArguments by navController.routesState
     val (route, arguments) = routesWithArguments.last()
 
-    // TODO: Implement SingleWindowsController that cannot open or close windows
-    val singleWindowController = remember { WindowsController(windowRoute) }
 
     CompositionLocalProvider(
-        LocalWindowController providesDefault singleWindowController,
+        // TODO: Implement SingleWindowsController that cannot open or close windows
+        LocalWindowController providesDefault remember { WindowsController(windowRoute) },
         LocalNavController provides navController
     ) {
         navigationMap.getValue(route)(arguments)
@@ -54,7 +57,7 @@ fun WindowsHost(
     builder: WindowsMapBuilder.() -> Unit
 ) {
     val mapBuilder = WindowsMapBuilder()
-    mapBuilder.builder()
+    builder(mapBuilder)
 
     val windowsMap = remember { mapBuilder.build() }
     val windowsController = remember { WindowsController(startWindow) }
