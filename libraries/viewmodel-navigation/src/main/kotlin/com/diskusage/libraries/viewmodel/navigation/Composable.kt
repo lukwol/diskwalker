@@ -23,7 +23,7 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         val navController = LocalNavController.current
         val windowsController = LocalWindowController.current
 
-        val windowRoute = WindowRoute(window, route)
+        val windowRoute = WindowRoute(windowTitle, route)
 
         val viewModel = remember(route) {
             viewModelStore.viewModels.getOrPut(windowRoute) { viewModelFactory(arguments) } as VM
@@ -34,9 +34,9 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         DisposableEffect(route) {
             onDispose {
                 viewModel.viewModelScope.cancel()
-                if (window !in windowsController.windows) {
+                if (windowTitle !in windowsController.windows) {
                     viewModelStore.viewModels.keys.filter {
-                        it.window == window
+                        it.window == windowTitle
                     }.forEach {
                         viewModelStore.viewModels.remove(it)
                     }

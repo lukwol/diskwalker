@@ -2,8 +2,9 @@ package com.diskusage.libraries.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.FrameWindowScope
+import androidx.compose.ui.window.Window
 
-class NavMapBuilder(val window: String) {
+class NavMapBuilder(val windowTitle: String) {
     private val destinations = mutableMapOf<NavRoute, @Composable (NavArguments?) -> Unit>()
 
     fun composable(
@@ -21,14 +22,30 @@ class NavMapBuilder(val window: String) {
 }
 
 class WindowsMapBuilder {
-    private val windows = mutableMapOf<String, @Composable FrameWindowScope.() -> Unit>()
+    private val windows = mutableMapOf<String, @Composable () -> Unit>()
 
     fun window(
         title: String,
-        // TODO: Pass window options
         content: @Composable FrameWindowScope.() -> Unit
     ) {
-        windows[title] = content
+        window(route = title) {
+            val windowsController = LocalWindowController.current
+
+            Window(
+                title = title,
+                onCloseRequest = {
+                    windowsController.close(title)
+                },
+                content = content
+            )
+        }
+    }
+
+    fun window(
+        route: String,
+        window: @Composable () -> Unit
+    ) {
+        windows[route] = window
     }
 
     fun build() = windows.toMap()

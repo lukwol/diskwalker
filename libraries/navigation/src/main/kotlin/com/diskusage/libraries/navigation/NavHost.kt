@@ -5,15 +5,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.FrameWindowScope
-import androidx.compose.ui.window.Window
 
 
 @Composable
 fun FrameWindowScope.NavHost(
     startRoute: NavRoute,
+    windowRoute: String = window.title,
     builder: NavMapBuilder.() -> Unit
 ) {
-    val mapBuilder = NavMapBuilder(window.title)
+    val mapBuilder = NavMapBuilder(windowRoute)
     mapBuilder.builder()
 
     val navigationMap = remember { mapBuilder.build() }
@@ -47,15 +47,8 @@ fun WindowsHost(
     ) {
         windowsMap
             .filterKeys { it in windows }
-            .forEach { (title, content) ->
-                Window(
-                    title = title,
-                    onCloseRequest = {
-                        windowsController.close(title)
-                    },
-                ) {
-                    content()
-                }
+            .forEach { (_, window) ->
+                window()
             }
     }
 }
