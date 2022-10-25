@@ -66,8 +66,14 @@ fun WindowsHost(
     CompositionLocalProvider(
         LocalWindowController provides windowsController
     ) {
-        windows.forEach {
-            windowsMap[it]?.invoke()
+        windowsMap.forEach { (route, content) ->
+            @Composable
+            fun window() {
+                if (route in windows) {
+                    content()
+                }
+            }
+            window()
         }
     }
 }

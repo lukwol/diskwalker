@@ -39,7 +39,11 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
 
         Button(
             onClick = {
-                windowsController.open(AppRoutes.Windows.Second)
+                if (AppRoutes.Windows.First in windowsController.windows) {
+                    windowsController.open(AppRoutes.Windows.Second)
+                } else {
+                    windowsController.open(AppRoutes.Windows.First)
+                }
             }
         ) {
             Text("Other Window")

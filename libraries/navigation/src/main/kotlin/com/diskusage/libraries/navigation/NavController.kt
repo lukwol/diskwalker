@@ -39,6 +39,8 @@ internal object NavControllerNoOp : NavController {
 class WindowsController(startWindow: String) {
     internal val windowRoutesState = mutableStateOf(setOf(startWindow))
 
+    val windows get() = windowRoutesState.value
+
     fun open(windowRoute: String) {
         windowRoutesState.value += windowRoute
     }
