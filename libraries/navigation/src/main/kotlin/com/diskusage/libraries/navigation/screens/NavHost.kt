@@ -1,4 +1,4 @@
-package com.diskusage.libraries.navigation
+package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -7,11 +7,11 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun NavHost(
-    startRoute: NavRoute,
+    startRoute: String,
     builder: NavMapBuilder.() -> Unit
 ) {
     val mapBuilder = NavMapBuilder()
-    mapBuilder.builder()
+    builder(mapBuilder)
 
     val navigationMap = remember { mapBuilder.build() }
     val navController = remember { NavControllerImpl(startRoute) }

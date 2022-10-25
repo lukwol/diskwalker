@@ -1,4 +1,4 @@
-package com.diskusage.libraries.navigation
+package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.compositionLocalOf
 

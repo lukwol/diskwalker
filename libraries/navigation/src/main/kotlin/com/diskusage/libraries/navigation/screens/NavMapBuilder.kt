@@ -1,12 +1,12 @@
-package com.diskusage.libraries.navigation
+package com.diskusage.libraries.navigation.screens
 
 import androidx.compose.runtime.Composable
 
 class NavMapBuilder {
-    private val destinations = mutableMapOf<NavRoute, @Composable (NavArguments?) -> Unit>()
+    private val destinations = mutableMapOf<String, @Composable (NavArguments?) -> Unit>()
 
     fun composable(
-        route: NavRoute,
+        route: String,
         content: @Composable (args: NavArguments?) -> Unit
     ) {
         if (destinations.containsKey(route)) {

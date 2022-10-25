@@ -6,6 +6,8 @@ import androidx.compose.material.Text
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.diskusage.libraries.navigation.screens.LocalNavController
+import com.diskusage.libraries.navigation.screens.NavHost
 import com.diskusage.libraries.navigation.stubs.Routes
 import io.kotest.assertions.throwables.shouldThrow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
