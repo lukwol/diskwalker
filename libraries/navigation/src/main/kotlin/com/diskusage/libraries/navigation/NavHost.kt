@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.FrameWindowScope
 
-
 @Composable
 fun FrameWindowScope.NavHost(
     startRoute: NavRoute,
@@ -40,7 +39,7 @@ fun WindowsHost(
     val windowsMap = remember { mapBuilder.build() }
     val windowsController = remember { WindowsController(startWindow) }
 
-    val windows by windowsController.windowsState
+    val windows by windowsController.windowRoutesState
 
     CompositionLocalProvider(
         LocalWindowController provides windowsController

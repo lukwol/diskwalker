@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 
-class NavMapBuilder(val windowTitle: String) {
+class NavMapBuilder(val windowRoute: String) {
     private val destinations = mutableMapOf<NavRoute, @Composable (NavArguments?) -> Unit>()
 
     fun composable(
@@ -28,7 +28,7 @@ class WindowsMapBuilder {
         title: String,
         content: @Composable FrameWindowScope.() -> Unit
     ) {
-        window(route = title) {
+        customWindow(route = title) {
             val windowsController = LocalWindowController.current
 
             Window(
@@ -41,7 +41,7 @@ class WindowsMapBuilder {
         }
     }
 
-    fun window(
+    fun customWindow(
         route: String,
         window: @Composable () -> Unit
     ) {

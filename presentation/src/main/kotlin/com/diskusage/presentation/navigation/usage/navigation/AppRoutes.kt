@@ -6,6 +6,6 @@ object AppRoutes {
 }
 
 object AppWindows {
-    const val GreetWindow = "greet-window"
-    const val OtherWindow = "other"
+    const val GreetWindow = "Greet Window"
+    const val OtherWindow = "Other Window"
 }

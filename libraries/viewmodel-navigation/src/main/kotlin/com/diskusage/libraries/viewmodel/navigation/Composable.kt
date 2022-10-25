@@ -7,8 +7,8 @@ import com.diskusage.libraries.navigation.*
 import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 
-internal data class WindowRoute(
-    val window: String,
+internal data class CombinedRoute(
+    val windowRoute: String,
     val route: NavRoute
 )
 
@@ -23,10 +23,10 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         val navController = LocalNavController.current
         val windowsController = LocalWindowController.current
 
-        val windowRoute = WindowRoute(windowTitle, route)
+        val combinedRoute = CombinedRoute(windowRoute, route)
 
         val viewModel = remember(route) {
-            viewModelStore.viewModels.getOrPut(windowRoute) { viewModelFactory(arguments) } as VM
+            viewModelStore.getOrPut(combinedRoute) { viewModelFactory(arguments) } as VM
         }
 
         content(viewModel)
@@ -34,16 +34,12 @@ fun <VM : ViewModel> NavMapBuilder.composable(
         DisposableEffect(route) {
             onDispose {
                 viewModel.viewModelScope.cancel()
-                if (windowTitle !in windowsController.windows) {
-                    viewModelStore.viewModels.keys.filter {
-                        it.window == windowTitle
-                    }.forEach {
-                        viewModelStore.viewModels.remove(it)
-                    }
+                if (windowRoute !in windowsController.windowRoutes) {
+                    viewModelStore.remove(windowRoute)
                 } else if (route !in navController.routes) {
-                    viewModelStore.viewModels.remove(windowRoute)
+                    viewModelStore.remove(combinedRoute)
                 }
-                println("viewModelStore = $viewModelStore, viewModels = ${viewModelStore.viewModels.keys}")
+                println("viewModelStore = $viewModelStore, viewModels = ${viewModelStore.keys}")
             }
         }
     }
