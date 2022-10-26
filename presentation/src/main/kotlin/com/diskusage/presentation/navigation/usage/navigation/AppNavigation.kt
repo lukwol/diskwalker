@@ -2,10 +2,10 @@ package com.diskusage.presentation.navigation.usage.navigation
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.diskusage.libraries.navigation.screens.ScreensNavigation
-import com.diskusage.libraries.navigation.windows.LocalWindowController
-import com.diskusage.libraries.navigation.windows.WindowsNavigation
-import com.diskusage.libraries.viewmodel.navigation.screen
+import com.diskusage.libraries.screens.navigation.ScreensNavigation
+import com.diskusage.libraries.viewmodel.screens.navigation.screen
+import com.diskusage.libraries.windows.navigation.LocalWindowController
+import com.diskusage.libraries.windows.navigation.WindowsNavigation
 import com.diskusage.presentation.navigation.usage.greeter.GreeterScreen
 import com.diskusage.presentation.navigation.usage.greeter.GreeterViewModel
 import com.diskusage.presentation.navigation.usage.greeting.GreetingScreen

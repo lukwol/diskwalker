@@ -10,7 +10,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
-    implementation(project(":libraries:viewmodel-navigation"))
+    implementation(project(":libraries:windows-navigation"))
+    implementation(project(":libraries:viewmodel-screens-navigation"))
 
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
