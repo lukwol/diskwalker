@@ -34,8 +34,12 @@ class WindowsMapBuilder {
         windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
         content: @Composable FrameWindowScope.() -> Unit
     ) {
-        windows[route] = {
-            windowFactory { content() }
+        if (windows.containsKey(route)) {
+            throw IllegalArgumentException("$route is already registered")
+        } else {
+            windows[route] = {
+                windowFactory { content() }
+            }
         }
     }
 

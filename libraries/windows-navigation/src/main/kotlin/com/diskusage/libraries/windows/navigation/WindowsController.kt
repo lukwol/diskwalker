@@ -13,11 +13,15 @@ class WindowsControllerImpl(startRoute: WindowRoute) : WindowsController {
 
     override val routes get() = routesState.value
 
-    override fun open(route: WindowRoute) {
+    override fun open(route: WindowRoute) = if (route in routes) {
+        throw IllegalArgumentException("Window for $route is already opened")
+    } else {
         routesState.value += route
     }
 
-    override fun close(route: WindowRoute) {
+    override fun close(route: WindowRoute) = if (route !in routes) {
+        throw IllegalArgumentException("Window for $route is already closed")
+    } else {
         routesState.value -= route
     }
 }
