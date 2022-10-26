@@ -17,7 +17,7 @@ class ScreensMapBuilderTest {
     }
 
     @Test
-    fun `composables with unique routes`() {
+    fun `screens with unique routes`() {
         with(screensMapBuilder) {
             screen(route = TestRoutes.FirstScreen, content = {})
             screen(route = TestRoutes.SecondScreen, content = {})
@@ -26,7 +26,7 @@ class ScreensMapBuilderTest {
     }
 
     @Test
-    fun `composables with not unique routes`() {
+    fun `screens with not unique routes`() {
         with(screensMapBuilder) {
             screen(route = TestRoutes.FirstScreen, content = {})
             screen(route = TestRoutes.SecondScreen, content = {})
