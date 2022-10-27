@@ -39,10 +39,13 @@ fun GreeterScreen(viewModel: GreeterViewModel) {
 
         Button(
             onClick = {
-                if (AppRoutes.FirstWindow in windowsController.routes) {
-                    windowsController.open(AppRoutes.SecondWindow)
-                } else {
-                    windowsController.open(AppRoutes.FirstWindow)
+                when {
+                    AppRoutes.FirstWindow !in windowsController.routes -> {
+                        windowsController.open(AppRoutes.FirstWindow)
+                    }
+                    AppRoutes.SecondWindow !in windowsController.routes -> {
+                        windowsController.open(AppRoutes.SecondWindow)
+                    }
                 }
             }
         ) {
