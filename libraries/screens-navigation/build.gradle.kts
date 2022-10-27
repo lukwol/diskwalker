@@ -1,5 +1,3 @@
-import org.jetbrains.compose.compose
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -16,4 +14,8 @@ dependencies {
     testImplementation(libs.coroutines.test)
     testImplementation(libs.compose.test)
     testImplementation(libs.compose.test.junit4)
+}
+
+compose {
+    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
 }

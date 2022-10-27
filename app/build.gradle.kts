@@ -1,4 +1,3 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -18,13 +17,17 @@ dependencies {
     implementation(compose.desktop.currentOs)
 }
 
-compose.desktop {
-    application {
-        mainClass = "com.diskusage.app.MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "DiskUsage"
-            packageVersion = "1.0.0"
+compose {
+    kotlinCompilerPlugin.set("1.3.2")
+
+    desktop {
+        application {
+            mainClass = "com.diskusage.app.MainKt"
+            nativeDistributions {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+                packageName = "DiskUsage"
+                packageVersion = "1.0.0"
+            }
         }
     }
 }
