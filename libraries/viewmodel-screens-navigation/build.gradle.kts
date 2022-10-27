@@ -4,6 +4,7 @@ import org.jetbrains.compose.compose
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.dokka)
 }
 
 dependencies {

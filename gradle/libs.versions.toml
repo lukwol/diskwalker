@@ -13,6 +13,7 @@ spotless = "6.8.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 dependency-updates = { id = "com.github.ben-manes.versions", version.ref = "dependency-updates" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
