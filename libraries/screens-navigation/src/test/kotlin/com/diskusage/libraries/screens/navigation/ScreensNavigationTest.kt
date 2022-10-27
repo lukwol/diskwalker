@@ -88,66 +88,74 @@ class ScreensNavigationTest {
     }
 
     @Test
-    fun `start screen`() {
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
+    fun `start screen`(): Unit = with(compose) {
+        onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
     }
 
     @Test
     fun `navigate to first screen`() = runTest {
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
-        compose.onNodeWithText(Arguments.FirstScreen).assertDoesNotExist()
+        with(compose) {
+            onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
+            onNodeWithText(Arguments.FirstScreen).assertDoesNotExist()
 
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).assertDoesNotExist()
-        compose.onNodeWithText(Arguments.FirstScreen).assertExists()
+            onNodeWithText(ButtonsTexts.PushFirstScreen).assertDoesNotExist()
+            onNodeWithText(Arguments.FirstScreen).assertExists()
+        }
     }
 
     @Test
     fun `navigate to second screen`() = runTest {
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
-        compose.awaitIdle()
+        with(compose) {
+            onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.FirstScreen).assertExists()
+            onNodeWithText(Arguments.FirstScreen).assertExists()
 
-        compose.onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.FirstScreen).assertDoesNotExist()
-        compose.onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
+            onNodeWithText(Arguments.FirstScreen).assertDoesNotExist()
+            onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
+        }
     }
 
     @Test
     fun `navigate to second screen then pop to first screen`() = runTest {
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
-        compose.awaitIdle()
+        with(compose) {
+            onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
-        compose.onNodeWithText(ButtonsTexts.PopScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
+            onNodeWithText(ButtonsTexts.PopScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.SecondScreen.toString()).assertDoesNotExist()
-        compose.onNodeWithText(Arguments.FirstScreen).assertExists()
+            onNodeWithText(Arguments.SecondScreen.toString()).assertDoesNotExist()
+            onNodeWithText(Arguments.FirstScreen).assertExists()
+        }
     }
 
     @Test
     fun `navigate to second screen then pop to start screen`() = runTest {
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
-        compose.awaitIdle()
+        with(compose) {
+            onNodeWithText(ButtonsTexts.PushFirstScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
-        compose.onNodeWithText(ButtonsTexts.PopToStartScreen).performClick()
-        compose.awaitIdle()
+            onNodeWithText(Arguments.SecondScreen.toString()).assertExists()
+            onNodeWithText(ButtonsTexts.PopToStartScreen).performClick()
+            awaitIdle()
 
-        compose.onNodeWithText(Arguments.SecondScreen.toString()).assertDoesNotExist()
-        compose.onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
+            onNodeWithText(Arguments.SecondScreen.toString()).assertDoesNotExist()
+            onNodeWithText(ButtonsTexts.PushFirstScreen).assertExists()
+        }
     }
 
     @Test
