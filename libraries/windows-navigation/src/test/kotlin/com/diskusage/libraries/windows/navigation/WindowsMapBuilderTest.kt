@@ -1,5 +1,6 @@
 package com.diskusage.libraries.windows.navigation
 
+import androidx.compose.ui.window.Window
 import com.diskusage.libraries.windows.navigation.data.TestRoutes
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
@@ -18,8 +19,8 @@ class WindowsMapBuilderTest {
     @Test
     fun `windows with unique routes`() {
         with(windowsMapBuilder) {
-            window(route = TestRoutes.FirstWindow, content = {})
-            window(route = TestRoutes.SecondWindow, content = {})
+            window(TestRoutes.FirstWindow) {}
+            window(TestRoutes.SecondWindow) {}
             build().keys shouldContainExactlyInAnyOrder listOf(TestRoutes.FirstWindow, TestRoutes.SecondWindow)
         }
     }
@@ -27,11 +28,26 @@ class WindowsMapBuilderTest {
     @Test
     fun `windows with not unique routes`() {
         with(windowsMapBuilder) {
-            window(route = TestRoutes.FirstWindow, content = {})
-            window(route = TestRoutes.SecondWindow, content = {})
+            window(TestRoutes.FirstWindow) {}
+            window(TestRoutes.SecondWindow) {}
             shouldThrow<IllegalArgumentException> {
-                window(route = TestRoutes.FirstWindow, content = {})
+                window(TestRoutes.FirstWindow) {}
             }
+        }
+    }
+
+    @Test
+    fun `custom window`() {
+        with(windowsMapBuilder) {
+            window(
+                route = TestRoutes.FirstWindow,
+                windowFactory = {
+                    Window(
+                        onCloseRequest = { }
+                    ) {}
+                }
+            ) {}
+            build().keys shouldContainExactlyInAnyOrder listOf(TestRoutes.FirstWindow)
         }
     }
 }
