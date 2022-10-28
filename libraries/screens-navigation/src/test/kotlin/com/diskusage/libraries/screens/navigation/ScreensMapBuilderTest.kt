@@ -19,19 +19,19 @@ class ScreensMapBuilderTest {
     @Test
     fun `screens with unique routes`() {
         with(screensMapBuilder) {
-            screen(route = TestRoutes.FirstScreen, content = {})
             screen(route = TestRoutes.SecondScreen, content = {})
-            build().keys shouldContainExactlyInAnyOrder listOf(TestRoutes.FirstScreen, TestRoutes.SecondScreen)
+            screen(route = TestRoutes.ThirdScreen, content = {})
+            build().keys shouldContainExactlyInAnyOrder listOf(TestRoutes.SecondScreen, TestRoutes.ThirdScreen)
         }
     }
 
     @Test
     fun `screens with not unique routes`() {
         with(screensMapBuilder) {
-            screen(route = TestRoutes.FirstScreen, content = {})
             screen(route = TestRoutes.SecondScreen, content = {})
+            screen(route = TestRoutes.ThirdScreen, content = {})
             shouldThrow<IllegalArgumentException> {
-                screen(route = TestRoutes.FirstScreen, content = {})
+                screen(route = TestRoutes.SecondScreen, content = {})
             }
         }
     }

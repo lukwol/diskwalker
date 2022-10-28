@@ -12,46 +12,46 @@ class ScreensControllerTest {
 
     @Before
     fun setUp() {
-        screensController = ScreensControllerImpl(TestRoutes.StartScreen)
+        screensController = ScreensControllerImpl(TestRoutes.FirstScreen)
     }
 
     @Test
     fun `initial routes`() {
-        screensController.routes shouldBe listOf(TestRoutes.StartScreen)
+        screensController.routes shouldBe listOf(TestRoutes.FirstScreen)
     }
 
     @Test
     fun `pushing same route multiple times then popping up to it`() {
-        screensController.push(TestRoutes.FirstScreen)
         screensController.push(TestRoutes.SecondScreen)
         screensController.push(TestRoutes.ThirdScreen)
-        screensController.push(TestRoutes.FirstScreen)
         screensController.push(TestRoutes.FourthScreen)
+        screensController.push(TestRoutes.SecondScreen)
+        screensController.push(TestRoutes.FifthScreen)
         screensController.routes shouldBe listOf(
-            TestRoutes.StartScreen,
             TestRoutes.FirstScreen,
             TestRoutes.SecondScreen,
             TestRoutes.ThirdScreen,
-            TestRoutes.FirstScreen,
-            TestRoutes.FourthScreen
+            TestRoutes.FourthScreen,
+            TestRoutes.SecondScreen,
+            TestRoutes.FifthScreen
         )
-        screensController.pop(TestRoutes.FirstScreen)
+        screensController.pop(TestRoutes.SecondScreen)
         screensController.routes shouldBe listOf(
-            TestRoutes.StartScreen,
             TestRoutes.FirstScreen,
             TestRoutes.SecondScreen,
             TestRoutes.ThirdScreen,
-            TestRoutes.FirstScreen
+            TestRoutes.FourthScreen,
+            TestRoutes.SecondScreen
         )
         screensController.pop()
-        screensController.pop(TestRoutes.FirstScreen)
+        screensController.pop(TestRoutes.SecondScreen)
         screensController.routes shouldBe listOf(
-            TestRoutes.StartScreen,
-            TestRoutes.FirstScreen
+            TestRoutes.FirstScreen,
+            TestRoutes.SecondScreen
         )
         screensController.pop()
         screensController.routes shouldBe listOf(
-            TestRoutes.StartScreen
+            TestRoutes.FirstScreen
         )
     }
 
@@ -65,15 +65,15 @@ class ScreensControllerTest {
     @Test
     fun `popping route that is not on the stack`() {
         shouldThrow<IllegalArgumentException> {
-            screensController.pop(TestRoutes.FirstScreen)
+            screensController.pop(TestRoutes.SecondScreen)
         }
     }
 
     @Test
     fun `popping to current route`() {
-        screensController.push(TestRoutes.FirstScreen)
+        screensController.push(TestRoutes.SecondScreen)
         shouldThrow<IllegalArgumentException> {
-            screensController.pop(TestRoutes.FirstScreen)
+            screensController.pop(TestRoutes.SecondScreen)
         }
     }
 }
