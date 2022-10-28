@@ -5,7 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import com.diskusage.libraries.screens.navigation.LocalScreensController
-import com.diskusage.libraries.screens.navigation.data.ButtonsTexts
+import com.diskusage.libraries.screens.navigation.data.ControlsTexts
 import com.diskusage.libraries.screens.navigation.data.TestRoutes
 import com.diskusage.libraries.screens.navigation.data.ThirdScreenArgs
 
@@ -19,12 +19,12 @@ fun ThirdScreen(args: ThirdScreenArgs) {
         Button(
             onClick = { screensController.pop() }
         ) {
-            Text(ButtonsTexts.PopScreen)
+            Text(ControlsTexts.PopScreenButtonText)
         }
         Button(
             onClick = { screensController.pop(upToRoute = TestRoutes.FirstScreen) }
         ) {
-            Text(ButtonsTexts.PopToFirstScreen)
+            Text(ControlsTexts.PopToFirstScreenButtonText)
         }
     }
 }

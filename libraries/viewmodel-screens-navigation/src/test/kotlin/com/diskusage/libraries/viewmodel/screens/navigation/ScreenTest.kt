@@ -1,8 +1,8 @@
 package com.diskusage.libraries.viewmodel.screens.navigation
 
-import androidx.compose.material.Text
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
+import com.diskusage.libraries.viewmodel.screens.navigation.components.ScreenNavigation
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,12 +15,14 @@ class ScreenTest {
     @Before
     fun setUp() {
         compose.setContent {
-            Text("Example")
+            ScreenNavigation()
         }
     }
 
     @Test
-    fun example() {
-        compose.onNodeWithText("Example").assertExists()
+    fun `first screen`(): Unit = with(compose) {
+        onNode(hasSetTextAction()).assert(hasText(""))
+        onNode(hasSetTextAction()).performTextInput("FooBar")
+        onNode(hasSetTextAction()).assert(hasText("FooBar"))
     }
 }

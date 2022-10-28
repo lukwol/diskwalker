@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import com.diskusage.libraries.screens.navigation.LocalScreensController
 import com.diskusage.libraries.screens.navigation.data.Arguments
-import com.diskusage.libraries.screens.navigation.data.ButtonsTexts
+import com.diskusage.libraries.screens.navigation.data.ControlsTexts
 import com.diskusage.libraries.screens.navigation.data.TestRoutes
 
 @Suppress("TestFunctionName")
@@ -19,7 +19,7 @@ fun SecondScreen(args: String) {
         Button(
             onClick = { screensController.push(TestRoutes.ThirdScreen, Arguments.ThirdScreenArgs) }
         ) {
-            Text(ButtonsTexts.PushThirdScreen)
+            Text(ControlsTexts.PushThirdScreenButtonText)
         }
     }
 }

@@ -5,7 +5,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.diskusage.libraries.screens.navigation.components.ScreenNavigation
 import com.diskusage.libraries.screens.navigation.data.Arguments
-import com.diskusage.libraries.screens.navigation.data.ButtonsTexts
+import com.diskusage.libraries.screens.navigation.data.ControlsTexts
 import com.diskusage.libraries.screens.navigation.data.TestRoutes
 import io.kotest.assertions.throwables.shouldThrow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,33 +25,33 @@ class ScreensNavigationTest {
     }
 
     @Test
-    fun `start screen`(): Unit = with(compose) {
-        onNodeWithText(ButtonsTexts.PushSecondScreen).assertExists()
-    }
-
-    @Test
-    fun `navigate to first screen`() = runTest {
-        with(compose) {
-            onNodeWithText(ButtonsTexts.PushSecondScreen).assertExists()
-            onNodeWithText(Arguments.SecondScreenArgs).assertDoesNotExist()
-
-            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
-            awaitIdle()
-
-            onNodeWithText(ButtonsTexts.PushSecondScreen).assertDoesNotExist()
-            onNodeWithText(Arguments.SecondScreenArgs).assertExists()
-        }
+    fun `first screen`(): Unit = with(compose) {
+        onNodeWithText(ControlsTexts.PushSecondScreenButtonText).assertExists()
     }
 
     @Test
     fun `navigate to second screen`() = runTest {
         with(compose) {
-            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).assertExists()
+            onNodeWithText(Arguments.SecondScreenArgs).assertDoesNotExist()
+
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).performClick()
+            awaitIdle()
+
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).assertDoesNotExist()
+            onNodeWithText(Arguments.SecondScreenArgs).assertExists()
+        }
+    }
+
+    @Test
+    fun `navigate to third screen`() = runTest {
+        with(compose) {
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.SecondScreenArgs).assertExists()
 
-            onNodeWithText(ButtonsTexts.PushThirdScreen).performClick()
+            onNodeWithText(ControlsTexts.PushThirdScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.SecondScreenArgs).assertDoesNotExist()
@@ -60,16 +60,16 @@ class ScreensNavigationTest {
     }
 
     @Test
-    fun `navigate to second screen then pop to first screen`() = runTest {
+    fun `navigate to third screen then pop to second screen`() = runTest {
         with(compose) {
-            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).performClick()
             awaitIdle()
 
-            onNodeWithText(ButtonsTexts.PushThirdScreen).performClick()
+            onNodeWithText(ControlsTexts.PushThirdScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.ThirdScreenArgs.toString()).assertExists()
-            onNodeWithText(ButtonsTexts.PopScreen).performClick()
+            onNodeWithText(ControlsTexts.PopScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.ThirdScreenArgs.toString()).assertDoesNotExist()
@@ -78,25 +78,25 @@ class ScreensNavigationTest {
     }
 
     @Test
-    fun `navigate to second screen then pop to start screen`() = runTest {
+    fun `navigate to third screen then pop to first screen`() = runTest {
         with(compose) {
-            onNodeWithText(ButtonsTexts.PushSecondScreen).performClick()
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).performClick()
             awaitIdle()
 
-            onNodeWithText(ButtonsTexts.PushThirdScreen).performClick()
+            onNodeWithText(ControlsTexts.PushThirdScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.ThirdScreenArgs.toString()).assertExists()
-            onNodeWithText(ButtonsTexts.PopToFirstScreen).performClick()
+            onNodeWithText(ControlsTexts.PopToFirstScreenButtonText).performClick()
             awaitIdle()
 
             onNodeWithText(Arguments.ThirdScreenArgs.toString()).assertDoesNotExist()
-            onNodeWithText(ButtonsTexts.PushSecondScreen).assertExists()
+            onNodeWithText(ControlsTexts.PushSecondScreenButtonText).assertExists()
         }
     }
 
     @Test
-    fun `missing start route composable`() {
+    fun `missing start route screen`() {
         shouldThrow<NoSuchElementException> {
             compose.setContent {
                 ScreensNavigation(
