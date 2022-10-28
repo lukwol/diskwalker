@@ -12,51 +12,51 @@ class WindowsControllerTest {
 
     @Before
     fun setUp() {
-        windowsController = WindowsControllerImpl(TestRoutes.StartWindow)
+        windowsController = WindowsControllerImpl(TestRoutes.FirstWindow)
     }
 
     @Test
     fun `initial routes`() {
-        windowsController.routes shouldBe listOf(TestRoutes.StartWindow)
+        windowsController.routes shouldBe listOf(TestRoutes.FirstWindow)
     }
 
     @Test
     fun `opening and closing multiple windows`() {
-        windowsController.open(TestRoutes.FirstWindow)
-        windowsController.routes shouldBe setOf(
-            TestRoutes.StartWindow,
-            TestRoutes.FirstWindow
-        )
-
         windowsController.open(TestRoutes.SecondWindow)
         windowsController.routes shouldBe setOf(
-            TestRoutes.StartWindow,
             TestRoutes.FirstWindow,
             TestRoutes.SecondWindow
         )
 
-        windowsController.close(TestRoutes.StartWindow)
+        windowsController.open(TestRoutes.ThirdWindow)
         windowsController.routes shouldBe setOf(
             TestRoutes.FirstWindow,
-            TestRoutes.SecondWindow
+            TestRoutes.SecondWindow,
+            TestRoutes.ThirdWindow
         )
 
         windowsController.close(TestRoutes.FirstWindow)
-        windowsController.routes shouldBe setOf(TestRoutes.SecondWindow)
+        windowsController.routes shouldBe setOf(
+            TestRoutes.SecondWindow,
+            TestRoutes.ThirdWindow
+        )
+
+        windowsController.close(TestRoutes.SecondWindow)
+        windowsController.routes shouldBe setOf(TestRoutes.ThirdWindow)
     }
 
     @Test
     fun `opening window that is already opened`() {
-        windowsController.open(TestRoutes.FirstWindow)
+        windowsController.open(TestRoutes.SecondWindow)
         shouldThrow<IllegalArgumentException> {
-            windowsController.open(TestRoutes.FirstWindow)
+            windowsController.open(TestRoutes.SecondWindow)
         }
     }
 
     @Test
     fun `closing window that is not opened`() {
         shouldThrow<IllegalArgumentException> {
-            windowsController.close(TestRoutes.FirstWindow)
+            windowsController.close(TestRoutes.SecondWindow)
         }
     }
 }
