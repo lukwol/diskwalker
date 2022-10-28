@@ -17,5 +17,12 @@ fun ScreenNavigation() {
         ) { viewModel ->
             FirstScreen(viewModel)
         }
+
+        screen(
+            route = TestRoutes.SecondScreen,
+            viewModelFactory = { SecondScreenViewModel(it as String) }
+        ) { viewModel ->
+            SecondScreen(viewModel)
+        }
     }
 }
