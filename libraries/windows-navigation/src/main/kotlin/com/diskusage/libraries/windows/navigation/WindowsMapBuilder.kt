@@ -5,7 +5,7 @@ import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 
 class WindowsMapBuilder {
-    private val windows = mutableMapOf<WindowRoute, @Composable () -> Unit>()
+    private val windowsMap = mutableMapOf<WindowRoute, @Composable () -> Unit>()
 
     fun window(
         route: WindowRoute,
@@ -34,14 +34,14 @@ class WindowsMapBuilder {
         windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
         content: @Composable FrameWindowScope.() -> Unit
     ) {
-        if (windows.containsKey(route)) {
+        if (windowsMap.containsKey(route)) {
             throw IllegalArgumentException("$route is already registered")
         } else {
-            windows[route] = {
+            windowsMap[route] = {
                 windowFactory { content() }
             }
         }
     }
 
-    fun build() = windows.toMap()
+    fun build() = windowsMap.toMap()
 }
