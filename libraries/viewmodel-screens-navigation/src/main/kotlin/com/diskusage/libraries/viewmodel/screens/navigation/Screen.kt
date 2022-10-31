@@ -10,6 +10,16 @@ import com.diskusage.libraries.screens.navigation.ScreensMapBuilder
 import com.diskusage.libraries.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 
+/**
+ * Declare screen [content] for [route] and provide it with [ViewModel].
+ *
+ * @param VM generic parameter of [ViewModel]
+ * @param route [ScreenRoute] used to navigate to the [screen]
+ * @param viewModelFactory that takes screen [Arguments] and creates [ViewModel]
+ * @param content [Composable] content of the screen
+ *
+ * @see ScreensMapBuilder.screen
+ */
 @Suppress("UNCHECKED_CAST")
 fun <VM : ViewModel> ScreensMapBuilder.screen(
     route: ScreenRoute,
