@@ -4,12 +4,15 @@ import androidx.compose.runtime.mutableStateOf
 
 /**
  * Manages navigation between the screens declared when building [ScreensNavigation].
+ *
+ * Available via [LocalScreensController].
  */
 interface ScreensController {
 
     /**
-     * List of current [ScreenRoute] on the stack.
-     * For the last [ScreenRoute] screen will be displayed.
+     * List of current [routes][ScreenRoute] on the stack.
+     *
+     * For the last [route][ScreenRoute] screen will be displayed.
      */
     val routes: List<ScreenRoute>
 
@@ -49,6 +52,8 @@ internal class ScreensControllerImpl(startRoute: ScreenRoute) : ScreensControlle
      * @throws IllegalArgumentException if there is no [upToRoute] on the stack
      * or [upToRoute] is the last route on the stack
      * @throws IllegalStateException if it's about to pop last route on the [routes] stack
+     *
+     * @see [ScreensController.pop]
      */
     override fun pop(upToRoute: ScreenRoute?) {
         return when {

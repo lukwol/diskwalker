@@ -4,9 +4,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 
+/**
+ * Builds windows navigation map.
+ */
 class WindowsMapBuilder {
+
+    /**
+     * Map of all registered [windows][WindowRoute] to their [content][Composable].
+     */
     private val windowsMap = mutableMapOf<WindowRoute, @Composable () -> Unit>()
 
+    /**
+     * Declare window [content] for [route] and add it to [windowsMap].
+     *
+     * @param route [WindowRoute] used to navigate to the [window]
+     * @param content [Composable] content of the window
+     *
+     * @throws IllegalArgumentException when adding window for already registered [route]
+     */
     fun window(
         route: WindowRoute,
         title: String = route.value,
@@ -29,9 +44,20 @@ class WindowsMapBuilder {
         )
     }
 
+    /**
+     * Declare window [content] for [route] with custom [Window].
+     *
+     * @param route [WindowRoute] used to navigate to the [window]
+     * @param windowFactory lambda that takes [content] argument and wraps it in custom [Window].
+     * @param content [Composable] content of the window
+     *
+     * @throws IllegalArgumentException when adding window for already registered [route]
+     *
+     * @see WindowsMapBuilder.window
+     */
     fun window(
         route: WindowRoute,
-        windowFactory: @Composable (@Composable FrameWindowScope.() -> Unit) -> Unit,
+        windowFactory: @Composable (content: @Composable FrameWindowScope.() -> Unit) -> Unit,
         content: @Composable FrameWindowScope.() -> Unit
     ) {
         if (windowsMap.containsKey(route)) {
@@ -43,5 +69,8 @@ class WindowsMapBuilder {
         }
     }
 
+    /**
+     * Build immutable [windowsMap].
+     */
     fun build() = windowsMap.toMap()
 }

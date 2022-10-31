@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 class ScreensMapBuilder {
 
     /**
-     * Map of all registered screens
+     * Map of all registered [routes][ScreenRoute] to their [content][Composable].
      */
     private val screensMap = mutableMapOf<ScreenRoute, @Composable (Arguments?) -> Unit>()
 
@@ -17,6 +17,7 @@ class ScreensMapBuilder {
      *
      * @param route [ScreenRoute] used to navigate to the [screen]
      * @param content [Composable] content of the screen
+     *
      * @throws IllegalArgumentException when adding screen for already registered [route]
      */
     fun screen(
@@ -31,7 +32,7 @@ class ScreensMapBuilder {
     }
 
     /**
-     * Build immutable [screensMap]
+     * Build immutable [screensMap].
      */
     fun build() = screensMap.toMap()
 }

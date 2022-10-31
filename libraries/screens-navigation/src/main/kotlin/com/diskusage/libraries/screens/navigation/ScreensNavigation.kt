@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
 /**
- * Declare screens navigation by defining all [screens][ScreensMapBuilder.screen] for [routes][ScreenRoute]
+ * Declare screens navigation by defining all [screens][ScreensMapBuilder.screen] for [routes][ScreenRoute].
  *
  * Provides [LocalScreensController] that can be used for navigation inside each screen.
  *

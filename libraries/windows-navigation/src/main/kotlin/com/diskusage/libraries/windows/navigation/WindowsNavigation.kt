@@ -5,6 +5,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
+/**
+ * Declare windows navigation by defining all [windows][WindowsMapBuilder.window] for [routes][WindowRoute].
+ *
+ * Provides [LocalWindowController] that can be used for navigation inside each window.
+ *
+ * @param startRoute first [route][WindowRoute] for which window will be displayed
+ * @param builder the builder used to construct the windows navigation map
+ */
+
 @Composable
 fun WindowsNavigation(
     startRoute: WindowRoute,
