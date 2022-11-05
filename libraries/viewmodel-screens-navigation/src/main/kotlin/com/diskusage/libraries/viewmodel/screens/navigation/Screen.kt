@@ -7,7 +7,7 @@ import com.diskusage.libraries.screens.navigation.Arguments
 import com.diskusage.libraries.screens.navigation.LocalScreensController
 import com.diskusage.libraries.screens.navigation.ScreenRoute
 import com.diskusage.libraries.screens.navigation.ScreensMapBuilder
-import com.diskusage.libraries.viewmodel.ViewModel
+import io.github.lukwol.ViewModel
 import kotlinx.coroutines.cancel
 
 /**

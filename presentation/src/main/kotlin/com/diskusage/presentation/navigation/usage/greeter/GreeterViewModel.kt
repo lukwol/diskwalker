@@ -1,6 +1,6 @@
 package com.diskusage.presentation.navigation.usage.greeter
 
-import com.diskusage.libraries.viewmodel.ViewModel
+import io.github.lukwol.ViewModel
 
 class GreeterViewModel(
     val name: String

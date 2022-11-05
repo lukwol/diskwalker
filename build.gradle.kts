@@ -13,10 +13,11 @@ plugins {
 allprojects {
     repositories {
         mavenCentral()
+        maven("https://jitpack.io")
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "16"
+        kotlinOptions.jvmTarget = "11"
     }
 }
 
@@ -40,7 +41,7 @@ spotless {
 tasks.withType<DependencyUpdatesTask> {
     rejectVersionIf {
         candidate.version.toLowerCaseAsciiOnly().run {
-            listOf("-alpha", "-beta", "-rc").any { contains(it) }
+            listOf("-alpha", "-beta", "-rc").any(::contains)
         }
     }
 }
