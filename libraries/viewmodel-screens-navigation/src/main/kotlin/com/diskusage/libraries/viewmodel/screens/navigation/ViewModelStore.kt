@@ -1,7 +1,7 @@
 package com.diskusage.libraries.viewmodel.screens.navigation
 
 import com.diskusage.libraries.screens.navigation.ScreenRoute
-import io.github.lukwol.ViewModel
+import io.github.lukwol.viewmodel.ViewModel
 
 /**
  * View model store is responsible for keeping [view models][ViewModel] state,
