@@ -2,7 +2,6 @@ package com.diskusage.presentation.navigation.usage.navigation
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.diskusage.libraries.screens.navigation.ScreensNavigation
 import com.diskusage.libraries.viewmodel.screens.navigation.screen
 import com.diskusage.libraries.windows.navigation.LocalWindowController
 import com.diskusage.libraries.windows.navigation.WindowsNavigation
@@ -10,6 +9,7 @@ import com.diskusage.presentation.navigation.usage.greeter.GreeterScreen
 import com.diskusage.presentation.navigation.usage.greeter.GreeterViewModel
 import com.diskusage.presentation.navigation.usage.greeting.GreetingScreen
 import com.diskusage.presentation.navigation.usage.greeting.GreetingScreenViewModel
+import io.github.lukwol.screen.navigation.ScreensNavigation
 
 fun AppNavigation() {
 //    singleWindowApplication {

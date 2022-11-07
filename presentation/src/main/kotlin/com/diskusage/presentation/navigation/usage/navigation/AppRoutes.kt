@@ -1,7 +1,7 @@
 package com.diskusage.presentation.navigation.usage.navigation
 
-import com.diskusage.libraries.screens.navigation.ScreenRoute
 import com.diskusage.libraries.windows.navigation.WindowRoute
+import io.github.lukwol.screen.navigation.ScreenRoute
 
 object AppRoutes {
     val GreetingScreen = ScreenRoute("greeting-screen")

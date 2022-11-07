@@ -3,10 +3,10 @@ package com.diskusage.libraries.viewmodel.screens.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
-import com.diskusage.libraries.screens.navigation.Arguments
-import com.diskusage.libraries.screens.navigation.LocalScreensController
-import com.diskusage.libraries.screens.navigation.ScreenRoute
-import com.diskusage.libraries.screens.navigation.ScreensMapBuilder
+import io.github.lukwol.screen.navigation.Arguments
+import io.github.lukwol.screen.navigation.LocalScreensController
+import io.github.lukwol.screen.navigation.ScreenRoute
+import io.github.lukwol.screen.navigation.ScreensMapBuilder
 import io.github.lukwol.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
 

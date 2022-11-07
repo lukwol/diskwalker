@@ -1,6 +1,6 @@
 package com.diskusage.libraries.viewmodel.screens.navigation
 
-import com.diskusage.libraries.screens.navigation.ScreenRoute
+import io.github.lukwol.screen.navigation.ScreenRoute
 import io.github.lukwol.viewmodel.ViewModel
 
 /**

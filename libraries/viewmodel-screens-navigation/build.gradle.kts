@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     api(libs.viewmodel)
-    api(project(":libraries:screens-navigation"))
+    api(libs.screen.navigation)
 
     implementation(compose.desktop.currentOs)
 
