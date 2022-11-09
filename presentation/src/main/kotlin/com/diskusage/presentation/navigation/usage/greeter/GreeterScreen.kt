@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.libraries.windows.navigation.LocalWindowController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
-import io.github.lukwol.screen.navigation.LocalScreensController
+import io.github.lukwol.screens.navigation.LocalScreensController
 
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
