@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.diskusage.libraries.windows.navigation.LocalWindowController
 import com.diskusage.presentation.navigation.usage.navigation.AppRoutes
 import io.github.lukwol.screens.navigation.LocalScreensController
+import io.github.lukwol.windows.navigation.LocalWindowController
 
 @Composable
 fun GreeterScreen(viewModel: GreeterViewModel) {
