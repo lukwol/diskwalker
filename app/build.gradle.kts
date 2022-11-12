@@ -18,7 +18,7 @@ dependencies {
 }
 
 compose {
-    kotlinCompilerPlugin.set("1.3.2")
+    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
 
     desktop {
         application {
