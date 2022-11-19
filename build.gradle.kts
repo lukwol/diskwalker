@@ -7,10 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.compose.multiplatform) apply false
     alias(libs.plugins.dependency.updates)
-    alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlinter)
 }
 
 allprojects {
+    apply {
+        plugin("org.jmailen.kotlinter")
+    }
+
     repositories {
         mavenCentral()
         maven("https://jitpack.io")
@@ -18,23 +22,11 @@ allprojects {
 
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "16"
-    }
-}
-
-subprojects {
-    tasks.withType<KotlinCompile>().all {
         kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
-}
 
-spotless {
-    kotlin {
-        target("**/*.kt")
-        targetExclude("$buildDir/**/*.kt")
-        targetExclude("bin/**/*.kt")
-
-        ktlint(libs.versions.ktlint.get())
-            .editorConfigOverride(mapOf("disabled_rules" to "no-wildcard-imports"))
+    kotlinter {
+        disabledRules = arrayOf("no-wildcard-imports")
     }
 }
 
