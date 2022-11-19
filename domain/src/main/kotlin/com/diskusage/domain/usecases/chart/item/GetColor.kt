@@ -1,7 +1,6 @@
 package com.diskusage.domain.usecases.chart.item
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.model.Arc
@@ -27,7 +26,6 @@ class GetColor(
     private val getSweepAngle: GetSweepAngle,
     private val getArc: GetArc
 ) {
-    @OptIn(ExperimentalGraphicsApi::class)
     operator fun invoke(
         diskEntry: DiskEntry,
         fromDiskEntry: DiskEntry = getRoot(diskEntry),

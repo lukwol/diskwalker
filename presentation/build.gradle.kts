@@ -1,17 +1,15 @@
-@file:Suppress("UnstableApiUsage")
-
-import org.jetbrains.compose.compose
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(libs.plugins.kotlin.jvm.get().pluginId)
-    id(libs.plugins.compose.multiplatform.get().pluginId)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 dependencies {
     implementation(project(":domain"))
     implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
+    implementation(libs.viewmodel.screens.navigation)
+    implementation(libs.windows.navigation)
 
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
@@ -20,4 +18,8 @@ dependencies {
 
     implementation(compose.desktop.currentOs)
     implementation(libs.compose.icons)
+}
+
+compose {
+    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
 }

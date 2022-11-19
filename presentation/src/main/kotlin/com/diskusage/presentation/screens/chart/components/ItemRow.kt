@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.chart.blocks
+package com.diskusage.presentation.screens.chart.components
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background

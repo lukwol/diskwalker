@@ -1,4 +1,4 @@
-package com.diskusage.presentation.common.blocks
+package com.diskusage.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.AwtWindow

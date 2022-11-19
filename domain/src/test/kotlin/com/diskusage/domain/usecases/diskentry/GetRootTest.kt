@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.diskentry
 
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -21,23 +21,23 @@ class GetRootTest : KoinTest {
 
     @Test
     fun file() {
-        getRoot(DiskEntryStubs.file112) shouldBe DiskEntryStubs.rootDir
-        getRoot(DiskEntryStubs.file22) shouldBe DiskEntryStubs.rootDir
+        getRoot(TestDiskEntries.file112) shouldBe TestDiskEntries.rootDir
+        getRoot(TestDiskEntries.file22) shouldBe TestDiskEntries.rootDir
     }
 
     @Test
     fun directory() {
-        getRoot(DiskEntryStubs.dir2) shouldBe DiskEntryStubs.rootDir
-        getRoot(DiskEntryStubs.dir11) shouldBe DiskEntryStubs.rootDir
+        getRoot(TestDiskEntries.dir2) shouldBe TestDiskEntries.rootDir
+        getRoot(TestDiskEntries.dir11) shouldBe TestDiskEntries.rootDir
     }
 
     @Test
     fun `root file`() {
-        getRoot(DiskEntryStubs.rootFile) shouldBe DiskEntryStubs.rootFile
+        getRoot(TestDiskEntries.rootFile) shouldBe TestDiskEntries.rootFile
     }
 
     @Test
     fun `root directory`() {
-        getRoot(DiskEntryStubs.rootDir) shouldBe DiskEntryStubs.rootDir
+        getRoot(TestDiskEntries.rootDir) shouldBe TestDiskEntries.rootDir
     }
 }

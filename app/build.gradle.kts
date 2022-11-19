@@ -1,12 +1,9 @@
-@file:Suppress("UnstableApiUsage")
-
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(libs.plugins.kotlin.jvm.get().pluginId)
-    id(libs.plugins.compose.multiplatform.get().pluginId)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.compose.multiplatform)
 }
 
 dependencies {
@@ -20,13 +17,17 @@ dependencies {
     implementation(compose.desktop.currentOs)
 }
 
-compose.desktop {
-    application {
-        mainClass = "com.diskusage.app.MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "DiskUsage"
-            packageVersion = "1.0.0"
+compose {
+    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
+
+    desktop {
+        application {
+            mainClass = "com.diskusage.app.MainKt"
+            nativeDistributions {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+                packageName = "DiskUsage"
+                packageVersion = "1.0.0"
+            }
         }
     }
 }

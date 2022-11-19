@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.chart
+package com.diskusage.presentation.screens.chart
 
 import com.diskusage.domain.model.ChartData
 import com.diskusage.domain.model.DiskEntry

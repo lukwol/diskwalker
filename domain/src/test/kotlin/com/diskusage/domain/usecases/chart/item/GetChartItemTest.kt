@@ -1,10 +1,10 @@
 package com.diskusage.domain.usecases.chart.item
 
 import com.diskusage.domain.common.Constants
+import com.diskusage.domain.data.TestArcs
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.stubs.ArcStubs
-import com.diskusage.domain.stubs.DiskEntryStubs
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
@@ -40,8 +40,8 @@ class GetChartItemTest : KoinTest {
     @BeforeEach
     fun setUp() {
         getArc = declareMock {
-            every { this@declareMock(DiskEntryStubs.file11, DiskEntryStubs.rootDir) } answers { ArcStubs.child1 }
-            every { this@declareMock(DiskEntryStubs.file12, DiskEntryStubs.dir1) } answers { ArcStubs.child2 }
+            every { this@declareMock(TestDiskEntries.file11, TestDiskEntries.rootDir) } answers { TestArcs.child1 }
+            every { this@declareMock(TestDiskEntries.file12, TestDiskEntries.dir1) } answers { TestArcs.child2 }
         }
     }
 
@@ -53,10 +53,10 @@ class GetChartItemTest : KoinTest {
     @Test
     fun `when from item is not passed`() {
         getChartItem(
-            diskEntry = DiskEntryStubs.file11
+            diskEntry = TestDiskEntries.file11
         ) shouldBe ChartItem(
-            diskEntry = DiskEntryStubs.file11,
-            arc = ArcStubs.child1,
+            diskEntry = TestDiskEntries.file11,
+            arc = TestArcs.child1,
             color = Constants.Chart.FileColor
         )
     }
@@ -64,11 +64,11 @@ class GetChartItemTest : KoinTest {
     @Test
     fun `when from item is passed`() {
         getChartItem(
-            diskEntry = DiskEntryStubs.file12,
-            fromDiskEntry = DiskEntryStubs.dir1
+            diskEntry = TestDiskEntries.file12,
+            fromDiskEntry = TestDiskEntries.dir1
         ) shouldBe ChartItem(
-            diskEntry = DiskEntryStubs.file12,
-            arc = ArcStubs.child2,
+            diskEntry = TestDiskEntries.file12,
+            arc = TestArcs.child2,
             color = Constants.Chart.FileColor
         )
     }

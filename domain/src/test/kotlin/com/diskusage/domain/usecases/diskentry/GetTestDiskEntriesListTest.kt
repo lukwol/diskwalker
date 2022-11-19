@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.diskentry
 
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
-import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -17,7 +17,7 @@ import org.koin.test.junit5.KoinTestExtension
 import org.koin.test.junit5.mock.MockProviderExtension
 import org.koin.test.mock.declareMock
 
-class GetDiskEntriesListTest : KoinTest {
+class GetTestDiskEntriesListTest : KoinTest {
 
     private val getDiskEntriesList by inject<GetDiskEntriesList>()
 
@@ -44,22 +44,22 @@ class GetDiskEntriesListTest : KoinTest {
         @BeforeEach
         fun setUp() {
             declareMock<IncludeDiskEntry> {
-                every { this@declareMock(not(DiskEntryStubs.dir11), any()) } returns true
-                every { this@declareMock(DiskEntryStubs.dir11, any()) } returns false
+                every { this@declareMock(not(TestDiskEntries.dir11), any()) } returns true
+                every { this@declareMock(TestDiskEntries.dir11, any()) } returns false
             }
         }
 
         @Test
         fun `disk entries list`() {
-            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
-                DiskEntryStubs.rootDir,
-                DiskEntryStubs.file1,
-                DiskEntryStubs.dir1,
-                DiskEntryStubs.file11,
-                DiskEntryStubs.file12,
-                DiskEntryStubs.dir2,
-                DiskEntryStubs.file21,
-                DiskEntryStubs.file22
+            getDiskEntriesList(TestDiskEntries.rootDir) shouldContainExactlyInAnyOrder listOf(
+                TestDiskEntries.rootDir,
+                TestDiskEntries.file1,
+                TestDiskEntries.dir1,
+                TestDiskEntries.file11,
+                TestDiskEntries.file12,
+                TestDiskEntries.dir2,
+                TestDiskEntries.file21,
+                TestDiskEntries.file22
             )
         }
     }
@@ -76,18 +76,18 @@ class GetDiskEntriesListTest : KoinTest {
 
         @Test
         fun `disk entries list`() {
-            getDiskEntriesList(DiskEntryStubs.rootDir) shouldContainExactlyInAnyOrder listOf(
-                DiskEntryStubs.rootDir,
-                DiskEntryStubs.file1,
-                DiskEntryStubs.dir1,
-                DiskEntryStubs.file11,
-                DiskEntryStubs.file12,
-                DiskEntryStubs.dir11,
-                DiskEntryStubs.file111,
-                DiskEntryStubs.file112,
-                DiskEntryStubs.dir2,
-                DiskEntryStubs.file21,
-                DiskEntryStubs.file22
+            getDiskEntriesList(TestDiskEntries.rootDir) shouldContainExactlyInAnyOrder listOf(
+                TestDiskEntries.rootDir,
+                TestDiskEntries.file1,
+                TestDiskEntries.dir1,
+                TestDiskEntries.file11,
+                TestDiskEntries.file12,
+                TestDiskEntries.dir11,
+                TestDiskEntries.file111,
+                TestDiskEntries.file112,
+                TestDiskEntries.dir2,
+                TestDiskEntries.file21,
+                TestDiskEntries.file22
             )
         }
     }

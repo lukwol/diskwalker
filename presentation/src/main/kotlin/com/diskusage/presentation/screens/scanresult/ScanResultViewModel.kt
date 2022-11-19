@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.scanresult
+package com.diskusage.presentation.screens.scanresult
 
 import com.diskusage.domain.repositories.DiskEntryRepository
 import kotlinx.coroutines.flow.MutableStateFlow

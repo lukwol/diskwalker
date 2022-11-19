@@ -1,8 +1,8 @@
 package com.diskusage.domain.usecases.diskentry
 
+import com.diskusage.domain.data.TestDiskEntries
 import com.diskusage.domain.di.domainModule
 import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.stubs.DiskEntryStubs
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -25,22 +25,22 @@ class GetRelationshipTest : KoinTest {
     inner class WithSame {
         @Test
         fun `file from file without parent`() {
-            getRelationship(DiskEntryStubs.rootFile, DiskEntryStubs.rootFile) shouldBe DiskEntry.Relationship.Identity
+            getRelationship(TestDiskEntries.rootFile, TestDiskEntries.rootFile) shouldBe DiskEntry.Relationship.Identity
         }
 
         @Test
         fun `file from file with parent`() {
-            getRelationship(DiskEntryStubs.file1, DiskEntryStubs.file1) shouldBe DiskEntry.Relationship.Identity
+            getRelationship(TestDiskEntries.file1, TestDiskEntries.file1) shouldBe DiskEntry.Relationship.Identity
         }
 
         @Test
         fun `dir from dir without parent`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Identity
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Identity
         }
 
         @Test
         fun `dir from dir with parent`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.dir1) shouldBe DiskEntry.Relationship.Identity
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.dir1) shouldBe DiskEntry.Relationship.Identity
         }
     }
 
@@ -48,47 +48,47 @@ class GetRelationshipTest : KoinTest {
     inner class WithAncestor {
         @Test
         fun `child file from root dir`() {
-            getRelationship(DiskEntryStubs.file1, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file1, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `grandchild file from root dir`() {
-            getRelationship(DiskEntryStubs.file11, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file11, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `great-grandchild file from root dir`() {
-            getRelationship(DiskEntryStubs.file112, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file112, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `child dir from root dir`() {
-            getRelationship(DiskEntryStubs.dir2, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.dir2, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `grandchild dir from root dir`() {
-            getRelationship(DiskEntryStubs.dir11, DiskEntryStubs.rootDir) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.dir11, TestDiskEntries.rootDir) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `grandchild dir from child dir`() {
-            getRelationship(DiskEntryStubs.dir11, DiskEntryStubs.dir1) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.dir11, TestDiskEntries.dir1) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `grandchild file from child dir`() {
-            getRelationship(DiskEntryStubs.file11, DiskEntryStubs.dir1) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file11, TestDiskEntries.dir1) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `great-grandchild file from child dir`() {
-            getRelationship(DiskEntryStubs.file111, DiskEntryStubs.dir1) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file111, TestDiskEntries.dir1) shouldBe DiskEntry.Relationship.Ancestor
         }
 
         @Test
         fun `great-grandchild file from grandchild dir`() {
-            getRelationship(DiskEntryStubs.file111, DiskEntryStubs.dir11) shouldBe DiskEntry.Relationship.Ancestor
+            getRelationship(TestDiskEntries.file111, TestDiskEntries.dir11) shouldBe DiskEntry.Relationship.Ancestor
         }
     }
 
@@ -97,47 +97,47 @@ class GetRelationshipTest : KoinTest {
 
         @Test
         fun `root dir from child file`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.file1) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.file1) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `root dir from grandchild file`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.file11) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.file11) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `root dir from great-grandchild file`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.file112) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.file112) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `root dir from child dir`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.dir2) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.dir2) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `root dir from grandchild dir`() {
-            getRelationship(DiskEntryStubs.rootDir, DiskEntryStubs.dir11) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.rootDir, TestDiskEntries.dir11) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `child dir from grandchild dir`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.dir11) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.dir11) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `child dir from grandchild file`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.file11) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.file11) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `child dir from great-grandchild file`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.file111) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.file111) shouldBe DiskEntry.Relationship.Descendant
         }
 
         @Test
         fun `grandchild dir from great-grandchild file`() {
-            getRelationship(DiskEntryStubs.dir11, DiskEntryStubs.file111) shouldBe DiskEntry.Relationship.Descendant
+            getRelationship(TestDiskEntries.dir11, TestDiskEntries.file111) shouldBe DiskEntry.Relationship.Descendant
         }
     }
 
@@ -145,22 +145,22 @@ class GetRelationshipTest : KoinTest {
     inner class WithSibling {
         @Test
         fun `file from file`() {
-            getRelationship(DiskEntryStubs.file111, DiskEntryStubs.file112) shouldBe DiskEntry.Relationship.Sibling
+            getRelationship(TestDiskEntries.file111, TestDiskEntries.file112) shouldBe DiskEntry.Relationship.Sibling
         }
 
         @Test
         fun `dir from dir`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.dir2) shouldBe DiskEntry.Relationship.Sibling
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.dir2) shouldBe DiskEntry.Relationship.Sibling
         }
 
         @Test
         fun `dir from file`() {
-            getRelationship(DiskEntryStubs.dir1, DiskEntryStubs.file1) shouldBe DiskEntry.Relationship.Sibling
+            getRelationship(TestDiskEntries.dir1, TestDiskEntries.file1) shouldBe DiskEntry.Relationship.Sibling
         }
 
         @Test
         fun `file from dir`() {
-            getRelationship(DiskEntryStubs.file12, DiskEntryStubs.dir11) shouldBe DiskEntry.Relationship.Sibling
+            getRelationship(TestDiskEntries.file12, TestDiskEntries.dir11) shouldBe DiskEntry.Relationship.Sibling
         }
     }
 
@@ -168,22 +168,22 @@ class GetRelationshipTest : KoinTest {
     inner class WithUnrelated {
         @Test
         fun `file from file`() {
-            getRelationship(DiskEntryStubs.file12, DiskEntryStubs.file21) shouldBe DiskEntry.Relationship.Unrelated
+            getRelationship(TestDiskEntries.file12, TestDiskEntries.file21) shouldBe DiskEntry.Relationship.Unrelated
         }
 
         @Test
         fun `dir from dir`() {
-            getRelationship(DiskEntryStubs.dir11, DiskEntryStubs.dir2) shouldBe DiskEntry.Relationship.Unrelated
+            getRelationship(TestDiskEntries.dir11, TestDiskEntries.dir2) shouldBe DiskEntry.Relationship.Unrelated
         }
 
         @Test
         fun `dir from file`() {
-            getRelationship(DiskEntryStubs.dir2, DiskEntryStubs.file111) shouldBe DiskEntry.Relationship.Unrelated
+            getRelationship(TestDiskEntries.dir2, TestDiskEntries.file111) shouldBe DiskEntry.Relationship.Unrelated
         }
 
         @Test
         fun `file from dir`() {
-            getRelationship(DiskEntryStubs.file12, DiskEntryStubs.dir2) shouldBe DiskEntry.Relationship.Unrelated
+            getRelationship(TestDiskEntries.file12, TestDiskEntries.dir2) shouldBe DiskEntry.Relationship.Unrelated
         }
     }
 }

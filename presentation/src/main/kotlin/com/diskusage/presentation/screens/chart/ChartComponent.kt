@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.chart
+package com.diskusage.presentation.screens.chart
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -27,10 +27,10 @@ import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
-import com.diskusage.presentation.components.chart.blocks.Chart
-import com.diskusage.presentation.components.chart.blocks.ItemHeader
-import com.diskusage.presentation.components.chart.blocks.ItemRow
 import com.diskusage.presentation.di.ViewModelProvider
+import com.diskusage.presentation.screens.chart.components.Chart
+import com.diskusage.presentation.screens.chart.components.ItemHeader
+import com.diskusage.presentation.screens.chart.components.ItemRow
 
 private const val ChartWeight = 2f
 private const val ListWeight = 1f

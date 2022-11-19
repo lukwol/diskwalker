@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.chart.blocks
+package com.diskusage.presentation.screens.chart.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.*

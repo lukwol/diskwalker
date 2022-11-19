@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.scanresult
+package com.diskusage.presentation.screens.scanresult
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,10 +11,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.FrameWindowScope
-import com.diskusage.presentation.common.blocks.FileDialog
-import com.diskusage.presentation.common.blocks.FileDialogMode
-import com.diskusage.presentation.components.chart.ChartComponent
+import com.diskusage.presentation.components.FileDialog
+import com.diskusage.presentation.components.FileDialogMode
 import com.diskusage.presentation.di.ViewModelProvider
+import com.diskusage.presentation.screens.chart.ChartComponent
 
 @Composable
 fun FrameWindowScope.ScanResultComponent(

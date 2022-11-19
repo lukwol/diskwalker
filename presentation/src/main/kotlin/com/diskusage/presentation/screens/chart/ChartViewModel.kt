@@ -1,4 +1,4 @@
-package com.diskusage.presentation.components.chart
+package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.ChartItem
@@ -7,9 +7,11 @@ import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import com.diskusage.domain.usecases.list.GetListData
-import kotlinx.coroutines.*
+import io.github.lukwol.viewmodel.ViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class ChartViewModel(
     diskEntry: DiskEntry,
@@ -17,8 +19,7 @@ class ChartViewModel(
     private val getListData: GetListData,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected
-) {
-    private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+) : ViewModel() {
 
     private val mutableViewState = MutableStateFlow(ChartViewState(diskEntry))
 
