@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 object Constants {
 
+    const val HeavyOperationsTimeout = 300L
+
     /**
      * Chart related constants
      */

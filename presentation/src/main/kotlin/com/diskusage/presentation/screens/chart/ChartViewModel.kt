@@ -1,6 +1,7 @@
 package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.GetChartData
@@ -12,6 +13,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 class ChartViewModel(
     diskEntry: DiskEntry,
@@ -64,12 +66,14 @@ class ChartViewModel(
         val selectedDiskEntry = chartItem?.diskEntry ?: diskEntry
         if (selectedDiskEntry != listData?.parentItem?.diskEntry) {
             viewModelScope.launch {
-                mutableViewState.value = copy(
-                    listData = getListData(
-                        diskEntry = selectedDiskEntry,
-                        fromDiskEntry = diskEntry
+                withTimeoutOrNull(Constants.HeavyOperationsTimeout) {
+                    mutableViewState.value = copy(
+                        listData = getListData(
+                            diskEntry = selectedDiskEntry,
+                            fromDiskEntry = diskEntry
+                        )
                     )
-                )
+                }
             }
         }
     }
