@@ -30,7 +30,6 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
-viewmodel = { module = "com.github.lukwol.cm-navigation:viewmodel", version.ref = "cm-navigation" }
 viewmodel-screens-navigation = { module = "com.github.lukwol.cm-navigation:viewmodel-screens-navigation", version.ref = "cm-navigation" }
 windows-navigation = { module = "com.github.lukwol.cm-navigation:windows-navigation", version.ref = "cm-navigation" }
 junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
