@@ -8,17 +8,22 @@ plugins {
     alias(libs.plugins.compose.multiplatform) apply false
     alias(libs.plugins.dependency.updates)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.dokka)
 }
 
 allprojects {
     apply {
         plugin("org.jmailen.kotlinter")
+        plugin("org.jetbrains.dokka")
     }
 
     repositories {
         mavenCentral()
         maven("https://jitpack.io")
     }
+
+    group = "io.github.lukwol"
+    version = "1.0.0"
 
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "16"

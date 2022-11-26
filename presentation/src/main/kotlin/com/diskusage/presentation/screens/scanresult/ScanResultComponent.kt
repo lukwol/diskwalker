@@ -44,7 +44,7 @@ fun FrameWindowScope.ScanResultComponent(
             }
         }
 
-        if (showFileDialog) {
+        if (showFileDialog && viewState.scannedDiskEntry == null) {
             FileDialog(
                 title = "Choose a file",
                 mode = FileDialogMode.Load,

@@ -3,8 +3,6 @@ package com.diskusage.presentation.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.AwtWindow
 import androidx.compose.ui.window.FrameWindowScope
-import com.diskusage.presentation.common.currentOS
-import org.jetbrains.skiko.OS
 import java.awt.FileDialog
 import java.io.File
 import java.nio.file.Path
@@ -21,9 +19,6 @@ fun FrameWindowScope.FileDialog(
     onResult: (result: Path?) -> Unit
 ) = AwtWindow(
     create = {
-        if (currentOS == OS.MacOS) {
-            System.setProperty("apple.awt.fileDialogForDirectories", "true")
-        }
         object : FileDialog(window, title, mode.value) {
             override fun setVisible(value: Boolean) {
                 super.setVisible(value)

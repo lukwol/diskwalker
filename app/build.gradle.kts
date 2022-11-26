@@ -27,6 +27,11 @@ compose {
                 targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
                 packageName = "DiskUsage"
                 packageVersion = "1.0.0"
+
+                macOS {
+                    jvmArgs("-Dapple.awt.application.appearance=system")
+                    jvmArgs("-Dapple.awt.fileDialogForDirectories=true")
+                }
             }
         }
     }
