@@ -26,7 +26,7 @@ allprojects {
     version = "1.0.0"
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "16"
+        kotlinOptions.jvmTarget = "11"
         kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
