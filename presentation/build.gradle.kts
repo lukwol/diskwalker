@@ -8,12 +8,11 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":libraries:formatters"))
     implementation(project(":libraries:ranges"))
+
     implementation(libs.viewmodel.screens.navigation)
     implementation(libs.windows.navigation)
-
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
-
     implementation(libs.koin.core)
 
     implementation(compose.desktop.currentOs)

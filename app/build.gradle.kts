@@ -13,6 +13,8 @@ dependencies {
     implementation(project(":libraries:support"))
 
     implementation(libs.koin.core)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.swing)
 
     implementation(compose.desktop.currentOs)
 }
