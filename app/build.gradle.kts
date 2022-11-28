@@ -32,7 +32,6 @@ compose {
 
                 macOS {
                     jvmArgs("-Dapple.awt.application.appearance=system")
-                    jvmArgs("-Dapple.awt.fileDialogForDirectories=true")
                 }
             }
         }

@@ -7,23 +7,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.window.FrameWindowScope
-import com.diskusage.presentation.components.FileDialog
-import com.diskusage.presentation.components.FileDialogMode
 import com.diskusage.presentation.di.ViewModelProvider
 import com.diskusage.presentation.screens.chart.ChartComponent
+import java.nio.file.Path
 
 @Composable
-fun FrameWindowScope.ScanResultComponent(
+fun ScanResultComponent(
     isSupportLibraryLoaded: Boolean
 ) {
     val viewModel = remember { ViewModelProvider.getScanResultViewModel() }
     val viewState by viewModel.viewState.collectAsState()
 
-    var showFileDialog by remember { mutableStateOf(false) }
     val selectedDiskEntry = viewState.scannedDiskEntry
 
     Column(
@@ -38,23 +38,12 @@ fun FrameWindowScope.ScanResultComponent(
         } else {
             Button(
                 enabled = isSupportLibraryLoaded,
-                onClick = { showFileDialog = true }
-            ) {
-                Text("Select directory")
-            }
-        }
-
-        if (showFileDialog && viewState.scannedDiskEntry == null) {
-            FileDialog(
-                title = "Choose a file",
-                mode = FileDialogMode.Load,
-                onResult = { path ->
-                    if (path != null) {
-                        viewModel.selectScannedPath(path)
-                    }
-                    showFileDialog = false
+                onClick = {
+                    viewModel.selectScannedPath(Path.of("/"))
                 }
-            )
+            ) {
+                Text("Scan disk")
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ import java.nio.file.Path
  * @property parent [DiskEntry] which contains [DiskEntry], if it's root parent is null
  */
 class DiskEntry(
-    val name: String,
+    var name: String,
     val type: Type,
     val path: Path,
     val parent: DiskEntry?,

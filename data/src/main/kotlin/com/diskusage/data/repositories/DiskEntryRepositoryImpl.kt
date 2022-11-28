@@ -10,12 +10,17 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
+private const val DiskName = "Macintosh HD"
+private const val DataPath = "/System/Volumes/Data"
+
 class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : DiskEntryRepository {
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
     override fun diskEntry(path: Path): DiskEntry {
-        return diskEntry(path, null)
+        return diskEntry(path, null).also {
+            it.name = DiskName
+        }
     }
 
     private fun diskEntry(
@@ -35,6 +40,7 @@ class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : Di
             children = runCatching {
                 path
                     .listDirectoryEntries()
+                    .filterNot { it.absolutePathString() == DataPath }
                     .map { diskEntry(it, this) }
             }.getOrNull() ?: emptyList()
         }
