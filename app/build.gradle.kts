@@ -25,8 +25,7 @@ compose {
     desktop {
         application {
             buildTypes.release.proguard {
-                configurationFiles.from(project.file("coroutines.pro"))
-                configurationFiles.from(project.file("compose.pro"))
+                configurationFiles.from(project.file("custom.pro"))
             }
 
             mainClass = "com.diskusage.app.MainKt"
