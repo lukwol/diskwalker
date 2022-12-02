@@ -6,7 +6,7 @@ object Constants {
 
     const val HeavyOperationsTimeout = 300L
 
-    const val DefaultDiskName = "Macintosh HD"
+    const val DefaultDiskName = "Unknown Disk"
 
     val BlackListedPaths = listOf(
         "/System/Volumes/Data"
