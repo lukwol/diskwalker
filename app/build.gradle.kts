@@ -24,6 +24,10 @@ compose {
 
     desktop {
         application {
+            buildTypes.release.proguard {
+                configurationFiles.from(project.file("custom.pro"))
+            }
+
             mainClass = "com.diskusage.app.MainKt"
             nativeDistributions {
                 targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
