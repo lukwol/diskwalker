@@ -6,6 +6,12 @@ object Constants {
 
     const val HeavyOperationsTimeout = 300L
 
+    const val DefaultDiskName = "Macintosh HD"
+
+    val BlackListedPaths = listOf(
+        "/System/Volumes/Data"
+    )
+
     /**
      * Chart related constants
      */

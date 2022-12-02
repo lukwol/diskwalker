@@ -1,7 +1,9 @@
 package com.diskusage.data.repositories
 
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
+import com.diskusage.domain.services.DisksService
 import com.diskusage.domain.services.FileSizeService
 import java.nio.file.LinkOption
 import java.nio.file.Path
@@ -10,16 +12,16 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
-private const val DiskName = "Macintosh HD"
-private const val DataPath = "/System/Volumes/Data"
-
-class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : DiskEntryRepository {
+class DiskEntryRepositoryImpl(
+    private val fileSizeService: FileSizeService,
+    private val disksService: DisksService
+) : DiskEntryRepository {
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
     override fun diskEntry(path: Path): DiskEntry {
         return diskEntry(path, null).also {
-            it.name = DiskName
+            it.name = disksService.name(path.absolutePathString()) ?: Constants.DefaultDiskName
         }
     }
 
@@ -40,7 +42,7 @@ class DiskEntryRepositoryImpl(private val fileSizeService: FileSizeService) : Di
             children = runCatching {
                 path
                     .listDirectoryEntries()
-                    .filterNot { it.absolutePathString() == DataPath }
+                    .filterNot { it.absolutePathString() in Constants.BlackListedPaths }
                     .map { diskEntry(it, this) }
             }.getOrNull() ?: emptyList()
         }
