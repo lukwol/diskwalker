@@ -1,16 +1,21 @@
 package com.diskusage.domain.common
 
 import androidx.compose.ui.graphics.Color
+import com.diskusage.libraries.utils.os.OS
+import com.diskusage.libraries.utils.os.OsUtils
 
 object Constants {
 
     const val HeavyOperationsTimeout = 300L
 
-    const val DefaultDiskName = "Unknown Disk"
+    object Disk {
+        const val DefaultDiskName = "Unknown Disk"
 
-    val BlackListedPaths = listOf(
-        "/System/Volumes/Data"
-    )
+        val UncheckedPaths = when (OsUtils.currentOS) {
+            OS.MacOS -> listOf("/System/Volumes/Data")
+            else -> emptyList()
+        }
+    }
 
     /**
      * Chart related constants
