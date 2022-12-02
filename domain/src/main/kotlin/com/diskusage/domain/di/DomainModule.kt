@@ -4,12 +4,7 @@ import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.GetChartItem
 import com.diskusage.domain.usecases.chart.item.GetColor
 import com.diskusage.domain.usecases.chart.item.arc.*
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetDiskEntriesList
-import com.diskusage.domain.usecases.diskentry.GetRelationship
-import com.diskusage.domain.usecases.diskentry.GetRoot
-import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
-import com.diskusage.domain.usecases.diskentry.SortDiskEntries
+import com.diskusage.domain.usecases.diskentry.*
 import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
 import org.koin.core.module.dsl.singleOf
@@ -27,6 +22,7 @@ val domainModule = module {
     singleOf(::GetChartItem)
     singleOf(::GetChartData)
     singleOf(::GetColor)
+    singleOf(::GetDiskEntry)
     singleOf(::GetDiskEntriesList)
     singleOf(::IncludeDiskEntry)
     singleOf(::SortDiskEntries)
