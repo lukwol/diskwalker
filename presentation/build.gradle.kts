@@ -11,6 +11,7 @@ dependencies {
 
     implementation(libs.viewmodel.screens.navigation)
     implementation(libs.windows.navigation)
+    implementation(libs.async)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
     implementation(libs.koin.core)

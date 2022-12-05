@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.diskusage.domain.common.Constants
 import com.diskusage.presentation.navigation.AppRoutes
+import io.github.anvell.async.Success
+import io.github.anvell.async.Uninitialized
 import io.github.lukwol.screens.navigation.LocalScreensController
 import java.nio.file.Path
 
@@ -31,6 +33,7 @@ fun DashboardScreen(viewModel: DashboardViewModel) {
             .fillMaxSize()
     ) {
         Button(
+            enabled = viewState.selectedDiskEntry == Uninitialized,
             onClick = {
                 viewModel.selectScannedPath(Path.of(Constants.Disk.RootDiskPath))
             }
@@ -40,8 +43,8 @@ fun DashboardScreen(viewModel: DashboardViewModel) {
     }
 
     LaunchedEffect(selectedDiskEntry) {
-        if (selectedDiskEntry != null) {
-            screensController.push(AppRoutes.ChartScreen, selectedDiskEntry)
+        if (selectedDiskEntry is Success) {
+            screensController.push(AppRoutes.ChartScreen, selectedDiskEntry())
         }
     }
 }
