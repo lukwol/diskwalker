@@ -3,14 +3,12 @@ package com.diskusage.presentation.screens.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -27,7 +25,6 @@ import com.diskusage.domain.model.ChartItem
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
-import com.diskusage.presentation.di.ViewModelProvider
 import com.diskusage.presentation.screens.chart.components.Chart
 import com.diskusage.presentation.screens.chart.components.ItemHeader
 import com.diskusage.presentation.screens.chart.components.ItemRow
@@ -37,8 +34,7 @@ private const val ListWeight = 1f
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun ChartComponent(diskEntry: DiskEntry) {
-    val viewModel = remember { ViewModelProvider.getChartViewModel(diskEntry) }
+fun ChartScreen(viewModel: ChartViewModel) {
     val viewState by viewModel.viewState.collectAsState()
 
     val listData = viewState.listData
@@ -57,7 +53,10 @@ fun ChartComponent(diskEntry: DiskEntry) {
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier
+            .background(MaterialTheme.colors.background)
+            .fillMaxSize()
+            .padding(20.dp)
     ) {
         if (listData != null) {
             val (selectedItem, childItems) = listData

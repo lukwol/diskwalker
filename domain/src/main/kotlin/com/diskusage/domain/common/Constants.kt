@@ -8,8 +8,13 @@ object Constants {
 
     const val HeavyOperationsTimeout = 300L
 
+    /**
+     * Disk related constants
+     */
     object Disk {
         const val DefaultDiskName = "Unknown Disk"
+
+        const val RootDiskPath = "/"
 
         val UncheckedPaths = when (OsUtils.currentOS) {
             OS.MacOS -> listOf("/System/Volumes/Data")

@@ -1,7 +1,6 @@
 package com.diskusage.presentation.screens.chart.components
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -109,12 +108,10 @@ private fun Item(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .background(MaterialTheme.colors.background)
-            .padding(
-                horizontal = 8.dp,
-                vertical = 4.dp
-            )
+        modifier = modifier.padding(
+            horizontal = 8.dp,
+            vertical = 4.dp
+        )
     ) {
         Box(
             contentAlignment = Alignment.Center,
