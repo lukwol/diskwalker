@@ -10,7 +10,17 @@ fun AppTheme(
 ) {
     MaterialTheme(
         colors = darkColors(
-            background = ColorPalette.Onyx
+            background = ColorPalette.Onyx,
+            surface = ColorPalette.Oxley,
+            primary = ColorPalette.DarkSeaGreen,
+            primaryVariant = ColorPalette.Menthol,
+            secondary = ColorPalette.Ube,
+            secondaryVariant = ColorPalette.BabyBlueEyes,
+            onBackground = ColorPalette.Lotion,
+            onPrimary = ColorPalette.Lotion,
+            onSecondary = ColorPalette.Lotion,
+            onSurface = ColorPalette.Lotion,
+            onError = ColorPalette.Lotion
         ),
         content = content
     )
