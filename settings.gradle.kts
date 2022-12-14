@@ -8,3 +8,5 @@ include(":libraries:formatters")
 include(":libraries:ranges")
 include(":libraries:support")
 include(":libraries:utils")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

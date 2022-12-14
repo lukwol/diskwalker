@@ -5,9 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":libraries:formatters"))
-    implementation(project(":libraries:ranges"))
+    implementation(projects.domain)
+    implementation(projects.libraries.formatters)
+    implementation(projects.libraries.ranges)
 
     implementation(libs.viewmodel.screens.navigation)
     implementation(libs.windows.navigation)

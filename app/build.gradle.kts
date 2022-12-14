@@ -7,10 +7,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":presentation"))
-    implementation(project(":libraries:support"))
+    implementation(projects.data)
+    implementation(projects.domain)
+    implementation(projects.presentation)
+    implementation(projects.libraries.support)
 
     implementation(libs.koin.core)
     implementation(libs.coroutines.core)

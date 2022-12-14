@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":libraries:ranges"))
-    implementation(project(":libraries:utils"))
+    implementation(projects.libraries.ranges)
+    implementation(projects.libraries.utils)
 
     implementation(libs.koin.core)
     implementation(libs.coroutines.core)
