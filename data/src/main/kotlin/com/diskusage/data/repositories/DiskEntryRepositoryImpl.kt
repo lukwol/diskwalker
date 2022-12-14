@@ -3,7 +3,6 @@ package com.diskusage.data.repositories
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.domain.services.DisksService
 import com.diskusage.domain.services.FileSizeService
 import java.nio.file.LinkOption
 import java.nio.file.Path
@@ -13,20 +12,12 @@ import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
 class DiskEntryRepositoryImpl(
-    private val fileSizeService: FileSizeService,
-    private val disksService: DisksService
+    private val fileSizeService: FileSizeService
 ) : DiskEntryRepository {
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
-    override fun diskEntry(path: Path): DiskEntry {
-        val diskName = disksService.name(path.absolutePathString()) ?: Constants.Disk.DefaultDiskName
-        return diskEntry(
-            path = path,
-            name = diskName,
-            parent = null
-        )
-    }
+    override fun diskEntry(path: Path): DiskEntry = diskEntry(path, null)
 
     private fun diskEntry(
         path: Path,
