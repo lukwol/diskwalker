@@ -42,12 +42,14 @@ fun DiskButton(
                         enabled = enabled,
                         onClick = onClick
                     )
-                    .padding(60.dp)
+                    .padding(40.dp)
             ) {
                 Icon(
                     painter = painterResource("hard-drive-outlined.svg"),
                     contentDescription = title,
-                    modifier = Modifier.matchParentSize()
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .matchParentSize()
                 )
 
                 Text(
