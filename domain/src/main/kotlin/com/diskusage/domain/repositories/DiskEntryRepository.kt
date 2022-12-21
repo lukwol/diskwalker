@@ -1,6 +1,8 @@
 package com.diskusage.domain.repositories
 
 import com.diskusage.domain.model.DiskEntry
+import io.github.anvell.async.Async
+import kotlinx.coroutines.flow.Flow
 import java.nio.file.Path
 
 /**
@@ -8,5 +10,5 @@ import java.nio.file.Path
  * and builds its child items tree.
  */
 interface DiskEntryRepository {
-    fun diskEntry(path: Path): DiskEntry
+    fun diskEntry(path: Path): Flow<Async<DiskEntry>>
 }

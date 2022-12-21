@@ -9,6 +9,7 @@ dependencies {
     implementation(projects.libraries.utils)
 
     implementation(libs.koin.core)
+    implementation(libs.async.state)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.swing)
 

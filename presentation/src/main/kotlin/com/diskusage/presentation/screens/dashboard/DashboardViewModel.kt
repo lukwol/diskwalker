@@ -1,8 +1,8 @@
 package com.diskusage.presentation.screens.dashboard
 
 import com.diskusage.domain.usecases.diskentry.GetDiskEntry
+import io.github.anvell.async.Loading
 import io.github.anvell.async.state.AsyncState
-import io.github.anvell.async.state.asyncWithScope
 import io.github.lukwol.viewmodel.ViewModel
 
 class DashboardViewModel(
@@ -12,9 +12,13 @@ class DashboardViewModel(
     fun onCommand(command: DashboardCommand) = with(command) {
         when (this) {
             is SelectScannedPath ->
-                viewModelScope
-                    .asyncWithScope { getDiskEntry(path) }
-                    .catchAsState { copy(selectedDiskEntry = it) }
+                getDiskEntry(path)
+                    .collectAsyncAsState(
+                        scope = viewModelScope,
+                        initialState = Loading(0.0f)
+                    ) {
+                        copy(selectedDiskEntry = it)
+                    }
         }
     }
 }

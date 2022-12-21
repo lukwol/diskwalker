@@ -26,14 +26,14 @@ fun DiskButton(
 ) {
     Box(
         modifier = modifier
-            .size(360.dp)
+            .size(290.dp)
             .aspectRatio(1f)
     ) {
         Surface(
             shape = CircleShape,
             modifier = Modifier
                 .matchParentSize()
-                .padding(30.dp)
+                .padding(20.dp)
         ) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -67,6 +67,7 @@ fun DiskButton(
         if (progress != null) {
             CircularProgressIndicator(
                 progress = progress,
+                strokeWidth = 6.dp,
                 modifier = Modifier.matchParentSize()
             )
         }

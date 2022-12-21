@@ -3,7 +3,15 @@ package com.diskusage.data.repositories
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
+import com.diskusage.domain.services.DisksService
 import com.diskusage.domain.services.FileSizeService
+import io.github.anvell.async.Async
+import io.github.anvell.async.Loading
+import io.github.anvell.async.Success
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
 import java.nio.file.LinkOption
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
@@ -12,14 +20,30 @@ import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 
 class DiskEntryRepositoryImpl(
-    private val fileSizeService: FileSizeService
+    private val fileSizeService: FileSizeService,
+    private val disksService: DisksService
 ) : DiskEntryRepository {
+
+    private var totalSize = 0L
+
+    private var estimatedSize = 0L
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
-    override fun diskEntry(path: Path): DiskEntry = diskEntry(path, null)
+    override fun diskEntry(path: Path): Flow<Async<DiskEntry>> {
+        estimatedSize = disksService.availableSpace(path.absolutePathString())
 
-    private fun diskEntry(
+        return flow {
+            val diskEntry = diskEntry(path, null).apply {
+                name = Constants.Disk.DefaultDiskName
+            }
+            emit(Loading(1f))
+            delay(300)
+            emit(Success(diskEntry))
+        }
+    }
+
+    private suspend fun FlowCollector<Async<DiskEntry>>.diskEntry(
         path: Path,
         parent: DiskEntry?,
         name: String = path.name
@@ -42,16 +66,21 @@ class DiskEntryRepositoryImpl(
             }.getOrNull() ?: emptyList()
         }
     }.apply {
-        sizeOnDisk = sizeOnDisk()
+        sizeOnDisk = sizeOnDisk().also {
+            val progress = (totalSize.toFloat() / estimatedSize.toFloat()).coerceAtMost(0.99f)
+            emit(Loading(progress))
+        }
     }
 
-    private fun DiskEntry.sizeOnDisk(): Long = cachedSizes[path]
-        ?: when (this.type) {
-            DiskEntry.Type.Directory -> children.sumOf { it.sizeOnDisk() }
-            DiskEntry.Type.File -> runCatching {
-                fileSizeService.sizeOnDisk(path.absolutePathString())
-            }.getOrNull() ?: 0
-        }.also { size ->
-            cachedSizes[path] = size
-        }
+    private fun DiskEntry.sizeOnDisk(): Long = when (this.type) {
+        DiskEntry.Type.Directory -> cachedSizes[path]
+            ?: children.sumOf(DiskEntry::sizeOnDisk)
+                .also { cachedSizes[path] = it }
+
+        DiskEntry.Type.File -> runCatching {
+            fileSizeService
+                .sizeOnDisk(path.absolutePathString())
+                .also { totalSize += it }
+        }.getOrNull() ?: 0
+    }
 }
