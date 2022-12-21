@@ -31,11 +31,12 @@ class DiskEntryRepositoryImpl(
     private val cachedSizes = mutableMapOf<Path, Long>()
 
     override fun diskEntry(path: Path): Flow<Async<DiskEntry>> {
-        estimatedSize = disksService.availableSpace(path.absolutePathString())
+        val absolutePathString = path.absolutePathString()
+        estimatedSize = disksService.availableSpace(absolutePathString)
 
         return flow {
             val diskEntry = diskEntry(path, null).apply {
-                name = Constants.Disk.DefaultDiskName
+                name = disksService.name(absolutePathString) ?: Constants.Disk.DefaultDiskName
             }
             emit(Loading(1f))
             delay(300)

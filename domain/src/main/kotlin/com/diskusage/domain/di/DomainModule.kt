@@ -4,6 +4,9 @@ import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.GetChartItem
 import com.diskusage.domain.usecases.chart.item.GetColor
 import com.diskusage.domain.usecases.chart.item.arc.*
+import com.diskusage.domain.usecases.disk.GetDiskAvailableSpace
+import com.diskusage.domain.usecases.disk.GetDiskName
+import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
 import com.diskusage.domain.usecases.diskentry.*
 import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
@@ -29,4 +32,7 @@ val domainModule = module {
     singleOf(::GetDepth)
     singleOf(::GetRelationship)
     singleOf(::GetRoot)
+    singleOf(::GetDiskName)
+    singleOf(::GetDiskTotalSpace)
+    singleOf(::GetDiskAvailableSpace)
 }

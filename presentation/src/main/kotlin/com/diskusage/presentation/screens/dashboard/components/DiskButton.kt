@@ -2,10 +2,7 @@ package com.diskusage.presentation.screens.dashboard.components
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -18,7 +15,9 @@ import com.diskusage.presentation.preview.PreviewEnvironment
 
 @Composable
 fun DiskButton(
-    title: String,
+    diskName: String,
+    availableDiskSize: String,
+    totalDiskSize: String,
     enabled: Boolean,
     modifier: Modifier = Modifier,
     progress: Float? = null,
@@ -26,7 +25,7 @@ fun DiskButton(
 ) {
     Box(
         modifier = modifier
-            .size(290.dp)
+            .size(310.dp)
             .aspectRatio(1f)
     ) {
         Surface(
@@ -46,21 +45,33 @@ fun DiskButton(
             ) {
                 Icon(
                     painter = painterResource("hard-drive-outlined.svg"),
-                    contentDescription = title,
+                    contentDescription = diskName,
                     modifier = Modifier
-                        .padding(20.dp)
+                        .padding(30.dp)
                         .matchParentSize()
                 )
 
-                Text(
-                    text = title,
-                    maxLines = 1,
-                    overflow = TextOverflow.Clip,
-                    style = MaterialTheme.typography.h6,
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
-                        .padding(horizontal = 10.dp)
+                        .padding(horizontal = 20.dp)
                         .align(Alignment.BottomCenter)
-                )
+                ) {
+                    Text(
+                        text = diskName,
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip,
+                        style = MaterialTheme.typography.subtitle1
+                    )
+
+                    Text(
+                        text = "$availableDiskSize / $totalDiskSize",
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip,
+                        style = MaterialTheme.typography.subtitle2
+                    )
+                }
             }
         }
 
@@ -78,9 +89,11 @@ fun DiskButton(
 @Composable
 private fun Preview() = PreviewEnvironment {
     DiskButton(
-        title = "Macintosh HD",
-        progress = 0.7f,
+        diskName = "Macintosh HD",
+        availableDiskSize = "203.87 GB",
+        totalDiskSize = "494.34 GB",
         enabled = true,
+        progress = 0.7f,
         onClick = {}
     )
 }

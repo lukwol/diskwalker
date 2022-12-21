@@ -4,7 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.domain)
-
     implementation(libs.koin.core)
 }

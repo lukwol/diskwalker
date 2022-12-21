@@ -24,7 +24,7 @@ fun DashboardScreen(
 ) {
     val screensController = LocalScreensController.current
 
-    val selectedDiskEntry = state.selectedDiskEntry
+    val (diskName, totalDiskSize, availableDiskSize, selectedDiskEntry) = state
 
     Box(
         contentAlignment = Alignment.Center,
@@ -32,12 +32,16 @@ fun DashboardScreen(
             .background(MaterialTheme.colors.background)
             .fillMaxSize()
     ) {
-        DiskButton(
-            title = "Macintosh HD",
-            progress = (selectedDiskEntry as? Loading)?.progress,
-            enabled = selectedDiskEntry == Uninitialized
-        ) {
-            commands(SelectScannedPath(Path.of(Constants.Disk.RootDiskPath)))
+        if (diskName is Success && totalDiskSize is Success && availableDiskSize is Success) {
+            DiskButton(
+                diskName = diskName.value,
+                availableDiskSize = availableDiskSize.value,
+                totalDiskSize = totalDiskSize.value,
+                progress = (selectedDiskEntry as? Loading)?.progress,
+                enabled = selectedDiskEntry == Uninitialized
+            ) {
+                commands(SelectScannedPath(Path.of(Constants.Disk.RootDiskPath)))
+            }
         }
     }
 
