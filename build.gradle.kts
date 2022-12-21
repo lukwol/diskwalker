@@ -17,11 +17,6 @@ allprojects {
         plugin("org.jetbrains.dokka")
     }
 
-    repositories {
-        mavenCentral()
-        maven("https://jitpack.io")
-    }
-
     group = "io.github.lukwol"
     version = "1.0.0"
 
