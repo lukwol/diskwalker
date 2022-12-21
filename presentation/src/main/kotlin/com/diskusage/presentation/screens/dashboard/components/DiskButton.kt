@@ -19,9 +19,9 @@ import com.diskusage.presentation.preview.PreviewEnvironment
 @Composable
 fun DiskButton(
     title: String,
-    progress: Float,
     enabled: Boolean,
     modifier: Modifier = Modifier,
+    progress: Float? = null,
     onClick: () -> Unit
 ) {
     Box(
@@ -64,10 +64,12 @@ fun DiskButton(
             }
         }
 
-        CircularProgressIndicator(
-            progress = progress,
-            modifier = Modifier.matchParentSize()
-        )
+        if (progress != null) {
+            CircularProgressIndicator(
+                progress = progress,
+                modifier = Modifier.matchParentSize()
+            )
+        }
     }
 }
 

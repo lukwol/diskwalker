@@ -17,7 +17,7 @@ dependencies {
     implementation(libs.koin.core)
 
     implementation(compose.desktop.currentOs)
-    implementation(libs.compose.icons)
+    implementation(compose.materialIconsExtended)
 }
 
 compose {

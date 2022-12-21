@@ -22,7 +22,6 @@ kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-compose-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose" }
 compose-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose" }
 compose-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

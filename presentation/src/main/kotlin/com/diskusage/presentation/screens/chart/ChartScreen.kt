@@ -9,7 +9,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -34,11 +36,12 @@ private const val ListWeight = 1f
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun ChartScreen(viewModel: ChartViewModel) {
-    val viewState by viewModel.viewState.collectAsState()
-
-    val listData = viewState.listData
-    val chartData = viewState.chartData
+fun ChartScreen(
+    state: ChartViewState,
+    commands: (ChartCommand) -> Unit
+) {
+    val listData = state.listData
+    val chartData = state.chartData
 
     val lazyListState = rememberLazyListState()
 
@@ -76,7 +79,7 @@ fun ChartScreen(viewModel: ChartViewModel) {
                             modifier = Modifier
                                 .clickable(
                                     enabled = !animatable.isRunning && selectedItem.diskEntry.parent != null,
-                                    onClick = { viewModel.onSelectDiskEntry(selectedItem.diskEntry) }
+                                    onClick = { commands(OnSelectDiskEntry(selectedItem.diskEntry)) }
                                 )
                         )
                     }
@@ -88,7 +91,7 @@ fun ChartScreen(viewModel: ChartViewModel) {
                                 enabled = !animatable.isRunning &&
                                     item.diskEntry.type == DiskEntry.Type.Directory &&
                                     item.diskEntry.sizeOnDisk > 0L,
-                                onClick = { viewModel.onSelectDiskEntry(item.diskEntry) }
+                                onClick = { commands(OnSelectDiskEntry(item.diskEntry)) }
                             )
                         )
                     }
@@ -118,13 +121,13 @@ fun ChartScreen(viewModel: ChartViewModel) {
                     .onPointerEvent(PointerEventType.Move) { pointerEvent ->
                         if (!animatable.isRunning) {
                             val position = pointerEvent.changes.first().position - size.center.toOffset()
-                            viewModel.onChartPositionHovered(position)
+                            commands(OnChartPositionHovered(position))
                         }
                     }
                     .onPointerEvent(PointerEventType.Press) { pointerEvent ->
                         if (!animatable.isRunning) {
                             val position = pointerEvent.changes.first().position - size.center.toOffset()
-                            viewModel.onChartPositionClicked(position)
+                            commands(OnChartPositionClicked(position))
                         }
                     }
             )
