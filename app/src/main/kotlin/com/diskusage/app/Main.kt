@@ -24,7 +24,9 @@ fun main() {
         )
     }
 
-    singleWindowApplication {
+    singleWindowApplication(
+        title = "DiskUsage"
+    ) {
         AppTheme {
             AppNavigation()
         }
