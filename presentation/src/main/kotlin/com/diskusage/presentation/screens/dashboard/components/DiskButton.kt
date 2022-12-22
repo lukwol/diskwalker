@@ -1,5 +1,6 @@
 package com.diskusage.presentation.screens.dashboard.components
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -75,13 +76,11 @@ fun DiskButton(
             }
         }
 
-        if (progress != null) {
-            CircularProgressIndicator(
-                progress = progress,
-                strokeWidth = 6.dp,
-                modifier = Modifier.matchParentSize()
-            )
-        }
+        CircularProgressIndicator(
+            progress = animateFloatAsState(progress ?: 0f).value,
+            strokeWidth = 6.dp,
+            modifier = Modifier.matchParentSize()
+        )
     }
 }
 
