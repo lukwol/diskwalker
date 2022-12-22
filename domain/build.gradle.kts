@@ -8,7 +8,6 @@ dependencies {
     implementation(projects.libraries.ranges)
     implementation(projects.libraries.utils)
     implementation(projects.libraries.formatters)
-    implementation(projects.libraries.support)
 
     implementation(libs.koin.core)
     implementation(libs.async.state)
