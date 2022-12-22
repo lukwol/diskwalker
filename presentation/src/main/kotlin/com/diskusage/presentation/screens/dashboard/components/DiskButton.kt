@@ -17,7 +17,7 @@ import com.diskusage.presentation.preview.PreviewEnvironment
 @Composable
 fun DiskButton(
     diskName: String,
-    availableDiskSize: String,
+    takenDiskSpace: String,
     totalDiskSize: String,
     enabled: Boolean,
     modifier: Modifier = Modifier,
@@ -67,7 +67,7 @@ fun DiskButton(
                     )
 
                     Text(
-                        text = "$availableDiskSize / $totalDiskSize",
+                        text = "$takenDiskSpace / $totalDiskSize",
                         maxLines = 1,
                         overflow = TextOverflow.Clip,
                         style = MaterialTheme.typography.subtitle2
@@ -89,7 +89,7 @@ fun DiskButton(
 private fun Preview() = PreviewEnvironment {
     DiskButton(
         diskName = "Macintosh HD",
-        availableDiskSize = "203.87 GB",
+        takenDiskSpace = "203.87 GB",
         totalDiskSize = "494.34 GB",
         enabled = true,
         progress = 0.7f,

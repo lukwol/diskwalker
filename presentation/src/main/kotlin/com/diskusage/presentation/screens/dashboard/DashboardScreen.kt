@@ -24,7 +24,7 @@ fun DashboardScreen(
 ) {
     val screensController = LocalScreensController.current
 
-    val (diskName, totalDiskSize, availableDiskSize, selectedDiskEntry) = state
+    val (diskName, totalDiskSize, takenDiskSpace, selectedDiskEntry) = state
 
     Box(
         contentAlignment = Alignment.Center,
@@ -32,10 +32,10 @@ fun DashboardScreen(
             .background(MaterialTheme.colors.background)
             .fillMaxSize()
     ) {
-        if (diskName is Success && totalDiskSize is Success && availableDiskSize is Success) {
+        if (diskName is Success && totalDiskSize is Success && takenDiskSpace is Success) {
             DiskButton(
                 diskName = diskName.value,
-                availableDiskSize = availableDiskSize.value,
+                takenDiskSpace = takenDiskSpace.value,
                 totalDiskSize = totalDiskSize.value,
                 progress = (selectedDiskEntry as? Loading)?.progress,
                 enabled = selectedDiskEntry == Uninitialized

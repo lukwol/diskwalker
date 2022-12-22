@@ -24,15 +24,16 @@ class DiskEntryRepositoryImpl(
     private val disksService: DisksService
 ) : DiskEntryRepository {
 
-    private var totalSize = 0L
+    private var calculatedSpace = 0L
 
-    private var estimatedSize = 0L
+    private var diskTakenSpace = 0L
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
     override fun diskEntry(path: Path): Flow<Async<DiskEntry>> {
         val absolutePathString = path.absolutePathString()
-        estimatedSize = disksService.availableSpace(absolutePathString)
+        diskTakenSpace = disksService
+            .run { totalSpace(Constants.Disk.RootDiskPath) - availableSpace(Constants.Disk.RootDiskPath) }
 
         return flow {
             val diskEntry = diskEntry(path, null).apply {
@@ -68,7 +69,7 @@ class DiskEntryRepositoryImpl(
         }
     }.apply {
         sizeOnDisk = sizeOnDisk().also {
-            val progress = (totalSize.toFloat() / estimatedSize.toFloat()).coerceAtMost(0.99f)
+            val progress = (calculatedSpace.toFloat() / diskTakenSpace.toFloat()).coerceAtMost(0.99f)
             emit(Loading(progress))
         }
     }
@@ -81,7 +82,7 @@ class DiskEntryRepositoryImpl(
         DiskEntry.Type.File -> runCatching {
             fileSizeService
                 .sizeOnDisk(path.absolutePathString())
-                .also { totalSize += it }
+                .also { calculatedSpace += it }
         }.getOrNull() ?: 0
     }
 }

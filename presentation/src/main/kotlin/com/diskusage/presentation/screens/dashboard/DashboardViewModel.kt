@@ -1,8 +1,8 @@
 package com.diskusage.presentation.screens.dashboard
 
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.usecases.disk.GetDiskAvailableSpace
 import com.diskusage.domain.usecases.disk.GetDiskName
+import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
 import com.diskusage.domain.usecases.diskentry.GetDiskEntry
 import io.github.anvell.async.Loading
@@ -14,7 +14,7 @@ class DashboardViewModel(
     private val getDiskEntry: GetDiskEntry,
     private val getDiskName: GetDiskName,
     private val getDiskTotalSpace: GetDiskTotalSpace,
-    private val getDiskAvailableSpace: GetDiskAvailableSpace
+    private val getDiskTakenSpace: GetDiskTakenSpace
 ) : ViewModel(), AsyncState<DashboardViewState> by AsyncState.Delegate(DashboardViewState()) {
 
     init {
@@ -24,11 +24,11 @@ class DashboardViewModel(
 
         viewModelScope
             .asyncWithScope { getDiskTotalSpace(Constants.Disk.RootDiskPath) }
-            .catchAsState { copy(diskTotalSpace = it) }
+            .catchAsState { copy(totalDiskSpace = it) }
 
         viewModelScope
-            .asyncWithScope { getDiskAvailableSpace(Constants.Disk.RootDiskPath) }
-            .catchAsState { copy(diskAvailableSpace = it) }
+            .asyncWithScope { getDiskTakenSpace(Constants.Disk.RootDiskPath) }
+            .catchAsState { copy(takenDiskSpace = it) }
     }
 
     fun onCommand(command: DashboardCommand) = with(command) {
