@@ -6,8 +6,7 @@ import com.diskusage.domain.model.DiskEntry
 import com.diskusage.presentation.di.ViewModelProvider
 import com.diskusage.presentation.screens.chart.ChartScreen
 import com.diskusage.presentation.screens.dashboard.DashboardScreen
-import io.github.lukwol.screens.navigation.ScreensNavigation
-import io.github.lukwol.viewmodel.screens.navigation.screen
+import io.github.lukwol.viewmodel.screens.navigation.ScreensNavigation
 
 @Composable
 fun AppNavigation() {

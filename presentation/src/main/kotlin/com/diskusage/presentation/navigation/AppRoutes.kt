@@ -1,8 +1,6 @@
 package com.diskusage.presentation.navigation
 
-import io.github.lukwol.screens.navigation.ScreenRoute
-
 object AppRoutes {
-    val DashboardScreen = ScreenRoute("scan-result-screen")
-    val ChartScreen = ScreenRoute("chart-screen")
+    const val DashboardScreen = "scan-result-screen"
+    const val ChartScreen = "chart-screen"
 }
