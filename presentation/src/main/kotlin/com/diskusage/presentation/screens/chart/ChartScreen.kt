@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -57,7 +56,6 @@ fun ChartScreen(
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
-            .background(MaterialTheme.colors.background)
             .fillMaxSize()
             .padding(20.dp)
     ) {

@@ -1,9 +1,7 @@
 package com.diskusage.presentation.screens.dashboard
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -28,9 +26,7 @@ fun DashboardScreen(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         if (diskName is Success && totalDiskSize is Success && takenDiskSpace is Success) {
             DiskButton(
