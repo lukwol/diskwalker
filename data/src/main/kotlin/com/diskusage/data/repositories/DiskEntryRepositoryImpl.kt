@@ -3,13 +3,12 @@ package com.diskusage.data.repositories
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
-import com.diskusage.domain.services.DisksService
 import com.diskusage.domain.services.FileSizeService
+import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Async
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import java.nio.file.LinkOption
@@ -21,7 +20,7 @@ import kotlin.io.path.name
 
 class DiskEntryRepositoryImpl(
     private val fileSizeService: FileSizeService,
-    private val disksService: DisksService
+    private val getDiskTakenSpace: GetDiskTakenSpace
 ) : DiskEntryRepository {
 
     private var calculatedSpace = 0L
@@ -30,19 +29,15 @@ class DiskEntryRepositoryImpl(
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
-    override fun diskEntry(path: Path): Flow<Async<DiskEntry>> {
-        val absolutePathString = path.absolutePathString()
-        diskTakenSpace = disksService
-            .run { totalSpace(Constants.Disk.RootDiskPath) - availableSpace(Constants.Disk.RootDiskPath) }
-
-        return flow {
-            val diskEntry = diskEntry(path, null).apply {
-                name = disksService.name(absolutePathString) ?: Constants.Disk.DefaultDiskName
-            }
-            emit(Loading(1f))
-            delay(300)
-            emit(Success(diskEntry))
-        }
+    override fun diskEntry(
+        path: Path,
+        name: String
+    ) = flow {
+        diskTakenSpace = getDiskTakenSpace(Constants.Disk.RootDiskPath)
+        val diskEntry = diskEntry(path, null).also { it.name = name }
+        emit(Loading(1f))
+        delay(300)
+        emit(Success(diskEntry))
     }
 
     private suspend fun FlowCollector<Async<DiskEntry>>.diskEntry(

@@ -5,6 +5,7 @@ import com.diskusage.domain.usecases.disk.GetDiskName
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
 import com.diskusage.domain.usecases.diskentry.GetDiskEntry
+import com.diskusage.libraries.formatters.FileSizeFormatter
 import io.github.anvell.async.Loading
 import io.github.anvell.async.state.AsyncState
 import io.github.anvell.async.state.asyncWithScope
@@ -23,11 +24,17 @@ class DashboardViewModel(
             .catchAsState { copy(diskName = it) }
 
         viewModelScope
-            .asyncWithScope { getDiskTotalSpace(Constants.Disk.RootDiskPath) }
+            .asyncWithScope {
+                getDiskTotalSpace(Constants.Disk.RootDiskPath)
+                    .let(FileSizeFormatter::toSiFormat)
+            }
             .catchAsState { copy(totalDiskSpace = it) }
 
         viewModelScope
-            .asyncWithScope { getDiskTakenSpace(Constants.Disk.RootDiskPath) }
+            .asyncWithScope {
+                getDiskTakenSpace(Constants.Disk.RootDiskPath)
+                    .let(FileSizeFormatter::toSiFormat)
+            }
             .catchAsState { copy(takenDiskSpace = it) }
     }
 

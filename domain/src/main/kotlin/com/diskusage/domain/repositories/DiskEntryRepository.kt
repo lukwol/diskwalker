@@ -10,5 +10,8 @@ import java.nio.file.Path
  * and builds its child items tree.
  */
 interface DiskEntryRepository {
-    fun diskEntry(path: Path): Flow<Async<DiskEntry>>
+    fun diskEntry(
+        path: Path,
+        name: String
+    ): Flow<Async<DiskEntry>>
 }
