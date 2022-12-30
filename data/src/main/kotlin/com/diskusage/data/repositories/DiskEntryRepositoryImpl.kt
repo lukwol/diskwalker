@@ -4,6 +4,7 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
+import com.diskusage.domain.usecases.disk.GetDiskName
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Async
 import io.github.anvell.async.Loading
@@ -20,6 +21,7 @@ import kotlin.io.path.name
 
 class DiskEntryRepositoryImpl(
     private val fileSizeService: FileSizeService,
+    private val getDiskName: GetDiskName,
     private val getDiskTakenSpace: GetDiskTakenSpace
 ) : DiskEntryRepository {
 
@@ -29,12 +31,10 @@ class DiskEntryRepositoryImpl(
 
     private val cachedSizes = mutableMapOf<Path, Long>()
 
-    override fun diskEntry(
-        path: Path,
-        name: String
-    ) = flow {
+    override fun diskEntryForDisk(path: Path) = flow {
         diskTakenSpace = getDiskTakenSpace(Constants.Disk.RootDiskPath)
-        val diskEntry = diskEntry(path, null).also { it.name = name }
+        val diskEntry = diskEntry(path, null)
+            .also { it.name = getDiskName(Constants.Disk.RootDiskPath) }
         emit(Loading(1f))
         delay(300)
         emit(Success(diskEntry))

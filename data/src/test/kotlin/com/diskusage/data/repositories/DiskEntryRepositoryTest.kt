@@ -1,14 +1,19 @@
 package com.diskusage.data.repositories
 
 import com.diskusage.data.di.dataModule
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
+import com.diskusage.domain.usecases.disk.GetDiskName
+import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkClass
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -57,7 +62,20 @@ class DiskEntryRepositoryTest : KoinTest {
             every { sizeOnDisk(bazFilePath.absolutePathString()) } returns 4096
         }
 
-        testDir = diskEntryRepository.diskEntry(testDirPath)
+        declareMock<GetDiskTakenSpace> {
+            every { this@declareMock.invoke(Constants.Disk.RootDiskPath) } returns 8192
+        }
+
+        declareMock<GetDiskName> {
+            every { this@declareMock.invoke(Constants.Disk.RootDiskPath) } returns "some disk name"
+        }
+
+        testDir = runBlocking {
+            diskEntryRepository
+                .diskEntryForDisk(testDirPath)
+                .last()
+                .unwrap()
+        }
         subDir = testDir.children.first { it.type == DiskEntry.Type.Directory }
         fooFile = testDir.children.first { it.name == "foo.txt" }
         barFile = testDir.children.first { it.name == "bar.txt" }
@@ -71,7 +89,7 @@ class DiskEntryRepositoryTest : KoinTest {
 
     @Test
     fun `test dir`(): Unit = testDir.run {
-        name shouldBe "testDir"
+        name shouldBe "some disk name"
         path shouldBe testDirPath
         parent shouldBe null
         sizeOnDisk shouldBe 256 + 1024 + 4096
