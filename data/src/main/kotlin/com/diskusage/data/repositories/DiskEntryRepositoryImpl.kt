@@ -35,8 +35,6 @@ class DiskEntryRepositoryImpl(
         diskTakenSpace = getDiskTakenSpace(Constants.Disk.RootDiskPath)
         val diskEntry = diskEntry(path, null)
             .also { it.name = getDiskName(Constants.Disk.RootDiskPath) }
-        emit(Loading(1f))
-        delay(300)
         emit(Success(diskEntry))
     }
 

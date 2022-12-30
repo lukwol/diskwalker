@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.diskusage.domain.common.Constants
 import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.screens.dashboard.components.DiskButton
+import io.github.anvell.async.Fail
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import io.github.anvell.async.Uninitialized
@@ -33,7 +34,11 @@ fun DashboardScreen(
                 diskName = diskName.value,
                 takenDiskSpace = takenDiskSpace.value,
                 totalDiskSize = totalDiskSize.value,
-                progress = (selectedDiskEntry as? Loading)?.progress,
+                progress = when (selectedDiskEntry) {
+                    is Loading -> selectedDiskEntry.progress
+                    is Success -> 1f
+                    else -> 0f
+                },
                 enabled = selectedDiskEntry == Uninitialized
             ) {
                 commands(SelectScannedPath(Path.of(Constants.Disk.RootDiskPath)))
