@@ -9,7 +9,6 @@ import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Async
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import java.nio.file.LinkOption
