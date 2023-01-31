@@ -27,7 +27,3 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
-
-compose {
-    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
-}

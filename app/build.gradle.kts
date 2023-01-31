@@ -20,8 +20,6 @@ dependencies {
 }
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
-
     desktop {
         application {
             buildTypes.release.proguard {

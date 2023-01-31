@@ -19,7 +19,3 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
 }
-
-compose {
-    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
-}
