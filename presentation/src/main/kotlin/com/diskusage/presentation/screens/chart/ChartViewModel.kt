@@ -47,40 +47,35 @@ class ChartViewModel(
         }
     }
 
-    fun onChartPositionHovered(position: Offset) {
-        val chartData = withState(ChartViewState::chartData)
-        val diskEntry = withState(ChartViewState::diskEntry)
-        if (chartData != null) {
-            val (startItems, endItems) = chartData
+    private fun onChartPositionHovered(position: Offset) = withState { state ->
+        if (state.chartData != null) {
+            val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .filter { includeDiskEntry(it.diskEntry, state.diskEntry) }
                 .find { isArcSelected(it.arc, position) }
                 .let(::onHoverDiskEntry)
         }
     }
 
-    fun onChartPositionClicked(position: Offset) {
-        val chartData = withState(ChartViewState::chartData)
-        val diskEntry = withState(ChartViewState::diskEntry)
-        if (chartData != null) {
-            val (startItems, endItems) = chartData
+    private fun onChartPositionClicked(position: Offset) = withState { state ->
+        if (state.chartData != null) {
+            val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.diskEntry, diskEntry) }
+                .filter { includeDiskEntry(it.diskEntry, state.diskEntry) }
                 .find { isArcSelected(it.arc, position) }
                 ?.let(ChartItem::diskEntry)
                 ?.let(::onSelectDiskEntry)
         }
     }
 
-    private fun onHoverDiskEntry(chartItem: ChartItem?) {
-        val diskEntry = withState(ChartViewState::diskEntry)
-        val selectedDiskEntry = chartItem?.diskEntry ?: diskEntry
-        if (selectedDiskEntry != withState(ChartViewState::listData)?.parentItem?.diskEntry) {
+    private fun onHoverDiskEntry(chartItem: ChartItem?) = withState { state ->
+        val selectedDiskEntry = chartItem?.diskEntry ?: state.diskEntry
+        if (selectedDiskEntry != state.listData?.parentItem?.diskEntry) {
             viewModelScope.launch {
                 withTimeoutOrNull(Constants.HeavyOperationsTimeout) {
                     val listData = getListData(
                         diskEntry = selectedDiskEntry,
-                        fromDiskEntry = diskEntry
+                        fromDiskEntry = state.diskEntry
                     )
                     setState {
                         copy(listData = listData)
@@ -90,8 +85,8 @@ class ChartViewModel(
         }
     }
 
-    fun onSelectDiskEntry(diskEntry: DiskEntry) {
-        val previousDiskEntry = withState(ChartViewState::diskEntry)
+    private fun onSelectDiskEntry(diskEntry: DiskEntry) = withState { state ->
+        val previousDiskEntry = state.diskEntry
         val selectedDiskEntry = when {
             diskEntry.type != DiskEntry.Type.Directory -> null
             diskEntry.sizeOnDisk == 0L -> null
