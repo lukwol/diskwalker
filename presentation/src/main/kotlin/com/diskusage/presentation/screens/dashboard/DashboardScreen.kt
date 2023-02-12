@@ -13,7 +13,6 @@ import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import io.github.anvell.async.Uninitialized
 import io.github.lukwol.screens.navigation.LocalScreensController
-import java.nio.file.Path
 
 @Composable
 fun DashboardScreen(
@@ -40,7 +39,7 @@ fun DashboardScreen(
                 },
                 enabled = selectedDiskEntry == Uninitialized
             ) {
-                commands(SelectScannedPath(Path.of(Constants.Disk.RootDiskPath)))
+                commands(SelectScannedPath(Constants.Disk.RootDiskPath))
             }
         }
     }

@@ -7,7 +7,7 @@ dependencies {
     implementation(projects.domain)
 
     implementation(libs.koin.core)
-    implementation(libs.async.state)
+    implementation(libs.async.core)
     implementation(libs.coroutines.core)
 
     testImplementation(libs.junit5)

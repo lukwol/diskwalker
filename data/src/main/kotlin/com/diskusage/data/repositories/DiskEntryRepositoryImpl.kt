@@ -55,7 +55,7 @@ class DiskEntryRepositoryImpl(
             children = runCatching {
                 path
                     .listDirectoryEntries()
-                    .filterNot { it.absolutePathString() in Constants.Disk.UncheckedPaths }
+                    .filterNot { it in Constants.Disk.UncheckedPaths }
                     .map { diskEntry(it, this) }
             }.getOrNull() ?: emptyList()
         }
