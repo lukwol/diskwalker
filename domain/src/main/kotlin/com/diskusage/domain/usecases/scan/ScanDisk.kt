@@ -8,7 +8,7 @@ import java.nio.file.Path
 
 class ScanDisk(private val repository: ScanRepository) {
 
-    suspend operator fun invoke(disk: Path) = repository
+    operator fun invoke(disk: Path) = repository
         .scanDisk(disk)
         .distinctUntilChanged()
         .flowOn(Dispatchers.IO)

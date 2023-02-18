@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -30,6 +32,7 @@ import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
 import com.diskusage.presentation.screens.chart.components.ItemHeader
 import com.diskusage.presentation.screens.chart.components.ItemRow
+import kotlin.io.path.absolutePathString
 
 private const val ChartWeight = 2f
 private const val ListWeight = 1f
@@ -46,6 +49,18 @@ fun ChartScreen(
     val lazyListState = rememberLazyListState()
 
     val animatable = remember(chartData?.endItems) { Animatable(0f) }
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Card {
+            Text(
+                text = state.path.absolutePathString(),
+                modifier = Modifier.padding(20.dp)
+            )
+        }
+    }
 
     LaunchedEffect(chartData?.endItems) {
         animatable.animateTo(

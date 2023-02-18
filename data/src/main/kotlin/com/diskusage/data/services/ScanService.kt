@@ -1,13 +1,10 @@
 package com.diskusage.data.services
 
+import com.diskusage.data.ScanResult
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.DiskInfo
 import com.diskusage.domain.model.scan.ScanItem
-import com.diskusage.domain.model.scan.ScanResult
 import com.diskusage.domain.services.FileSizeService
-import com.diskusage.domain.usecases.disk.GetDiskName
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
-import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import kotlinx.coroutines.async
@@ -23,13 +20,11 @@ import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-class ScanService(
+internal class ScanService(
     private val fileSizeService: FileSizeService,
-    private val getDiskName: GetDiskName,
-    private val getDiskTakenSpace: GetDiskTakenSpace,
-    private val getDiskTotalSpace: GetDiskTotalSpace
+    private val getDiskTakenSpace: GetDiskTakenSpace
 ) {
-    suspend fun scanDisk(disk: Path) = callbackFlow {
+    fun scanDisk(disk: Path) = callbackFlow {
         val allChildren = mutableMapOf<Path, MutableSet<Path>>()
         val allScanItems = mutableMapOf<Path, ScanItem>()
 
@@ -94,12 +89,6 @@ class ScanService(
         send(
             Success(
                 ScanResult(
-                    diskInfo = DiskInfo(
-                        path = disk,
-                        name = getDiskName(disk),
-                        takenSpace = getDiskTakenSpace(disk),
-                        totalSpace = getDiskTotalSpace(disk)
-                    ),
                     children = allChildren,
                     scanItems = allScanItems
                 )
