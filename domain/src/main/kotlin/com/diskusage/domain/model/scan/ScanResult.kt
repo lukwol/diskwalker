@@ -1,5 +1,6 @@
-package com.diskusage.domain.model
+package com.diskusage.domain.model.scan
 
+import com.diskusage.domain.model.DiskInfo
 import java.nio.file.Path
 
 class ScanResult(

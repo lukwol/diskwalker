@@ -1,4 +1,4 @@
-package com.diskusage.domain.model
+package com.diskusage.domain.model.scan
 
 sealed interface ScanItem {
     val size: Long
