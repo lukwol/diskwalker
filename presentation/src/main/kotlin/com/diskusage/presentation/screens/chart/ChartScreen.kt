@@ -1,3 +1,5 @@
+@file:Suppress("ConstPropertyName")
+
 package com.diskusage.presentation.screens.chart
 
 import androidx.compose.animation.core.Animatable

@@ -57,7 +57,7 @@ class DiskEntryRepositoryImpl(
                     .listDirectoryEntries()
                     .filterNot { it in Constants.Disk.UncheckedPaths }
                     .map { diskEntry(it, this) }
-            }.getOrNull() ?: emptyList()
+            }.getOrNull().orEmpty()
         }
     }.apply {
         sizeOnDisk = sizeOnDisk().also {
