@@ -4,6 +4,8 @@ import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.usecases.scan.GetSizeOnDisk
+import java.nio.file.Path
 
 /**
  * Calculate sweep angle of the [Arc] based on given `diskEntry` starting from `fromDiskEntry`.
@@ -22,7 +24,8 @@ import com.diskusage.domain.usecases.diskentry.GetRoot
  */
 class GetSweepAngle(
     private val getRoot: GetRoot,
-    private val getRelationship: GetRelationship
+    private val getRelationship: GetRelationship,
+    private val getSizeOnDisk: GetSizeOnDisk
 ) {
     operator fun invoke(
         diskEntry: DiskEntry,
@@ -31,6 +34,19 @@ class GetSweepAngle(
         DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
         DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> 0f
         DiskEntry.Relationship.Ancestor -> (diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
+            .takeIf(Double::isFinite)
+            ?.times(360)
+            ?.toFloat()
+            ?: 0f
+    }
+
+    operator fun invoke(
+        path: Path,
+        fromPath: Path = getRoot(path)
+    ) = when (getRelationship(path, fromPath)) {
+        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
+        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> 0f
+        DiskEntry.Relationship.Ancestor -> (getSizeOnDisk(path).toDouble() / getSizeOnDisk(fromPath).toDouble())
             .takeIf(Double::isFinite)
             ?.times(360)
             ?.toFloat()
