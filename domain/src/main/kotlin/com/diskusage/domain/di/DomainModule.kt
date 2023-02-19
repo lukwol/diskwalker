@@ -13,6 +13,7 @@ import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
 import com.diskusage.domain.usecases.scan.GetChildren
 import com.diskusage.domain.usecases.scan.GetScanItem
+import com.diskusage.domain.usecases.scan.GetSizeOnDisk
 import com.diskusage.domain.usecases.scan.ScanDisk
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -39,6 +40,7 @@ val domainModule = module {
     singleOf(::ScanDisk)
     singleOf(::GetChildren)
     singleOf(::GetScanItem)
+    singleOf(::GetSizeOnDisk)
     singleOf(::GetDiskInfo)
     singleOf(::GetDiskName)
     singleOf(::GetDiskTotalSpace)
