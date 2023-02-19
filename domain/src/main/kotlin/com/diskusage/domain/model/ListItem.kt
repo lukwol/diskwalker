@@ -1,6 +1,8 @@
 package com.diskusage.domain.model
 
 import androidx.compose.ui.graphics.Color
+import com.diskusage.domain.model.scan.ScanItem
+import java.nio.file.Path
 
 /**
  * Represents item in entries list
@@ -9,6 +11,7 @@ import androidx.compose.ui.graphics.Color
  * @property color [Color] assigned to [diskEntry]
  */
 data class ListItem(
-    val diskEntry: DiskEntry,
+    val path: Path,
+    val scanItem: ScanItem,
     var color: Color
 )

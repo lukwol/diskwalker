@@ -48,7 +48,7 @@ internal class ScanService(
                     ScanItem.File(fileSizeService.sizeOnDisk(it.pathString))
                 }
 
-                val filesSize = filesInfo.sumOf(ScanItem.File::size)
+                val filesSize = filesInfo.sumOf(ScanItem.File::sizeOnDisk)
 
                 val filesMap = files.zip(filesInfo).toMap()
 
@@ -76,7 +76,7 @@ internal class ScanService(
         fun directorySize(directory: Path): Long {
             val children = allChildren[directory].orEmpty()
             val size = children.sumOf {
-                allScanItems[it]?.size ?: directorySize(it)
+                allScanItems[it]?.sizeOnDisk ?: directorySize(it)
             }
             allScanItems[directory] = ScanItem.Directory(size)
             return size

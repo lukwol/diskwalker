@@ -21,8 +21,8 @@ class GetDiskEntriesList(
             .filter { includeDiskEntry(it, fromDiskEntry) }
             .flatMap { diskEntriesList(it, fromDiskEntry) }
 
-    private fun pathsList(path: Path, fromPath: Path = path): List<Path> =
-        listOf(path) + getChildren(path)
+    private fun pathsList(path: Path, fromPath: Path = path): Set<Path> =
+        setOf(path) + getChildren(path)
             .filter { includeDiskEntry(it, fromPath) }
             .flatMap { pathsList(it, fromPath) }
 }

@@ -23,7 +23,7 @@ class GetRelationship(
 
     operator fun invoke(path: Path, otherPath: Path) = when {
         path == otherPath -> DiskEntry.Relationship.Identity
-        otherPath in getChildren(path.parent) -> DiskEntry.Relationship.Sibling
+        otherPath in path.parent?.let(getChildren::invoke).orEmpty() -> DiskEntry.Relationship.Sibling
         path.startsWith(otherPath) -> DiskEntry.Relationship.Ancestor
         otherPath.startsWith(path) -> DiskEntry.Relationship.Descendant
         else -> DiskEntry.Relationship.Unrelated

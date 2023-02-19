@@ -1,6 +1,7 @@
 package com.diskusage.domain.model
 
 import androidx.compose.ui.graphics.Color
+import java.nio.file.Path
 
 /**
  * Represents item drawn on chart
@@ -10,7 +11,7 @@ import androidx.compose.ui.graphics.Color
  * @property color [Color] of an [Arc]
  */
 data class ChartItem(
-    val diskEntry: DiskEntry,
+    val path: Path,
     val arc: Arc,
     var color: Color
 )

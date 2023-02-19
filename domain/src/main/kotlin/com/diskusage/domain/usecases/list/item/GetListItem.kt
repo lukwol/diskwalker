@@ -1,21 +1,24 @@
 package com.diskusage.domain.usecases.list.item
 
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.ListItem
 import com.diskusage.domain.usecases.chart.item.GetColor
+import com.diskusage.domain.usecases.scan.GetScanItem
+import java.nio.file.Path
 
 /**
  * Creates [ListItem] for given `diskEntry` starting from `fromDiskEntry`.
  */
 class GetListItem(
-    private val getColor: GetColor
+    private val getColor: GetColor,
+    private val getScanItem: GetScanItem
 ) {
 
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = diskEntry
+        path: Path,
+        fromPath: Path = path
     ) = ListItem(
-        diskEntry = diskEntry,
-        color = getColor(diskEntry, fromDiskEntry)
+        path = path,
+        scanItem = getScanItem(path),
+        color = getColor(path, fromPath)
     )
 }

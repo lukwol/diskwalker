@@ -15,7 +15,7 @@ class SortDiskEntries(
     operator fun invoke(diskEntries: List<DiskEntry>) = diskEntries
         .sortedWith(compareByDescending(DiskEntry::sizeOnDisk).thenBy(DiskEntry::name))
 
-    operator fun invoke(paths: Set<Path>) = paths
+    operator fun invoke(paths: Collection<Path>) = paths
         .sortedWith(
             compareByDescending(getSizeOnDisk::invoke)
                 .thenBy(Path::name)

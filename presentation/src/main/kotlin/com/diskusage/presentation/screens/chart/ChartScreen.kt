@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -25,16 +23,16 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.scan.ScanItem
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
 import com.diskusage.presentation.screens.chart.components.ItemHeader
 import com.diskusage.presentation.screens.chart.components.ItemRow
-import kotlin.io.path.absolutePathString
 
 private const val ChartWeight = 2f
 private const val ListWeight = 1f
@@ -51,18 +49,6 @@ fun ChartScreen(
     val lazyListState = rememberLazyListState()
 
     val animatable = remember(chartData?.endItems) { Animatable(0f) }
-
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Card {
-            Text(
-                text = state.path.absolutePathString(),
-                modifier = Modifier.padding(20.dp)
-            )
-        }
-    }
 
     LaunchedEffect(chartData?.endItems) {
         animatable.animateTo(
@@ -92,10 +78,11 @@ fun ChartScreen(
                     stickyHeader {
                         ItemHeader(
                             listItem = selectedItem,
+                            diskName = state.diskInfo.name.takeIf { selectedItem.path == Constants.Disk.RootDiskPath },
                             modifier = Modifier
                                 .clickable(
-                                    enabled = !animatable.isRunning && selectedItem.diskEntry.parent != null,
-                                    onClick = { commands(OnSelectDiskEntry(selectedItem.diskEntry)) }
+                                    enabled = !animatable.isRunning && selectedItem.path.parent != null,
+                                    onClick = { commands(OnSelectDiskEntry(selectedItem.path)) }
                                 )
                                 .background(MaterialTheme.colors.background)
                         )
@@ -106,9 +93,9 @@ fun ChartScreen(
                             listItem = item,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning &&
-                                    item.diskEntry.type == DiskEntry.Type.Directory &&
-                                    item.diskEntry.sizeOnDisk > 0L,
-                                onClick = { commands(OnSelectDiskEntry(item.diskEntry)) }
+                                    item.scanItem is ScanItem.Directory &&
+                                    item.scanItem.sizeOnDisk > 0L,
+                                onClick = { commands(OnSelectDiskEntry(item.path)) }
                             )
                         )
                     }
@@ -159,7 +146,7 @@ private fun Animatable<Float, AnimationVector1D>.itemsTransition(
     .zip(toItems)
     .map { (fromItem, toItem) ->
         ChartItem(
-            diskEntry = fromItem.diskEntry,
+            path = fromItem.path,
             arc = arcTransition(fromItem.arc, toItem.arc),
             color = colorTransition(fromItem.color, toItem.color)
         )

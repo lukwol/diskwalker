@@ -3,13 +3,13 @@ package com.diskusage.domain.usecases.chart
 import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.model.ChartData
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.chart.item.GetChartItem
 import com.diskusage.domain.usecases.diskentry.GetDiskEntriesList
 import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import com.diskusage.domain.usecases.diskentry.SortDiskEntries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.nio.file.Path
 
 /**
  * Get a [GetChartData] with sorted [startItems][ChartData.startItems]
@@ -27,12 +27,13 @@ class GetChartData(
     private val includeDiskEntry: IncludeDiskEntry,
     private val getChartItem: GetChartItem
 ) {
-    suspend operator fun invoke(diskEntry: DiskEntry) = withContext(Dispatchers.Default) {
-        getDiskEntriesList(diskEntry)
+
+    suspend operator fun invoke(path: Path) = withContext(Dispatchers.Default) {
+        getDiskEntriesList(path)
             .let(sortDiskEntries::invoke)
-            .map { getChartItem(it, diskEntry) }
+            .map { getChartItem(it, path) }
             .map { chartItem ->
-                hideNotIncluded(chartItem, diskEntry)
+                hideNotIncluded(chartItem, path)
             }
             .let { startItems ->
                 ChartData(
@@ -43,15 +44,14 @@ class GetChartData(
     }
 
     suspend operator fun invoke(
-        fromDiskEntry: DiskEntry,
-        toDiskEntry: DiskEntry
+        fromPath: Path,
+        toPath: Path
     ) = withContext(Dispatchers.Default) {
-        (getDiskEntriesList(fromDiskEntry) + getDiskEntriesList(toDiskEntry))
-            .distinctBy(DiskEntry::path)
+        (getDiskEntriesList(fromPath) + getDiskEntriesList(toPath))
             .let(sortDiskEntries::invoke)
-            .map { getChartItem(it, fromDiskEntry) to getChartItem(it, toDiskEntry) }
+            .map { getChartItem(it, fromPath) to getChartItem(it, toPath) }
             .map { (startItem, endItem) ->
-                hideNotIncluded(startItem, fromDiskEntry) to hideNotIncluded(endItem, toDiskEntry)
+                hideNotIncluded(startItem, fromPath) to hideNotIncluded(endItem, toPath)
             }
             .unzip()
             .let { (startItems, endItems) ->
@@ -59,8 +59,8 @@ class GetChartData(
             }
     }
 
-    private fun hideNotIncluded(chartItem: ChartItem, fromDiskEntry: DiskEntry) = chartItem.apply {
-        if (!includeDiskEntry(diskEntry, fromDiskEntry)) {
+    private fun hideNotIncluded(chartItem: ChartItem, fromPath: Path) = chartItem.apply {
+        if (!includeDiskEntry(path, fromPath)) {
             color = color.copy(alpha = 0f)
         }
     }
