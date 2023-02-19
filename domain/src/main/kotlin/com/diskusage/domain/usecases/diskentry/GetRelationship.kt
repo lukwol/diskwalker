@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.diskentry
 
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.Relationship
 import com.diskusage.domain.usecases.scan.GetChildren
 import java.nio.file.Path
 
@@ -13,28 +13,11 @@ import java.nio.file.Path
 class GetRelationship(
     private val getChildren: GetChildren
 ) {
-    operator fun invoke(diskEntry: DiskEntry, otherDiskEntry: DiskEntry) = when {
-        diskEntry.path == otherDiskEntry.path -> DiskEntry.Relationship.Identity
-        otherDiskEntry.path in siblingsPaths(diskEntry) -> DiskEntry.Relationship.Sibling
-        diskEntry.path.startsWith(otherDiskEntry.path) -> DiskEntry.Relationship.Ancestor
-        otherDiskEntry.path.startsWith(diskEntry.path) -> DiskEntry.Relationship.Descendant
-        else -> DiskEntry.Relationship.Unrelated
-    }
-
     operator fun invoke(path: Path, otherPath: Path) = when {
-        path == otherPath -> DiskEntry.Relationship.Identity
-        otherPath in path.parent?.let(getChildren::invoke).orEmpty() -> DiskEntry.Relationship.Sibling
-        path.startsWith(otherPath) -> DiskEntry.Relationship.Ancestor
-        otherPath.startsWith(path) -> DiskEntry.Relationship.Descendant
-        else -> DiskEntry.Relationship.Unrelated
+        path == otherPath -> Relationship.Identity
+        otherPath in path.parent?.let(getChildren::invoke).orEmpty() -> Relationship.Sibling
+        path.startsWith(otherPath) -> Relationship.Ancestor
+        otherPath.startsWith(path) -> Relationship.Descendant
+        else -> Relationship.Unrelated
     }
-
-    /**
-     * All siblings for given [diskEntry] including given [diskEntry]
-     */
-    private fun siblingsPaths(diskEntry: DiskEntry) = (
-        diskEntry.parent?.children
-            ?.map(DiskEntry::path)
-            .orEmpty()
-        )
 }

@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.model.scan.ScanItem
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
@@ -30,25 +29,6 @@ class GetColor(
     private val getArc: GetArc,
     private val getScanItem: GetScanItem
 ) {
-    operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry),
-        precalculatedArc: Arc? = null
-    ) = when (diskEntry.type) {
-        DiskEntry.Type.File -> Constants.Chart.FileColor
-
-        DiskEntry.Type.Directory -> {
-            val angleEnd = precalculatedArc?.angleRange?.end
-                ?: (getStartAngle(diskEntry, fromDiskEntry) + getSweepAngle(diskEntry, fromDiskEntry))
-
-            val depth = getDepth(diskEntry, fromDiskEntry)
-            Color.hsl(
-                hue = angleEnd,
-                saturation = ((angleEnd / 360f) * 0.4f).coerceIn(0f, 0.4f),
-                lightness = (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.4f).coerceIn(0.3f, 0.7f)
-            )
-        }
-    }
 
     operator fun invoke(
         path: Path,

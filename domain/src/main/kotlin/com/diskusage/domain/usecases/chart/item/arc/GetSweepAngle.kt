@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.Relationship
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
 import com.diskusage.domain.usecases.scan.GetSizeOnDisk
@@ -28,25 +28,12 @@ class GetSweepAngle(
     private val getSizeOnDisk: GetSizeOnDisk
 ) {
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ) = when (getRelationship(diskEntry, fromDiskEntry)) {
-        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
-        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> 0f
-        DiskEntry.Relationship.Ancestor -> (diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
-            .takeIf(Double::isFinite)
-            ?.times(360)
-            ?.toFloat()
-            ?: 0f
-    }
-
-    operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path)
     ) = when (getRelationship(path, fromPath)) {
-        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 360f
-        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> 0f
-        DiskEntry.Relationship.Ancestor -> (getSizeOnDisk(path).toDouble() / getSizeOnDisk(fromPath).toDouble())
+        Relationship.Identity, Relationship.Descendant -> 360f
+        Relationship.Unrelated, Relationship.Sibling -> 0f
+        Relationship.Ancestor -> (getSizeOnDisk(path).toDouble() / getSizeOnDisk(fromPath).toDouble())
             .takeIf(Double::isFinite)
             ?.times(360)
             ?.toFloat()

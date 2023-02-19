@@ -4,7 +4,6 @@ import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.scan.GetSizeOnDisk
 import java.nio.file.Path
 
@@ -22,11 +21,6 @@ class IncludeDiskEntry(
     private val getSizeOnDisk: GetSizeOnDisk
 ) {
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ) = checkSizeInRange(diskEntry, fromDiskEntry) && checkDepthInRange(diskEntry, fromDiskEntry)
-
-    operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path)
     ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath)
@@ -37,14 +31,6 @@ class IncludeDiskEntry(
      *
      * @see MinChartItemAngle
      */
-    private fun checkSizeInRange(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry
-    ): Boolean {
-        val size = diskEntry.sizeOnDisk.toDouble() / fromDiskEntry.sizeOnDisk.toDouble()
-        return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= MinChartItemAngle
-    }
-
     private fun checkSizeInRange(
         path: Path,
         fromPath: Path
@@ -60,11 +46,6 @@ class IncludeDiskEntry(
      * @see MaxBigArcsDepth
      * @see MaxSmallArcsDepth
      */
-    private fun checkDepthInRange(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry
-    ) = getDepth(diskEntry, fromDiskEntry) <= MaxArcsDepth
-
     private fun checkDepthInRange(
         path: Path,
         fromPath: Path

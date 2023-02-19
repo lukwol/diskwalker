@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.diskentry
 
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.Relationship
 import java.nio.file.Path
 
 /**
@@ -11,29 +11,15 @@ class GetDepth(
     private val getRelationship: GetRelationship
 ) {
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ) = depth(diskEntry, fromDiskEntry)
-
-    operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path)
     ) = depth(path, fromPath)
 
-    private fun depth(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, depth: Int = 1): Int =
-        when (getRelationship(diskEntry, fromDiskEntry)) {
-            DiskEntry.Relationship.Identity -> depth
-            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0
-            DiskEntry.Relationship.Ancestor, DiskEntry.Relationship.Sibling -> {
-                depth(diskEntry.parent!!, fromDiskEntry, depth + 1)
-            }
-        }
-
     private fun depth(path: Path, fromPath: Path, depth: Int = 1): Int =
         when (getRelationship(path, fromPath)) {
-            DiskEntry.Relationship.Identity -> depth
-            DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Descendant -> 0
-            DiskEntry.Relationship.Ancestor, DiskEntry.Relationship.Sibling -> depth(
+            Relationship.Identity -> depth
+            Relationship.Unrelated, Relationship.Descendant -> 0
+            Relationship.Ancestor, Relationship.Sibling -> depth(
                 path = path.parent,
                 fromPath = fromPath,
                 depth = depth + 1

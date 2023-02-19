@@ -1,7 +1,7 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.Relationship
 import com.diskusage.domain.usecases.diskentry.GetRelationship
 import com.diskusage.domain.usecases.diskentry.GetRoot
 import com.diskusage.domain.usecases.diskentry.SortDiskEntries
@@ -34,33 +34,15 @@ class GetStartAngle(
     private val sizeOnDisk: GetSizeOnDisk
 ) {
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ): Float = when (getRelationship(diskEntry, fromDiskEntry)) {
-        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
-        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {
-            if (invoke(diskEntry) > invoke(fromDiskEntry)) 360f else 0f
-        }
-
-        DiskEntry.Relationship.Ancestor -> {
-            (calculateSizeOffset(diskEntry, fromDiskEntry).toDouble() / fromDiskEntry.sizeOnDisk.toDouble())
-                .takeIf(Double::isFinite)
-                ?.times(360)
-                ?.toFloat()
-                ?: 0f
-        }
-    }
-
-    operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path)
     ): Float = when (getRelationship(path, fromPath)) {
-        DiskEntry.Relationship.Identity, DiskEntry.Relationship.Descendant -> 0f
-        DiskEntry.Relationship.Unrelated, DiskEntry.Relationship.Sibling -> {
+        Relationship.Identity, Relationship.Descendant -> 0f
+        Relationship.Unrelated, Relationship.Sibling -> {
             if (invoke(path) > invoke(fromPath)) 360f else 0f
         }
 
-        DiskEntry.Relationship.Ancestor -> {
+        Relationship.Ancestor -> {
             (calculateSizeOffset(path, fromPath).toDouble() / sizeOnDisk(fromPath).toDouble())
                 .takeIf(Double::isFinite)
                 ?.times(360)
@@ -77,13 +59,6 @@ class GetStartAngle(
      *
      * @see largerSiblingsSize
      */
-    private fun calculateSizeOffset(diskEntry: DiskEntry, fromDiskEntry: DiskEntry, size: Long = 0): Long = when {
-        diskEntry.parent == null -> 0L
-        diskEntry == fromDiskEntry -> 0L
-        diskEntry.parent == fromDiskEntry -> size + largerSiblingsSize(diskEntry)
-        else -> calculateSizeOffset(diskEntry.parent, fromDiskEntry, size + largerSiblingsSize(diskEntry))
-    }
-
     private fun calculateSizeOffset(
         path: Path,
         fromPath: Path,
@@ -98,15 +73,9 @@ class GetStartAngle(
     /**
      * Sums all larger siblings sizes for given [DiskEntry]
      */
-    private fun largerSiblingsSize(diskEntry: DiskEntry) =
-        (diskEntry.parent?.children.orEmpty())
-            .let(sortDiskEntries::invoke)
-            .takeWhile { getRelationship(diskEntry, it) != DiskEntry.Relationship.Identity }
-            .sumOf(DiskEntry::sizeOnDisk)
-
     private fun largerSiblingsSize(path: Path) =
         (path.parent?.let(getChildren::invoke).orEmpty())
             .let(sortDiskEntries::invoke)
-            .takeWhile { getRelationship(path, it) != DiskEntry.Relationship.Identity }
+            .takeWhile { getRelationship(path, it) != Relationship.Identity }
             .sumOf(sizeOnDisk::invoke)
 }

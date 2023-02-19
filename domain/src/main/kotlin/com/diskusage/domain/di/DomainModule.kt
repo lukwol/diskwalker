@@ -30,7 +30,6 @@ val domainModule = module {
     singleOf(::GetChartItem)
     singleOf(::GetChartData)
     singleOf(::GetColor)
-    singleOf(::GetDiskEntry)
     singleOf(::GetDiskEntriesList)
     singleOf(::IncludeDiskEntry)
     singleOf(::SortDiskEntries)

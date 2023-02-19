@@ -1,7 +1,6 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
 import com.diskusage.libraries.ranges.until
@@ -18,23 +17,6 @@ class GetArc(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot
 ) {
-    operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ): Arc {
-        val depth = getDepth(diskEntry, fromDiskEntry)
-
-        val startAngle = getStartAngle(diskEntry, fromDiskEntry)
-        val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
-
-        val startRadius = getStartRadius(depth)
-        val arcWidth = getArcWidth(depth)
-
-        return Arc(
-            angleRange = startAngle until (startAngle + sweepAngle),
-            radiusRange = startRadius until (startRadius + arcWidth)
-        )
-    }
 
     operator fun invoke(
         path: Path,

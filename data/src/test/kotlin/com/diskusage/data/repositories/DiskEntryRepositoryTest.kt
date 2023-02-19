@@ -2,7 +2,6 @@ package com.diskusage.data.repositories
 
 import com.diskusage.data.di.dataModule
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.DiskEntry
 import com.diskusage.domain.repositories.DiskEntryRepository
 import com.diskusage.domain.services.FileSizeService
 import com.diskusage.domain.usecases.disk.GetDiskName

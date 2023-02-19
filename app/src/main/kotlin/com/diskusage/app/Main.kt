@@ -16,6 +16,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 fun main() {
+    // TODO: Add Path to ScanItem
+    // TODO: Get rid of scanItems map in ScanResult and change type of children to Map<ScanItem.Directory, Set<ScanItem>>
+
     SupportLibrary.loadLibrary()
 
     startKoin {
