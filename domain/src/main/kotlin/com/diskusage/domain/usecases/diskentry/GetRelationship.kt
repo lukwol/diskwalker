@@ -23,7 +23,7 @@ class GetRelationship(
 
     operator fun invoke(path: Path, otherPath: Path) = when {
         path == otherPath -> DiskEntry.Relationship.Identity
-        otherPath in siblingsPaths(path) -> DiskEntry.Relationship.Sibling
+        otherPath in getChildren(path.parent) -> DiskEntry.Relationship.Sibling
         path.startsWith(otherPath) -> DiskEntry.Relationship.Ancestor
         otherPath.startsWith(path) -> DiskEntry.Relationship.Descendant
         else -> DiskEntry.Relationship.Unrelated
@@ -37,8 +37,4 @@ class GetRelationship(
             ?.map(DiskEntry::path)
             .orEmpty()
         )
-
-    private fun siblingsPaths(path: Path) = getChildren(path.parent)
-        .getOrNull()
-        .orEmpty()
 }

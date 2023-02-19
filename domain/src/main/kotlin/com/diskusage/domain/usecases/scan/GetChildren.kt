@@ -7,4 +7,9 @@ class GetChildren(private val repository: ScanRepository) {
 
     operator fun invoke(path: Path) = repository
         .runCatching { children(path) }
+        .onFailure {
+            println("Failed to get children for path $path")
+        }
+        .getOrNull()
+        .orEmpty()
 }
