@@ -1,13 +1,13 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.DiskEntry
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.model.chart.Arc
+import com.diskusage.domain.usecases.path.GetDepth
+import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.libraries.ranges.until
+import java.nio.file.Path
 
 /**
- * Calculate the [Arc] for given `diskEntry` starting from `fromDiskEntry`
+ * Calculate the [Arc] for given `path` starting from `fromPath`
  */
 class GetArc(
     private val getStartAngle: GetStartAngle,
@@ -17,14 +17,15 @@ class GetArc(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot
 ) {
-    operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
-    ): Arc {
-        val depth = getDepth(diskEntry, fromDiskEntry)
 
-        val startAngle = getStartAngle(diskEntry, fromDiskEntry)
-        val sweepAngle = getSweepAngle(diskEntry, fromDiskEntry)
+    operator fun invoke(
+        path: Path,
+        fromPath: Path = getRoot(path)
+    ): Arc {
+        val depth = getDepth(path, fromPath)
+
+        val startAngle = getStartAngle(path, fromPath)
+        val sweepAngle = getSweepAngle(path, fromPath)
 
         val startRadius = getStartRadius(depth)
         val arcWidth = getArcWidth(depth)

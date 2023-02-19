@@ -1,52 +1,38 @@
 package com.diskusage.presentation.screens.dashboard
 
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.usecases.disk.GetDiskName
-import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
-import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
-import com.diskusage.domain.usecases.diskentry.GetDiskEntry
-import com.diskusage.libraries.formatters.FileSizeFormatter
-import io.github.anvell.async.Loading
+import com.diskusage.domain.usecases.disk.GetDiskInfo
+import com.diskusage.domain.usecases.scan.ScanDisk
 import io.github.anvell.async.state.AsyncState
-import io.github.anvell.async.state.asyncWithScope
 import io.github.lukwol.viewmodel.ViewModel
+import kotlinx.coroutines.Job
 
 class DashboardViewModel(
-    private val getDiskEntry: GetDiskEntry,
-    private val getDiskName: GetDiskName,
-    private val getDiskTotalSpace: GetDiskTotalSpace,
-    private val getDiskTakenSpace: GetDiskTakenSpace
+    private val scanDisk: ScanDisk,
+    private val getDiskInfo: GetDiskInfo
 ) : ViewModel(), AsyncState<DashboardViewState> by AsyncState.Delegate(DashboardViewState()) {
 
+    private var scanDiskJob: Job? = null
+
     init {
-        viewModelScope
-            .asyncWithScope { getDiskName(Constants.Disk.RootDiskPath) }
-            .catchAsState { copy(diskName = it) }
-
-        viewModelScope
-            .asyncWithScope {
-                getDiskTotalSpace(Constants.Disk.RootDiskPath)
-                    .let(FileSizeFormatter::toSiFormat)
-            }
-            .catchAsState { copy(totalDiskSpace = it) }
-
-        viewModelScope
-            .asyncWithScope {
-                getDiskTakenSpace(Constants.Disk.RootDiskPath)
-                    .let(FileSizeFormatter::toSiFormat)
-            }
-            .catchAsState { copy(takenDiskSpace = it) }
+        setState {
+            copy(diskInfo = getDiskInfo(Constants.Disk.RootDiskPath))
+        }
     }
 
-    fun onCommand(command: DashboardCommand) = with(command) {
-        when (this) {
-            is SelectScannedPath -> getDiskEntry(path)
-                .collectAsyncAsState(
-                    scope = viewModelScope,
-                    initialState = Loading(0.0f)
-                ) {
-                    copy(selectedDiskEntry = it)
+    fun onCommand(command: DashboardCommand) {
+        when (command) {
+            is SelectScannedPath -> {
+                scanDiskJob = if (scanDiskJob != null) {
+                    scanDiskJob?.cancel()
+                    null
+                } else {
+                    scanDisk(command.path)
+                        .collectAsyncAsState(viewModelScope) {
+                            copy(scanState = it)
+                        }
                 }
+            }
         }
     }
 }

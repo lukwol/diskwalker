@@ -2,30 +2,42 @@ package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.chart.ChartItem
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
-import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
+import com.diskusage.domain.usecases.disk.GetDiskInfo
 import com.diskusage.domain.usecases.list.GetListData
+import com.diskusage.domain.usecases.path.GetPathInfo
+import com.diskusage.domain.usecases.path.IncludePath
 import io.github.anvell.async.state.AsyncState
 import io.github.lukwol.viewmodel.ViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import java.nio.file.Path
 
 class ChartViewModel(
-    diskEntry: DiskEntry,
+    path: Path,
     private val getChartData: GetChartData,
     private val getListData: GetListData,
-    private val includeDiskEntry: IncludeDiskEntry,
-    private val isArcSelected: IsArcSelected
-) : ViewModel(), AsyncState<ChartViewState> by AsyncState.Delegate(ChartViewState(diskEntry)) {
+    private val includePath: IncludePath,
+    private val isArcSelected: IsArcSelected,
+    private val getPathInfo: GetPathInfo,
+    private val getDiskInfo: GetDiskInfo
+) : ViewModel(),
+    AsyncState<ChartViewState> by AsyncState.Delegate(
+        ChartViewState(
+            path = path,
+            diskInfo = getDiskInfo(path),
+            pathInfo = getPathInfo(path)
+        )
+    ) {
 
     init {
         viewModelScope.launch {
-            val listData = async { getListData(diskEntry) }
-            val chartData = async { getChartData(diskEntry) }
+            val listData = async { getListData(path) }
+            val chartData = async { getChartData(path) }
             (listData.await() to chartData.await())
                 .let { (listData, chartData) ->
                     setState {
@@ -42,8 +54,8 @@ class ChartViewModel(
         when (this) {
             is OnChartPositionClicked -> onChartPositionClicked(position)
             is OnChartPositionHovered -> onChartPositionHovered(position)
-            is OnHoverDiskEntry -> onHoverDiskEntry(chartItem)
-            is OnSelectDiskEntry -> onSelectDiskEntry(diskEntry)
+            is OnHoverChartItem -> onHoverChartItem(chartItem)
+            is OnSelectPath -> onSelectPath(path)
         }
     }
 
@@ -51,9 +63,9 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.diskEntry, state.diskEntry) }
+                .filter { includePath(it.path, state.path) }
                 .find { isArcSelected(it.arc, position) }
-                .let(::onHoverDiskEntry)
+                .let(::onHoverChartItem)
         }
     }
 
@@ -61,21 +73,21 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.diskEntry, state.diskEntry) }
+                .filter { includePath(it.path, state.path) }
                 .find { isArcSelected(it.arc, position) }
-                ?.let(ChartItem::diskEntry)
-                ?.let(::onSelectDiskEntry)
+                ?.let(ChartItem::path)
+                ?.let(::onSelectPath)
         }
     }
 
-    private fun onHoverDiskEntry(chartItem: ChartItem?) = withState { state ->
-        val selectedDiskEntry = chartItem?.diskEntry ?: state.diskEntry
-        if (selectedDiskEntry != state.listData?.parentItem?.diskEntry) {
+    private fun onHoverChartItem(chartItem: ChartItem?) = withState { state ->
+        val selectedPath = chartItem?.path ?: state.path
+        if (selectedPath != state.listData?.parentItem?.path) {
             viewModelScope.launch {
                 withTimeoutOrNull(Constants.HeavyOperationsTimeout) {
                     val listData = getListData(
-                        diskEntry = selectedDiskEntry,
-                        fromDiskEntry = state.diskEntry
+                        path = selectedPath,
+                        fromPath = state.path
                     )
                     setState {
                         copy(listData = listData)
@@ -85,31 +97,32 @@ class ChartViewModel(
         }
     }
 
-    private fun onSelectDiskEntry(diskEntry: DiskEntry) = withState { state ->
-        val previousDiskEntry = state.diskEntry
-        val selectedDiskEntry = when {
-            diskEntry.type != DiskEntry.Type.Directory -> null
-            diskEntry.sizeOnDisk == 0L -> null
-            diskEntry == previousDiskEntry -> diskEntry.parent
-            else -> diskEntry
+    private fun onSelectPath(path: Path) = withState { state ->
+        val pathInfo = getPathInfo(path)
+        val previousPath = state.path
+        val selectedPath = when {
+            pathInfo is PathInfo.File -> null
+            pathInfo.sizeOnDisk == 0L -> null
+            path == previousPath -> path.parent
+            else -> path
         }
 
-        if (selectedDiskEntry != null) {
+        if (selectedPath != null) {
             viewModelScope.launch {
                 val listData = async {
-                    getListData(selectedDiskEntry)
+                    getListData(selectedPath)
                 }
                 val chartData = async {
                     getChartData(
-                        fromDiskEntry = previousDiskEntry,
-                        toDiskEntry = selectedDiskEntry
+                        fromPath = previousPath,
+                        toPath = selectedPath
                     )
                 }
                 (listData.await() to chartData.await())
                     .let { (listData, chartData) ->
                         setState {
                             copy(
-                                diskEntry = selectedDiskEntry,
+                                path = selectedPath,
                                 listData = listData,
                                 chartData = chartData
                             )

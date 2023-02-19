@@ -1,3 +1,5 @@
+@file:Suppress("ConstPropertyName")
+
 package com.diskusage.presentation.screens.chart
 
 import androidx.compose.animation.core.Animatable
@@ -21,10 +23,11 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
+import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.chart.Arc
+import com.diskusage.domain.model.chart.ChartItem
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
@@ -75,10 +78,11 @@ fun ChartScreen(
                     stickyHeader {
                         ItemHeader(
                             listItem = selectedItem,
+                            diskName = state.diskInfo.name.takeIf { selectedItem.path == Constants.Disk.RootDiskPath },
                             modifier = Modifier
                                 .clickable(
-                                    enabled = !animatable.isRunning && selectedItem.diskEntry.parent != null,
-                                    onClick = { commands(OnSelectDiskEntry(selectedItem.diskEntry)) }
+                                    enabled = !animatable.isRunning && selectedItem.path.parent != null,
+                                    onClick = { commands(OnSelectPath(selectedItem.path)) }
                                 )
                                 .background(MaterialTheme.colors.background)
                         )
@@ -89,9 +93,9 @@ fun ChartScreen(
                             listItem = item,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning &&
-                                    item.diskEntry.type == DiskEntry.Type.Directory &&
-                                    item.diskEntry.sizeOnDisk > 0L,
-                                onClick = { commands(OnSelectDiskEntry(item.diskEntry)) }
+                                    item.pathInfo is PathInfo.Directory &&
+                                    item.pathInfo.sizeOnDisk > 0L,
+                                onClick = { commands(OnSelectPath(item.path)) }
                             )
                         )
                     }
@@ -142,7 +146,7 @@ private fun Animatable<Float, AnimationVector1D>.itemsTransition(
     .zip(toItems)
     .map { (fromItem, toItem) ->
         ChartItem(
-            diskEntry = fromItem.diskEntry,
+            path = fromItem.path,
             arc = arcTransition(fromItem.arc, toItem.arc),
             color = colorTransition(fromItem.color, toItem.color)
         )

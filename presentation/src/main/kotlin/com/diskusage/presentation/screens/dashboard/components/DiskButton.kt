@@ -19,9 +19,8 @@ fun DiskButton(
     diskName: String,
     takenDiskSpace: String,
     totalDiskSize: String,
-    enabled: Boolean,
     modifier: Modifier = Modifier,
-    progress: Float? = null,
+    progress: Float = 0f,
     onClick: () -> Unit
 ) {
     Box(
@@ -39,7 +38,6 @@ fun DiskButton(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .clickable(
-                        enabled = enabled,
                         onClick = onClick
                     )
                     .offset(y = (-20).dp)
@@ -78,7 +76,7 @@ fun DiskButton(
         }
 
         CircularProgressIndicator(
-            progress = animateFloatAsState(progress ?: 0f).value,
+            progress = animateFloatAsState(progress).value,
             strokeWidth = 6.dp,
             modifier = Modifier.matchParentSize()
         )
@@ -92,7 +90,6 @@ private fun Preview() = PreviewEnvironment {
         diskName = "Macintosh HD",
         takenDiskSpace = "203.87 GB",
         totalDiskSize = "494.34 GB",
-        enabled = true,
         progress = 0.7f,
         onClick = {}
     )

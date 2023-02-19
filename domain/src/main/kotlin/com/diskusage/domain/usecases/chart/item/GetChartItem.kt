@@ -1,12 +1,12 @@
 package com.diskusage.domain.usecases.chart.item
 
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.DiskEntry
+import com.diskusage.domain.model.chart.ChartItem
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
-import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.usecases.path.GetRoot
+import java.nio.file.Path
 
 /**
- * Creates [ChartItem] for given `diskEntry` starting from `fromDiskEntry`.
+ * Creates [ChartItem] for given `path` starting from `fromPath`.
  */
 class GetChartItem(
     private val getRoot: GetRoot,
@@ -14,14 +14,14 @@ class GetChartItem(
     private val getColor: GetColor
 ) {
     operator fun invoke(
-        diskEntry: DiskEntry,
-        fromDiskEntry: DiskEntry = getRoot(diskEntry)
+        path: Path,
+        fromPath: Path = getRoot(path)
     ): ChartItem {
-        val arc = getArc(diskEntry, fromDiskEntry)
+        val arc = getArc(path, fromPath)
         return ChartItem(
-            diskEntry = diskEntry,
+            path = path,
             arc = arc,
-            color = getColor(diskEntry, fromDiskEntry, arc)
+            color = getColor(path, fromPath, arc)
         )
     }
 }

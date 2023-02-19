@@ -1,9 +1,7 @@
 package com.diskusage.domain.usecases.disk
 
-import com.diskusage.domain.services.DisksService
+import java.nio.file.Path
 
-class GetDiskTotalSpace(
-    private val disksService: DisksService
-) {
-    operator fun invoke(path: String) = disksService.totalSpace(path)
+class GetDiskTotalSpace {
+    operator fun invoke(path: Path) = path.toFile().totalSpace
 }
