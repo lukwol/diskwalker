@@ -2,11 +2,13 @@ package com.diskusage.data.services
 
 import com.diskusage.data.ScanResult
 import com.diskusage.domain.common.Constants
+import com.diskusage.domain.model.errors.ScanCancelled
 import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.services.FileSizeService
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.awaitClose
@@ -67,9 +69,11 @@ internal class ScanService(
                     pathInfo.putAll(filesMap)
                 }
 
-                dirs.map { dir ->
-                    async { traverse(dir) }
-                }.awaitAll()
+                dirs
+                    .map { async { traverse(it) } }
+                    .awaitAll()
+            }.onFailure { error ->
+                if (error is CancellationException) close(ScanCancelled(dir))
             }
         }
 

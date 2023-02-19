@@ -12,7 +12,6 @@ import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.screens.dashboard.components.DiskButton
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
-import io.github.anvell.async.Uninitialized
 import io.github.lukwol.screens.navigation.LocalScreensController
 
 @Composable
@@ -35,11 +34,10 @@ fun DashboardScreen(
                 takenDiskSpace = diskInfo.takenSpace.let(FileSizeFormatter::toSiFormat),
                 totalDiskSize = diskInfo.totalSpace.let(FileSizeFormatter::toSiFormat),
                 progress = when (scanState) {
-                    is Loading -> scanState.progress
+                    is Loading -> scanState.progress ?: 0f
                     is Success -> 1f
                     else -> 0f
-                },
-                enabled = scanState == Uninitialized
+                }
             ) {
                 commands(SelectScannedPath(Constants.Disk.RootDiskPath))
             }

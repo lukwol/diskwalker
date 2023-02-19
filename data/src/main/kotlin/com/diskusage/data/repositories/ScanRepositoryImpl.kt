@@ -2,7 +2,9 @@ package com.diskusage.data.repositories
 
 import com.diskusage.data.ScanResult
 import com.diskusage.data.services.ScanService
-import com.diskusage.domain.model.errors.ScanException
+import com.diskusage.domain.model.errors.MissingChildren
+import com.diskusage.domain.model.errors.MissingPathInfo
+import com.diskusage.domain.model.errors.ScanNotPerformed
 import com.diskusage.domain.services.ScanRepository
 import io.github.anvell.async.map
 import kotlinx.coroutines.flow.map
@@ -21,10 +23,10 @@ internal class ScanRepositoryImpl(
         .map { it.map { } }
 
     override fun pathInfo(path: Path) = lastScanResult
-        .run { this ?: throw ScanException.ScanNotPerformed }
-        .pathInfo[path] ?: throw ScanException.MissingPathInfo(path)
+        .run { this ?: throw ScanNotPerformed }
+        .pathInfo[path] ?: throw MissingPathInfo(path)
 
     override fun children(path: Path) = lastScanResult
-        .run { this ?: throw ScanException.ScanNotPerformed }
-        .pathChildren[path] ?: throw ScanException.MissingChildren(path)
+        .run { this ?: throw ScanNotPerformed }
+        .pathChildren[path] ?: throw MissingChildren(path)
 }
