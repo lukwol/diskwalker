@@ -2,14 +2,14 @@ package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.chart.ChartItem
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import com.diskusage.domain.usecases.disk.GetDiskInfo
-import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import com.diskusage.domain.usecases.list.GetListData
-import com.diskusage.domain.usecases.scan.GetPathInfo
+import com.diskusage.domain.usecases.path.GetPathInfo
+import com.diskusage.domain.usecases.path.IncludePath
 import io.github.anvell.async.state.AsyncState
 import io.github.lukwol.viewmodel.ViewModel
 import kotlinx.coroutines.async
@@ -21,7 +21,7 @@ class ChartViewModel(
     path: Path,
     private val getChartData: GetChartData,
     private val getListData: GetListData,
-    private val includeDiskEntry: IncludeDiskEntry,
+    private val includePath: IncludePath,
     private val isArcSelected: IsArcSelected,
     private val getPathInfo: GetPathInfo,
     private val getDiskInfo: GetDiskInfo
@@ -54,8 +54,8 @@ class ChartViewModel(
         when (this) {
             is OnChartPositionClicked -> onChartPositionClicked(position)
             is OnChartPositionHovered -> onChartPositionHovered(position)
-            is OnHoverDiskEntry -> onHoverDiskEntry(chartItem)
-            is OnSelectDiskEntry -> onSelectDiskEntry(path)
+            is OnHoverChartItem -> onHoverChartItem(chartItem)
+            is OnSelectPath -> onSelectPath(path)
         }
     }
 
@@ -63,9 +63,9 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.path, state.path) }
+                .filter { includePath(it.path, state.path) }
                 .find { isArcSelected(it.arc, position) }
-                .let(::onHoverDiskEntry)
+                .let(::onHoverChartItem)
         }
     }
 
@@ -73,14 +73,14 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includeDiskEntry(it.path, state.path) }
+                .filter { includePath(it.path, state.path) }
                 .find { isArcSelected(it.arc, position) }
                 ?.let(ChartItem::path)
-                ?.let(::onSelectDiskEntry)
+                ?.let(::onSelectPath)
         }
     }
 
-    private fun onHoverDiskEntry(chartItem: ChartItem?) = withState { state ->
+    private fun onHoverChartItem(chartItem: ChartItem?) = withState { state ->
         val selectedPath = chartItem?.path ?: state.path
         if (selectedPath != state.listData?.parentItem?.path) {
             viewModelScope.launch {
@@ -97,7 +97,7 @@ class ChartViewModel(
         }
     }
 
-    private fun onSelectDiskEntry(path: Path) = withState { state ->
+    private fun onSelectPath(path: Path) = withState { state ->
         val pathInfo = getPathInfo(path)
         val previousPath = state.path
         val selectedPath = when {

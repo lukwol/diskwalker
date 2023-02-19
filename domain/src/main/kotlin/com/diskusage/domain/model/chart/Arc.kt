@@ -1,4 +1,4 @@
-package com.diskusage.domain.model
+package com.diskusage.domain.model.chart
 
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 

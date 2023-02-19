@@ -1,4 +1,4 @@
-package com.diskusage.domain.usecases.scan
+package com.diskusage.domain.usecases.path
 
 import com.diskusage.domain.services.ScanRepository
 import java.nio.file.Path

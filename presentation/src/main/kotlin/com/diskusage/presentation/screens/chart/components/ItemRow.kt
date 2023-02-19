@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.diskusage.domain.model.ListItem
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.list.ListItem
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import kotlin.io.path.name
 
@@ -128,37 +128,3 @@ private fun Item(
         description()
     }
 }
-
-// @Preview
-// @Composable
-// private fun ItemHeaderPreview() {
-//    ItemHeader(
-//        listItem = ListItem(
-//            diskEntry = DiskEntry(
-//                name = "dir",
-//                type = DiskEntry.Type.Directory,
-//                path = Path.of("/dir"),
-//                parent = null,
-//                sizeOnDisk = 12800
-//            ),
-//            color = Color.Cyan
-//        )
-//    )
-// }
-//
-// @Preview
-// @Composable
-// private fun ItemRowPreview() {
-//    ItemRow(
-//        ListItem(
-//            diskEntry = DiskEntry(
-//                name = "file1",
-//                type = DiskEntry.Type.File,
-//                path = Path.of("/dir/file1"),
-//                parent = null,
-//                sizeOnDisk = 5120
-//            ),
-//            color = Color.Magenta
-//        )
-//    )
-// }

@@ -1,4 +1,4 @@
-package com.diskusage.domain.model.scan
+package com.diskusage.domain.model.path
 
 sealed interface PathInfo {
     val sizeOnDisk: Long

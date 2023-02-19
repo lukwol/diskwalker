@@ -3,22 +3,22 @@ package com.diskusage.domain.usecases.chart.item
 import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.chart.Arc
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
-import com.diskusage.domain.usecases.scan.GetPathInfo
+import com.diskusage.domain.usecases.path.GetDepth
+import com.diskusage.domain.usecases.path.GetPathInfo
+import com.diskusage.domain.usecases.path.GetRoot
 import java.nio.file.Path
 
 /**
- * Get proper [Color] in [HSL representation][Color.hsl] for given `diskEntry` starting from `fromDiskEntry`.
+ * Get proper [Color] in [HSL representation][Color.hsl] for given `path` starting from `fromPath`.
  *
- * When `diskEntry` is a [file][DiskEntry.Type.File] color is always the same.
+ * When `path` is a [file][PathInfo.File] color is always the same.
  *
- * When `diskEntry` is a [directory][DiskEntry.Type.Directory] color is computed based on [arc][getArc] and [depth][getDepth].
+ * When `path` is a [directory][PathInfo.Directory] color is computed based on [arc][getArc] and [depth][getDepth].
  * Uses `precalculatedArc` is it's provided.
  */
 class GetColor(

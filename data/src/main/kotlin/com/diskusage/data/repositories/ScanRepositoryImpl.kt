@@ -2,7 +2,7 @@ package com.diskusage.data.repositories
 
 import com.diskusage.data.ScanResult
 import com.diskusage.data.services.ScanService
-import com.diskusage.domain.model.scan.ScanException
+import com.diskusage.domain.model.errors.ScanException
 import com.diskusage.domain.services.ScanRepository
 import io.github.anvell.async.map
 import kotlinx.coroutines.flow.map

@@ -26,7 +26,7 @@ class IsArcSelectedTest : KoinTest {
     }
 
     @Nested
-    inner class HiddenDiskEntryArc {
+    inner class HiddenArc {
 
         @Test
         fun `close offset`() {
@@ -57,7 +57,7 @@ class IsArcSelectedTest : KoinTest {
     }
 
     @Nested
-    inner class SelectedDiskEntryArc {
+    inner class SelectedArc {
 
         @Test
         fun `close offset`() {
@@ -88,7 +88,7 @@ class IsArcSelectedTest : KoinTest {
     }
 
     @Nested
-    inner class CloseDiskEntryArc {
+    inner class ClosedArc {
 
         @Test
         fun `close offset`() {
@@ -119,7 +119,7 @@ class IsArcSelectedTest : KoinTest {
     }
 
     @Nested
-    inner class FarDiskEntryArc {
+    inner class FarArc {
 
         @Test
         fun `close offset`() {

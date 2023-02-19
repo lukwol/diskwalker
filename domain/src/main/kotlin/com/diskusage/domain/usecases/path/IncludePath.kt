@@ -1,21 +1,20 @@
-package com.diskusage.domain.usecases.diskentry
+package com.diskusage.domain.usecases.path
 
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MinChartItemAngle
-import com.diskusage.domain.usecases.scan.GetSizeOnDisk
 import java.nio.file.Path
 
 /**
- * Checks whether given `diskEntry` should be included when drawing the chart starting from `fromDiskEntry`.
+ * Checks whether given `path` should be included when drawing the chart starting from `fromPath`.
  *
- * To be included in the chart diskEntry`, `diskEntry` can't be too small and too deeply nested.
+ * To be included in the chart `path` can't be too small and too deeply nested.
 
  * @see checkSizeInRange
  * @see checkDepthInRange
  */
-class IncludeDiskEntry(
+class IncludePath(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
     private val getSizeOnDisk: GetSizeOnDisk
@@ -26,7 +25,7 @@ class IncludeDiskEntry(
     ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath)
 
     /**
-     * Check if the size of [diskEntry] is not too small.
+     * Check if the size of [path] is not too small.
      * Items that are too small are not included in the chart.
      *
      * @see MinChartItemAngle
@@ -40,7 +39,7 @@ class IncludeDiskEntry(
     }
 
     /**
-     * Check if [diskEntry] is not too deeply nested, starting from [fromDiskEntry].
+     * Check if [path] is not too deeply nested, starting from [fromPath].
      * Items that are too deeply nested are not included in the chart.
      *
      * @see MaxBigArcsDepth

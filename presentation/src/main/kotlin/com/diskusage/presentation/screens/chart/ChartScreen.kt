@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.chart.Arc
+import com.diskusage.domain.model.chart.ChartItem
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
@@ -82,7 +82,7 @@ fun ChartScreen(
                             modifier = Modifier
                                 .clickable(
                                     enabled = !animatable.isRunning && selectedItem.path.parent != null,
-                                    onClick = { commands(OnSelectDiskEntry(selectedItem.path)) }
+                                    onClick = { commands(OnSelectPath(selectedItem.path)) }
                                 )
                                 .background(MaterialTheme.colors.background)
                         )
@@ -95,7 +95,7 @@ fun ChartScreen(
                                 enabled = !animatable.isRunning &&
                                     item.pathInfo is PathInfo.Directory &&
                                     item.pathInfo.sizeOnDisk > 0L,
-                                onClick = { commands(OnSelectDiskEntry(item.path)) }
+                                onClick = { commands(OnSelectPath(item.path)) }
                             )
                         )
                     }

@@ -1,4 +1,4 @@
-package com.diskusage.domain.model
+package com.diskusage.domain.model.chart
 
 /**
  * A pair of lists for chart to be able to animate from one to another.

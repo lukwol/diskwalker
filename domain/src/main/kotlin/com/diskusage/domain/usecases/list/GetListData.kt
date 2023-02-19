@@ -1,9 +1,9 @@
 package com.diskusage.domain.usecases.list
 
-import com.diskusage.domain.model.ListData
-import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
-import com.diskusage.domain.usecases.diskentry.SortDiskEntries
+import com.diskusage.domain.model.list.ListData
 import com.diskusage.domain.usecases.list.item.GetListItem
+import com.diskusage.domain.usecases.path.IncludePath
+import com.diskusage.domain.usecases.path.SortPaths
 import com.diskusage.domain.usecases.scan.GetChildren
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,12 +15,12 @@ import java.nio.file.Path
  *
  * [ChildItems][ListData.childItems] are sorted and have smaller items filtered out.
  *
- * @see sortDiskEntries
+ * @see sortPaths
  */
 class GetListData(
-    private val sortDiskEntries: SortDiskEntries,
+    private val sortPaths: SortPaths,
     private val getListItem: GetListItem,
-    private val includeDiskEntry: IncludeDiskEntry,
+    private val includePath: IncludePath,
     private val getChildren: GetChildren
 ) {
     suspend operator fun invoke(
@@ -30,8 +30,8 @@ class GetListData(
         ListData(
             parentItem = getListItem(path, fromPath),
             childItems = getChildren(path)
-                .filter { includeDiskEntry(it, path) }
-                .let(sortDiskEntries::invoke)
+                .filter { includePath(it, path) }
+                .let(sortPaths::invoke)
                 .map { getListItem(it, fromPath) }
         )
     }

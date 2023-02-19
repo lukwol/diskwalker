@@ -1,7 +1,8 @@
 package com.diskusage.domain.usecases.scan
 
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.services.ScanRepository
+import com.diskusage.domain.usecases.path.GetPathInfo
 import java.nio.file.Path
 
 class GetChildren(

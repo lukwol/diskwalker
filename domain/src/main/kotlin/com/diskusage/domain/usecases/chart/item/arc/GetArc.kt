@@ -1,13 +1,13 @@
 package com.diskusage.domain.usecases.chart.item.arc
 
-import com.diskusage.domain.model.Arc
-import com.diskusage.domain.usecases.diskentry.GetDepth
-import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.model.chart.Arc
+import com.diskusage.domain.usecases.path.GetDepth
+import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.libraries.ranges.until
 import java.nio.file.Path
 
 /**
- * Calculate the [Arc] for given `diskEntry` starting from `fromDiskEntry`
+ * Calculate the [Arc] for given `path` starting from `fromPath`
  */
 class GetArc(
     private val getStartAngle: GetStartAngle,

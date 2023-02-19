@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.disk
 
-import com.diskusage.domain.model.disk.DiskInfo
+import com.diskusage.domain.model.DiskInfo
 import java.nio.file.Path
 
 class GetDiskInfo(

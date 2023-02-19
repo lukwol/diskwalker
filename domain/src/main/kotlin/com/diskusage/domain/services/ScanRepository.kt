@@ -1,6 +1,6 @@
 package com.diskusage.domain.services
 
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.path.PathInfo
 import io.github.anvell.async.Async
 import kotlinx.coroutines.flow.Flow
 import java.nio.file.Path

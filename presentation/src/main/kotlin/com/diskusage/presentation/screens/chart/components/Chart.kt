@@ -15,7 +15,7 @@ import com.diskusage.domain.common.Constants.Chart.BigArcWidth
 import com.diskusage.domain.common.Constants.Chart.MaxBigArcsDepth
 import com.diskusage.domain.common.Constants.Chart.MaxSmallArcsDepth
 import com.diskusage.domain.common.Constants.Chart.SmallArcWidth
-import com.diskusage.domain.model.ChartItem
+import com.diskusage.domain.model.chart.ChartItem
 
 private const val ChartRadius = MaxBigArcsDepth * BigArcWidth + MaxSmallArcsDepth * SmallArcWidth
 private const val ChartDiameter = ChartRadius * 2

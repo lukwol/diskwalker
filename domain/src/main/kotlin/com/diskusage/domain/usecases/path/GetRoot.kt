@@ -1,9 +1,9 @@
-package com.diskusage.domain.usecases.diskentry
+package com.diskusage.domain.usecases.path
 
 import java.nio.file.Path
 
 /**
- * Traverse through all parents to find topmost [DiskEntry]
+ * Traverse through all parents to find topmost [Path]
  */
 class GetRoot {
 

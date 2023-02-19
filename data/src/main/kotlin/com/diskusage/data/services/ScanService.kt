@@ -2,7 +2,7 @@ package com.diskusage.data.services
 
 import com.diskusage.data.ScanResult
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.scan.PathInfo
+import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.services.FileSizeService
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Loading

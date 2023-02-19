@@ -1,12 +1,12 @@
 package com.diskusage.domain.usecases.chart.item
 
-import com.diskusage.domain.model.ChartItem
+import com.diskusage.domain.model.chart.ChartItem
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
-import com.diskusage.domain.usecases.diskentry.GetRoot
+import com.diskusage.domain.usecases.path.GetRoot
 import java.nio.file.Path
 
 /**
- * Creates [ChartItem] for given `diskEntry` starting from `fromDiskEntry`.
+ * Creates [ChartItem] for given `path` starting from `fromPath`.
  */
 class GetChartItem(
     private val getRoot: GetRoot,

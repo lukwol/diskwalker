@@ -1,4 +1,4 @@
-package com.diskusage.domain.model.scan
+package com.diskusage.domain.model.errors
 
 import java.nio.file.Path
 

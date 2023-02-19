@@ -1,6 +1,6 @@
 package com.diskusage.presentation.screens.dashboard
 
-import com.diskusage.domain.model.disk.DiskInfo
+import com.diskusage.domain.model.DiskInfo
 import io.github.anvell.async.Async
 import io.github.anvell.async.Uninitialized
 

@@ -8,12 +8,12 @@ import com.diskusage.domain.usecases.disk.GetDiskInfo
 import com.diskusage.domain.usecases.disk.GetDiskName
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
-import com.diskusage.domain.usecases.diskentry.*
 import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
+import com.diskusage.domain.usecases.path.*
+import com.diskusage.domain.usecases.path.GetPathInfo
+import com.diskusage.domain.usecases.path.GetSizeOnDisk
 import com.diskusage.domain.usecases.scan.GetChildren
-import com.diskusage.domain.usecases.scan.GetPathInfo
-import com.diskusage.domain.usecases.scan.GetSizeOnDisk
 import com.diskusage.domain.usecases.scan.ScanDisk
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -30,11 +30,11 @@ val domainModule = module {
     singleOf(::GetChartItem)
     singleOf(::GetChartData)
     singleOf(::GetColor)
-    singleOf(::GetDiskEntriesList)
-    singleOf(::IncludeDiskEntry)
-    singleOf(::SortDiskEntries)
+    singleOf(::GetPathsSet)
+    singleOf(::IncludePath)
+    singleOf(::SortPaths)
     singleOf(::GetDepth)
-    singleOf(::GetRelationship)
+    singleOf(::GetPathRelationship)
     singleOf(::GetRoot)
     singleOf(::ScanDisk)
     singleOf(::GetChildren)
