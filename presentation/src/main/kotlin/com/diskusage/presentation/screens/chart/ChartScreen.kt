@@ -27,7 +27,7 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.model.Arc
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
@@ -93,8 +93,8 @@ fun ChartScreen(
                             listItem = item,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning &&
-                                    item.scanItem is ScanItem.Directory &&
-                                    item.scanItem.sizeOnDisk > 0L,
+                                    item.pathInfo is PathInfo.Directory &&
+                                    item.pathInfo.sizeOnDisk > 0L,
                                 onClick = { commands(OnSelectDiskEntry(item.path)) }
                             )
                         )

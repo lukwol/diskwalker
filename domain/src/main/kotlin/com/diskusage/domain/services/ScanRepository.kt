@@ -1,6 +1,6 @@
 package com.diskusage.domain.services
 
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import io.github.anvell.async.Async
 import kotlinx.coroutines.flow.Flow
 import java.nio.file.Path
@@ -8,7 +8,7 @@ import java.nio.file.Path
 interface ScanRepository {
     fun scanDisk(disk: Path): Flow<Async<Unit>>
 
-    fun scanItem(path: Path): ScanItem
+    fun pathInfo(path: Path): PathInfo
 
     fun children(path: Path): Set<Path>
 }

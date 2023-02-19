@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.ListItem
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import kotlin.io.path.name
 
@@ -27,9 +27,9 @@ fun ItemHeader(
     Item(
         icon = {
             Icon(
-                imageVector = when (listItem.scanItem) {
-                    is ScanItem.Directory -> Icons.Outlined.Folder
-                    is ScanItem.File -> Icons.Outlined.Article
+                imageVector = when (listItem.pathInfo) {
+                    is PathInfo.Directory -> Icons.Outlined.Folder
+                    is PathInfo.File -> Icons.Outlined.Article
                 },
                 contentDescription = null,
                 tint = listItem.color,
@@ -48,7 +48,7 @@ fun ItemHeader(
         },
         description = {
             Text(
-                text = FileSizeFormatter.toSiFormat(listItem.scanItem.sizeOnDisk),
+                text = FileSizeFormatter.toSiFormat(listItem.pathInfo.sizeOnDisk),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
@@ -67,9 +67,9 @@ fun ItemRow(
     Item(
         icon = {
             Icon(
-                imageVector = when (listItem.scanItem) {
-                    is ScanItem.Directory -> Icons.Outlined.Folder
-                    is ScanItem.File -> Icons.Outlined.Article
+                imageVector = when (listItem.pathInfo) {
+                    is PathInfo.Directory -> Icons.Outlined.Folder
+                    is PathInfo.File -> Icons.Outlined.Article
                 },
                 contentDescription = null,
                 tint = listItem.color
@@ -87,7 +87,7 @@ fun ItemRow(
         },
         description = {
             Text(
-                text = FileSizeFormatter.toSiFormat(listItem.scanItem.sizeOnDisk),
+                text = FileSizeFormatter.toSiFormat(listItem.pathInfo.sizeOnDisk),
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,

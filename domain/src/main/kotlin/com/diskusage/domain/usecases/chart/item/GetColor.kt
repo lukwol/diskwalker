@@ -4,13 +4,13 @@ import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.MaxArcsDepth
 import com.diskusage.domain.model.Arc
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
 import com.diskusage.domain.usecases.diskentry.GetDepth
 import com.diskusage.domain.usecases.diskentry.GetRoot
-import com.diskusage.domain.usecases.scan.GetScanItem
+import com.diskusage.domain.usecases.scan.GetPathInfo
 import java.nio.file.Path
 
 /**
@@ -27,16 +27,16 @@ class GetColor(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
     private val getArc: GetArc,
-    private val getScanItem: GetScanItem
+    private val getPathInfo: GetPathInfo
 ) {
 
     operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path),
         precalculatedArc: Arc? = null
-    ) = when (getScanItem(path)) {
-        is ScanItem.File -> Constants.Chart.FileColor
-        is ScanItem.Directory -> {
+    ) = when (getPathInfo(path)) {
+        is PathInfo.File -> Constants.Chart.FileColor
+        is PathInfo.Directory -> {
             val angleEnd = precalculatedArc?.angleRange?.end
                 ?: (getStartAngle(path, fromPath) + getSweepAngle(path, fromPath))
 

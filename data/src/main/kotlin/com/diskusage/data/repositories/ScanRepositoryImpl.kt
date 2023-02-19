@@ -20,11 +20,11 @@ internal class ScanRepositoryImpl(
         .onEach { lastScanResult = it.value }
         .map { it.map { } }
 
-    override fun scanItem(path: Path) = lastScanResult
+    override fun pathInfo(path: Path) = lastScanResult
         .run { this ?: throw ScanException.ScanNotPerformed }
-        .scanItems[path] ?: throw ScanException.MissingScanItem(path)
+        .pathInfo[path] ?: throw ScanException.MissingPathInfo(path)
 
     override fun children(path: Path) = lastScanResult
         .run { this ?: throw ScanException.ScanNotPerformed }
-        .children[path] ?: throw ScanException.MissingChildren(path)
+        .pathChildren[path] ?: throw ScanException.MissingChildren(path)
 }

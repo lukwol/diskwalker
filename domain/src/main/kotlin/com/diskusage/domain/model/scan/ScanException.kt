@@ -9,7 +9,7 @@ sealed class ScanException(
 
     object ScanNotPerformed : ScanException("No directory was scanned")
 
-    class MissingScanItem(path: Path) : ScanException("No scan item was found for path: $path")
+    class MissingPathInfo(path: Path) : ScanException("No path info was found for path: $path")
 
     class MissingChildren(path: Path) : ScanException("No children were found for path: $path")
 }

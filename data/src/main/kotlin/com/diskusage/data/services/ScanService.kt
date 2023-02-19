@@ -2,7 +2,7 @@ package com.diskusage.data.services
 
 import com.diskusage.data.ScanResult
 import com.diskusage.domain.common.Constants
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import com.diskusage.domain.services.FileSizeService
 import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
 import io.github.anvell.async.Loading
@@ -25,8 +25,8 @@ internal class ScanService(
     private val getDiskTakenSpace: GetDiskTakenSpace
 ) {
     fun scanDisk(disk: Path) = callbackFlow {
-        val allChildren = mutableMapOf<Path, MutableSet<Path>>()
-        val allScanItems = mutableMapOf<Path, ScanItem>()
+        val pathChildren = mutableMapOf<Path, MutableSet<Path>>()
+        val pathInfo = mutableMapOf<Path, PathInfo>()
 
         val mutex = Mutex()
         val estimatedTotalSize = getDiskTakenSpace(disk)
@@ -45,10 +45,10 @@ internal class ScanService(
                     .filter { it.isDirectory(LinkOption.NOFOLLOW_LINKS) }
 
                 val filesInfo = files.map {
-                    ScanItem.File(fileSizeService.sizeOnDisk(it.pathString))
+                    PathInfo.File(fileSizeService.sizeOnDisk(it.pathString))
                 }
 
-                val filesSize = filesInfo.sumOf(ScanItem.File::sizeOnDisk)
+                val filesSize = filesInfo.sumOf(PathInfo.File::sizeOnDisk)
 
                 val filesMap = files.zip(filesInfo).toMap()
 
@@ -62,9 +62,9 @@ internal class ScanService(
 
                     send(Loading(progress))
 
-                    allChildren[dir] = files
-                    allChildren[dir.parent]?.add(dir)
-                    allScanItems.putAll(filesMap)
+                    pathChildren[dir] = files
+                    pathChildren[dir.parent]?.add(dir)
+                    pathInfo.putAll(filesMap)
                 }
 
                 dirs.map { dir ->
@@ -74,11 +74,11 @@ internal class ScanService(
         }
 
         fun directorySize(directory: Path): Long {
-            val children = allChildren[directory].orEmpty()
+            val children = pathChildren[directory].orEmpty()
             val size = children.sumOf {
-                allScanItems[it]?.sizeOnDisk ?: directorySize(it)
+                pathInfo[it]?.sizeOnDisk ?: directorySize(it)
             }
-            allScanItems[directory] = ScanItem.Directory(size)
+            pathInfo[directory] = PathInfo.Directory(size)
             return size
         }
 
@@ -89,8 +89,8 @@ internal class ScanService(
         send(
             Success(
                 ScanResult(
-                    children = allChildren,
-                    scanItems = allScanItems
+                    pathChildren = pathChildren,
+                    pathInfo = pathInfo
                 )
             )
         )

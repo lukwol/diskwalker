@@ -2,7 +2,7 @@ package com.diskusage.domain.usecases.list.item
 
 import com.diskusage.domain.model.ListItem
 import com.diskusage.domain.usecases.chart.item.GetColor
-import com.diskusage.domain.usecases.scan.GetScanItem
+import com.diskusage.domain.usecases.scan.GetPathInfo
 import java.nio.file.Path
 
 /**
@@ -10,7 +10,7 @@ import java.nio.file.Path
  */
 class GetListItem(
     private val getColor: GetColor,
-    private val getScanItem: GetScanItem
+    private val getPathInfo: GetPathInfo
 ) {
 
     operator fun invoke(
@@ -18,7 +18,7 @@ class GetListItem(
         fromPath: Path = path
     ) = ListItem(
         path = path,
-        scanItem = getScanItem(path),
+        pathInfo = getPathInfo(path),
         color = getColor(path, fromPath)
     )
 }

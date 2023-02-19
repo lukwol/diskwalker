@@ -3,13 +3,13 @@ package com.diskusage.presentation.screens.chart
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.ChartItem
-import com.diskusage.domain.model.scan.ScanItem
+import com.diskusage.domain.model.scan.PathInfo
 import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import com.diskusage.domain.usecases.disk.GetDiskInfo
 import com.diskusage.domain.usecases.diskentry.IncludeDiskEntry
 import com.diskusage.domain.usecases.list.GetListData
-import com.diskusage.domain.usecases.scan.GetScanItem
+import com.diskusage.domain.usecases.scan.GetPathInfo
 import io.github.anvell.async.state.AsyncState
 import io.github.lukwol.viewmodel.ViewModel
 import kotlinx.coroutines.async
@@ -23,14 +23,14 @@ class ChartViewModel(
     private val getListData: GetListData,
     private val includeDiskEntry: IncludeDiskEntry,
     private val isArcSelected: IsArcSelected,
-    private val getScanItem: GetScanItem,
+    private val getPathInfo: GetPathInfo,
     private val getDiskInfo: GetDiskInfo
 ) : ViewModel(),
     AsyncState<ChartViewState> by AsyncState.Delegate(
         ChartViewState(
             path = path,
             diskInfo = getDiskInfo(path),
-            scanItem = getScanItem(path)
+            pathInfo = getPathInfo(path)
         )
     ) {
 
@@ -98,11 +98,11 @@ class ChartViewModel(
     }
 
     private fun onSelectDiskEntry(path: Path) = withState { state ->
-        val scanItem = getScanItem(path)
+        val pathInfo = getPathInfo(path)
         val previousPath = state.path
         val selectedPath = when {
-            scanItem is ScanItem.File -> null
-            scanItem.sizeOnDisk == 0L -> null
+            pathInfo is PathInfo.File -> null
+            pathInfo.sizeOnDisk == 0L -> null
             path == previousPath -> path.parent
             else -> path
         }
