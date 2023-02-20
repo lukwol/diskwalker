@@ -8,6 +8,8 @@ import com.diskusage.domain.usecases.path.GetPathsSet
 import com.diskusage.domain.usecases.path.IncludePath
 import com.diskusage.domain.usecases.path.SortPaths
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import java.nio.file.Path
 
@@ -31,7 +33,8 @@ class GetChartData(
     suspend operator fun invoke(path: Path) = withContext(Dispatchers.Default) {
         getPathsSet(path)
             .let(sortPaths::invoke)
-            .map { getChartItem(it, path) }
+            .map { async { getChartItem(it, path) } }
+            .awaitAll()
             .map { chartItem ->
                 hideNotIncluded(chartItem, path)
             }
@@ -49,7 +52,8 @@ class GetChartData(
     ) = withContext(Dispatchers.Default) {
         (getPathsSet(fromPath) + getPathsSet(toPath))
             .let(sortPaths::invoke)
-            .map { getChartItem(it, fromPath) to getChartItem(it, toPath) }
+            .map { async { getChartItem(it, fromPath) to getChartItem(it, toPath) } }
+            .awaitAll()
             .map { (startItem, endItem) ->
                 hideNotIncluded(startItem, fromPath) to hideNotIncluded(endItem, toPath)
             }

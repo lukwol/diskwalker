@@ -1,7 +1,6 @@
 package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.chart.ChartItem
 import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.usecases.chart.GetChartData
@@ -12,9 +11,9 @@ import com.diskusage.domain.usecases.path.GetPathInfo
 import com.diskusage.domain.usecases.path.IncludePath
 import io.github.anvell.async.state.AsyncState
 import io.github.lukwol.viewmodel.ViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import java.nio.file.Path
 
 class ChartViewModel(
@@ -33,6 +32,8 @@ class ChartViewModel(
             pathInfo = getPathInfo(path)
         )
     ) {
+
+    private var listDataJob: Job? = null
 
     init {
         viewModelScope.launch {
@@ -83,15 +84,14 @@ class ChartViewModel(
     private fun onHoverChartItem(chartItem: ChartItem?) = withState { state ->
         val selectedPath = chartItem?.path ?: state.path
         if (selectedPath != state.listData?.parentItem?.path) {
-            viewModelScope.launch {
-                withTimeoutOrNull(Constants.HeavyOperationsTimeout) {
-                    val listData = getListData(
-                        path = selectedPath,
-                        fromPath = state.path
-                    )
-                    setState {
-                        copy(listData = listData)
-                    }
+            listDataJob?.cancel()
+            listDataJob = viewModelScope.launch {
+                val listData = getListData(
+                    path = selectedPath,
+                    fromPath = state.path
+                )
+                setState {
+                    copy(listData = listData)
                 }
             }
         }

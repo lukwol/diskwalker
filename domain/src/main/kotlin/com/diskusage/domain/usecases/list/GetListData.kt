@@ -6,6 +6,8 @@ import com.diskusage.domain.usecases.path.IncludePath
 import com.diskusage.domain.usecases.path.SortPaths
 import com.diskusage.domain.usecases.scan.GetChildren
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import java.nio.file.Path
 
@@ -32,7 +34,8 @@ class GetListData(
             childItems = getChildren(path)
                 .filter { includePath(it, path) }
                 .let(sortPaths::invoke)
-                .map { getListItem(it, fromPath) }
+                .map { async { getListItem(it, fromPath) } }
+                .awaitAll()
         )
     }
 }
