@@ -42,7 +42,8 @@ fun ItemHeader(
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
-                style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.ExtraBold),
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
             )
         },
@@ -52,7 +53,8 @@ fun ItemHeader(
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
-                style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.ExtraBold)
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Medium,
             )
         },
         modifier = modifier
