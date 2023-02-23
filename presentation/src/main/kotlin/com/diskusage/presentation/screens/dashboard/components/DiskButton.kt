@@ -44,7 +44,7 @@ fun DiskButton(
                     .padding(40.dp)
             ) {
                 Icon(
-                    painter = painterResource("hard-drive-outlined.svg"),
+                    painter = painterResource("images/hard-drive-outlined.svg"),
                     contentDescription = diskName,
                     modifier = Modifier
                         .padding(30.dp)
