@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.scan
 
-import com.diskusage.domain.services.ScanRepository
+import com.diskusage.domain.repositories.ScanRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn

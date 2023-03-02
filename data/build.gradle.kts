@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     implementation(projects.domain)
+    implementation(projects.libraries.support)
 
     implementation(libs.protobuf.javalite)
     implementation(libs.protobuf.kotlin.lite)

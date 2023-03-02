@@ -1,6 +1,6 @@
 package com.diskusage.domain.usecases.path
 
-import com.diskusage.domain.services.ScanRepository
+import com.diskusage.domain.repositories.ScanRepository
 import java.nio.file.Path
 
 class GetPathInfo(private val repository: ScanRepository) {

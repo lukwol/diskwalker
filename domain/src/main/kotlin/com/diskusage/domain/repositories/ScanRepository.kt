@@ -1,4 +1,4 @@
-package com.diskusage.domain.services
+package com.diskusage.domain.repositories
 
 import com.diskusage.domain.model.path.PathInfo
 import io.github.anvell.async.Async

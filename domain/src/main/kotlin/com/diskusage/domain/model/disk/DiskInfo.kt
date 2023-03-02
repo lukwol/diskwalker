@@ -5,7 +5,7 @@ data class DiskInfo(
     val mountPoint: String,
     val totalSpace: Long,
     val availableSpace: Long,
-    val isRemovable: Long,
+    val isRemovable: Boolean,
     val diskType: DiskType,
     val fileSystem: String
 )

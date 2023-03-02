@@ -5,7 +5,7 @@ import com.diskusage.data.services.ScanService
 import com.diskusage.domain.model.errors.MissingChildren
 import com.diskusage.domain.model.errors.MissingPathInfo
 import com.diskusage.domain.model.errors.ScanNotPerformed
-import com.diskusage.domain.services.ScanRepository
+import com.diskusage.domain.repositories.ScanRepository
 import io.github.anvell.async.map
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
