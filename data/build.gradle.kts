@@ -51,6 +51,14 @@ protobuf {
     }
 }
 
+tasks.formatKotlinMain {
+    exclude { it.file.path.contains("generated/")}
+}
+
+tasks.lintKotlinMain {
+    exclude { it.file.path.contains("generated/")}
+}
+
 tasks.test {
     useJUnitPlatform()
 }
