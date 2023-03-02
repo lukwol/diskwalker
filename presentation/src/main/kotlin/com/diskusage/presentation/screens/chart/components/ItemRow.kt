@@ -54,7 +54,7 @@ fun ItemHeader(
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
                 style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Medium
             )
         },
         modifier = modifier
