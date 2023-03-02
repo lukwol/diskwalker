@@ -13,7 +13,7 @@ object SupportLibrary {
                 outputStream.write(inputStream.readBytes())
             }
         }
-        System.load(file.absolutePath)
+        System.load(file.path)
         file.deleteOnExit()
     }
 
