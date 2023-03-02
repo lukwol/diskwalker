@@ -1,7 +1,7 @@
 package com.diskusage.data.services
 
-import SupportJni
 import com.diskusage.domain.services.FileSizeService
+import com.diskusage.libraries.support.SupportJni
 
 class FileSizeServiceImpl(
     private val supportJni: SupportJni

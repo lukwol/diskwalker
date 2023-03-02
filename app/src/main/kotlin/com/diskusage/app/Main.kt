@@ -1,6 +1,6 @@
 package com.diskusage.app
 
-import SupportJni
+import SupportLibrary
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,7 +16,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 fun main() {
-    SupportJni.loadLibrary()
+    SupportLibrary.loadLibrary()
 
     startKoin {
         printLogger(Level.INFO)
