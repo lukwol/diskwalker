@@ -1,11 +1,11 @@
 package com.diskusage.libraries.utils.os
 
 object OsUtils {
-    val currentTarget by lazy {
-        currentOS to currentArch
+    val Target by lazy {
+        OperatingSystem to Architecture
     }
 
-    val currentArch by lazy {
+    val Architecture by lazy {
         when (val osArch = System.getProperty("os.arch")) {
             "x86_64", "amd64" -> Arch.X64
             "aarch64" -> Arch.Arm64
@@ -13,7 +13,7 @@ object OsUtils {
         }
     }
 
-    val currentOS by lazy {
+    val OperatingSystem by lazy {
         val os = System.getProperty("os.name")
         when {
             os.equals("Mac OS X", ignoreCase = true) -> OS.MacOS

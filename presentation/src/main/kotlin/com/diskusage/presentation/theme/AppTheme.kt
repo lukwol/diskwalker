@@ -26,6 +26,6 @@ fun AppTheme(
         typography = Typography(
             defaultFontFamily = InterFontFamily
         ),
-        content = content,
+        content = content
     )
 }

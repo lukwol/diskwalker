@@ -18,7 +18,7 @@ object Constants {
 
         val RootDiskPath: Path = Path.of("/")
 
-        val UncheckedPaths = when (OsUtils.currentOS) {
+        val UncheckedPaths = when (OsUtils.OperatingSystem) {
             OS.MacOS -> listOf(
                 Path.of("/System/Volumes/Data")
             )
