@@ -10,8 +10,8 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.libraries.support)
 
-    implementation(libs.protobuf.javalite)
-    implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.protobuf.java)
+    implementation(libs.protobuf.kotlin)
     implementation(libs.koin.core)
     implementation(libs.async.core)
     implementation(libs.coroutines.core)
@@ -33,30 +33,21 @@ sourceSets {
 }
 
 protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
-    }
-
     generateProtoTasks {
         all().forEach {
             it.builtins {
-                getByName("java") {
-                    option("lite")
-                }
-                id("kotlin") {
-                    option("lite")
-                }
+                id("kotlin")
             }
         }
     }
 }
 
 tasks.formatKotlinMain {
-    exclude { it.file.path.contains("generated/")}
+    exclude { it.file.path.contains("generated/") }
 }
 
 tasks.lintKotlinMain {
-    exclude { it.file.path.contains("generated/")}
+    exclude { it.file.path.contains("generated/") }
 }
 
 tasks.test {
