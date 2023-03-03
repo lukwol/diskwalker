@@ -35,8 +35,8 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
 async-core = { module = "com.github.anvell.async:async", version.ref = "async" }
 async-state = { module = "com.github.anvell.async:async-state", version.ref = "async" }
-protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
-protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin", version.ref = "protobuf" }
+protobuf-java-lite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
+protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
