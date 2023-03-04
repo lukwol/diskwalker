@@ -1,4 +1,4 @@
-package com.diskusage.presentation.screens.dashboard.components
+package com.diskusage.presentation.screens.scan.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview

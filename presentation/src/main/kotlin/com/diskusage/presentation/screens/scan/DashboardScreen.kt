@@ -1,4 +1,4 @@
-package com.diskusage.presentation.screens.dashboard
+package com.diskusage.presentation.screens.scan
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +9,15 @@ import androidx.compose.ui.Modifier
 import com.diskusage.domain.common.Constants
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import com.diskusage.presentation.navigation.AppRoutes
-import com.diskusage.presentation.screens.dashboard.components.DiskButton
+import com.diskusage.presentation.screens.scan.components.DiskButton
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import io.github.lukwol.screens.navigation.LocalScreensController
 
 @Composable
-fun DashboardScreen(
-    state: DashboardViewState,
-    commands: (DashboardCommand) -> Unit
+fun ScanScreen(
+    state: ScanViewState,
+    commands: (ScanCommand) -> Unit
 ) {
     val screensController = LocalScreensController.current
 

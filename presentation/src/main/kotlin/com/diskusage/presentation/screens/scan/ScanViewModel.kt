@@ -1,4 +1,4 @@
-package com.diskusage.presentation.screens.dashboard
+package com.diskusage.presentation.screens.scan
 
 import com.diskusage.domain.common.Constants
 import com.diskusage.domain.usecases.disk.GetDiskInfo
@@ -7,10 +7,10 @@ import io.github.anvell.async.state.AsyncState
 import io.github.lukwol.viewmodel.ViewModel
 import kotlinx.coroutines.Job
 
-class DashboardViewModel(
+class ScanViewModel(
     private val scanDisk: ScanDisk,
     private val getDiskInfo: GetDiskInfo
-) : ViewModel(), AsyncState<DashboardViewState> by AsyncState.Delegate(DashboardViewState()) {
+) : ViewModel(), AsyncState<ScanViewState> by AsyncState.Delegate(ScanViewState()) {
 
     private var scanDiskJob: Job? = null
 
@@ -20,7 +20,7 @@ class DashboardViewModel(
         }
     }
 
-    fun onCommand(command: DashboardCommand) {
+    fun onCommand(command: ScanCommand) {
         when (command) {
             is SelectScannedPath -> {
                 scanDiskJob = if (scanDiskJob != null) {
