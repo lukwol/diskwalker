@@ -3,7 +3,7 @@ package com.diskusage.presentation.screens.dashboard
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ScanScreen(
+fun DashboardScreen(
     state: DashboardViewState,
     commands: (DashboardCommand) -> Unit,
 ) {
