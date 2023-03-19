@@ -10,15 +10,14 @@ import kotlinx.coroutines.Job
 class ScanViewModel(
     private val scanDisk: ScanDisk,
     private val getDiskInfo: GetDiskInfo,
-) : ViewModel(), AsyncState<ScanViewState> by AsyncState.Delegate(ScanViewState()) {
+) : ViewModel(),
+    AsyncState<ScanViewState> by AsyncState.Delegate(
+        ScanViewState(
+            diskInfo = getDiskInfo(Constants.Disk.RootDiskPath),
+        ),
+    ) {
 
     private var scanDiskJob: Job? = null
-
-    init {
-        setState {
-            copy(diskInfo = getDiskInfo(Constants.Disk.RootDiskPath))
-        }
-    }
 
     fun onCommand(command: ScanCommand) {
         when (command) {

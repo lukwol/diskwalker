@@ -10,6 +10,7 @@ object DiskInfoMapper {
             mountPoint = mountPoint,
             totalSpace = totalSpace,
             availableSpace = availableSpace,
+            takenSpace = run { totalSpace - availableSpace },
             isRemovable = isRemovable,
             diskType = diskType.let(DiskTypeMapper::map),
             fileSystem = fileSystem,

@@ -5,7 +5,7 @@ import com.diskusage.domain.common.Constants
 import com.diskusage.domain.model.errors.ScanCancelled
 import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.services.FileSizeService
-import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
+import com.diskusage.domain.usecases.disk.GetDiskInfo
 import io.github.anvell.async.Fail
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
@@ -25,14 +25,14 @@ import kotlin.io.path.pathString
 
 internal class ScanService(
     private val fileSizeService: FileSizeService,
-    private val getDiskTakenSpace: GetDiskTakenSpace,
+    private val getDiskInfo: GetDiskInfo,
 ) {
     fun scanDisk(disk: Path) = callbackFlow {
         val pathChildren = mutableMapOf<Path, MutableSet<Path>>()
         val pathInfo = mutableMapOf<Path, PathInfo>()
 
         val mutex = Mutex()
-        val estimatedTotalSize = getDiskTakenSpace(disk)
+        val estimatedTotalSize = getDiskInfo(disk).takenSpace
         var scannedSize = 0L
 
         suspend fun traverse(dir: Path) {

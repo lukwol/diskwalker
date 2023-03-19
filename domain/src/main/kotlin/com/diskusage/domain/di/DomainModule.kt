@@ -10,9 +10,7 @@ import com.diskusage.domain.usecases.chart.item.arc.GetStartRadius
 import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import com.diskusage.domain.usecases.disk.GetDiskInfo
-import com.diskusage.domain.usecases.disk.GetDiskName
-import com.diskusage.domain.usecases.disk.GetDiskTakenSpace
-import com.diskusage.domain.usecases.disk.GetDiskTotalSpace
+import com.diskusage.domain.usecases.disk.GetSystemInfo
 import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
 import com.diskusage.domain.usecases.path.GetDepth
@@ -50,8 +48,6 @@ val domainModule = module {
     singleOf(::GetChildren)
     singleOf(::GetPathInfo)
     singleOf(::GetSizeOnDisk)
+    singleOf(::GetSystemInfo)
     singleOf(::GetDiskInfo)
-    singleOf(::GetDiskName)
-    singleOf(::GetDiskTotalSpace)
-    singleOf(::GetDiskTakenSpace)
 }

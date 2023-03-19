@@ -1,17 +1,12 @@
 package com.diskusage.domain.usecases.disk
 
-import com.diskusage.domain.model.DiskInfo
 import java.nio.file.Path
+import kotlin.io.path.pathString
 
 class GetDiskInfo(
-    private val getDiskName: GetDiskName,
-    private val getDiskTakenSpace: GetDiskTakenSpace,
-    private val getDiskTotalSpace: GetDiskTotalSpace,
+    private val getSystemInfo: GetSystemInfo,
 ) {
-    operator fun invoke(disk: Path) = DiskInfo(
-        path = disk,
-        name = getDiskName(disk),
-        takenSpace = getDiskTakenSpace(disk),
-        totalSpace = getDiskTotalSpace(disk),
-    )
+    operator fun invoke(path: Path) = getSystemInfo()
+        .disks
+        .first { it.mountPoint == path.pathString }
 }

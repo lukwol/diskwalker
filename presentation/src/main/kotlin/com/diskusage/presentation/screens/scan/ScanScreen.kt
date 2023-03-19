@@ -28,19 +28,17 @@ fun ScanScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        if (diskInfo != null) {
-            DiskButton(
-                diskName = diskInfo.name,
-                takenDiskSpace = diskInfo.takenSpace.let(FileSizeFormatter::toSiFormat),
-                totalDiskSize = diskInfo.totalSpace.let(FileSizeFormatter::toSiFormat),
-                progress = when (scanState) {
-                    is Loading -> scanState.progress ?: 0f
-                    is Success -> 1f
-                    else -> 0f
-                },
-            ) {
-                commands(SelectScannedPath(Constants.Disk.RootDiskPath))
-            }
+        DiskButton(
+            diskName = diskInfo.name,
+            takenDiskSpace = diskInfo.takenSpace.let(FileSizeFormatter::toSiFormat),
+            totalDiskSize = diskInfo.totalSpace.let(FileSizeFormatter::toSiFormat),
+            progress = when (scanState) {
+                is Loading -> scanState.progress ?: 0f
+                is Success -> 1f
+                else -> 0f
+            },
+        ) {
+            commands(SelectScannedPath(Constants.Disk.RootDiskPath))
         }
     }
 
