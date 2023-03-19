@@ -17,7 +17,7 @@ import io.github.lukwol.screens.navigation.LocalScreensController
 @Composable
 fun ScanScreen(
     state: ScanViewState,
-    commands: (ScanCommand) -> Unit
+    commands: (ScanCommand) -> Unit,
 ) {
     val screensController = LocalScreensController.current
 
@@ -26,7 +26,7 @@ fun ScanScreen(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         if (diskInfo != null) {
             DiskButton(
@@ -37,7 +37,7 @@ fun ScanScreen(
                     is Loading -> scanState.progress ?: 0f
                     is Success -> 1f
                     else -> 0f
-                }
+                },
             ) {
                 commands(SelectScannedPath(Constants.Disk.RootDiskPath))
             }

@@ -13,5 +13,5 @@ import java.nio.file.Path
 data class ChartItem(
     val path: Path,
     val arc: Arc,
-    var color: Color
+    var color: Color,
 )

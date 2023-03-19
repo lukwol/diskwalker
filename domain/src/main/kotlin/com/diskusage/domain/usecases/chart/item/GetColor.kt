@@ -27,13 +27,13 @@ class GetColor(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
     private val getArc: GetArc,
-    private val getPathInfo: GetPathInfo
+    private val getPathInfo: GetPathInfo,
 ) {
 
     operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path),
-        precalculatedArc: Arc? = null
+        precalculatedArc: Arc? = null,
     ) = when (getPathInfo(path)) {
         is PathInfo.File -> Constants.Chart.FileColor
         is PathInfo.Directory -> {
@@ -44,7 +44,7 @@ class GetColor(
             Color.hsl(
                 hue = angleEnd,
                 saturation = ((angleEnd / 360f) * 0.4f).coerceIn(0f, 0.4f),
-                lightness = (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.4f).coerceIn(0.3f, 0.7f)
+                lightness = (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.4f).coerceIn(0.3f, 0.7f),
             )
         }
     }

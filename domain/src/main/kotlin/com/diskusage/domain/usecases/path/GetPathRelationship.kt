@@ -8,7 +8,7 @@ import java.nio.file.Path
  * Define [PathRelationship] between two paths
  */
 class GetPathRelationship(
-    private val getChildren: GetChildren
+    private val getChildren: GetChildren,
 ) {
     operator fun invoke(path: Path, otherPath: Path) = when {
         path == otherPath -> PathRelationship.Identity

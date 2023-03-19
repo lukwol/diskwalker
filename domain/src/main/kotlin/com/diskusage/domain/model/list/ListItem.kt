@@ -13,5 +13,5 @@ import java.nio.file.Path
 data class ListItem(
     val path: Path,
     val pathInfo: PathInfo,
-    var color: Color
+    var color: Color,
 )

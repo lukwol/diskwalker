@@ -10,15 +10,15 @@ import java.nio.file.Path
  */
 class GetListItem(
     private val getColor: GetColor,
-    private val getPathInfo: GetPathInfo
+    private val getPathInfo: GetPathInfo,
 ) {
 
     operator fun invoke(
         path: Path,
-        fromPath: Path = path
+        fromPath: Path = path,
     ) = ListItem(
         path = path,
         pathInfo = getPathInfo(path),
-        color = getColor(path, fromPath)
+        color = getColor(path, fromPath),
     )
 }

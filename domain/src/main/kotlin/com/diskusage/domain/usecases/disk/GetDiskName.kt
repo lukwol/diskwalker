@@ -6,7 +6,7 @@ import java.nio.file.Path
 import kotlin.io.path.pathString
 
 class GetDiskName(
-    private val systemInfoService: SystemInfoService
+    private val systemInfoService: SystemInfoService,
 ) {
     operator fun invoke(path: Path) = systemInfoService
         .systemInfo()

@@ -9,11 +9,11 @@ import kotlin.io.path.name
  * if the size matches, sorts by [name][Path.name].
  */
 class SortPaths(
-    private val getSizeOnDisk: GetSizeOnDisk
+    private val getSizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(paths: Collection<Path>) = paths
         .sortedWith(
             compareByDescending(getSizeOnDisk::invoke)
-                .thenBy(Path::name)
+                .thenBy(Path::name),
         )
 }

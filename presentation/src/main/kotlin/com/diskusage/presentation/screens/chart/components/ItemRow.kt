@@ -1,6 +1,14 @@
 package com.diskusage.presentation.screens.chart.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,7 +30,7 @@ import kotlin.io.path.name
 fun ItemHeader(
     listItem: ListItem,
     diskName: String? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Item(
         icon = {
@@ -33,7 +41,7 @@ fun ItemHeader(
                 },
                 contentDescription = null,
                 tint = listItem.color,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         },
         name = {
@@ -44,7 +52,7 @@ fun ItemHeader(
                 overflow = TextOverflow.Clip,
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
         },
         description = {
@@ -54,17 +62,17 @@ fun ItemHeader(
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
                 style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
             )
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
 @Composable
 fun ItemRow(
     listItem: ListItem,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Item(
         icon = {
@@ -74,7 +82,7 @@ fun ItemRow(
                     is PathInfo.File -> Icons.Outlined.Article
                 },
                 contentDescription = null,
-                tint = listItem.color
+                tint = listItem.color,
             )
         },
         name = {
@@ -84,7 +92,7 @@ fun ItemRow(
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
                 style = MaterialTheme.typography.subtitle2,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
         },
         description = {
@@ -93,10 +101,10 @@ fun ItemRow(
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,
-                style = MaterialTheme.typography.subtitle2
+                style = MaterialTheme.typography.subtitle2,
             )
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -105,18 +113,18 @@ private fun Item(
     icon: @Composable BoxScope.() -> Unit,
     name: @Composable RowScope.() -> Unit,
     description: @Composable RowScope.() -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.padding(
             horizontal = 8.dp,
-            vertical = 4.dp
-        )
+            vertical = 4.dp,
+        ),
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.size(32.dp)
+            modifier = Modifier.size(32.dp),
         ) {
             icon()
         }

@@ -6,5 +6,5 @@ import io.github.anvell.async.Uninitialized
 
 data class ScanViewState(
     val diskInfo: DiskInfo? = null,
-    val scanState: Async<Unit> = Uninitialized
+    val scanState: Async<Unit> = Uninitialized,
 )

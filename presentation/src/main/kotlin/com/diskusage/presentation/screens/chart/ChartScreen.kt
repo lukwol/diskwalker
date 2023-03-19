@@ -5,11 +5,20 @@ package com.diskusage.presentation.screens.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,7 +50,7 @@ private const val ListWeight = 1f
 @Composable
 fun ChartScreen(
     state: ChartViewState,
-    commands: (ChartCommand) -> Unit
+    commands: (ChartCommand) -> Unit,
 ) {
     val listData = state.listData
     val chartData = state.chartData
@@ -53,7 +62,7 @@ fun ChartScreen(
     LaunchedEffect(chartData?.endItems) {
         animatable.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = AnimationDurationMillis)
+            animationSpec = tween(durationMillis = AnimationDurationMillis),
         )
     }
 
@@ -61,19 +70,19 @@ fun ChartScreen(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(20.dp),
     ) {
         if (listData != null) {
             val (selectedItem, childItems) = listData
 
             Box(
-                modifier = Modifier.weight(ListWeight)
+                modifier = Modifier.weight(ListWeight),
             ) {
                 LazyColumn(
                     state = lazyListState,
                     modifier = Modifier
                         .fillMaxHeight()
-                        .padding(end = 10.dp)
+                        .padding(end = 10.dp),
                 ) {
                     stickyHeader {
                         ItemHeader(
@@ -82,9 +91,9 @@ fun ChartScreen(
                             modifier = Modifier
                                 .clickable(
                                     enabled = !animatable.isRunning && selectedItem.path.parent != null,
-                                    onClick = { commands(OnSelectPath(selectedItem.path)) }
+                                    onClick = { commands(OnSelectPath(selectedItem.path)) },
                                 )
-                                .background(MaterialTheme.colors.background)
+                                .background(MaterialTheme.colors.background),
                         )
                     }
 
@@ -95,8 +104,8 @@ fun ChartScreen(
                                 enabled = !animatable.isRunning &&
                                     item.pathInfo is PathInfo.Directory &&
                                     item.pathInfo.sizeOnDisk > 0L,
-                                onClick = { commands(OnSelectPath(item.path)) }
-                            )
+                                onClick = { commands(OnSelectPath(item.path)) },
+                            ),
                         )
                     }
                 }
@@ -105,7 +114,7 @@ fun ChartScreen(
                     adapter = rememberScrollbarAdapter(lazyListState),
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
-                        .fillMaxHeight()
+                        .fillMaxHeight(),
                 )
             }
         }
@@ -133,7 +142,7 @@ fun ChartScreen(
                             val position = pointerEvent.changes.first().position - size.center.toOffset()
                             commands(OnChartPositionClicked(position))
                         }
-                    }
+                    },
             )
         }
     }
@@ -141,41 +150,41 @@ fun ChartScreen(
 
 private fun Animatable<Float, AnimationVector1D>.itemsTransition(
     fromItems: List<ChartItem>,
-    toItems: List<ChartItem>
+    toItems: List<ChartItem>,
 ) = fromItems
     .zip(toItems)
     .map { (fromItem, toItem) ->
         ChartItem(
             path = fromItem.path,
             arc = arcTransition(fromItem.arc, toItem.arc),
-            color = colorTransition(fromItem.color, toItem.color)
+            color = colorTransition(fromItem.color, toItem.color),
         )
     }
 
 private fun Animatable<Float, AnimationVector1D>.arcTransition(
     fromArc: Arc,
-    toArc: Arc
+    toArc: Arc,
 ) = Arc(
     angleRange = rangeTransition(fromArc.angleRange, toArc.angleRange),
-    radiusRange = rangeTransition(fromArc.radiusRange, toArc.radiusRange)
+    radiusRange = rangeTransition(fromArc.radiusRange, toArc.radiusRange),
 )
 
 private fun Animatable<Float, AnimationVector1D>.colorTransition(
     fromColor: Color,
-    toColor: Color
+    toColor: Color,
 ) = Color(
     red = valueTransition(fromColor.red, toColor.red),
     green = valueTransition(fromColor.green, toColor.green),
     blue = valueTransition(fromColor.blue, toColor.blue),
-    alpha = valueTransition(fromColor.alpha, toColor.alpha)
+    alpha = valueTransition(fromColor.alpha, toColor.alpha),
 )
 
 private fun Animatable<Float, AnimationVector1D>.rangeTransition(
     fromRange: HalfOpenFloatRange,
-    toRange: HalfOpenFloatRange
+    toRange: HalfOpenFloatRange,
 ) = valueTransition(fromRange.start, toRange.start) until valueTransition(fromRange.end, toRange.end)
 
 private fun Animatable<Float, AnimationVector1D>.valueTransition(
     fromValue: Float,
-    toValue: Float
+    toValue: Float,
 ) = fromValue + (toValue - fromValue) * value

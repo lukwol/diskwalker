@@ -1,7 +1,11 @@
 package com.diskusage.presentation.screens.chart.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
@@ -23,7 +27,7 @@ private const val ChartDiameter = ChartRadius * 2
 @Composable
 fun Chart(
     chartItems: List<ChartItem>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var chartScale by remember { mutableStateOf(1f) }
 
@@ -35,7 +39,7 @@ fun Chart(
             }
             .clipToBounds()
             .scale(chartScale)
-            .then(modifier)
+            .then(modifier),
     ) {
         chartItems
             .filterNot(::isHidden)
@@ -64,15 +68,15 @@ private fun DrawScope.draw(chartItem: ChartItem) = with(chartItem) {
         },
         topLeft = Offset(
             x = size.width - arcSize + levelSpacer,
-            y = size.height - arcSize + levelSpacer
+            y = size.height - arcSize + levelSpacer,
         ) / 2f,
         size = Size(
             width = arcSize - levelSpacer,
-            height = arcSize - levelSpacer
+            height = arcSize - levelSpacer,
         ),
         style = Stroke(
-            width = (arc.width - levelSpacer).coerceAtLeast(0f)
+            width = (arc.width - levelSpacer).coerceAtLeast(0f),
         ),
-        useCenter = false
+        useCenter = false,
     )
 }

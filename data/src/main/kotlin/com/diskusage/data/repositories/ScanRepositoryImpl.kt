@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import java.nio.file.Path
 
 internal class ScanRepositoryImpl(
-    private val scanService: ScanService
+    private val scanService: ScanService,
 ) : ScanRepository {
 
     private var lastScanResult: ScanResult? = null

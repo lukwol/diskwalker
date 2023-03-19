@@ -9,7 +9,7 @@ import java.nio.file.Path
  */
 class GetPathsSet(
     private val includePath: IncludePath,
-    private val getChildren: GetChildren
+    private val getChildren: GetChildren,
 ) {
     operator fun invoke(path: Path) = pathsSet(path)
 

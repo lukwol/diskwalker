@@ -17,11 +17,11 @@ import java.nio.file.Path
 class IncludePath(
     private val getDepth: GetDepth,
     private val getRoot: GetRoot,
-    private val getSizeOnDisk: GetSizeOnDisk
+    private val getSizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath)
 
     /**
@@ -32,7 +32,7 @@ class IncludePath(
      */
     private fun checkSizeInRange(
         path: Path,
-        fromPath: Path
+        fromPath: Path,
     ): Boolean {
         val size = getSizeOnDisk(path).toDouble() / getSizeOnDisk(fromPath).toDouble()
         return (size.takeIf(Double::isFinite)?.toFloat() ?: 0f) >= MinChartItemAngle
@@ -47,6 +47,6 @@ class IncludePath(
      */
     private fun checkDepthInRange(
         path: Path,
-        fromPath: Path
+        fromPath: Path,
     ) = getDepth(path, fromPath) <= MaxArcsDepth
 }

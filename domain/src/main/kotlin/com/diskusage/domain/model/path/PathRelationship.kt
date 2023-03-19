@@ -30,5 +30,5 @@ enum class PathRelationship {
      * Both [paths][Path] are in [Unrelated] relationship,
      * when they are not in any other [relationship][PathRelationship]
      */
-    Unrelated
+    Unrelated,
 }

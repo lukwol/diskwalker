@@ -11,13 +11,13 @@ import com.diskusage.presentation.theme.AppTheme
 
 @Composable
 fun PreviewEnvironment(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) = AppTheme {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
+            .background(MaterialTheme.colors.background),
     ) {
         content()
     }

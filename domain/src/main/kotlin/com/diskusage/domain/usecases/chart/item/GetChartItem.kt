@@ -11,17 +11,17 @@ import java.nio.file.Path
 class GetChartItem(
     private val getRoot: GetRoot,
     private val getArc: GetArc,
-    private val getColor: GetColor
+    private val getColor: GetColor,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ): ChartItem {
         val arc = getArc(path, fromPath)
         return ChartItem(
             path = path,
             arc = arc,
-            color = getColor(path, fromPath, arc)
+            color = getColor(path, fromPath, arc),
         )
     }
 }

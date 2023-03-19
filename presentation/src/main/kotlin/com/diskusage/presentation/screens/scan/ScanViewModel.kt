@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
 
 class ScanViewModel(
     private val scanDisk: ScanDisk,
-    private val getDiskInfo: GetDiskInfo
+    private val getDiskInfo: GetDiskInfo,
 ) : ViewModel(), AsyncState<ScanViewState> by AsyncState.Delegate(ScanViewState()) {
 
     private var scanDiskJob: Job? = null

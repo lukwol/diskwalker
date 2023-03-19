@@ -24,17 +24,17 @@ fun main() {
             supportLibraryModule,
             dataModule,
             domainModule,
-            presentationModule
+            presentationModule,
         )
     }
 
     singleWindowApplication(
-        title = "DiskUsage"
+        title = "DiskUsage",
     ) {
         AppTheme {
             Surface(
                 color = MaterialTheme.colors.background,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             ) {
                 AppNavigation()
             }

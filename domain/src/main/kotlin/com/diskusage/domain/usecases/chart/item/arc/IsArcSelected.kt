@@ -11,7 +11,7 @@ import kotlin.math.atan2
 class IsArcSelected {
     operator fun invoke(
         arc: Arc,
-        offset: Offset
+        offset: Offset,
     ): Boolean {
         val angle = offset.getAngle()
         val distance = offset.getDistance()

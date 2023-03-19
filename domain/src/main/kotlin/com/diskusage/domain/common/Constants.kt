@@ -20,7 +20,7 @@ object Constants {
 
         val UncheckedPaths = when (OsUtils.OperatingSystem) {
             OS.MacOS -> listOf(
-                Path.of("/System/Volumes/Data")
+                Path.of("/System/Volumes/Data"),
             )
             else -> emptyList()
         }
@@ -75,7 +75,7 @@ object Constants {
         val FileColor = Color.hsl(
             hue = 0f,
             saturation = 0f,
-            lightness = 0.35f
+            lightness = 0.35f,
         )
     }
 }

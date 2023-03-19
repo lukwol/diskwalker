@@ -27,7 +27,7 @@ class GetChartData(
     private val getPathsSet: GetPathsSet,
     private val sortPaths: SortPaths,
     private val includePath: IncludePath,
-    private val getChartItem: GetChartItem
+    private val getChartItem: GetChartItem,
 ) {
 
     suspend operator fun invoke(path: Path) = withContext(Dispatchers.Default) {
@@ -41,14 +41,14 @@ class GetChartData(
             .let { startItems ->
                 ChartData(
                     startItems = startItems,
-                    endItems = null
+                    endItems = null,
                 )
             }
     }
 
     suspend operator fun invoke(
         fromPath: Path,
-        toPath: Path
+        toPath: Path,
     ) = withContext(Dispatchers.Default) {
         (getPathsSet(fromPath) + getPathsSet(toPath))
             .let(sortPaths::invoke)

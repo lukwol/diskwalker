@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flowOn
 import java.nio.file.Path
 
 class ScanDisk(
-    private val repository: ScanRepository
+    private val repository: ScanRepository,
 ) {
     operator fun invoke(disk: Path) = repository
         .scanDisk(disk)

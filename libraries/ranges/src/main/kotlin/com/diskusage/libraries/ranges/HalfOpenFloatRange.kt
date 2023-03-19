@@ -7,7 +7,7 @@ package com.diskusage.libraries.ranges
  */
 data class HalfOpenFloatRange(
     val start: Float,
-    val end: Float
+    val end: Float,
 ) {
     /**
      * Checks if [provided number][other] is greater than or equal than [start] and less than [end].

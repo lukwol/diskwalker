@@ -7,5 +7,5 @@ data class DiskInfo(
     val availableSpace: Long,
     val isRemovable: Boolean,
     val diskType: DiskType,
-    val fileSystem: String
+    val fileSystem: String,
 )

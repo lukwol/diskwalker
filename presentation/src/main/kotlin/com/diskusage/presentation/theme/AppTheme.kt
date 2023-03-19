@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AppTheme(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colors = darkColors(
@@ -21,11 +21,11 @@ fun AppTheme(
             onPrimary = ColorPalette.Lotion,
             onSecondary = ColorPalette.Lotion,
             onSurface = ColorPalette.Lotion,
-            onError = ColorPalette.Lotion
+            onError = ColorPalette.Lotion,
         ),
         typography = Typography(
-            defaultFontFamily = InterFontFamily
+            defaultFontFamily = InterFontFamily,
         ),
-        content = content
+        content = content,
     )
 }

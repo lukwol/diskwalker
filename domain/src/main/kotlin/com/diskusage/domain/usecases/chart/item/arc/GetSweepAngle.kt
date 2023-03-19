@@ -25,11 +25,11 @@ import java.nio.file.Path
 class GetSweepAngle(
     private val getRoot: GetRoot,
     private val getPathRelationship: GetPathRelationship,
-    private val getSizeOnDisk: GetSizeOnDisk
+    private val getSizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ) = when (getPathRelationship(path, fromPath)) {
         PathRelationship.Identity, PathRelationship.Descendant -> 360f
         PathRelationship.Unrelated, PathRelationship.Sibling -> 0f

@@ -6,7 +6,7 @@ import com.diskusage.libraries.support.SupportJni
 import com.diskwalker.support.System.SystemInfoDto
 
 class SystemInfoServiceImpl(
-    private val supportJni: SupportJni
+    private val supportJni: SupportJni,
 ) : SystemInfoService {
     override fun systemInfo() = supportJni
         .serializedSystemInfo()

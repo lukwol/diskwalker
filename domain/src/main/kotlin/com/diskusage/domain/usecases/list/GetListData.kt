@@ -23,11 +23,11 @@ class GetListData(
     private val sortPaths: SortPaths,
     private val getListItem: GetListItem,
     private val includePath: IncludePath,
-    private val getChildren: GetChildren
+    private val getChildren: GetChildren,
 ) {
     suspend operator fun invoke(
         path: Path,
-        fromPath: Path = path
+        fromPath: Path = path,
     ) = withContext(Dispatchers.Default) {
         ListData(
             parentItem = getListItem(path, fromPath),
@@ -35,7 +35,7 @@ class GetListData(
                 .filter { includePath(it, path) }
                 .let(sortPaths::invoke)
                 .map { async { getListItem(it, fromPath) } }
-                .awaitAll()
+                .awaitAll(),
         )
     }
 }

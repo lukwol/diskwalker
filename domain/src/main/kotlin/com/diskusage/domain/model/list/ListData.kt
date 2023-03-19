@@ -5,5 +5,5 @@ package com.diskusage.domain.model.list
  */
 data class ListData(
     val parentItem: ListItem,
-    val childItems: List<ListItem>
+    val childItems: List<ListItem>,
 )

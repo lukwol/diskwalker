@@ -25,7 +25,7 @@ import kotlin.io.path.pathString
 
 internal class ScanService(
     private val fileSizeService: FileSizeService,
-    private val getDiskTakenSpace: GetDiskTakenSpace
+    private val getDiskTakenSpace: GetDiskTakenSpace,
 ) {
     fun scanDisk(disk: Path) = callbackFlow {
         val pathChildren = mutableMapOf<Path, MutableSet<Path>>()
@@ -98,9 +98,9 @@ internal class ScanService(
             Success(
                 ScanResult(
                     pathChildren = pathChildren,
-                    pathInfo = pathInfo
-                )
-            )
+                    pathInfo = pathInfo,
+                ),
+            ),
         )
 
         close()

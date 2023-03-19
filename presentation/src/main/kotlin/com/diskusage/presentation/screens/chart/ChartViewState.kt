@@ -11,5 +11,5 @@ data class ChartViewState(
     val pathInfo: PathInfo,
     val diskInfo: DiskInfo,
     val listData: ListData? = null,
-    val chartData: ChartData? = null
+    val chartData: ChartData? = null,
 )

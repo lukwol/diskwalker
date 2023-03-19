@@ -31,11 +31,11 @@ class GetStartAngle(
     private val getPathRelationship: GetPathRelationship,
     private val sortPaths: SortPaths,
     private val getChildren: GetChildren,
-    private val sizeOnDisk: GetSizeOnDisk
+    private val sizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ): Float = when (getPathRelationship(path, fromPath)) {
         PathRelationship.Identity, PathRelationship.Descendant -> 0f
         PathRelationship.Unrelated, PathRelationship.Sibling -> {
@@ -62,7 +62,7 @@ class GetStartAngle(
     private fun calculateSizeOffset(
         path: Path,
         fromPath: Path,
-        size: Long = 0
+        size: Long = 0,
     ): Long = when {
         path.parent == null -> 0L
         path == fromPath -> 0L

@@ -12,25 +12,25 @@ import java.nio.file.Path
 fun AppNavigation() {
     ScreensNavigation(
         startRoute = AppRoutes.ScanScreen,
-        animated = true
+        animated = true,
     ) {
         screen(
             route = AppRoutes.ScanScreen,
-            viewModelFactory = { ViewModelProvider.getScanViewModel() }
+            viewModelFactory = { ViewModelProvider.getScanViewModel() },
         ) { viewModel ->
             ScanScreen(
                 state = viewModel.stateFlow.collectAsState().value,
-                commands = viewModel::onCommand
+                commands = viewModel::onCommand,
             )
         }
 
         screen(
             route = AppRoutes.ChartScreen,
-            viewModelFactory = { ViewModelProvider.getChartViewModel(it as Path) }
+            viewModelFactory = { ViewModelProvider.getChartViewModel(it as Path) },
         ) { viewModel ->
             ChartScreen(
                 state = viewModel.stateFlow.collectAsState().value,
-                commands = viewModel::onCommand
+                commands = viewModel::onCommand,
             )
         }
     }

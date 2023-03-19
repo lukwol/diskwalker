@@ -8,11 +8,11 @@ import java.nio.file.Path
  */
 class GetDepth(
     private val getRoot: GetRoot,
-    private val getPathRelationship: GetPathRelationship
+    private val getPathRelationship: GetPathRelationship,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ) = depth(path, fromPath)
 
     private fun depth(path: Path, fromPath: Path, depth: Int = 1): Int =
@@ -22,7 +22,7 @@ class GetDepth(
             PathRelationship.Ancestor, PathRelationship.Sibling -> depth(
                 path = path.parent,
                 fromPath = fromPath,
-                depth = depth + 1
+                depth = depth + 1,
             )
         }
 }

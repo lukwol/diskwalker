@@ -23,14 +23,14 @@ class ChartViewModel(
     private val includePath: IncludePath,
     private val isArcSelected: IsArcSelected,
     private val getPathInfo: GetPathInfo,
-    private val getDiskInfo: GetDiskInfo
+    private val getDiskInfo: GetDiskInfo,
 ) : ViewModel(),
     AsyncState<ChartViewState> by AsyncState.Delegate(
         ChartViewState(
             path = path,
             diskInfo = getDiskInfo(path),
-            pathInfo = getPathInfo(path)
-        )
+            pathInfo = getPathInfo(path),
+        ),
     ) {
 
     private var listDataJob: Job? = null
@@ -44,7 +44,7 @@ class ChartViewModel(
                     setState {
                         copy(
                             listData = listData,
-                            chartData = chartData
+                            chartData = chartData,
                         )
                     }
                 }
@@ -88,7 +88,7 @@ class ChartViewModel(
             listDataJob = viewModelScope.launch {
                 val listData = getListData(
                     path = selectedPath,
-                    fromPath = state.path
+                    fromPath = state.path,
                 )
                 setState {
                     copy(listData = listData)
@@ -115,7 +115,7 @@ class ChartViewModel(
                 val chartData = async {
                     getChartData(
                         fromPath = previousPath,
-                        toPath = selectedPath
+                        toPath = selectedPath,
                     )
                 }
                 (listData.await() to chartData.await())
@@ -124,7 +124,7 @@ class ChartViewModel(
                             copy(
                                 path = selectedPath,
                                 listData = listData,
-                                chartData = chartData
+                                chartData = chartData,
                             )
                         }
                     }

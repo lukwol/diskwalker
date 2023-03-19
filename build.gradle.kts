@@ -29,10 +29,6 @@ allprojects {
         kotlinOptions.jvmTarget = "11"
         kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
-
-    kotlinter {
-        disabledRules = arrayOf("no-wildcard-imports")
-    }
 }
 
 tasks.withType<DependencyUpdatesTask> {

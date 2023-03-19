@@ -5,5 +5,5 @@ package com.diskusage.domain.model.chart
  */
 data class ChartData(
     val startItems: List<ChartItem>,
-    val endItems: List<ChartItem>? = null
+    val endItems: List<ChartItem>? = null,
 )

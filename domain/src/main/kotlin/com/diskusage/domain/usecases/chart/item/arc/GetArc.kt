@@ -15,12 +15,12 @@ class GetArc(
     private val getStartRadius: GetStartRadius,
     private val getArcWidth: GetArcWidth,
     private val getDepth: GetDepth,
-    private val getRoot: GetRoot
+    private val getRoot: GetRoot,
 ) {
 
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path)
+        fromPath: Path = getRoot(path),
     ): Arc {
         val depth = getDepth(path, fromPath)
 
@@ -32,7 +32,7 @@ class GetArc(
 
         return Arc(
             angleRange = startAngle until (startAngle + sweepAngle),
-            radiusRange = startRadius until (startRadius + arcWidth)
+            radiusRange = startRadius until (startRadius + arcWidth),
         )
     }
 }

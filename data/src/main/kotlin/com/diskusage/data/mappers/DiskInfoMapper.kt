@@ -12,7 +12,7 @@ object DiskInfoMapper {
             availableSpace = availableSpace,
             isRemovable = isRemovable,
             diskType = diskType.let(DiskTypeMapper::map),
-            fileSystem = fileSystem
+            fileSystem = fileSystem,
         )
     }
 }
