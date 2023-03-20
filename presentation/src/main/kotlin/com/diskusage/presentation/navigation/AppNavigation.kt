@@ -12,7 +12,7 @@ import java.nio.file.Path
 @Composable
 fun AppNavigation() {
     ScreensNavigation(
-        startRoute = AppRoutes.ScanScreen,
+        startRoute = AppRoutes.DashboardScreen,
         animated = true,
     ) {
         screen(

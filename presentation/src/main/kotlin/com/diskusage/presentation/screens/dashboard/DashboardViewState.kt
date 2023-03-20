@@ -1,7 +1,7 @@
 package com.diskusage.presentation.screens.dashboard
 
-import com.diskusage.domain.model.disk.DiskInfo
+import com.diskusage.domain.model.system.SystemInfo
 
 data class DashboardViewState(
-    val diskInfo: DiskInfo,
+    val systemInfo: SystemInfo,
 )
