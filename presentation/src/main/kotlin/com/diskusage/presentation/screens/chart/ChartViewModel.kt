@@ -2,7 +2,6 @@ package com.diskusage.presentation.screens.chart
 
 import androidx.compose.ui.geometry.Offset
 import com.diskusage.domain.model.chart.ChartItem
-import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.usecases.chart.GetChartData
 import com.diskusage.domain.usecases.chart.item.arc.IsArcSelected
 import com.diskusage.domain.usecases.disk.GetDiskInfo
@@ -101,7 +100,7 @@ class ChartViewModel(
         val pathInfo = getPathInfo(path)
         val previousPath = state.path
         val selectedPath = when {
-            pathInfo is PathInfo.File -> null
+            pathInfo.isFile -> null
             pathInfo.sizeOnDisk == 0L -> null
             path == previousPath -> path.parent
             else -> path

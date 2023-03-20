@@ -22,6 +22,7 @@ import java.nio.file.Path
 import kotlin.io.path.isDirectory
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
+import kotlin.io.path.name
 import kotlin.io.path.pathString
 
 internal class ScanService(
@@ -51,10 +52,15 @@ internal class ScanService(
                     .filter { it.isDirectory(LinkOption.NOFOLLOW_LINKS) }
 
                 val filesInfo = files.map {
-                    PathInfo.File(fileSizeService.sizeOnDisk(it.pathString))
+                    PathInfo(
+                        name = it.name,
+                        parent = dir,
+                        sizeOnDisk = fileSizeService.sizeOnDisk(it.pathString),
+                        isFile = true,
+                    )
                 }
 
-                val filesSize = filesInfo.sumOf(PathInfo.File::sizeOnDisk)
+                val filesSize = filesInfo.sumOf(PathInfo::sizeOnDisk)
 
                 val filesMap = files.zip(filesInfo).toMap()
 
@@ -89,7 +95,12 @@ internal class ScanService(
             val size = children.sumOf {
                 pathInfo[it]?.sizeOnDisk ?: directorySize(it)
             }
-            pathInfo[directory] = PathInfo.Directory(size)
+            pathInfo[directory] = PathInfo(
+                name = directory.name.takeIf(String::isNotEmpty) ?: getDiskInfo(disk).name,
+                parent = directory.parent.takeIf { it != disk },
+                sizeOnDisk = size,
+                isFile = false,
+            )
             return size
         }
 

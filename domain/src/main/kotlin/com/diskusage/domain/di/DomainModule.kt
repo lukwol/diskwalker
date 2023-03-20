@@ -14,12 +14,15 @@ import com.diskusage.domain.usecases.disk.GetSystemInfo
 import com.diskusage.domain.usecases.list.GetListData
 import com.diskusage.domain.usecases.list.item.GetListItem
 import com.diskusage.domain.usecases.path.GetDepth
+import com.diskusage.domain.usecases.path.GetName
+import com.diskusage.domain.usecases.path.GetParent
 import com.diskusage.domain.usecases.path.GetPathInfo
 import com.diskusage.domain.usecases.path.GetPathRelationship
 import com.diskusage.domain.usecases.path.GetPathsSet
 import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.domain.usecases.path.GetSizeOnDisk
 import com.diskusage.domain.usecases.path.IncludePath
+import com.diskusage.domain.usecases.path.IsFile
 import com.diskusage.domain.usecases.path.SortPaths
 import com.diskusage.domain.usecases.scan.GetChildren
 import com.diskusage.domain.usecases.scan.ScanDisk
@@ -48,6 +51,9 @@ val domainModule = module {
     singleOf(::GetChildren)
     singleOf(::GetPathInfo)
     singleOf(::GetSizeOnDisk)
+    singleOf(::GetName)
+    singleOf(::GetParent)
+    singleOf(::IsFile)
     singleOf(::GetSystemInfo)
     singleOf(::GetDiskInfo)
 }

@@ -1,11 +1,10 @@
 package com.diskusage.domain.model.path
 
-sealed interface PathInfo {
-    val sizeOnDisk: Long
+import java.nio.file.Path
 
-    @JvmInline
-    value class File(override val sizeOnDisk: Long) : PathInfo
-
-    @JvmInline
-    value class Directory(override val sizeOnDisk: Long) : PathInfo
-}
+data class PathInfo(
+    val name: String,
+    val parent: Path?,
+    val sizeOnDisk: Long,
+    val isFile: Boolean,
+)

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.diskusage.presentation.preview.PreviewEnvironment
 
 @Composable
-fun DiskButton(
+fun DiskScanItem(
     diskName: String,
     takenDiskSpace: String,
     totalDiskSize: String,
@@ -91,7 +91,7 @@ fun DiskButton(
 @Preview
 @Composable
 private fun Preview() = PreviewEnvironment {
-    DiskButton(
+    DiskScanItem(
         diskName = "Macintosh HD",
         takenDiskSpace = "203.87 GB",
         totalDiskSize = "494.34 GB",

@@ -9,8 +9,8 @@ import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
 import com.diskusage.domain.usecases.path.GetDepth
-import com.diskusage.domain.usecases.path.GetPathInfo
 import com.diskusage.domain.usecases.path.GetRoot
+import com.diskusage.domain.usecases.path.IsFile
 import java.nio.file.Path
 
 /**
@@ -27,16 +27,16 @@ class GetColor(
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
     private val getArc: GetArc,
-    private val getPathInfo: GetPathInfo,
+    private val isFile: IsFile,
 ) {
 
     operator fun invoke(
         path: Path,
         fromPath: Path = getRoot(path),
         precalculatedArc: Arc? = null,
-    ) = when (getPathInfo(path)) {
-        is PathInfo.File -> Constants.Chart.FileColor
-        is PathInfo.Directory -> {
+    ) = when (isFile(path)) {
+        true -> Constants.Chart.FileColor
+        false -> {
             val angleEnd = precalculatedArc?.angleRange?.end
                 ?: (getStartAngle(path, fromPath) + getSweepAngle(path, fromPath))
 

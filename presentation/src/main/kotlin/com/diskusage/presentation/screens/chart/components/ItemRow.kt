@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,57 +17,10 @@ import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.list.ListItem
-import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.formatters.FileSizeFormatter
-import kotlin.io.path.name
-import kotlin.io.path.pathString
-
-@Composable
-fun ItemHeader(
-    listItem: ListItem,
-    diskName: String,
-    modifier: Modifier = Modifier,
-) {
-    Item(
-        icon = {
-            Icon(
-                imageVector = when (listItem.pathInfo) {
-                    is PathInfo.Directory -> Icons.Outlined.Folder
-                    is PathInfo.File -> Icons.Outlined.Article
-                },
-                contentDescription = null,
-                tint = listItem.color,
-                modifier = Modifier.fillMaxSize(),
-            )
-        },
-        name = {
-            Text(
-                text = diskName.takeIf(String::isNotEmpty) ?: listItem.path.pathString,
-                color = MaterialTheme.colors.onBackground,
-                maxLines = 1,
-                overflow = TextOverflow.Clip,
-                style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.weight(1f),
-            )
-        },
-        description = {
-            Text(
-                text = FileSizeFormatter.toSiFormat(listItem.pathInfo.sizeOnDisk),
-                color = MaterialTheme.colors.onBackground,
-                maxLines = 1,
-                overflow = TextOverflow.Clip,
-                style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Medium,
-            )
-        },
-        modifier = modifier,
-    )
-}
 
 @Composable
 fun ItemRow(
@@ -78,9 +30,9 @@ fun ItemRow(
     Item(
         icon = {
             Icon(
-                imageVector = when (listItem.pathInfo) {
-                    is PathInfo.Directory -> Icons.Outlined.Folder
-                    is PathInfo.File -> Icons.Outlined.Article
+                imageVector = when (listItem.pathInfo.isFile) {
+                    true -> Icons.Outlined.Article
+                    false -> Icons.Outlined.Folder
                 },
                 contentDescription = null,
                 tint = listItem.color,
@@ -88,7 +40,7 @@ fun ItemRow(
         },
         name = {
             Text(
-                text = listItem.path.name,
+                text = listItem.pathInfo.name,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,

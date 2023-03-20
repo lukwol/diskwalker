@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import com.diskusage.presentation.navigation.AppRoutes
-import com.diskusage.presentation.screens.scan.components.DiskButton
+import com.diskusage.presentation.screens.scan.components.DiskScanItem
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import io.github.lukwol.screens.navigation.LocalScreensController
@@ -27,7 +27,7 @@ fun ScanScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        DiskButton(
+        DiskScanItem(
             diskName = diskInfo.name,
             takenDiskSpace = diskInfo.takenSpace.let(FileSizeFormatter::toSiFormat),
             totalDiskSize = diskInfo.totalSpace.let(FileSizeFormatter::toSiFormat),

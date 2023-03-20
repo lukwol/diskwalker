@@ -35,11 +35,9 @@ import androidx.compose.ui.unit.toOffset
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.model.chart.Arc
 import com.diskusage.domain.model.chart.ChartItem
-import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
 import com.diskusage.presentation.screens.chart.components.Chart
-import com.diskusage.presentation.screens.chart.components.ItemHeader
 import com.diskusage.presentation.screens.chart.components.ItemRow
 
 private const val ChartWeight = 2f
@@ -84,12 +82,11 @@ fun ChartScreen(
                         .padding(end = 10.dp),
                 ) {
                     stickyHeader {
-                        ItemHeader(
+                        ItemRow(
                             listItem = selectedItem,
-                            diskName = state.diskInfo.name,
                             modifier = Modifier
                                 .clickable(
-                                    enabled = !animatable.isRunning && selectedItem.path.parent != null,
+                                    enabled = !animatable.isRunning,
                                     onClick = { commands(OnSelectPath(selectedItem.path)) },
                                 )
                                 .background(MaterialTheme.colors.background),
@@ -101,7 +98,7 @@ fun ChartScreen(
                             listItem = item,
                             modifier = Modifier.clickable(
                                 enabled = !animatable.isRunning &&
-                                    item.pathInfo is PathInfo.Directory &&
+                                    !item.pathInfo.isFile &&
                                     item.pathInfo.sizeOnDisk > 0L,
                                 onClick = { commands(OnSelectPath(item.path)) },
                             ),
