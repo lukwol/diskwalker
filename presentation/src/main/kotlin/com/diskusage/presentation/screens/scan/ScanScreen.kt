@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.diskusage.domain.common.Constants
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.screens.scan.components.DiskButton
@@ -37,14 +36,12 @@ fun ScanScreen(
                 is Success -> 1f
                 else -> 0f
             },
-        ) {
-            commands(SelectScannedPath(Constants.Disk.RootDiskPath))
-        }
+        )
     }
 
     LaunchedEffect(scanState) {
         if (scanState is Success) {
-            screensController.push(AppRoutes.ChartScreen, Constants.Disk.RootDiskPath)
+            screensController.push(AppRoutes.ChartScreen, diskInfo.mountPoint)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.diskusage.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import com.diskusage.domain.model.disk.DiskInfo
 import com.diskusage.presentation.di.ViewModelProvider
 import com.diskusage.presentation.screens.chart.ChartScreen
 import com.diskusage.presentation.screens.dashboard.DashboardScreen
@@ -27,7 +28,7 @@ fun AppNavigation() {
 
         screen(
             route = AppRoutes.ScanScreen,
-            viewModelFactory = { ViewModelProvider.getScanViewModel() },
+            viewModelFactory = { ViewModelProvider.getScanViewModel(it as DiskInfo) },
         ) { viewModel ->
             ScanScreen(
                 state = viewModel.stateFlow.collectAsState().value,

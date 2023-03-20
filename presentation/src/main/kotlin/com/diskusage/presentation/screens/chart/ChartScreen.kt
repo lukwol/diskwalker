@@ -32,7 +32,6 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
-import com.diskusage.domain.common.Constants
 import com.diskusage.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskusage.domain.model.chart.Arc
 import com.diskusage.domain.model.chart.ChartItem
@@ -87,7 +86,7 @@ fun ChartScreen(
                     stickyHeader {
                         ItemHeader(
                             listItem = selectedItem,
-                            diskName = state.diskInfo.name.takeIf { selectedItem.path == Constants.Disk.RootDiskPath },
+                            diskName = state.diskInfo.name,
                             modifier = Modifier
                                 .clickable(
                                     enabled = !animatable.isRunning && selectedItem.path.parent != null,

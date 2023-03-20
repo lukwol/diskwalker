@@ -2,29 +2,8 @@ package com.diskusage.domain.common
 
 import androidx.compose.ui.graphics.Color
 import com.diskusage.domain.model.path.PathInfo
-import com.diskusage.libraries.utils.os.OS
-import com.diskusage.libraries.utils.os.OsUtils
-import java.nio.file.Path
 
 object Constants {
-
-    const val HeavyOperationsTimeout = 300L
-
-    /**
-     * Disk related constants
-     */
-    object Disk {
-        const val DefaultDiskName = "Unknown Disk"
-
-        val RootDiskPath: Path = Path.of("/")
-
-        val UncheckedPaths = when (OsUtils.OperatingSystem) {
-            OS.MacOS -> listOf(
-                Path.of("/System/Volumes/Data"),
-            )
-            else -> emptyList()
-        }
-    }
 
     /**
      * Chart related constants

@@ -2,12 +2,13 @@ package com.diskusage.data.mappers
 
 import com.diskusage.domain.model.disk.DiskInfo
 import com.diskwalker.support.Disk.DiskInfoDto
+import java.nio.file.Path
 
 object DiskInfoMapper {
     fun map(input: DiskInfoDto) = input.run {
         DiskInfo(
             name = name,
-            mountPoint = mountPoint,
+            mountPoint = mountPoint.let(Path::of),
             totalSpace = totalSpace,
             availableSpace = availableSpace,
             takenSpace = run { totalSpace - availableSpace },

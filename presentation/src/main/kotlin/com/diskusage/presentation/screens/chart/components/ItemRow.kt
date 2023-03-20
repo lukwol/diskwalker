@@ -25,11 +25,12 @@ import com.diskusage.domain.model.list.ListItem
 import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.libraries.formatters.FileSizeFormatter
 import kotlin.io.path.name
+import kotlin.io.path.pathString
 
 @Composable
 fun ItemHeader(
     listItem: ListItem,
-    diskName: String? = null,
+    diskName: String,
     modifier: Modifier = Modifier,
 ) {
     Item(
@@ -46,7 +47,7 @@ fun ItemHeader(
         },
         name = {
             Text(
-                text = diskName ?: listItem.path.name,
+                text = diskName.takeIf(String::isNotEmpty) ?: listItem.path.pathString,
                 color = MaterialTheme.colors.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Clip,

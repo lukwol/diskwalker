@@ -2,7 +2,6 @@ package com.diskusage.presentation.screens.scan.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +30,6 @@ fun DiskButton(
     totalDiskSize: String,
     modifier: Modifier = Modifier,
     progress: Float = 0f,
-    onClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -47,9 +45,6 @@ fun DiskButton(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .clickable(
-                        onClick = onClick,
-                    )
                     .offset(y = (-20).dp)
                     .padding(40.dp),
             ) {
@@ -101,6 +96,5 @@ private fun Preview() = PreviewEnvironment {
         takenDiskSpace = "203.87 GB",
         totalDiskSize = "494.34 GB",
         progress = 0.7f,
-        onClick = {},
     )
 }

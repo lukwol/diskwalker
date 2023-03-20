@@ -1,11 +1,12 @@
 package com.diskusage.data.services
 
 import com.diskusage.data.ScanResult
-import com.diskusage.domain.common.Constants
+import com.diskusage.domain.model.disk.DiskInfo
 import com.diskusage.domain.model.errors.ScanCancelled
 import com.diskusage.domain.model.path.PathInfo
 import com.diskusage.domain.services.FileSizeService
 import com.diskusage.domain.usecases.disk.GetDiskInfo
+import com.diskusage.domain.usecases.disk.GetSystemInfo
 import io.github.anvell.async.Fail
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
@@ -26,6 +27,7 @@ import kotlin.io.path.pathString
 internal class ScanService(
     private val fileSizeService: FileSizeService,
     private val getDiskInfo: GetDiskInfo,
+    private val getSystemInfo: GetSystemInfo,
 ) {
     fun scanDisk(disk: Path) = callbackFlow {
         val pathChildren = mutableMapOf<Path, MutableSet<Path>>()
@@ -33,12 +35,13 @@ internal class ScanService(
 
         val mutex = Mutex()
         val estimatedTotalSize = getDiskInfo(disk).takenSpace
+        val diskMountPoints = getSystemInfo().disks.map(DiskInfo::mountPoint)
         var scannedSize = 0L
 
         suspend fun traverse(dir: Path) {
             dir.runCatching {
                 val entries = listDirectoryEntries()
-                    .filterNot { it in Constants.Disk.UncheckedPaths }
+                    .filterNot { it in diskMountPoints }
 
                 val files = entries
                     .filter { it.isRegularFile(LinkOption.NOFOLLOW_LINKS) }

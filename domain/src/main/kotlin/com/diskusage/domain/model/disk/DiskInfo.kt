@@ -1,8 +1,10 @@
 package com.diskusage.domain.model.disk
 
+import java.nio.file.Path
+
 data class DiskInfo(
     val name: String,
-    val mountPoint: String,
+    val mountPoint: Path,
     val totalSpace: Long,
     val availableSpace: Long,
     val takenSpace: Long,

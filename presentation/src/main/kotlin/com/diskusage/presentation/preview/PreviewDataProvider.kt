@@ -2,13 +2,14 @@ package com.diskusage.presentation.preview
 
 import com.diskusage.domain.model.disk.DiskInfo
 import com.diskusage.domain.model.disk.DiskType
+import java.nio.file.Path
 
 @Suppress("MemberVisibilityCanBePrivate")
 object PreviewDataProvider {
     object DiskInfo {
         val macintoshHd = DiskInfo(
             name = "Macintosh HD",
-            mountPoint = "/",
+            mountPoint = Path.of("/"),
             totalSpace = 494384795648,
             availableSpace = 235093038035,
             takenSpace = 259291757613,
@@ -19,7 +20,7 @@ object PreviewDataProvider {
 
         val macintoshHdData = DiskInfo(
             name = "Macintosh HD",
-            mountPoint = "/System/Volumes/Data",
+            mountPoint = Path.of("/System/Volumes/Data"),
             totalSpace = 494384795648,
             availableSpace = 234764567507,
             takenSpace = 259620228141,
@@ -30,7 +31,7 @@ object PreviewDataProvider {
 
         val sony = DiskInfo(
             name = "SONY64GB",
-            mountPoint = "/Volumes/SONY64GB",
+            mountPoint = Path.of("/Volumes/SONY64GB"),
             totalSpace = 62143299584,
             availableSpace = 27657699328,
             takenSpace = 34485600256,
@@ -41,7 +42,7 @@ object PreviewDataProvider {
 
         val pja = DiskInfo(
             name = "PJA-8GB",
-            mountPoint = "/Volumes/PJA-8GB",
+            mountPoint = Path.of("/Volumes/PJA-8GB"),
             totalSpace = 8033161216,
             availableSpace = 7699701760,
             takenSpace = 333459456,
