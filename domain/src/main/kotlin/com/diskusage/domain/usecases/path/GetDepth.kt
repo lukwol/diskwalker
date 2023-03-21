@@ -7,12 +7,11 @@ import java.nio.file.Path
  * Calculates depth level, how much nested `path` is compared to `fromPath`
  */
 class GetDepth(
-    private val getRoot: GetRoot,
     private val getPathRelationship: GetPathRelationship,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path),
+        fromPath: Path,
     ) = depth(path, fromPath)
 
     private fun depth(path: Path, fromPath: Path, depth: Int = 1): Int =

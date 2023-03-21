@@ -3,7 +3,6 @@ package com.diskusage.domain.usecases.chart.item.arc
 import com.diskusage.domain.model.chart.Arc
 import com.diskusage.domain.model.path.PathRelationship
 import com.diskusage.domain.usecases.path.GetPathRelationship
-import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.domain.usecases.path.GetSizeOnDisk
 import java.nio.file.Path
 
@@ -23,13 +22,12 @@ import java.nio.file.Path
  * the result is dividing `path` size by `fromPath` size and converting it into actual angle.
  */
 class GetSweepAngle(
-    private val getRoot: GetRoot,
     private val getPathRelationship: GetPathRelationship,
     private val getSizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path),
+        fromPath: Path,
     ) = when (getPathRelationship(path, fromPath)) {
         PathRelationship.Identity, PathRelationship.Descendant -> 360f
         PathRelationship.Unrelated, PathRelationship.Sibling -> 0f

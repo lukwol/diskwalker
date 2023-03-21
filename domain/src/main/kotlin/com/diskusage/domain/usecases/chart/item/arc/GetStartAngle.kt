@@ -3,7 +3,6 @@ package com.diskusage.domain.usecases.chart.item.arc
 import com.diskusage.domain.model.chart.Arc
 import com.diskusage.domain.model.path.PathRelationship
 import com.diskusage.domain.usecases.path.GetPathRelationship
-import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.domain.usecases.path.GetSizeOnDisk
 import com.diskusage.domain.usecases.path.SortPaths
 import com.diskusage.domain.usecases.scan.GetChildren
@@ -27,7 +26,6 @@ import java.nio.file.Path
  * @see calculateSizeOffset
  */
 class GetStartAngle(
-    private val getRoot: GetRoot,
     private val getPathRelationship: GetPathRelationship,
     private val sortPaths: SortPaths,
     private val getChildren: GetChildren,
@@ -35,13 +33,13 @@ class GetStartAngle(
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path),
+        fromPath: Path,
+        disk: Path,
     ): Float = when (getPathRelationship(path, fromPath)) {
         PathRelationship.Identity, PathRelationship.Descendant -> 0f
         PathRelationship.Unrelated, PathRelationship.Sibling -> {
-            if (invoke(path) > invoke(fromPath)) 360f else 0f
+            if (invoke(path, disk, disk) > invoke(fromPath, disk, disk)) 360f else 0f
         }
-
         PathRelationship.Ancestor -> {
             (calculateSizeOffset(path, fromPath).toDouble() / sizeOnDisk(fromPath).toDouble())
                 .takeIf(Double::isFinite)

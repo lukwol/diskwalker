@@ -19,7 +19,6 @@ import com.diskusage.domain.usecases.path.GetParent
 import com.diskusage.domain.usecases.path.GetPathInfo
 import com.diskusage.domain.usecases.path.GetPathRelationship
 import com.diskusage.domain.usecases.path.GetPathsSet
-import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.domain.usecases.path.GetSizeOnDisk
 import com.diskusage.domain.usecases.path.IncludePath
 import com.diskusage.domain.usecases.path.IsFile
@@ -46,7 +45,6 @@ val domainModule = module {
     singleOf(::SortPaths)
     singleOf(::GetDepth)
     singleOf(::GetPathRelationship)
-    singleOf(::GetRoot)
     singleOf(::ScanDisk)
     singleOf(::GetChildren)
     singleOf(::GetPathInfo)

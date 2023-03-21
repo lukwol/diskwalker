@@ -16,12 +16,11 @@ import java.nio.file.Path
  */
 class IncludePath(
     private val getDepth: GetDepth,
-    private val getRoot: GetRoot,
     private val getSizeOnDisk: GetSizeOnDisk,
 ) {
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path),
+        fromPath: Path,
     ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath)
 
     /**

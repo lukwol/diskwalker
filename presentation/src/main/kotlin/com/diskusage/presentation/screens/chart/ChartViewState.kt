@@ -7,6 +7,7 @@ import com.diskusage.domain.model.path.PathInfo
 import java.nio.file.Path
 
 data class ChartViewState(
+    val disk: Path,
     val path: Path,
     val pathInfo: PathInfo,
     val diskInfo: DiskInfo,

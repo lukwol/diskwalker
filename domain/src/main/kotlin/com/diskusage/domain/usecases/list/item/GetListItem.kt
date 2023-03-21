@@ -16,9 +16,10 @@ class GetListItem(
     operator fun invoke(
         path: Path,
         fromPath: Path = path,
+        disk: Path,
     ) = ListItem(
         path = path,
         pathInfo = getPathInfo(path),
-        color = getColor(path, fromPath),
+        color = getColor(path, fromPath, disk),
     )
 }

@@ -26,6 +26,7 @@ class ChartViewModel(
 ) : ViewModel(),
     AsyncState<ChartViewState> by AsyncState.Delegate(
         ChartViewState(
+            disk = path,
             path = path,
             diskInfo = getDiskInfo(path),
             pathInfo = getPathInfo(path),
@@ -35,18 +36,20 @@ class ChartViewModel(
     private var listDataJob: Job? = null
 
     init {
-        viewModelScope.launch {
-            val listData = async { getListData(path) }
-            val chartData = async { getChartData(path) }
-            (listData.await() to chartData.await())
-                .let { (listData, chartData) ->
-                    setState {
-                        copy(
-                            listData = listData,
-                            chartData = chartData,
-                        )
+        withState { state ->
+            viewModelScope.launch {
+                val listData = async { getListData(path, state.disk, state.disk) }
+                val chartData = async { getChartData(path, state.disk) }
+                (listData.await() to chartData.await())
+                    .let { (listData, chartData) ->
+                        setState {
+                            copy(
+                                listData = listData,
+                                chartData = chartData,
+                            )
+                        }
                     }
-                }
+            }
         }
     }
 
@@ -88,6 +91,7 @@ class ChartViewModel(
                 val listData = getListData(
                     path = selectedPath,
                     fromPath = state.path,
+                    disk = state.disk,
                 )
                 setState {
                     copy(listData = listData)
@@ -109,12 +113,13 @@ class ChartViewModel(
         if (selectedPath != null) {
             viewModelScope.launch {
                 val listData = async {
-                    getListData(selectedPath)
+                    getListData(selectedPath, state.disk, state.disk)
                 }
                 val chartData = async {
                     getChartData(
                         fromPath = previousPath,
                         toPath = selectedPath,
+                        disk = state.disk,
                     )
                 }
                 (listData.await() to chartData.await())

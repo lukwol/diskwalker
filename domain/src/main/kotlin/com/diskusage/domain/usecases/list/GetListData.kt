@@ -27,14 +27,15 @@ class GetListData(
 ) {
     suspend operator fun invoke(
         path: Path,
-        fromPath: Path = path,
+        fromPath: Path,
+        disk: Path,
     ) = withContext(Dispatchers.Default) {
         ListData(
-            parentItem = getListItem(path, fromPath),
+            parentItem = getListItem(path, fromPath, disk),
             childItems = getChildren(path)
                 .filter { includePath(it, path) }
                 .let(sortPaths::invoke)
-                .map { async { getListItem(it, fromPath) } }
+                .map { async { getListItem(it, fromPath, disk) } }
                 .awaitAll(),
         )
     }

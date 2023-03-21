@@ -30,10 +30,13 @@ class GetChartData(
     private val getChartItem: GetChartItem,
 ) {
 
-    suspend operator fun invoke(path: Path) = withContext(Dispatchers.Default) {
+    suspend operator fun invoke(
+        path: Path,
+        disk: Path,
+    ) = withContext(Dispatchers.Default) {
         getPathsSet(path)
             .let(sortPaths::invoke)
-            .map { async { getChartItem(it, path) } }
+            .map { async { getChartItem(it, path, disk) } }
             .awaitAll()
             .map { chartItem ->
                 hideNotIncluded(chartItem, path)
@@ -49,10 +52,11 @@ class GetChartData(
     suspend operator fun invoke(
         fromPath: Path,
         toPath: Path,
+        disk: Path,
     ) = withContext(Dispatchers.Default) {
         (getPathsSet(fromPath) + getPathsSet(toPath))
             .let(sortPaths::invoke)
-            .map { async { getChartItem(it, fromPath) to getChartItem(it, toPath) } }
+            .map { async { getChartItem(it, fromPath, disk) to getChartItem(it, toPath, disk) } }
             .awaitAll()
             .map { (startItem, endItem) ->
                 hideNotIncluded(startItem, fromPath) to hideNotIncluded(endItem, toPath)

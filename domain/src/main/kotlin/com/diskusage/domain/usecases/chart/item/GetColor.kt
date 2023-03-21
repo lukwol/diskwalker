@@ -9,7 +9,6 @@ import com.diskusage.domain.usecases.chart.item.arc.GetArc
 import com.diskusage.domain.usecases.chart.item.arc.GetStartAngle
 import com.diskusage.domain.usecases.chart.item.arc.GetSweepAngle
 import com.diskusage.domain.usecases.path.GetDepth
-import com.diskusage.domain.usecases.path.GetRoot
 import com.diskusage.domain.usecases.path.IsFile
 import java.nio.file.Path
 
@@ -22,7 +21,6 @@ import java.nio.file.Path
  * Uses `precalculatedArc` is it's provided.
  */
 class GetColor(
-    private val getRoot: GetRoot,
     private val getDepth: GetDepth,
     private val getStartAngle: GetStartAngle,
     private val getSweepAngle: GetSweepAngle,
@@ -32,13 +30,14 @@ class GetColor(
 
     operator fun invoke(
         path: Path,
-        fromPath: Path = getRoot(path),
+        fromPath: Path,
+        disk: Path,
         precalculatedArc: Arc? = null,
     ) = when (isFile(path)) {
         true -> Constants.Chart.FileColor
         false -> {
             val angleEnd = precalculatedArc?.angleRange?.end
-                ?: (getStartAngle(path, fromPath) + getSweepAngle(path, fromPath))
+                ?: (getStartAngle(path, fromPath, disk) + getSweepAngle(path, fromPath))
 
             val depth = getDepth(path, fromPath)
             Color.hsl(

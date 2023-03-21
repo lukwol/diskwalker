@@ -9,15 +9,10 @@ class GetChildren(
     private val isFile: IsFile,
 ) {
 
-    operator fun invoke(path: Path) = when (isFile(path)) {
-        true -> emptySet()
-        false ->
-            repository
-                .runCatching { children(path) }
-                .onFailure {
-                    println("Failed to get children for path $path")
-                }
-                .getOrNull()
-                .orEmpty()
-    }
+    operator fun invoke(path: Path): Set<Path> = runCatching {
+        when (isFile(path)) {
+            true -> emptySet()
+            false -> repository.children(path)
+        }
+    }.getOrNull().orEmpty()
 }
