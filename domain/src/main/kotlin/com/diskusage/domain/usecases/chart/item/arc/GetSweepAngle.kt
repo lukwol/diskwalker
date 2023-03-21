@@ -28,8 +28,9 @@ class GetSweepAngle(
     operator fun invoke(
         path: Path,
         fromPath: Path,
-    ) = when (getPathRelationship(path, fromPath)) {
-        PathRelationship.Identity, PathRelationship.Descendant -> 360f
+        disk: Path,
+    ) = when (getPathRelationship(path, fromPath, disk)) {
+        PathRelationship.Identity, PathRelationship.Descendant, PathRelationship.Disk -> 360f
         PathRelationship.Unrelated, PathRelationship.Sibling -> 0f
         PathRelationship.Ancestor -> (getSizeOnDisk(path).toDouble() / getSizeOnDisk(fromPath).toDouble())
             .takeIf(Double::isFinite)

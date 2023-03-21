@@ -34,12 +34,12 @@ class GetChartData(
         path: Path,
         disk: Path,
     ) = withContext(Dispatchers.Default) {
-        getPathsSet(path)
+        getPathsSet(path, disk)
             .let(sortPaths::invoke)
             .map { async { getChartItem(it, path, disk) } }
             .awaitAll()
             .map { chartItem ->
-                hideNotIncluded(chartItem, path)
+                hideNotIncluded(chartItem, path, disk)
             }
             .let { startItems ->
                 ChartData(
@@ -54,12 +54,12 @@ class GetChartData(
         toPath: Path,
         disk: Path,
     ) = withContext(Dispatchers.Default) {
-        (getPathsSet(fromPath) + getPathsSet(toPath))
+        (getPathsSet(fromPath, disk) + getPathsSet(toPath, disk))
             .let(sortPaths::invoke)
             .map { async { getChartItem(it, fromPath, disk) to getChartItem(it, toPath, disk) } }
             .awaitAll()
             .map { (startItem, endItem) ->
-                hideNotIncluded(startItem, fromPath) to hideNotIncluded(endItem, toPath)
+                hideNotIncluded(startItem, fromPath, disk) to hideNotIncluded(endItem, toPath, disk)
             }
             .unzip()
             .let { (startItems, endItems) ->
@@ -67,8 +67,8 @@ class GetChartData(
             }
     }
 
-    private fun hideNotIncluded(chartItem: ChartItem, fromPath: Path) = chartItem.apply {
-        if (!includePath(path, fromPath)) {
+    private fun hideNotIncluded(chartItem: ChartItem, fromPath: Path, disk: Path) = chartItem.apply {
+        if (!includePath(path, fromPath, disk)) {
             color = color.copy(alpha = 0f)
         }
     }

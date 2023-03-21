@@ -21,7 +21,8 @@ class IncludePath(
     operator fun invoke(
         path: Path,
         fromPath: Path,
-    ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath)
+        disk: Path,
+    ) = checkSizeInRange(path, fromPath) && checkDepthInRange(path, fromPath, disk)
 
     /**
      * Check if the size of [path] is not too small.
@@ -47,5 +48,6 @@ class IncludePath(
     private fun checkDepthInRange(
         path: Path,
         fromPath: Path,
-    ) = getDepth(path, fromPath) <= MaxArcsDepth
+        disk: Path,
+    ) = getDepth(path, fromPath, disk) <= MaxArcsDepth
 }

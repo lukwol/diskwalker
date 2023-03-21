@@ -33,7 +33,7 @@ class GetListData(
         ListData(
             parentItem = getListItem(path, fromPath, disk),
             childItems = getChildren(path)
-                .filter { includePath(it, path) }
+                .filter { includePath(it, path, disk) }
                 .let(sortPaths::invoke)
                 .map { async { getListItem(it, fromPath, disk) } }
                 .awaitAll(),

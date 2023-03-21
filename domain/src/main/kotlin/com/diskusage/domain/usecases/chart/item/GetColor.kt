@@ -37,9 +37,9 @@ class GetColor(
         true -> Constants.Chart.FileColor
         false -> {
             val angleEnd = precalculatedArc?.angleRange?.end
-                ?: (getStartAngle(path, fromPath, disk) + getSweepAngle(path, fromPath))
+                ?: (getStartAngle(path, fromPath, disk) + getSweepAngle(path, fromPath, disk))
 
-            val depth = getDepth(path, fromPath)
+            val depth = getDepth(path, fromPath, disk)
             Color.hsl(
                 hue = angleEnd,
                 saturation = ((angleEnd / 360f) * 0.4f).coerceIn(0f, 0.4f),

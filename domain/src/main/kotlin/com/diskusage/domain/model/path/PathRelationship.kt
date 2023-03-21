@@ -11,6 +11,8 @@ enum class PathRelationship {
      */
     Identity,
 
+    Disk,
+
     /**
      * When path starts with other path
      */

@@ -10,8 +10,9 @@ import java.nio.file.Path
 class GetPathRelationship(
     private val getChildren: GetChildren,
 ) {
-    operator fun invoke(path: Path, otherPath: Path) = when {
+    operator fun invoke(path: Path, otherPath: Path, disk: Path) = when {
         path == otherPath -> PathRelationship.Identity
+        path == disk -> PathRelationship.Disk
         otherPath in path.parent?.let(getChildren::invoke).orEmpty() -> PathRelationship.Sibling
         path.startsWith(otherPath) -> PathRelationship.Ancestor
         otherPath.startsWith(path) -> PathRelationship.Descendant

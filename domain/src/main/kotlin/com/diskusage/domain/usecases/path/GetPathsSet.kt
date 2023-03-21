@@ -11,10 +11,10 @@ class GetPathsSet(
     private val includePath: IncludePath,
     private val getChildren: GetChildren,
 ) {
-    operator fun invoke(path: Path) = pathsSet(path)
+    operator fun invoke(path: Path, disk: Path) = pathsSet(path, path, disk)
 
-    private fun pathsSet(path: Path, fromPath: Path = path): Set<Path> =
+    private fun pathsSet(path: Path, fromPath: Path, disk: Path): Set<Path> =
         setOf(path) + getChildren(path)
-            .filter { includePath(it, fromPath) }
-            .flatMap { pathsSet(it, fromPath) }
+            .filter { includePath(it, fromPath, disk) }
+            .flatMap { pathsSet(it, fromPath, disk) }
 }

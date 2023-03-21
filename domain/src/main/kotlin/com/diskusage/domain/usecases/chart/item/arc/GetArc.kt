@@ -21,10 +21,10 @@ class GetArc(
         fromPath: Path,
         disk: Path,
     ): Arc {
-        val depth = getDepth(path, fromPath)
+        val depth = getDepth(path, fromPath, disk)
 
         val startAngle = getStartAngle(path, fromPath, disk)
-        val sweepAngle = getSweepAngle(path, fromPath)
+        val sweepAngle = getSweepAngle(path, fromPath, disk)
 
         val startRadius = getStartRadius(depth)
         val arcWidth = getArcWidth(depth)

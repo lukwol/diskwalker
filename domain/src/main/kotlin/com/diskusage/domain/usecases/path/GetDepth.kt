@@ -12,15 +12,17 @@ class GetDepth(
     operator fun invoke(
         path: Path,
         fromPath: Path,
-    ) = depth(path, fromPath)
+        disk: Path,
+    ) = depth(path, fromPath, disk)
 
-    private fun depth(path: Path, fromPath: Path, depth: Int = 1): Int =
-        when (getPathRelationship(path, fromPath)) {
+    private fun depth(path: Path, fromPath: Path, disk: Path, depth: Int = 1): Int =
+        when (getPathRelationship(path, fromPath, disk = disk)) {
             PathRelationship.Identity -> depth
-            PathRelationship.Unrelated, PathRelationship.Descendant -> 0
+            PathRelationship.Unrelated, PathRelationship.Descendant, PathRelationship.Disk -> 0
             PathRelationship.Ancestor, PathRelationship.Sibling -> depth(
                 path = path.parent,
                 fromPath = fromPath,
+                disk = disk,
                 depth = depth + 1,
             )
         }

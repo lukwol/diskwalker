@@ -19,11 +19,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.nio.file.LinkOption
 import java.nio.file.Path
-import kotlin.io.path.isDirectory
-import kotlin.io.path.isRegularFile
-import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.name
-import kotlin.io.path.pathString
+import kotlin.io.path.*
 
 internal class ScanService(
     private val fileSizeService: FileSizeService,
@@ -97,7 +93,7 @@ internal class ScanService(
             }
             pathInfo[directory] = PathInfo(
                 name = directory.name.takeIf(String::isNotEmpty) ?: getDiskInfo(disk).name,
-                parent = directory.parent.takeIf { it != disk },
+                parent = directory.parent,
                 sizeOnDisk = size,
                 isFile = false,
             )

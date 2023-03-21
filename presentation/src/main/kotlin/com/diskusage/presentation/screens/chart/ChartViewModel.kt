@@ -66,7 +66,7 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includePath(it.path, state.path) }
+                .filter { includePath(it.path, state.path, state.disk) }
                 .find { isArcSelected(it.arc, position) }
                 .let(::onHoverChartItem)
         }
@@ -76,7 +76,7 @@ class ChartViewModel(
         if (state.chartData != null) {
             val (startItems, endItems) = state.chartData
             (endItems ?: startItems)
-                .filter { includePath(it.path, state.path) }
+                .filter { includePath(it.path, state.path, state.disk) }
                 .find { isArcSelected(it.arc, position) }
                 ?.let(ChartItem::path)
                 ?.let(::onSelectPath)
@@ -106,6 +106,7 @@ class ChartViewModel(
         val selectedPath = when {
             pathInfo.isFile -> null
             pathInfo.sizeOnDisk == 0L -> null
+            path == state.disk -> null
             path == previousPath -> path.parent
             else -> path
         }
