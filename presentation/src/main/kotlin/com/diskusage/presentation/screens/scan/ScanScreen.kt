@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -44,7 +44,7 @@ fun ScanScreen(
 
         ActionButton(
             title = "Cancel Scan",
-            icon = Icons.Outlined.Cancel,
+            icon = Icons.Outlined.Close,
             onClick = screensController::pop,
             backgroundColor = MaterialTheme.colors.error,
             modifier = Modifier.align(Alignment.BottomCenter),

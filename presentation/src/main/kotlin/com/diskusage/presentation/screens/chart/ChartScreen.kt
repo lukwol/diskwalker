@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toOffset
@@ -86,7 +87,7 @@ fun ChartScreen(
                 modifier = Modifier.weight(ListWeight),
             ) {
                 Box(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 ) {
                     LazyColumn(
                         state = lazyListState,
@@ -96,6 +97,10 @@ fun ChartScreen(
                         stickyHeader {
                             ItemRow(
                                 listItem = selectedItem,
+                                textStyle = MaterialTheme.typography.subtitle1.copy(
+                                    fontWeight = FontWeight.Medium,
+                                ),
+                                iconScale = 1.3f,
                                 modifier = Modifier
                                     .clickable(
                                         enabled = !animatable.isRunning,
@@ -108,10 +113,11 @@ fun ChartScreen(
                         items(childItems) { item ->
                             ItemRow(
                                 listItem = item,
+                                textStyle = MaterialTheme.typography.subtitle2,
                                 modifier = Modifier.clickable(
                                     enabled = !animatable.isRunning &&
-                                            !item.pathInfo.isFile &&
-                                            item.pathInfo.sizeOnDisk > 0L,
+                                        !item.pathInfo.isFile &&
+                                        item.pathInfo.sizeOnDisk > 0L,
                                     onClick = { commands(OnSelectPath(item.path)) },
                                 ),
                             )
@@ -121,7 +127,7 @@ fun ChartScreen(
                     VerticalScrollbar(
                         adapter = rememberScrollbarAdapter(lazyListState),
                         modifier = Modifier
-                            .align(Alignment.CenterEnd)
+                            .align(Alignment.CenterEnd),
                     )
                 }
 
