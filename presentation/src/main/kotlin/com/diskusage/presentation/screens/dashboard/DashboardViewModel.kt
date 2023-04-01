@@ -13,5 +13,11 @@ class DashboardViewModel(
         ),
     ) {
 
-    fun onCommand(command: DashboardCommand) {}
+    fun onCommand(command: DashboardCommand) {
+        when (command) {
+            DashboardCommand.ReloadDiskInfo -> setState {
+                copy(systemInfo = getSystemInfo())
+            }
+        }
+    }
 }

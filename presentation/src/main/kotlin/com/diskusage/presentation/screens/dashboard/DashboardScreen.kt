@@ -1,16 +1,16 @@
 package com.diskusage.presentation.screens.dashboard
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.system.SystemInfo
+import com.diskusage.presentation.components.ActionButton
 import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.preview.PreviewDataProvider
 import com.diskusage.presentation.preview.PreviewEnvironment
@@ -44,6 +44,14 @@ fun DashboardScreen(
                 )
             }
         }
+
+        ActionButton(
+            title = "Reload Disks",
+            icon = Icons.Outlined.Refresh,
+            onClick = { commands(DashboardCommand.ReloadDiskInfo) },
+            backgroundColor = MaterialTheme.colors.secondary,
+            modifier = Modifier.align(Alignment.BottomCenter),
+        )
     }
 }
 

@@ -1,3 +1,5 @@
 package com.diskusage.presentation.screens.dashboard
 
-sealed interface DashboardCommand
+sealed interface DashboardCommand {
+    object ReloadDiskInfo : DashboardCommand
+}
