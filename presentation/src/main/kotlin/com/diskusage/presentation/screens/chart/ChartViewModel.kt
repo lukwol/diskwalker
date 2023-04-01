@@ -38,7 +38,7 @@ class ChartViewModel(
     init {
         withState { state ->
             viewModelScope.launch {
-                val listData = async { getListData(path, state.disk, state.disk) }
+                val listData = async { getListData(path, state.disk) }
                 val chartData = async { getChartData(path, state.disk) }
                 (listData.await() to chartData.await())
                     .let { (listData, chartData) ->
@@ -57,7 +57,6 @@ class ChartViewModel(
         when (this) {
             is OnChartPositionClicked -> onChartPositionClicked(position)
             is OnChartPositionHovered -> onChartPositionHovered(position)
-            is OnHoverChartItem -> onHoverChartItem(chartItem)
             is OnSelectPath -> onSelectPath(path)
         }
     }
@@ -85,12 +84,13 @@ class ChartViewModel(
 
     private fun onHoverChartItem(chartItem: ChartItem?) = withState { state ->
         val selectedPath = chartItem?.path ?: state.path
+        val previousPath = state.path
         if (selectedPath != state.listData?.parentItem?.path) {
             listDataJob?.cancel()
             listDataJob = viewModelScope.launch {
                 val listData = getListData(
                     path = selectedPath,
-                    fromPath = state.path,
+                    fromPath = previousPath,
                     disk = state.disk,
                 )
                 setState {
@@ -114,7 +114,11 @@ class ChartViewModel(
         if (selectedPath != null) {
             viewModelScope.launch {
                 val listData = async {
-                    getListData(selectedPath, state.disk, state.disk)
+                    getListData(
+                        path = selectedPath,
+                        fromPath = previousPath,
+                        disk = state.disk,
+                    )
                 }
                 val chartData = async {
                     getChartData(

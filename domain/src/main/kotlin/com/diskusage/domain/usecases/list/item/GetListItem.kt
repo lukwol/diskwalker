@@ -15,7 +15,7 @@ class GetListItem(
 
     operator fun invoke(
         path: Path,
-        fromPath: Path = path,
+        fromPath: Path,
         disk: Path,
     ) = ListItem(
         path = path,

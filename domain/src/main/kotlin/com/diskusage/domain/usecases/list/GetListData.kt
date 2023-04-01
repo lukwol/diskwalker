@@ -28,7 +28,7 @@ class GetListData(
     suspend operator fun invoke(
         path: Path,
         fromPath: Path,
-        disk: Path,
+        disk: Path = fromPath,
     ) = withContext(Dispatchers.Default) {
         ListData(
             parentItem = getListItem(path, fromPath, disk),
