@@ -116,7 +116,7 @@ class ChartViewModel(
                 val listData = async {
                     getListData(
                         path = selectedPath,
-                        fromPath = previousPath,
+                        fromPath = selectedPath,
                         disk = state.disk,
                     )
                 }
