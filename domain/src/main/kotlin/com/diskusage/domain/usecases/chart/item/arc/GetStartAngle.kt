@@ -36,12 +36,13 @@ class GetStartAngle(
     operator fun invoke(
         path: Path,
         fromPath: Path,
-        disk: Path,
+        disk: Path = fromPath,
     ): Float = when (getPathRelationship(path, fromPath, disk)) {
         PathRelationship.Identity, PathRelationship.Descendant, PathRelationship.Disk -> 0f
         PathRelationship.Unrelated, PathRelationship.Sibling -> {
-            if (invoke(path, disk, disk) > invoke(fromPath, disk, disk)) 360f else 0f
+            if (invoke(path, disk) > invoke(fromPath, disk)) 360f else 0f
         }
+
         PathRelationship.Ancestor -> {
             (calculateSizeOffset(path, fromPath, disk).toDouble() / sizeOnDisk(fromPath).toDouble())
                 .takeIf(Double::isFinite)
