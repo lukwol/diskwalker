@@ -2,11 +2,15 @@ package com.diskusage.presentation.screens.scan
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.diskusage.libraries.formatters.FileSizeFormatter
+import com.diskusage.presentation.components.ActionButton
 import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.screens.scan.components.DiskScanItem
 import io.github.anvell.async.Loading
@@ -36,6 +40,14 @@ fun ScanScreen(
                 is Success -> 1f
                 else -> 0f
             },
+        )
+
+        ActionButton(
+            title = "Cancel Scan",
+            icon = Icons.Outlined.Cancel,
+            onClick = screensController::pop,
+            backgroundColor = MaterialTheme.colors.error,
+            modifier = Modifier.align(Alignment.BottomCenter),
         )
     }
 
