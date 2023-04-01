@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -37,8 +40,11 @@ import com.diskusage.domain.model.chart.Arc
 import com.diskusage.domain.model.chart.ChartItem
 import com.diskusage.libraries.ranges.HalfOpenFloatRange
 import com.diskusage.libraries.ranges.until
+import com.diskusage.presentation.components.ActionButton
+import com.diskusage.presentation.navigation.AppRoutes
 import com.diskusage.presentation.screens.chart.components.Chart
 import com.diskusage.presentation.screens.chart.components.ItemRow
+import io.github.lukwol.screens.navigation.LocalScreensController
 
 private const val ChartWeight = 2f
 private const val ListWeight = 1f
@@ -49,6 +55,8 @@ fun ChartScreen(
     state: ChartViewState,
     commands: (ChartCommand) -> Unit,
 ) {
+    val screensController = LocalScreensController.current
+
     val listData = state.listData
     val chartData = state.chartData
 
@@ -72,45 +80,56 @@ fun ChartScreen(
         if (listData != null) {
             val (selectedItem, childItems) = listData
 
-            Box(
+            Column(
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(ListWeight),
             ) {
-                LazyColumn(
-                    state = lazyListState,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(end = 10.dp),
+                Box(
+                    modifier = Modifier.weight(1f)
                 ) {
-                    stickyHeader {
-                        ItemRow(
-                            listItem = selectedItem,
-                            modifier = Modifier
-                                .clickable(
-                                    enabled = !animatable.isRunning,
-                                    onClick = { commands(OnSelectPath(selectedItem.path)) },
-                                )
-                                .background(MaterialTheme.colors.background),
-                        )
+                    LazyColumn(
+                        state = lazyListState,
+                        modifier = Modifier
+                            .padding(end = 10.dp),
+                    ) {
+                        stickyHeader {
+                            ItemRow(
+                                listItem = selectedItem,
+                                modifier = Modifier
+                                    .clickable(
+                                        enabled = !animatable.isRunning,
+                                        onClick = { commands(OnSelectPath(selectedItem.path)) },
+                                    )
+                                    .background(MaterialTheme.colors.background),
+                            )
+                        }
+
+                        items(childItems) { item ->
+                            ItemRow(
+                                listItem = item,
+                                modifier = Modifier.clickable(
+                                    enabled = !animatable.isRunning &&
+                                            !item.pathInfo.isFile &&
+                                            item.pathInfo.sizeOnDisk > 0L,
+                                    onClick = { commands(OnSelectPath(item.path)) },
+                                ),
+                            )
+                        }
                     }
 
-                    items(childItems) { item ->
-                        ItemRow(
-                            listItem = item,
-                            modifier = Modifier.clickable(
-                                enabled = !animatable.isRunning &&
-                                    !item.pathInfo.isFile &&
-                                    item.pathInfo.sizeOnDisk > 0L,
-                                onClick = { commands(OnSelectPath(item.path)) },
-                            ),
-                        )
-                    }
+                    VerticalScrollbar(
+                        adapter = rememberScrollbarAdapter(lazyListState),
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                    )
                 }
 
-                VerticalScrollbar(
-                    adapter = rememberScrollbarAdapter(lazyListState),
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .fillMaxHeight(),
+                ActionButton(
+                    title = "Back to Dashboard",
+                    icon = Icons.Outlined.ArrowBack,
+                    onClick = { screensController.pop(AppRoutes.DashboardScreen) },
+                    backgroundColor = MaterialTheme.colors.secondary,
                 )
             }
         }
