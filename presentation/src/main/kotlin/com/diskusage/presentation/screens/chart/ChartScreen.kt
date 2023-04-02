@@ -5,10 +5,7 @@ package com.diskusage.presentation.screens.chart
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -132,10 +128,11 @@ fun ChartScreen(
                 }
 
                 ActionButton(
-                    title = "Back to Dashboard",
-                    icon = Icons.Outlined.ArrowBack,
+                    title = "Select Disk",
+                    icon = Icons.Outlined.West,
                     onClick = { screensController.pop(AppRoutes.DashboardScreen) },
                     backgroundColor = MaterialTheme.colors.secondary,
+                    modifier = Modifier.padding(end = defaultScrollbarStyle().thickness),
                 )
             }
         }

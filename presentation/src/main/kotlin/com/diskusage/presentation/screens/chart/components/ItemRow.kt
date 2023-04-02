@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.Folder
@@ -21,6 +20,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.list.ListItem
 import com.diskusage.libraries.formatters.FileSizeFormatter
+import com.diskusage.presentation.components.Label
+import kotlin.io.path.pathString
 
 @Composable
 fun ItemRow(
@@ -53,10 +54,9 @@ fun ItemRow(
 
         Spacer(Modifier.width(8.dp))
 
-        Text(
-            text = listItem.pathInfo.name,
+        Label(
+            text = listItem.pathInfo.name.takeIf(String::isNotEmpty) ?: listItem.path.pathString,
             color = MaterialTheme.colors.onBackground,
-            maxLines = 1,
             style = textStyle,
             overflow = TextOverflow.Clip,
             modifier = Modifier.weight(1f),
@@ -64,10 +64,9 @@ fun ItemRow(
 
         Spacer(Modifier.width(8.dp))
 
-        Text(
+        Label(
             text = FileSizeFormatter.toSiFormat(listItem.pathInfo.sizeOnDisk),
             color = MaterialTheme.colors.onBackground,
-            maxLines = 1,
             overflow = TextOverflow.Clip,
             style = textStyle,
         )

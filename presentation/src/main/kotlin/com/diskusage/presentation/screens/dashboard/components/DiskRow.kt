@@ -12,7 +12,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.diskusage.domain.model.disk.DiskInfo
 import com.diskusage.libraries.formatters.FileSizeFormatter
+import com.diskusage.presentation.components.Label
 import com.diskusage.presentation.preview.PreviewDataProvider
 import com.diskusage.presentation.preview.PreviewEnvironment
 import kotlin.io.path.pathString
@@ -46,7 +46,7 @@ fun DiskRow(
                 contentDescription = diskInfo.name,
             )
 
-            Text(
+            Label(
                 text = diskInfo.mountPoint.pathString,
                 style = MaterialTheme.typography.subtitle2,
             )
@@ -55,7 +55,7 @@ fun DiskRow(
                 Card(
                     backgroundColor = MaterialTheme.colors.secondary,
                 ) {
-                    Text(
+                    Label(
                         text = diskInfo.name,
                         style = MaterialTheme.typography.body2,
                         color = MaterialTheme.colors.onSecondary,
@@ -77,7 +77,7 @@ fun DiskRow(
                         .clip(MaterialTheme.shapes.small),
                 )
 
-                Text(
+                Label(
                     text = "$takenSpace used out of $totalSpace",
                     style = MaterialTheme.typography.caption,
                 )
@@ -86,7 +86,7 @@ fun DiskRow(
             Button(
                 onClick = onScanClicked,
             ) {
-                Text(text = "Scan")
+                Label(text = "Scan")
             }
         }
     }

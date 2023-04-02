@@ -14,13 +14,13 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.diskusage.presentation.components.Label
 import com.diskusage.presentation.preview.PreviewEnvironment
 
 @Composable
@@ -63,16 +63,14 @@ fun DiskScanItem(
                         .padding(horizontal = 20.dp)
                         .align(Alignment.BottomCenter),
                 ) {
-                    Text(
+                    Label(
                         text = diskName,
-                        maxLines = 1,
                         overflow = TextOverflow.Clip,
                         style = MaterialTheme.typography.subtitle1,
                     )
 
-                    Text(
+                    Label(
                         text = "$takenDiskSpace / $totalDiskSize",
-                        maxLines = 1,
                         overflow = TextOverflow.Clip,
                         style = MaterialTheme.typography.subtitle2,
                     )
