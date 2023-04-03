@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "DiskUsage"
+rootProject.name = "DiskWalker"
 
 pluginManagement {
     repositories {

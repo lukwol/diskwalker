@@ -1,4 +1,4 @@
-package com.diskusage.libraries.utils.os
+package com.diskwalker.libraries.utils.os
 
 object OsUtils {
     val Target by lazy {

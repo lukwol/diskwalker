@@ -26,10 +26,10 @@ compose {
                 configurationFiles.from(project.file("custom.pro"))
             }
 
-            mainClass = "com.diskusage.app.MainKt"
+            mainClass = "com.diskwalker.app.MainKt"
             nativeDistributions {
                 targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                packageName = "DiskUsage"
+                packageName = "DiskWalker"
                 packageVersion = "1.0.0"
 
                 macOS {

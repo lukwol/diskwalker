@@ -1,4 +1,4 @@
-# disk-usage
+# disk-walker
 
 Desktop application for viewing disk space usage.
 

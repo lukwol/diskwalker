@@ -1,6 +1,6 @@
-import com.diskusage.libraries.utils.os.Arch
-import com.diskusage.libraries.utils.os.OS
-import com.diskusage.libraries.utils.os.OsUtils
+import com.diskwalker.libraries.utils.os.Arch
+import com.diskwalker.libraries.utils.os.OS
+import com.diskwalker.libraries.utils.os.OsUtils
 import java.io.File
 
 object SupportLibrary {
