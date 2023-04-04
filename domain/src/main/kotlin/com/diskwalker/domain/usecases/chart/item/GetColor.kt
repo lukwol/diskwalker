@@ -1,8 +1,9 @@
 package com.diskwalker.domain.usecases.chart.item
 
 import androidx.compose.ui.graphics.Color
-import com.diskwalker.domain.common.Constants
 import com.diskwalker.domain.common.Constants.Chart.MaxArcsDepth
+import com.diskwalker.domain.common.SystemTheme
+import com.diskwalker.domain.common.Theme
 import com.diskwalker.domain.model.chart.Arc
 import com.diskwalker.domain.model.path.PathInfo
 import com.diskwalker.domain.usecases.chart.item.arc.GetArc
@@ -34,17 +35,35 @@ class GetColor(
         disk: Path,
         precalculatedArc: Arc? = null,
     ) = when (isFile(path)) {
-        true -> Constants.Chart.FileColor
+        true -> fileColor()
         false -> {
             val angleEnd = precalculatedArc?.angleRange?.end
                 ?: (getStartAngle(path, fromPath, disk) + getSweepAngle(path, fromPath, disk))
 
             val depth = getDepth(path, fromPath, disk)
-            Color.hsl(
-                hue = angleEnd,
-                saturation = ((angleEnd / 360f) * 0.4f).coerceIn(0f, 0.4f),
-                lightness = (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.4f).coerceIn(0.3f, 0.7f),
-            )
+
+            directoryColor(angleEnd, depth)
         }
     }
+
+    private fun fileColor() = Color.hsl(
+        hue = 0f,
+        saturation = 0f,
+        lightness = when (SystemTheme) {
+            Theme.Dark -> 0.4f
+            Theme.Light -> 0.7f
+        },
+    )
+
+    private fun directoryColor(angleEnd: Float, depth: Int) = Color.hsl(
+        hue = angleEnd,
+        saturation = when (SystemTheme) {
+            Theme.Dark -> ((angleEnd / 360f) * 0.4f)
+            Theme.Light -> ((angleEnd / 360f) * 0.7f)
+        },
+        lightness = when (SystemTheme) {
+            Theme.Dark -> (0.7f - (depth.toFloat() / MaxArcsDepth) * 0.2f)
+            Theme.Light -> (0.7f + (depth.toFloat() / MaxArcsDepth) * 0.2f)
+        },
+    )
 }

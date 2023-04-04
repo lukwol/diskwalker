@@ -2,7 +2,6 @@ package com.diskwalker.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -23,7 +22,7 @@ fun ActionButton(
 ) = Button(
     onClick = onClick,
     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-    modifier = modifier.padding(bottom = 20.dp),
+    modifier = modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp),

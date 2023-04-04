@@ -54,7 +54,9 @@ fun DashboardScreen(
             icon = Icons.Outlined.Refresh,
             onClick = { commands(DashboardCommand.ReloadDiskInfo) },
             backgroundColor = MaterialTheme.colors.secondary,
-            modifier = Modifier.align(Alignment.BottomCenter),
+            modifier = Modifier
+                .padding(bottom = 20.dp)
+                .align(Alignment.BottomCenter),
         )
     }
 }

@@ -2,6 +2,7 @@ package com.diskwalker.presentation.screens.scan
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.diskwalker.libraries.formatters.FileSizeFormatter
 import com.diskwalker.presentation.components.ActionButton
 import com.diskwalker.presentation.navigation.AppRoutes
@@ -47,7 +49,9 @@ fun ScanScreen(
             icon = Icons.Outlined.Close,
             onClick = screensController::pop,
             backgroundColor = MaterialTheme.colors.error,
-            modifier = Modifier.align(Alignment.BottomCenter),
+            modifier = Modifier
+                .padding(bottom = 20.dp)
+                .align(Alignment.BottomCenter),
         )
     }
 

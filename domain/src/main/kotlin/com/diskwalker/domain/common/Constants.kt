@@ -1,8 +1,5 @@
 package com.diskwalker.domain.common
 
-import androidx.compose.ui.graphics.Color
-import com.diskwalker.domain.model.path.PathInfo
-
 object Constants {
 
     /**
@@ -47,14 +44,5 @@ object Constants {
          * Duration of chart items animation in milliseconds
          */
         const val AnimationDurationMillis = 1000
-
-        /**
-         * Color for items of type [File][PathInfo.File].
-         */
-        val FileColor = Color.hsl(
-            hue = 0f,
-            saturation = 0f,
-            lightness = 0.35f,
-        )
     }
 }

@@ -1,12 +1,15 @@
 package com.diskwalker.app
 
 import SupportLibrary
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.singleWindowApplication
 import com.diskwalker.data.di.dataModule
+import com.diskwalker.domain.common.SystemTheme
+import com.diskwalker.domain.common.Theme
 import com.diskwalker.domain.di.domainModule
 import com.diskwalker.libraries.support.di.supportLibraryModule
 import com.diskwalker.presentation.di.presentationModule
@@ -31,6 +34,8 @@ fun main() {
     singleWindowApplication(
         title = "DiskWalker",
     ) {
+        SystemTheme = if (isSystemInDarkTheme()) Theme.Dark else Theme.Light
+
         AppTheme {
             Surface(
                 color = MaterialTheme.colors.background,
