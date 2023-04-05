@@ -18,13 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.diskwalker.presentation.components.Label
 import com.diskwalker.presentation.preview.PreviewEnvironment
 
 @Composable
-fun DiskScanItem(
+fun DiskScanProgress(
     diskName: String,
     takenDiskSpace: String,
     totalDiskSize: String,
@@ -33,7 +34,7 @@ fun DiskScanItem(
 ) {
     Box(
         modifier = modifier
-            .size(310.dp)
+            .size(360.dp)
             .aspectRatio(1f),
     ) {
         Surface(
@@ -52,7 +53,7 @@ fun DiskScanItem(
                     painter = painterResource("images/hard-drive-outlined.svg"),
                     contentDescription = diskName,
                     modifier = Modifier
-                        .padding(30.dp)
+                        .padding(20.dp)
                         .matchParentSize(),
                 )
 
@@ -66,13 +67,14 @@ fun DiskScanItem(
                     Label(
                         text = diskName,
                         overflow = TextOverflow.Clip,
-                        style = MaterialTheme.typography.subtitle1,
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Medium,
                     )
 
                     Label(
                         text = "$takenDiskSpace / $totalDiskSize",
                         overflow = TextOverflow.Clip,
-                        style = MaterialTheme.typography.subtitle2,
+                        style = MaterialTheme.typography.subtitle1,
                     )
                 }
             }
@@ -89,10 +91,10 @@ fun DiskScanItem(
 @Preview
 @Composable
 private fun Preview() = PreviewEnvironment {
-    DiskScanItem(
+    DiskScanProgress(
         diskName = "Macintosh HD",
-        takenDiskSpace = "203.87 GB",
-        totalDiskSize = "494.34 GB",
+        takenDiskSpace = "2023.87 GB",
+        totalDiskSize = "4942.34 GB",
         progress = 0.7f,
     )
 }

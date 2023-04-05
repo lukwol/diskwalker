@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.diskwalker.libraries.formatters.FileSizeFormatter
 import com.diskwalker.presentation.components.ActionButton
 import com.diskwalker.presentation.navigation.AppRoutes
-import com.diskwalker.presentation.screens.scan.components.DiskScanItem
+import com.diskwalker.presentation.screens.scan.components.DiskScanProgress
 import io.github.anvell.async.Loading
 import io.github.anvell.async.Success
 import io.github.lukwol.screens.navigation.LocalScreensController
@@ -33,7 +33,7 @@ fun ScanScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        DiskScanItem(
+        DiskScanProgress(
             diskName = diskInfo.name,
             takenDiskSpace = diskInfo.takenSpace.let(FileSizeFormatter::toSiFormat),
             totalDiskSize = diskInfo.totalSpace.let(FileSizeFormatter::toSiFormat),
