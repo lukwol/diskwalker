@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.font.FontWeight
@@ -107,7 +108,11 @@ fun ChartScreen(
                                         enabled = !animatable.isRunning,
                                         onClick = { commands(OnSelectPath(selectedItem.path)) },
                                     )
-                                    .background(MaterialTheme.colors.background),
+                                    .background(
+                                        MaterialTheme.colors.background
+                                            .copy(alpha = 0.9f)
+                                            .compositeOver(MaterialTheme.colors.onBackground),
+                                    ),
                             )
                         }
 
