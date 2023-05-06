@@ -14,7 +14,6 @@ import java.nio.file.Path
 fun AppNavigation() {
     ScreensNavigation(
         startRoute = AppRoutes.DashboardScreen,
-        animated = true,
     ) {
         screen(
             route = AppRoutes.DashboardScreen,
@@ -28,7 +27,9 @@ fun AppNavigation() {
 
         screen(
             route = AppRoutes.ScanScreen,
-            viewModelFactory = { ViewModelProvider.getScanViewModel(it as DiskInfo) },
+            viewModelWithArgs = { diskInfo: DiskInfo? ->
+                ViewModelProvider.getScanViewModel(diskInfo!!)
+            },
         ) { viewModel ->
             ScanScreen(
                 state = viewModel.stateFlow.collectAsState().value,
@@ -38,7 +39,9 @@ fun AppNavigation() {
 
         screen(
             route = AppRoutes.ChartScreen,
-            viewModelFactory = { ViewModelProvider.getChartViewModel(it as Path) },
+            viewModelWithArgs = { path: Path? ->
+                ViewModelProvider.getChartViewModel(path!!)
+            },
         ) { viewModel ->
             ChartScreen(
                 state = viewModel.stateFlow.collectAsState().value,

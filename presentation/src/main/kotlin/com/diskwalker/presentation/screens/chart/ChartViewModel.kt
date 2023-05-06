@@ -37,7 +37,7 @@ class ChartViewModel(
 
     init {
         withState { state ->
-            viewModelScope.launch {
+            coroutineScope.launch {
                 val listData = async { getListData(path, state.disk) }
                 val chartData = async { getChartData(path, state.disk) }
                 (listData.await() to chartData.await())
@@ -87,7 +87,7 @@ class ChartViewModel(
         val previousPath = state.path
         if (selectedPath != state.listData?.parentItem?.path) {
             listDataJob?.cancel()
-            listDataJob = viewModelScope.launch {
+            listDataJob = coroutineScope.launch {
                 val listData = getListData(
                     path = selectedPath,
                     fromPath = previousPath,
@@ -112,7 +112,7 @@ class ChartViewModel(
         }
 
         if (selectedPath != null) {
-            viewModelScope.launch {
+            coroutineScope.launch {
                 val listData = async {
                     getListData(
                         path = selectedPath,

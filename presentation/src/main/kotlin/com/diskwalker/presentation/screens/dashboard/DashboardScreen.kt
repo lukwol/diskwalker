@@ -42,7 +42,7 @@ fun DashboardScreen(
                     onScanClicked = {
                         screensController.push(
                             route = AppRoutes.ScanScreen,
-                            arguments = diskInfo,
+                            args = diskInfo,
                         )
                     },
                 )

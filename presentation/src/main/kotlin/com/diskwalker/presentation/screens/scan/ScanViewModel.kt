@@ -14,7 +14,7 @@ class ScanViewModel(
     ) {
     init {
         scanDisk.invoke(diskInfo.mountPoint)
-            .collectAsyncAsState(viewModelScope) {
+            .collectAsyncAsState(coroutineScope) {
                 copy(scanState = it)
             }
     }
