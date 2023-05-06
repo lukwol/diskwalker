@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,16 +27,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.input.pointer.PointerEventType
-import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toOffset
 import com.diskwalker.domain.common.Constants.Chart.AnimationDurationMillis
 import com.diskwalker.domain.model.chart.Arc
 import com.diskwalker.domain.model.chart.ChartItem
@@ -52,7 +46,7 @@ import io.github.lukwol.screens.navigation.LocalScreensController
 private const val ChartWeight = 2f
 private const val ListWeight = 1f
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ChartScreen(
     state: ChartViewState,
@@ -156,21 +150,17 @@ fun ChartScreen(
 
             Chart(
                 chartItems = chartItems,
-                modifier = Modifier
-                    .weight(ChartWeight)
-                    .fillMaxHeight()
-                    .onPointerEvent(PointerEventType.Move) { pointerEvent ->
-                        if (!animatable.isRunning) {
-                            val position = pointerEvent.changes.first().position - size.center.toOffset()
-                            commands(OnChartPositionHovered(position))
-                        }
+                onPointerMove = { position ->
+                    if (!animatable.isRunning) {
+                        commands(OnChartPositionHovered(position))
                     }
-                    .onPointerEvent(PointerEventType.Press) { pointerEvent ->
-                        if (!animatable.isRunning) {
-                            val position = pointerEvent.changes.first().position - size.center.toOffset()
-                            commands(OnChartPositionClicked(position))
-                        }
-                    },
+                },
+                onPointerPress = { position ->
+                    if (!animatable.isRunning) {
+                        commands(OnChartPositionClicked(position))
+                    }
+                },
+                modifier = Modifier.weight(ChartWeight),
             )
         }
     }
