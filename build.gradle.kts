@@ -21,12 +21,12 @@ allprojects {
     version = "1.0.0"
 
     tasks.withType<JavaCompile> {
-        sourceCompatibility = JavaVersion.VERSION_17.toString()
-        targetCompatibility = JavaVersion.VERSION_17.toString()
+        sourceCompatibility = JavaVersion.VERSION_11.toString()
+        targetCompatibility = JavaVersion.VERSION_11.toString()
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "11"
         kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 }
