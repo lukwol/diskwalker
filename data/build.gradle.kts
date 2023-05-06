@@ -10,8 +10,8 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.libraries.support)
 
-    implementation(libs.protobuf.java.lite)
-    implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.protobuf.java)
+    implementation(libs.protobuf.kotlin)
     implementation(libs.koin.core)
     implementation(libs.async.core)
     implementation(libs.coroutines.core)
@@ -36,12 +36,7 @@ protobuf {
     generateProtoTasks {
         all().forEach {
             it.builtins {
-                getByName("java") {
-                    option("lite")
-                }
-                id("kotlin") {
-                    option("lite")
-                }
+                id("kotlin")
             }
         }
     }
