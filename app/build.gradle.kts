@@ -34,6 +34,15 @@ compose {
 
                 macOS {
                     jvmArgs("-Dapple.awt.application.appearance=system")
+                    iconFile.set(project.file("diskwalker-icon.icns"))
+                }
+
+                windows {
+                    iconFile.set(project.file("diskwalker-icon.ico"))
+                }
+
+                linux {
+                    iconFile.set(project.file("diskwalker-icon.png"))
                 }
             }
         }
