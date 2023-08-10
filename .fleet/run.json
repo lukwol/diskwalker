@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "type": "cargo",
+            "name": "support clean",
+            "cargoArgs": ["clean"],
+            "workingDir": "diskwalker-support/",
+        },
+        {
+            "type": "cargo",
+            "name": "support build",
+            "cargoArgs": ["build"],
+            "cargoExtraArgs": ["--release"],
+            "workingDir": "diskwalker-support/",
+        },
+        {
+            "type": "command",
+            "name": "update support libs",
+            "program": "./scripts/update-support-libs.sh",
+            "dependsOn": ["support build"],
+        },
+        {
+            "type": "command",
+            "name": "delete support libs",
+            "program": "./scripts/delete-support-libs.sh",
+            "dependsOn": ["support clean"],
+        },
+    ],
+}

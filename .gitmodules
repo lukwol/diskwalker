@@ -1,3 +1,0 @@
-[submodule "protos"]
-	path = protos
-	url = https://github.com/lukwol/diskwalker-protos.git

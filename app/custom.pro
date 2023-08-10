@@ -1,1 +1,0 @@
--keep class kotlinx.coroutines.** { *; }

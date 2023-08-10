@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.diskwalker.support;
+
+enum DiskTypeDto {
+  Unknown = 0;
+  SSD = 1;
+  HDD = 2;
+}
+
+message DiskInfoDto {
+  string name = 1;
+  string mount_point = 2;
+  uint64 total_space = 3;
+  uint64 available_space = 4;
+  bool is_removable = 5;
+  DiskTypeDto disk_type = 6;
+  string file_system = 7;
+}

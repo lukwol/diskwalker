@@ -1,0 +1,8 @@
+syntax = "proto3";
+import "disk.proto";
+
+package com.diskwalker.support;
+
+message SystemInfoDto {
+  repeated DiskInfoDto disks = 1;
+}

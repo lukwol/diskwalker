@@ -1,0 +1,2 @@
+-keep class kotlinx.coroutines.** { *; }
+-keep class com.diskwalker.libraries.support.SupportJni { *; }

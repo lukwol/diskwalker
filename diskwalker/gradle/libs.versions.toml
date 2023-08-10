@@ -1,0 +1,45 @@
+[versions]
+kotlin = "1.8.20"
+compose = "1.4.1"
+coroutines = "1.6.4"
+koin = "3.4.1"
+koin-compose = "1.0.3"
+cmnav = "0.1.0"
+async = "2.0.0"
+protobuf = "3.23.3"
+protobuf-plugin = "0.9.3"
+junit4 = "4.13.2"
+junit5 = "5.9.3"
+mockk = "1.13.5"
+kotest = "5.6.2"
+dependency-updates = "0.47.0"
+kotlinter = "3.14.0"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
+dependency-updates = { id = "com.github.ben-manes.versions", version.ref = "dependency-updates" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+compose-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose" }
+compose-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose" }
+cmnav-screens-vm = { module = "io.github.lukwol:cmnav-screens-vm", version.ref = "cmnav" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
+async-core = { module = "io.github.anvell:async", version.ref = "async" }
+async-state = { module = "io.github.anvell:async-state", version.ref = "async" }
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
+protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin", version.ref = "protobuf" }
+junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
